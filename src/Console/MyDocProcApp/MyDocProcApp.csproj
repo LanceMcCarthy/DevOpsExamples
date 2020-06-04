@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2020.2.504" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2020.2.504" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2020.2.504" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2020.2.504" />
+    <PackageReference Include="Telerik.Zip" Version="2020.2.504" />
+  </ItemGroup>
+
+</Project>
