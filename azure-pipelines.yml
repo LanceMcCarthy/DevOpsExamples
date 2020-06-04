@@ -1,0 +1,47 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+    exclude:
+    - dev
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+  buildConfiguration: 'Debug'
+
+steps:
+
+# Step 1. Restore the NuGet packges
+# IMPORTANT - This task is the key part where you get the packages from the private feed (as well as NuGet.org)
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: $(consoleProjectPath)
+    feedsToUse: 'config'
+    nugetConfigPath: 'nuget.config'
+    externalFeedCredentials: 'TelerikFeed'
+
+# Step 2. Build the project
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: $(consoleProjectPath)
+    configuration: $(buildConfiguration)
+
+# Step 3. Publish
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: $(consoleProjectPath)
+
+# Step 4. upload the pipeline's artifacts (this means the result of any build)
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#    ArtifactName: 'ConsoleDrop'
+#    publishLocation: 'Container'
