@@ -10,6 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
+  consoleNugetConfigPath: 'src/Console/nuget.config'
   consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
   buildConfiguration: 'Debug'
 
@@ -22,7 +23,7 @@ steps:
     command: 'restore'
     projects: $(consoleProjectPath)
     feedsToUse: 'config'
-    nugetConfigPath: 'nuget.config'
+    nugetConfigPath: $(consoleNugetConfigPath)
     externalFeedCredentials: 'TelerikFeed'
 
 # Step 2. Build the project
