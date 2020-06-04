@@ -1,3 +1,4 @@
+# Triggers are used to determine when this pipeline is run
 trigger:
   batch: true
   branches:
@@ -6,9 +7,11 @@ trigger:
     exclude:
     - dev
 
+# The pool is the VM that is being use to run the tasks on.
 pool:
   vmImage: 'windows-latest'
 
+# In the variables section, you can define a variable for values are the are frequently reused
 variables:
   consoleNugetConfigPath: 'src/Console/nuget.config'
   consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
@@ -19,6 +22,7 @@ steps:
 # Step 1. Restore the NuGet packges
 # IMPORTANT - This task is the key part where you get the packages from the private feed (as well as NuGet.org)
 - task: DotNetCoreCLI@2
+  displayName: 'NuGet restore MyDocProcApp'
   inputs:
     command: 'restore'
     projects: $(consoleProjectPath)
@@ -28,6 +32,7 @@ steps:
 
 # Step 2. Build the project
 - task: DotNetCoreCLI@2
+  displayName: 'Build MyDocProcApp'
   inputs:
     command: 'build'
     projects: $(consoleProjectPath)
@@ -35,6 +40,7 @@ steps:
 
 # Step 3. Publish
 - task: DotNetCoreCLI@2
+  displayName: 'Publish MyDocProcApp'
   inputs:
     command: 'publish'
     publishWebProjects: false
@@ -42,6 +48,7 @@ steps:
 
 # Step 4. upload the pipeline's artifacts (this means the result of any build)
 #- task: PublishBuildArtifacts@1
+#  displayName: 'Publish pipeline artifacts'
 #  inputs:
 #    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 #    ArtifactName: 'ConsoleDrop'
