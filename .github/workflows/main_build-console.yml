@@ -13,7 +13,6 @@ jobs:
     env:
       RID: any # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
       Configuration: Release
-      DotNetVersionToUse: 3.1.302
       SolutionPath: src\Console\Console.sln
       NuGetConfigPath: src\Console\NuGet.Config
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
@@ -26,7 +25,7 @@ jobs:
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.6.0
         with:
-          dotnet-version: $env:DotNetVersionToUse
+          dotnet-version: 3.1.302
       
       - name: Restore NuGet Packages
         run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime $env:RID
