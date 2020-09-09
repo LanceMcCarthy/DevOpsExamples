@@ -11,10 +11,6 @@ jobs:
     runs-on: macos-latest
     
     env:
-      RID: any # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
-      Configuration: Release
-      SolutionPath: src\Console\Console.sln
-      NuGetConfigPath: src\Console\NuGet.Config
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
@@ -30,7 +26,7 @@ jobs:
           dotnet-version: 3.1.302
       
       - name: Restore NuGet Packages
-        run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime $env:RID
+        run: dotnet restore D:\a\DevOpsExamples\src\Console\Console.sln --configfile D:\a\DevOpsExamples\src\Console\NuGet.Config --runtime any
 
       - name: Build Solution
-        run: dotnet build $env:SolutionPath --configuration $env:Configuration --configfile $env:NuGetConfigPath --runtime $env:RID  
+        run: dotnet build D:\a\DevOpsExamples\src\Console\Console.sln --configuration Release --configfile D:\a\DevOpsExamples\src\Console\NuGet.Config --runtime any  
