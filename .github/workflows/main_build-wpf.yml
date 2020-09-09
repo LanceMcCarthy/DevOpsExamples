@@ -6,12 +6,16 @@ on:
 
 jobs:
   # A job that builds a .NET Core WPF application using Telerik UI for WPF
-  # It uses a Windows runner and builds for x86 runtime
+  # It uses a Windows runner and builds for x86 and x64 runtime
   build_desktop:
     runs-on: windows-latest # WPF apps must be built on Windows runners
     
+    strategy:
+      matrix:
+        TargetRuntime: [win-x86, win-x64] # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+    
     env:
-      RID: win-x86 # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+      RID: ${{ matrix.TargetRuntime }}
       Configuration: Release
       DotNetVersionToUse: 3.1.302
       SolutionPath: src\Wpf\Wpf.sln
@@ -36,4 +40,4 @@ jobs:
         run: dotnet restore src\MediaFileManager\MediaFileManager.sln --configfile src\nuget.config --runtime $env:RID
 
       - name: Build the Wpf application (populate the obj folder)
-        run: msbuild $env:ProjectPath /t:Restore /p:Configuration=$env:Configuration
+        run: msbuild $env:ProjectPath /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RID
