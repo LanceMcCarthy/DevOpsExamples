@@ -13,20 +13,22 @@ jobs:
     env:
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
-      SolutionPath: DevOpsExamples/src/Web/Web.sln
-      NuGetConfigPath: DevOpsExamples/src/Web/NuGet.Config
+      SolutionPath: src\Web\Web.sln
+      NuGetConfigPath: src\Web\NuGet.Config
     
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-      - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1.6.0
-        with:
-          dotnet-version: 3.1.302
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.6.0
+      with:
+        dotnet-version: 3.1.302
 
-      - name: Restore NuGet Packages
-        run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime linux-x64
+    - name: Restore NuGet Packages
+      run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime linux-x64
 
-      - name: Build Solution
-        run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime linux-x64
+    - name: Build Solution
+      run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime linux-x64
