@@ -13,6 +13,7 @@ jobs:
     env:
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+      RID: win-x86
       SolutionPath: src\Console\Console.sln
       NuGetConfigPath: src\Console\NuGet.Config
     
@@ -28,7 +29,7 @@ jobs:
         dotnet-version: 3.1.302
     
     - name: Restore NuGet Packages
-      run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime any
+      run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime $env:RID
 
     - name: Build Solution
-      run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime any  
+      run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime $env:RID 

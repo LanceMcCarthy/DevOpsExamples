@@ -13,8 +13,6 @@ jobs:
     env:
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
-      SolutionPath: src\Web\Web.sln
-      NuGetConfigPath: src\Web\NuGet.Config
     
     steps:
     - name: Checkout
@@ -28,7 +26,7 @@ jobs:
         dotnet-version: 3.1.302
 
     - name: Restore NuGet Packages
-      run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime linux-x64
+      run: dotnet restore src\Web\Web.sln --configfile src\Web\NuGet.Config --runtime linux-x64
 
     - name: Build Solution
-      run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime linux-x64
+      run: dotnet build src\Web\Web.sln --configfile src\Web\NuGet.Config --configuration Release --runtime linux-x64
