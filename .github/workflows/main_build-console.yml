@@ -1,0 +1,35 @@
+name: Build Console App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
+  # It uses a Mac OS runner and builds for Any CPU
+  build_console:
+    runs-on: macos-latest
+    
+    env:
+      RID: any # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+      Configuration: Release
+      DotNetVersionToUse: 3.1.302
+      SolutionPath: src\Console\Console.sln
+      NuGetConfigPath: src\Console\NuGet.Config
+      TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+      TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.6.0
+        with:
+          dotnet-version: $env:DotNetVersionToUse
+      
+      - name: Restore NuGet Packages
+        run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime $env:RID
+
+      - name: Build Solution
+        run: dotnet build $env:SolutionPath --configuration $env:Configuration --configfile $env:NuGetConfigPath --runtime $env:RID  

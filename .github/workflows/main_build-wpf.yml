@@ -1,0 +1,43 @@
+name: Build WPF Application
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # A job that builds a .NET Core WPF application using Telerik UI for WPF
+  # It uses a Windows runner and builds for x86 and x64 runtime
+  build_desktop:
+    runs-on: windows-latest # WPF apps must be built on Windows runners
+    
+    strategy:
+      matrix:
+        TargetRuntime: [win-x86, win-x64] # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+    
+    env:
+      RID: ${{ matrix.TargetRuntime }}
+      Configuration: Release
+      DotNetVersionToUse: 3.1.302
+      SolutionPath: src\Wpf\Wpf.sln
+      ProjectPath: src\Wpf\MyWpfApp\MyWpfApp.csproj
+      NuGetConfigPath: src\Wpf\NuGet.Config
+      TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+      TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.6.0
+        with:
+          dotnet-version: $env:DotNetVersionToUse
+      
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v1.0.1
+      
+      - name: NuGet Restore
+        run: dotnet restore src\MediaFileManager\MediaFileManager.sln --configfile src\nuget.config --runtime $env:RID
+
+      - name: Build the Wpf application (populate the obj folder)
+        run: msbuild $env:ProjectPath /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RID
