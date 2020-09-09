@@ -6,19 +6,19 @@ on:
 
 jobs:
   # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
-  # It uses a Mac OS runner and builds for Any CPU
+  # It uses a Windows runner and builds for Any CPU
   build_console:
-    runs-on: macos-latest
+    runs-on: windows-latest
     
     env:
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+      SolutionPath: DevOpsExamples/src/Console/Console.sln
+      NuGetConfigPath: DevOpsExamples/src/Console/NuGet.Config
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.6.0
@@ -26,7 +26,7 @@ jobs:
           dotnet-version: 3.1.302
       
       - name: Restore NuGet Packages
-        run: dotnet restore 'D:\a\DevOpsExamples\src\Console\Console.sln' --configfile 'D:\a\DevOpsExamples\src\Console\NuGet.Config' --runtime any
+        run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime any
 
       - name: Build Solution
-        run: dotnet build 'D:\a\DevOpsExamples\src\Console\Console.sln' --configuration Release --configfile 'D:\a\DevOpsExamples\src\Console\NuGet.Config' --runtime any  
+        run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime any  

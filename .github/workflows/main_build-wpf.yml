@@ -13,12 +13,13 @@ jobs:
     env:
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+      SolutionPath: DevOpsExamples/src/Wpf/Wpf.sln
+      ProjectPath: DevOpsExamples/src/Wpf/MyWpfApp/MyWpfApp.csproj
+      NuGetConfigPath: DevOpsExamples/src/Wpf/NuGet.Config
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1.6.0
@@ -29,7 +30,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.1
       
       - name: NuGet Restore
-        run: dotnet restore 'D:\a\DevOpsExamples\src\Wpf\MyWpfApp\MyWpfApp.csproj' --configfile 'D:\a\DevOpsExamples\src\nuget.config' --runtime win-x86
+        run: dotnet restore $env:ProjectPath --configfile $env:NuGetConfigPath --runtime win-x86
 
       - name: Build the Wpf application (populate the obj folder)
-        run: msbuild 'D:\a\DevOpsExamples\src\Wpf\MyWpfApp\MyWpfApp.csproj' /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
+        run: msbuild $env:ProjectPath /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
