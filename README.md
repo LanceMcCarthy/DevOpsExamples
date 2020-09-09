@@ -1,13 +1,13 @@
 # DevOpsExamples
-A repository to show how to use a private NuGet feed as a Service connection in Azure DevOps Pipelines, both Classic and YAML.
+A repository to show how to use a private NuGet feed in both Azure DevOps and GitHub Actions.
 
-## Pipelines
+## Status
 
-| Project | Status | YouTube Timestamp |
+| Project | Azure Pipelines | GitHub Actions |
 |--------------|--------------------------|----------------------|
-| Blazor Project - ASP.NET Core (classic pipeline) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyBlazorApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) | [1:14](https://youtu.be/rUWU2n6FwgA?t=74) |
-| WPF Project -  .NET Framework (classic pipeline| [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyWpfApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | [1:47](https://youtu.be/rUWU2n6FwgA?t=107) |
-| Console App - .NET Core (YAML pipeline)  | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=master)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=master) | [2:25](https://youtu.be/rUWU2n6FwgA?t=145) |
+| Blazor - ASP.NET Core | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyBlazorApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) Classic pipeline | ![Build Web Application](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Web%20Application/badge.svg) |
+| WPF -  .NET Framework | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyWpfApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) Classic pipeline | ![Build WPF Application](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg) |
+| Console - .NET Core | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=master)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=master) YAML pipeline | ![Build Console App](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg) |
 
 ## YouTube Tutorial
 
@@ -15,7 +15,7 @@ The following 4 minute video takes you though all the steps on adding a private 
 
 [![YouTube tutorial](https://img.youtube.com/vi/rUWU2n6FwgA/0.jpg)](https://www.youtube.com/watch?v=rUWU2n6FwgA)
 
-* Adding a Service connection at 0:00
-* Classic pipeline for .NET Core at 1:14
-* Classic .NET Framework pipeline at 1:47
-* YAML pipeline setup for .NET Core at 2:25
+* Adding a Service connection at [0:09](https://youtu.be/rUWU2n6FwgA?t=9) 
+* Classic pipeline for .NET Core at [1:14](https://youtu.be/rUWU2n6FwgA?t=74) 
+* Classic .NET Framework pipeline at [1:47](https://youtu.be/rUWU2n6FwgA?t=107)
+* YAML pipeline setup for .NET Core at [2:25](https://youtu.be/rUWU2n6FwgA?t=145)
