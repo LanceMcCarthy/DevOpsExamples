@@ -7,7 +7,7 @@ A repository to show how to use a private NuGet feed in both Azure DevOps and Gi
 |--------------|--------------------------|----------------------|
 | Blazor - ASP.NET Core | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyBlazorApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) Classic pipeline | ![Build Web Application](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Web%20Application/badge.svg) |
 | WPF -  .NET Framework | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyWpfApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) Classic pipeline | ![Build WPF Application](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg) |
-| Console - .NET Core | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=master)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=master) YAML pipeline | ![Build Console App](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg) |
+| Console - .NET Core | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) YAML pipeline | ![Build Console App](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg) |
 
 ## YouTube Tutorial
 
