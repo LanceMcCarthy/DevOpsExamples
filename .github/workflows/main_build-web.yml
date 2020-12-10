@@ -1,0 +1,32 @@
+name: Build Web Application
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # A job that builds a .NET Core 3.1 web application using Telerik UI for Blazor. 
+  # It uses an Ubuntu runner and builds for linux-64 target.
+  build_web:
+    runs-on: ubuntu-latest
+    
+    env:
+      TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+      TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.6.0
+      with:
+        dotnet-version: 3.1.302
+
+    - name: Restore NuGet Packages
+      run: dotnet restore ./src/Web/Web.sln --configfile ./src/Web/NuGet.Config --runtime linux-x64
+
+    - name: Build Solution
+      run: dotnet build ./src/Web/Web.sln --configfile ./src/Web/NuGet.Config --configuration Release --runtime linux-x64

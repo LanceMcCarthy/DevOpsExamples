@@ -1,0 +1,35 @@
+name: Build Console App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
+  # It uses a Windows runner and builds for Any CPU
+  build_console:
+    runs-on: windows-latest
+    
+    env:
+      TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+      TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+      RID: win-x86
+      SolutionPath: src\Console\Console.sln
+      NuGetConfigPath: src\Console\NuGet.Config
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.6.0
+      with:
+        dotnet-version: 3.1.302
+    
+    - name: Restore NuGet Packages
+      run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime $env:RID
+
+    - name: Build Solution
+      run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime $env:RID 
