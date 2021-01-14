@@ -9,15 +9,10 @@ jobs:
   # It uses a Windows runner and builds for Any CPU
   build_console:
     runs-on: windows-latest
-    
-    env:
-      Actions_Allow_Unsecure_Commands: true # so we can set environment variable at the job level
-      TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-      TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
-      RID: win-x86
-      SolutionPath: src\Console\Console.sln
-      NuGetConfigPath: src\Console\NuGet.Config
-    
+
+    # Switched to GitHub environments instead of insecure job-level env. See https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idenvironment
+    environment: TelerikNuGetEnvironment 
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -30,7 +25,7 @@ jobs:
         dotnet-version: 3.1.302
     
     - name: Restore NuGet Packages
-      run: dotnet restore $env:SolutionPath --configfile $env:NuGetConfigPath --runtime $env:RID
+      run: dotnet restore src\Console\Console.sln --configfile src\Console\NuGet.Config --runtime win-x86
 
     - name: Build Solution
-      run: dotnet build $env:SolutionPath --configfile $env:NuGetConfigPath --configuration Release --runtime $env:RID 
+      run: dotnet build src\Console\Console.sln --configfile src\Console\NuGet.Config --configuration Release --runtime win-x86
