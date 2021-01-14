@@ -19,3 +19,20 @@ The following 4 minute video takes you though all the steps on adding a private 
 * Classic pipeline for .NET Core at [1:14](https://youtu.be/rUWU2n6FwgA?t=74) 
 * Classic .NET Framework pipeline at [1:47](https://youtu.be/rUWU2n6FwgA?t=107)
 * YAML pipeline setup for .NET Core at [2:25](https://youtu.be/rUWU2n6FwgA?t=145)
+
+## Troubleshooting
+
+A common problem to run into is to think that the environment variable is the same thing as the GitHub Secret (or Azure DevOps pipeline variable). In this demo, I intentionally named the secrets a different name than the environment variable name so that it is easier for you to tell the difference.
+
+However, I know that not everyone has the tiime to watch the video and just copy/paste the YAML. This will cause you to hit a roadblock because you missed the part about setting up the GitHub secret (or Azure DevOps pipeline variable). Here are a couple screenshots you can solve the issue and bounce :) 
+
+In your YAML, you probably have done this:
+
+![image](https://user-images.githubusercontent.com/3520532/104634697-f57e0480-566e-11eb-8b84-06fcf3ffe753.png)
+
+That mean you must also have the secrets in your **Settings** > **Secrets** list
+
+![image](https://user-images.githubusercontent.com/3520532/104634438-9cae6c00-566e-11eb-9a78-79d955247867.png)
+
+
+ 
