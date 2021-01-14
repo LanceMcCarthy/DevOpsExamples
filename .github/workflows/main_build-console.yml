@@ -10,9 +10,6 @@ jobs:
   build_console:
     runs-on: windows-latest
 
-    # Switched to GitHub environments instead of insecure job-level env. See https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idenvironment
-    environment: TelerikNuGetEnvironment 
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -26,6 +23,12 @@ jobs:
     
     - name: Restore NuGet Packages
       run: dotnet restore src\Console\Console.sln --configfile src\Console\NuGet.Config --runtime win-x86
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
       run: dotnet build src\Console\Console.sln --configfile src\Console\NuGet.Config --configuration Release --runtime win-x86
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}

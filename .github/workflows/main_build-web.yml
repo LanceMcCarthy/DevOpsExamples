@@ -10,11 +10,6 @@ jobs:
   build_web:
     runs-on: ubuntu-latest
     
-    env:
-      Actions_Allow_Unsecure_Commands: true # so we can set environment variable at the job level
-      TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-      TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
-    
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -28,6 +23,12 @@ jobs:
 
     - name: Restore NuGet Packages
       run: dotnet restore ./src/Web/Web.sln --configfile ./src/Web/NuGet.Config --runtime linux-x64
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
       run: dotnet build ./src/Web/Web.sln --configfile ./src/Web/NuGet.Config --configuration Release --runtime linux-x64
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
