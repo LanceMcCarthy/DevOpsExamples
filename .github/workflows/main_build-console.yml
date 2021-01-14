@@ -11,6 +11,7 @@ jobs:
     runs-on: windows-latest
     
     env:
+      Actions_Allow_Unsecure_Commands: true # so we can set environment variable at the job level
       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
       RID: win-x86
