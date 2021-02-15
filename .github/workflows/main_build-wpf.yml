@@ -26,11 +26,11 @@ jobs:
     
     # We use the dotnet CLI (instead of nuget.exe) to restore the nuget packages before using msbuild
     - name: NuGet Restore
-      run: dotnet restore src/Wpf/MyWpfApp/MyWpfApp.csproj --configfile src/NuGet.Config --runtime win-x86
+      run: dotnet restore src\Wpf\MyWpfApp\MyWpfApp.csproj --configfile src\NuGet.Config --runtime win-x86
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     # USe msbuild to compile the .NET Framework WPF project
     - name: Build the WPF application
-      run: msbuild src/Wpf/MyWpfApp/MyWpfApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
+      run: msbuild src\Wpf\MyWpfApp\MyWpfApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
