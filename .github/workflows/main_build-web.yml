@@ -6,7 +6,6 @@ on:
 
 jobs:
   # A job that builds a .NET 5.0 web application using Telerik UI for Blazor. 
-  # It uses an Ubuntu runner and builds for linux-64 target.
   build_web:
     runs-on: windows-latest
     
@@ -22,10 +21,10 @@ jobs:
         dotnet-version: 5.0.100
 
     - name: Restore NuGet Packages
-      run: dotnet restore src\Web\MyBlazorProject\Server\MyBlazorProject.Server.csproj --configfile src\NuGet.Config --runtime any
+      run: dotnet restore src\Web\Web.sln --configfile src\NuGet.Config --runtime any
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
-      run: dotnet build src\Web\MyBlazorProject\Server\MyBlazorProject.Server.csproj --no-restore --configuration Release --runtime any
+      run: dotnet build src\Web\Web.sln --no-restore --configuration Release
