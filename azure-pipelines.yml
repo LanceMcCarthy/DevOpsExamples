@@ -13,7 +13,7 @@ pool:
 
 # In the variables section, you can define a variable for values are the are frequently reused
 variables:
-  consoleNugetConfigPath: 'src/Console/nuget.config'
+  consoleNugetConfigPath: 'src/nuget.config'
   consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
   buildConfiguration: 'Debug'
 
