@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  # A job that builds a .NET Core 3.1 web application using Telerik UI for Blazor. 
+  # A job that builds a .NET 5.0 web application using Telerik UI for Blazor. 
   # It uses an Ubuntu runner and builds for linux-64 target.
   build_web:
     runs-on: ubuntu-latest
@@ -19,16 +19,16 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
       with:
-        dotnet-version: 3.1.302
+        dotnet-version: 5.0.100
 
     - name: Restore NuGet Packages
-      run: dotnet restore ./src/Web/Web.sln --configfile ./src/Web/NuGet.Config --runtime linux-x64
+      run: dotnet restore ./src/Web/Web.sln --configfile ./src/NuGet.Config --runtime linux-x64
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
-      run: dotnet build ./src/Web/Web.sln --configfile ./src/Web/NuGet.Config --configuration Release --runtime linux-x64
+      run: dotnet build ./src/Web/Web.sln --configfile ./src/NuGet.Config --configuration Release --runtime linux-x64
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}

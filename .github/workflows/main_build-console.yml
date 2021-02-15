@@ -19,16 +19,16 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
       with:
-        dotnet-version: 3.1.302
+        dotnet-version: 5.0.100
     
     - name: Restore NuGet Packages
-      run: dotnet restore src\Console\Console.sln --configfile src\Console\NuGet.Config --runtime win-x86
+      run: dotnet restore src\Console\Console.sln --configfile src\NuGet.Config --runtime win-x86
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
-      run: dotnet build src\Console\Console.sln --configfile src\Console\NuGet.Config --configuration Release --runtime win-x86
+      run: dotnet build src\Console\Console.sln --configfile src\NuGet.Config --configuration Release --runtime win-x86
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
