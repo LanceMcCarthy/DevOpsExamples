@@ -5,18 +5,10 @@ on:
     branches: [ main ]
 
 jobs:
-  # A job that builds a .NET Core WPF application using Telerik UI for WPF
+  # A job that builds a .NET Framework WPF application using Telerik UI for WPF
   # It uses a Windows runner and builds for x86 and x64 runtime
   build_desktop:
     runs-on: windows-latest # WPF apps must be built on Windows runners
-    
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true # so we can set environment variable at the job level
-      TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-      TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
-      SolutionPath: src\Wpf\Wpf.sln
-      ProjectPath: src\Wpf\MyWpfApp\MyWpfApp.csproj
-      NuGetConfigPath: src\Wpf\NuGet.Config
     
     steps:
     - name: Checkout
@@ -27,13 +19,18 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1.7.2
       with:
-        dotnet-version: 3.1.302
+        dotnet-version: 5.0.100
     
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.1
     
+    # We use the dotnet CLI (instead of nuget.exe) to restore the nuget packages before using msbuild
     - name: NuGet Restore
-      run: dotnet restore $env:ProjectPath --configfile $env:NuGetConfigPath --runtime win-x86
+      run: dotnet restore src/Wpf/MyWpfApp/MyWpfApp.csproj --configfile src/NuGet.Config --runtime win-x86
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
-    - name: Build the Wpf application (populate the obj folder)
-      run: msbuild $env:ProjectPath /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
+    # USe msbuild to compile the .NET Framework WPF project
+    - name: Build the WPF application
+      run: msbuild src/Wpf/MyWpfApp/MyWpfApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
