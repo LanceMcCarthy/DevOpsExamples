@@ -1,0 +1,125 @@
+name: Build Xamarin.Forms Applications
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+
+jobs:
+  # UWP project build
+  windows-build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        
+    - name: Generate version number
+      shell: pwsh
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+          
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+    - name: NuGet Restore
+      run: nuget restore src\Xamarin\XamForms\UWP\XamForms.UWP.csproj -ConfigFile src\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+    
+    - name: Build UWP Project
+      run: msbuild src\Xamarin\XamForms\UWP\XamForms.UWP.csproj /p:Platform=x64 /p:Configuration=Debug /p:AppxPackageSigningEnabled=false
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: UWP Artifacts
+        path: src\Xamarin\XamForms\UWP\bin
+
+  # Xamarin.Android project build
+  android-build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Generate version number
+      shell: pwsh
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+    
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: NuGet Restore
+      run: nuget restore src\Xamarin\XamForms\Android\XamForms.Android.csproj -ConfigFile src\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    - name: Build Android Project
+      run: msbuild src\Xamarin\XamForms\Android\XamForms.Android.csproj /p:SolutionDir=src\Xamarin\XamForms\ /p:Configuration=Debug /p:Platform=AnyCPU /verbosity:normal /t:Rebuild
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Android Artifacts
+        path: src\Xamarin\XamForms\Android\bin
+
+  # Xamarin.iOS project build (important, acOS needs forward slashes for dir separators)
+  ios-build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - name: Generate version number
+      shell: bash
+      run: |
+        buildDay=`date +%Y.%m%d`
+        echo $buildDay
+        runNum=${{ github.run_number }}
+        ver="${buildDay}.${runNum}.0"
+        echo $ver
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+    
+    - name: Restore NuGet packages
+      run: nuget restore src/Xamarin/XamForms/iOS/XamForms.iOS.csproj -ConfigFile src/nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+
+    - name: Build iOS Project
+      run: msbuild src/Xamarin/XamForms/iOS/XamForms.iOS.csproj /p:SolutionDir=src/Xamarin /p:Configuration=Debug /p:Platform=iPhoneSimulator /verbosity:normal /t:Rebuild
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: iOS Artifacts
+        path: src/Xamarin/XamForms/iOS/bin
