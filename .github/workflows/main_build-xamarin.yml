@@ -119,7 +119,7 @@ jobs:
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
     
     - name: NuGet Restore - Class Library Project
-      run: nuget restore src\Xamarin\XamForms\Portable\XamForms.Portable.csproj -ConfigFile src\nuget.config
+      run: nuget restore src/Xamarin/XamForms/Portable/XamForms.Portable.csproj -ConfigFile src/nuget.config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
