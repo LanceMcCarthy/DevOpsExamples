@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
+             xmlns:telerikGrid="clr-namespace:Telerik.XamarinForms.DataGrid;assembly=Telerik.XamarinForms.DataGrid"
+             x:Class="XamForms.Portable.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <telerikChart:RadCartesianChart x:Name="chart">
+            <telerikChart:RadCartesianChart.HorizontalAxis>
+                <telerikChart:CategoricalAxis />
+            </telerikChart:RadCartesianChart.HorizontalAxis>
+            <telerikChart:RadCartesianChart.VerticalAxis>
+                <telerikChart:NumericalAxis />
+            </telerikChart:RadCartesianChart.VerticalAxis>
+            <telerikChart:RadCartesianChart.Series>
+                <telerikChart:BarSeries CategoryBinding="Title"
+                                        ValueBinding="Value"
+                                        ItemsSource="{Binding ChartData}" />
+            </telerikChart:RadCartesianChart.Series>
+        </telerikChart:RadCartesianChart>
+
+        <telerikGrid:RadDataGrid ItemsSource="{Binding DataGridData}"
+                                 AutoGenerateColumns="False"
+                                 Grid.Row="1">
+            <telerikGrid:RadDataGrid.Columns>
+                <telerikGrid:DataGridTextColumn PropertyName="Name"
+                                                HeaderText="Name"/>
+
+                <telerikGrid:DataGridNumericalColumn PropertyName="Age"
+                                                     HeaderText="Age"/>
+
+                <telerikGrid:DataGridDateColumn PropertyName="DateOfBirth"
+                                                HeaderText="DOB"
+                                                CellContentFormat="{}{0:d}" />
+            </telerikGrid:RadDataGrid.Columns>
+        </telerikGrid:RadDataGrid>
+    </Grid>
+</ContentPage>
