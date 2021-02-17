@@ -19,18 +19,24 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        
+    
     - name: Generate version number
       shell: pwsh
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
-          
+    
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
       
-    - name: NuGet Restore
+    - name: NuGet Restore - Class Library Project
+      run: nuget restore src\Xamarin\XamForms\Portable\XamForms.Portable.csproj -ConfigFile src\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+
+    - name: NuGet Restore - Platform Project
       run: nuget restore src\Xamarin\XamForms\UWP\XamForms.UWP.csproj -ConfigFile src\nuget.config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
@@ -68,7 +74,13 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: NuGet Restore
+    - name: NuGet Restore - Class Library Project
+      run: nuget restore src\Xamarin\XamForms\Portable\XamForms.Portable.csproj -ConfigFile src\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+
+    - name: NuGet Restore - Platform Project
       run: nuget restore src\Xamarin\XamForms\Android\XamForms.Android.csproj -ConfigFile src\nuget.config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
@@ -106,7 +118,13 @@ jobs:
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
     
-    - name: Restore NuGet packages
+    - name: NuGet Restore - Class Library Project
+      run: nuget restore src\Xamarin\XamForms\Portable\XamForms.Portable.csproj -ConfigFile src\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+
+    - name: NuGet Restore - Platform Project
       run: nuget restore src/Xamarin/XamForms/iOS/XamForms.iOS.csproj -ConfigFile src/nuget.config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
