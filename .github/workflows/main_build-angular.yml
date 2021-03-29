@@ -13,16 +13,16 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Install NPM modules
-      working-directory: src/Kendo/Angular
+      working-directory: src/Kendo/angular-demo
       run: npm install
     
     # The value of LICENSE_UI_FOR_ANGULAR is stored as a GitHub repo secret (Settings -> Secrets -> Actions)
     - name: Activate Kendo UI License
-      working-directory: src/Kendo/Angular
+      working-directory: src/Kendo/angular-demo
       run: npx kendo-ui-license activate
       env:
         KENDO_UI_LICENSE: ${{ secrets.LICENSE_UI_FOR_ANGULAR }}
 
     - name: Build
-      working-directory: src/Kendo/Angular
+      working-directory: src/Kendo/angular-demo
       run: npm run build --prod
