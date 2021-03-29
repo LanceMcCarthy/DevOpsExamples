@@ -1,18 +1,24 @@
 # UI for Angular  CI-CD License activation 
 
-This demo shows how you can activate your Kendo license in a CI-CD pipeline. 
+These demos show how you can activate your Kendo license in a CI-CD pipeline. 
 
 > REQUIREMENT Before you can use any of the options below, you must have installed `npm install --save @progress/kendo-licensing` to the application.  Please carefully follow the first steps here https://www.telerik.com/kendo-angular-ui/components/my-license/
 
 ## GitHub Actions
 
-See our [GitHub Actions YAML Example](https://www.telerik.com/kendo-angular-ui/components/my-license/#toc-github-actions) in the documentation. You can also visit this repository's workflow here [main_build-angular.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-angular.yml)
+ Follow the YAML in our [GitHub Actions YAML Example](https://www.telerik.com/kendo-angular-ui/components/my-license/#toc-github-actions) documentation.. You can see the working example in this repository's workflow here [main_build-angular.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-angular.yml). 
+ 
+Important, make sure you've already added the secret to your repo.
+    
+![GH Actions secret](https://user-images.githubusercontent.com/3520532/112889742-0a7e0780-90a4-11eb-8975-0e7728830b94.png)
 
 ## Azure DevOps
 
 ### YAML Pipeline
 
-See our YAML example in [Azure DevOps YAML Example](https://www.telerik.com/kendo-angular-ui/components/my-license/#toc-azure-pipelines) section.
+See our YAML example in [Azure DevOps YAML Example](https://www.telerik.com/kendo-angular-ui/components/my-license/#toc-azure-pipelines) section. 
+
+> As with the GitHub Actions example, make sure you've added a secret variable containing the contents of your **kendo-ui-license.txt** file.
 
 ### Classic Pipeline
 
