@@ -1,0 +1,22 @@
+name: Build Angular Application
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_angular:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - run: |
+          cd src/Kendo/Angular
+          npm install -g @angular/cli
+          npm install
+          npx kendo-ui-license activate
+      env:
+        KENDO_UI_LICENSE: ${{ secrets.KENDO_UI_LICENSE }} # the value is stored as a GitHub repo secret (Settings -> Secrets)
+
