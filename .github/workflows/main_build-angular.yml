@@ -15,7 +15,7 @@ jobs:
     - name: Install NPM modules
       working-directory: src/Kendo/Angular
       run: |
-        npm install -g @angular/cli
+        # npm install -g @angular/cli
         npm install
     
     - name: Activate Kendo UI License
