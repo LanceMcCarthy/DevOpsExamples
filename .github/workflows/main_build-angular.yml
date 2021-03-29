@@ -11,12 +11,21 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    - run: |
-          cd src/Kendo/Angular
-          npm install -g @angular/cli
-          npm install
+      
+    - name: Install NPM modules
+      working-directory: src/Kendo/Angular
+      run: |
+        npm install -g @angular/cli
+        npm install
+    
+    - name: Activate Kendo UI License
+      working-directory: src/Kendo/Angular
+      run: |
           npx kendo-ui-license activate
       env:
         KENDO_UI_LICENSE: ${{ secrets.KENDO_UI_LICENSE }} # the value is stored as a GitHub repo secret (Settings -> Secrets)
 
+    - name: Build
+      working-directory: src/Kendo/Angular
+      run: |
+        npm run build --prod
