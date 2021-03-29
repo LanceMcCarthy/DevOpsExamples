@@ -1,0 +1,28 @@
+name: Build React Application
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_react:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Install NPM modules
+      working-directory: src/Kendo/react-demo
+      run: npm install
+    
+    # The value of LICENSE_UI_FOR_REACT is stored as a GitHub repo secret (Settings -> Secrets -> Actions)
+    - name: Activate Kendo UI License
+      working-directory: src/Kendo/react-demo
+      run: npx kendo-ui-license activate
+      env:
+        KENDO_UI_LICENSE: ${{ secrets.LICENSE_UI_FOR_REACT }} 
+
+    - name: Build
+      working-directory: src/Kendo/react-demo
+      run: npm run build --prod
