@@ -2,11 +2,11 @@
 
 These demos show how you can activate your Kendo license in a CI-CD pipeline.
 
-> REQUIREMENT! - Before you can use any of the options below, you must have installed `npm install --save @progress/kendo-licensing` to the application.  Please carefully follow the first steps in the [UI for React My License documentation](https://www.telerik.com/kendo-react-ui/my-license/) instructions.
+> REQUIREMENT - Before you can use any of the options below, you must have installed `npm install --save @progress/kendo-licensing` to the application.  Please carefully follow the first steps in the [UI for Vue My License documentation](https://www.telerik.com/kendo-vue-ui/components/my-license/) instructions.
 
 ## Option 1 - GitHub Actions
 
- Follow the YAML in our [GitHub Actions YAML Example](https://www.telerik.com/kendo-react-ui/my-license/#toc-github-actions) documentation.. You can see the working example in this repository's workflow here [main_build-react.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-react.yml).
+ Follow the YAML in our [GitHub Actions YAML Example](https://www.telerik.com/kendo-vue-ui/my-license/#toc-github-actions) documentation.. You can see the working example in this repository's workflow here [main_build-vue.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-vue.yml).
 
 Important, make sure you've already added the secret to your repo.
 
@@ -14,7 +14,7 @@ Important, make sure you've already added the secret to your repo.
 
 ## Option 2 - Azure DevOps | YAML Pipeline
 
-See our YAML example in [Azure DevOps YAML Example](https://www.telerik.com/kendo-react-ui/my-license/#toc-azure-pipelines) section.
+See our YAML example in [Azure DevOps YAML Example](https://www.telerik.com/kendo-vue-ui/components/my-license/#toc-azure-pipelines) section.
 
 Fig.1
 ![ado yaml secret](https://user-images.githubusercontent.com/3520532/112901958-7156ed00-90b3-11eb-9028-c9bbf942a35e.png)
@@ -40,7 +40,7 @@ We currently do not have a section in the documentation that shows an example of
     # Activate the license
     npx kendo-ui-license activate
 
-    # If you get an error, that means you forgot to run `npm install --save @progress/kendo-licensing` on your project. Please go back and read https://www.telerik.com/kendo-react-ui/my-license/
+    # If you get an error, that means you forgot to run `npm install --save @progress/kendo-licensing` on your project. Please go back and read https://www.telerik.com/kendo-vue-ui/components/my-license/
     ```
 
     Here's a screenshot of what it should look like at this point:
@@ -52,4 +52,3 @@ We currently do not have a section in the documentation that shows an example of
 5. Expand the **Environment Variables** section and add a new variable named `KENDO-UI-LICENSE` and set the value to the name name you used for the pipeline secret variable `$(kendo_license_value)`
 
     ![step env vars](https://user-images.githubusercontent.com/3520532/112887141-cb9a8280-90a0-11eb-9b67-546ca51195e2.png)
-
