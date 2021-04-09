@@ -4,7 +4,7 @@ This repository contains a rich set of CI-CD demos that show you how to use Azur
 
 - **Azure DevOps**
 - **GitHub Actions**
-- **GitLab CI/CD** (to see this, go to my [GitLab Pipelines Demo](https://gitlab.com/LanceMcCarthy/DevOpsExamples) and review the [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) YAML file for details.
+- **GitLab CI/CD** (the work [GitLab Pipelines Demo](https://gitlab.com/LanceMcCarthy/DevOpsExamples) and review the [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) YAML file for details.
 
 Key takeaways - you will you learn how to:
 
@@ -13,9 +13,9 @@ Key takeaways - you will you learn how to:
 
 ## Status
 
-The following tables list the badges for the various pipelines and workflows. To keep things organized, I have 2 tables.
+The following tables list the badges for the various pipelines and workflows. To keep things organized, I have two tables grouped by the major technology type.
 
-### .NET
+### Telerik .NET Applications
 
 | Project | Azure DevOps (pipeline type) | GitHub Actions | GitLab CI-CD |
 |---------|------------------------------|----------------|--------------|
@@ -24,7 +24,7 @@ The following tables list the badges for the various pipelines and workflows. To
 | Console (.NET 5) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) (`YAML`) | ![Build Console](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg?branch=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | Xamarin.Forms | n/a | ![Build Xamarin.Forms](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Xamarin.Forms%20Applications/badge.svg?branch=main) | n/a |
 
-### Kendo
+### Kendo UI Applications
 
 | Project | Azure DevOps (pipeline type) | GitHub Actions | GitLab CI-CD |
 |---------|------------------------------|----------------|--------------|
@@ -56,6 +56,3 @@ In your YAML, you probably have done this:
 That mean you must also have the secrets in your **Settings** > **Secrets** list
 
 ![image](https://user-images.githubusercontent.com/3520532/104634438-9cae6c00-566e-11eb-9a78-79d955247867.png)
-
-
- 
