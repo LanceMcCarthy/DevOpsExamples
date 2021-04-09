@@ -1,8 +1,12 @@
-# CI-CD Examples for Telerik and Kendo
+# DevOps - Pipeline and Workflow Examples
 
-This repository contains a rich set of CI-CD demos that show you how to use Azure DevOps and GitHub Actions to build your Telerik and Kendo powered applications.
+This repository contains a rich set of CI-CD demos that show you how to use Azure DevOps and GitHub Actions to build your Telerik and Kendo powered applications in the following systems.
 
-Highlights
+- **Azure DevOps**
+- **GitHub Actions**
+- **GitLab CI/CD** (to see this, go to my [GitLab Pipelines Demo](https://gitlab.com/LanceMcCarthy/DevOpsExamples) and review the [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) YAML file for details.
+
+Key takeaways - you will you learn how to:
 
 - Restore packages from the private Telerik NuGet server feed
 - Build and enable license for Kendo Angular and Kendo React applications
