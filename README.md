@@ -1,4 +1,4 @@
-# Azure DevOps and GitHub Actions - Examples for Telerik and Kendo
+# CI-CD Examples for Telerik and Kendo
 
 This repository contains a rich set of CI-CD demos that show you how to use Azure DevOps and GitHub Actions to build your Telerik and Kendo powered applications.
 
@@ -9,14 +9,24 @@ Highlights
 
 ## Status
 
-| Project | Azure DevOps (pipeline type) | GitHub Actions |
-|--------------|--------------------------|----------------------|
-| ASP NET Blazor (.NET 5) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyBlazorApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) (`classic`) | ![Build Web](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Web%20Application/badge.svg?branch=main) |
-| WPF (.NET Framework) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyWpfApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) (`classic`) | ![Build WPF](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg?branch=main) |
-| Console (.NET 5) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) (`YAML`) | ![Build Console](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg?branch=main) |
-| Xamarin.Forms | n/a | ![Build Xamarin.Forms](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Xamarin.Forms%20Applications/badge.svg?branch=main) |
-| Angular | [![Build Angular](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) (`classic`) | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) |
-| React | [![Build Kendo React](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20React)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=66) (`classic`) | [![Build React](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml) |
+The following tables list the badges for the various pipelines and workflows. To keep things organized, I have 2 tables.
+
+### .NET
+
+| Project | Azure DevOps (pipeline type) | GitHub Actions | GitLab CI-CD |
+|---------|------------------------------|----------------|--------------|
+| ASP NET Blazor (.NET 5) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyBlazorApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) (`classic`) | ![Build Web](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Web%20Application/badge.svg?branch=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| WPF (.NET Framework) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyWpfApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) (`classic`) | ![Build WPF](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg?branch=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| Console (.NET 5) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) (`YAML`) | ![Build Console](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg?branch=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| Xamarin.Forms | n/a | ![Build Xamarin.Forms](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Xamarin.Forms%20Applications/badge.svg?branch=main) | n/a |
+
+### Kendo
+
+| Project | Azure DevOps (pipeline type) | GitHub Actions | GitLab CI-CD |
+|---------|------------------------------|----------------|--------------|
+| Angular | [![Build Angular](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) (`classic`) | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| React | [![Build Kendo React](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20React)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=66) (`classic`) | [![Build React](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| Vue | [![Build Kendo Vue](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Vue)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=67) (`classic`) | [![Build Vue Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 
 ## Video Tutorial | NuGet Server
 
