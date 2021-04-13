@@ -103,12 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.UI.for.Xamarin">
-      <Version>2021.1.216.1-hotfix</Version>
+      <Version>2021.1.413.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
-    <PackageReference Include="SkiaSharp" Version="1.68.0" />
-    <PackageReference Include="SkiaSharp.Views" Version="1.68.0" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="SkiaSharp" Version="2.80.2" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.80.2" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portable\XamForms.Portable.csproj">
