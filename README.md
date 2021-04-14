@@ -13,6 +13,7 @@ In the the following CI systems
 - **GitHub Actions**
 - **GitLab CI/CD** (the work [GitLab Pipelines Demo](https://gitlab.com/LanceMcCarthy/DevOpsExamples) and review the [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) YAML file for details.
 - **AppCenter**
+
 ## Build Status
 
 The following tables list the badges for the various pipelines and workflows. To keep things organized, I have a separate tables for each CI system.
