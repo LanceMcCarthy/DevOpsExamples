@@ -2,16 +2,17 @@
 
 This repository contains a rich set of CI-CD demos that show you how to use Azure DevOps and GitHub Actions to build your Telerik and Kendo powered applications in the following systems.
 
-- **Azure DevOps**
-- **GitHub Actions**
-- **GitLab CI/CD** (the work [GitLab Pipelines Demo](https://gitlab.com/LanceMcCarthy/DevOpsExamples) and review the [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) YAML file for details.
-- **AppCenter**
-
 These examples show you how to:
 
 - Restore packages from the private Telerik NuGet feed
 - Activate your Kendo license prior to the project build
 
+In the the following CI systems
+
+- **Azure DevOps**
+- **GitHub Actions**
+- **GitLab CI/CD** (the work [GitLab Pipelines Demo](https://gitlab.com/LanceMcCarthy/DevOpsExamples) and review the [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) YAML file for details.
+- **AppCenter**
 ## Build Status
 
 The following tables list the badges for the various pipelines and workflows. To keep things organized, I have a separate tables for each CI system.
@@ -40,7 +41,7 @@ The following tables list the badges for the various pipelines and workflows. To
 | React | [![Build React](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml) |
 | Vue | [![Build Vue Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml) |
 
-### GitLab
+### GitLab CI-CD
 
 | Project | Main Branch |
 |---------|------------|
@@ -51,7 +52,7 @@ The following tables list the badges for the various pipelines and workflows. To
 | React | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | Vue | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 
-### AppCenter
+### Microsoft AppCenter
 
 | Project | Main Branch |
 |---------|-------------|
