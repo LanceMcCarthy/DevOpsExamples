@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.XamarinForms.Chart"
-             xmlns:telerikGrid="clr-namespace:Telerik.XamarinForms.DataGrid;assembly=Telerik.XamarinForms.DataGrid"
+             xmlns:dataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:listView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
              x:Class="XamForms.Portable.MainPage">
 
     <Grid>
@@ -28,20 +29,20 @@
             </telerikChart:RadCartesianChart.Series>
         </telerikChart:RadCartesianChart>
 
-        <telerikGrid:RadDataGrid ItemsSource="{Binding DataGridData}"
-                                 AutoGenerateColumns="False"
-                                 Grid.Row="1">
-            <telerikGrid:RadDataGrid.Columns>
-                <telerikGrid:DataGridTextColumn PropertyName="Name"
-                                                HeaderText="Name"/>
-
-                <telerikGrid:DataGridNumericalColumn PropertyName="Age"
-                                                     HeaderText="Age"/>
-
-                <telerikGrid:DataGridDateColumn PropertyName="DateOfBirth"
-                                                HeaderText="DOB"
-                                                CellContentFormat="{}{0:d}" />
-            </telerikGrid:RadDataGrid.Columns>
-        </telerikGrid:RadDataGrid>
+        <dataControls:RadListView ItemsSource="{Binding DataGridData}"
+                                  Grid.Row="1">
+            <dataControls:RadListView.ItemTemplate>
+                <DataTemplate>
+                    <listView:ListViewTemplateCell>
+                        <listView:ListViewTemplateCell.View>
+                            <StackLayout Padding="5" Spacing="5">
+                                <Label Text="{Binding Name}" />
+                                <Label Text="{Binding DateOfBirth, StringFormat='DOB: {0:d}'}" />
+                            </StackLayout>
+                        </listView:ListViewTemplateCell.View>
+                    </listView:ListViewTemplateCell>
+                </DataTemplate>
+            </dataControls:RadListView.ItemTemplate>
+        </dataControls:RadListView>
     </Grid>
 </ContentPage>
