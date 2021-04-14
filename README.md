@@ -59,7 +59,6 @@ The following tables list the badges for the various pipelines and workflows. To
 |---------|-------------|
 | Xamarin.Forms iOS | [![iOS](https://build.appcenter.ms/v0.1/apps/fb6ee8ef-11ce-43d8-8e55-cba537388483/branches/main/badge)](https://appcenter.ms) |
 | Xamarin.Forms Android | [![Android](https://build.appcenter.ms/v0.1/apps/51ebbd36-58fe-4ebc-accd-0af37cbf6758/branches/main/badge)](https://appcenter.ms) |
-| Xamarin.Forms UWP | [![XF UWP](https://build.appcenter.ms/v0.1/apps/bd0e05aa-0143-44ad-8d49-7e19aa46d37c/branches/main/badge)](https://appcenter.ms) |
 
 > In AppCenter build settings, you set the environment variables defined in the nuget.config, `TELERIK_USERNAME` and `TELERIK_PASSWORD` (if the build is for Kendo, then you set the `KENDO_UI_LICENSE` variable instead).
 
