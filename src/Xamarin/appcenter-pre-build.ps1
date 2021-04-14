@@ -1,1 +1,1 @@
-dotnet nuget add source https://nuget.telerik.com --name TelerikFeed --username $env:TELERIK_USERNAME --password $env:TELERIK_PASSWORD --store-password-in-clear-text
+nuget.exe sources Add -NonInteractive -Name TelerikNugetFeed -Source https://nuget.telerik.com/nuget  -UserName $env:TELERIK_USERNAME -Password $env:TELERIK_PASSWORD -StorePasswordInClearText
