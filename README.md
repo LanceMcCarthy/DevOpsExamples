@@ -4,19 +4,27 @@ This repository contains a rich set of CI-CD demos that show you how to use Azur
 
 These examples show you how to:
 
-- Restore packages from the private Telerik NuGet feed
-- Activate your Kendo license prior to the project build
+- Authenticate and restore NuGet packages from the Telerik NuGet server.
+- Activate your Kendo UI Angular/React/Vue license prior to npm build.
 
-In the the following CI systems
+With examples for each of the following CI-CD systems:
 
 - **Azure DevOps**
+  - View the yaml pipeline config in [azure-pipelines.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/azure-pipelines.yml).
+  - View the classic pipelines in [this repo's Azure DevOps portal](https://dev.azure.com/lance/DevOps%20Examples/_build).
+  - Skip down to the [pipeline status table](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops).
 - **GitHub Actions**
-- **GitLab CI/CD** (the work [GitLab Pipelines Demo](https://gitlab.com/LanceMcCarthy/DevOpsExamples) and review the [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) YAML file for details.
+  - View the Workflow files in the [.github/workflows](https://github.com/LanceMcCarthy/DevOpsExamples/tree/main/.github/workflows) folder.
+  - Skip down to the [Actions status table](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions).
+- **GitLab CI/CD**
+  - View the pipeline config in [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) (this will take you to GitLab).
+  - Skip down to the [pipeline status table](https://github.com/LanceMcCarthy/DevOpsExamples#gitlab-ci-cd).
 - **AppCenter**
+  - Skip down to the [build status table](https://github.com/LanceMcCarthy/DevOpsExamples#microsoft-appcenter).
 
 ## Build Status
 
-The following tables list the badges for the various pipelines and workflows. To keep things organized, I have a separate tables for each CI system.
+The following tables list the status badges for the various pipelines and workflows. To keep things organized, each CI system has its own table.
 
 ### Azure DevOps
 
@@ -60,13 +68,13 @@ The following tables list the badges for the various pipelines and workflows. To
 | Xamarin.Forms iOS | [![iOS](https://build.appcenter.ms/v0.1/apps/fb6ee8ef-11ce-43d8-8e55-cba537388483/branches/main/badge)](https://appcenter.ms) |
 | Xamarin.Forms Android | [![Android](https://build.appcenter.ms/v0.1/apps/51ebbd36-58fe-4ebc-accd-0af37cbf6758/branches/main/badge)](https://appcenter.ms) |
 
-> In AppCenter build settings, you set the environment variables defined in the nuget.config, `TELERIK_USERNAME` and `TELERIK_PASSWORD` (if the build is for Kendo, then you set the `KENDO_UI_LICENSE` variable instead).
+> In AppCenter build settings, you set the environment variables defined in the nuget.config, `TELERIK_USERNAME` and `TELERIK_PASSWORD`. If the build is for Kendo, then you set the `KENDO_UI_LICENSE` environment variable.
 
 ## Videos
 
 ### Azure DevOps with Private NuGet Server
 
-The following 4 minute video takes you though all the steps on adding a private NuGet feed as a Service Connection and consuming that service in three different pipeline setups.
+The following **4 minute** video takes you though all the steps on adding a private NuGet feed as a Service Connection and consuming that service in three different pipeline setups.
 
 [![YouTube tutorial](https://img.youtube.com/vi/rUWU2n6FwgA/0.jpg)](https://www.youtube.com/watch?v=rUWU2n6FwgA)
 
@@ -79,7 +87,7 @@ The following 4 minute video takes you though all the steps on adding a private 
 
 A common problem to run into is to think that the environment variable is the same thing as the GitHub Secret (or Azure DevOps pipeline variable). In this demo, I intentionally named the secrets a different name than the environment variable name so that it is easier for you to tell the difference.
 
-However, I know that not everyone has the tiime to watch the video and just copy/paste the YAML. This will cause you to hit a roadblock because you missed the part about setting up the GitHub secret (or Azure DevOps pipeline variable). Here are a couple screenshots you can solve the issue and bounce :) 
+However, I know that not everyone has the tiime to watch the video and just copy/paste the YAML instead. This will cause you to hit a roadblock because you missed the part about setting up the GitHub secret, Azure DevOps pipeline variable or . Here is a 2 screenshot crash-course on how to get back on track.
 
 In your YAML, you probably have done this:
 
