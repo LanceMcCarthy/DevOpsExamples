@@ -1,0 +1,195 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HelloMaui.MainPage"
+             xmlns:vm="clr-namespace:HelloMaui.ViewModels" 
+             xmlns:local="clr-namespace:HelloMaui"
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Compatibility"
+             xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.Maui.Compatibility"
+             xmlns:telerikMauiControls="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+             x:Name="page"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <StackLayout Spacing="20" Margin="8, 16">
+            <Grid>
+                <telerikMauiControls:RadBorder CornerRadius="25"
+                                               BorderColor="White"
+                                               HorizontalOptions="End"
+                                               Margin="0, 0, 22, 0">
+                    <telerikInput:RadButton BackgroundColor="#0E88F2" 
+                                            Text="Assign Task"
+                                            TextColor="White"
+                                            Padding="16, 9"
+                                            Clicked="ButtonAssignTask_Clicked" />
+                </telerikMauiControls:RadBorder>
+
+                <telerikMauiControls:RadBorder CornerRadius="25"
+                                               BorderColor="#0E88F2"
+                                               BorderThickness="1" 
+                                               HorizontalOptions="Start"
+                                               Margin="22, 0, 0, 0">
+                    <telerikInput:RadButton BackgroundColor="White" 
+                                            Text="Unassign Task"
+                                            TextColor="#0E88F2"
+                                            Padding="16, 9"
+                                            Clicked="ButtonUnassignTask_Clicked" />
+                </telerikMauiControls:RadBorder>
+            </Grid>
+        
+            <telerikMauiControls:RadBorder BorderColor="#DFDFDF" 
+                                           BorderThickness="9"
+                                           HeightRequest="{OnPlatform iOS='150', Android='142'}"
+                                           WidthRequest="{OnPlatform iOS='150', Android='118'}"
+                                           CornerRadius="75"
+                                           HorizontalOptions="Center">
+                <Image Source="avatar.png" Aspect="AspectFill" WidthRequest="150" HeightRequest="150"/>
+            </telerikMauiControls:RadBorder>
+            <StackLayout>
+                <Label FontSize="22"
+                       Text="Gabby Atkinson"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"/>
+                <Label FontSize="Default"
+                       HorizontalOptions="Center"
+                       Text="Developer"
+                       TextColor="Gray"/>
+            </StackLayout>
+            <HorizontalStackLayout Spacing="38" HorizontalOptions="Center">  
+                <StackLayout>
+                    <telerikMauiControls:RadBorder BackgroundColor="Transparent"
+                                                   BorderColor="#FF6F00"
+                                                   BorderThickness="1"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   CornerRadius="5"
+                                                   WidthRequest="10"
+                                                   HeightRequest="10"/>
+                    <Label FontSize="Large"
+                           Text="39"
+                           Margin="0,11,0,0"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label FontSize="Default"
+                           HorizontalOptions="Center"
+                           Text="Finished Tasks"
+                           TextColor="Gray"/>
+                </StackLayout>
+                <StackLayout>
+                    <telerikMauiControls:RadBorder BackgroundColor="Transparent"
+                                                   BorderColor="#0E88F2"
+                                                   BorderThickness="1"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   CornerRadius="5"
+                                                   WidthRequest="10"
+                                                   HeightRequest="10"/>
+                    <Label FontSize="Large"
+                           Text="6"
+                           Margin="0,11,0,0"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+                    <Label FontSize="Default"
+                           HorizontalOptions="Center"
+                           Text="Current Tasks"
+                           TextColor="Gray"/>
+                </StackLayout>
+                <StackLayout>
+                    <telerikMauiControls:RadBorder BackgroundColor="Transparent"
+                                                   BorderColor="#FFAC3E"
+                                                   BorderThickness="1"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                                   CornerRadius="5"
+                                                   WidthRequest="10"
+                                                   HeightRequest="10"/>
+                    <Label x:Name="LabelNotStartedTasks" 
+                           FontSize="Large"
+                           Text="12"
+                           Margin="0,11,0,0"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+                    <Label FontSize="Default"
+                           HorizontalOptions="Center"
+                           Text="Not started Tasks"
+                           TextColor="Gray"/>
+                </StackLayout>
+            </HorizontalStackLayout>
+
+            <Label Text="Experience:"
+                   FontSize="17"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"/>
+            
+            <telerikMauiControls:RadItemsControl ItemsSource="{Binding Experiences, Mode=TwoWay}" 
+                                                 HeightRequest="{OnPlatform iOS='150', Android='116'}"
+                                                 WidthRequest="{Binding Source={x:Reference page}, Path=Width, Mode=TwoWay}" >
+                <telerikMauiControls:RadItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <telerikMauiControls:RadBorder BorderColor="#DFDFDF"
+                                                       HeightRequest="{OnPlatform iOS='48'}"
+                                                       WidthRequest="{Binding Source={x:Reference page}, Path=Width, Mode=TwoWay}" 
+                                                       BorderThickness="0, 0, 0, 1">
+                            <StackLayout WidthRequest="{Binding Source={x:Reference page}, Path=Width, Mode=TwoWay}"
+                                         HeightRequest="{OnPlatform iOS='48'}"
+                                         Margin="{OnPlatform iOS='8, 8, 0, 8'}"
+                                         Spacing="0">
+                                <Label Text="{Binding Title}" 
+                                       FontSize="14"/>
+                                <Label Text="{Binding Company}"
+                                       TextColor="#99000000" 
+                                       FontSize="12"/>
+                            </StackLayout>
+                        </telerikMauiControls:RadBorder>
+                    </DataTemplate>
+                </telerikMauiControls:RadItemsControl.ItemTemplate>
+            </telerikMauiControls:RadItemsControl>
+
+            <Label Text="Week in review (tasks per day):"
+                   FontSize="17"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"/>
+
+            <telerikChart:RadCartesianChart HeightRequest="400">
+                <telerikChart:RadCartesianChart.HorizontalAxis>
+                    <telerikChart:CategoricalAxis />
+                </telerikChart:RadCartesianChart.HorizontalAxis>
+                <telerikChart:RadCartesianChart.VerticalAxis>
+                    <telerikChart:NumericalAxis />
+                </telerikChart:RadCartesianChart.VerticalAxis>
+                <telerikChart:RadCartesianChart.Series>
+                    <telerikChart:LineSeries CategoryBinding="Category" Stroke="#0E88F2" ValueBinding="Value" ItemsSource="{Binding Data}" />
+                    <telerikChart:LineSeries CategoryBinding="Category" Stroke="#F85446" ValueBinding="Value" ItemsSource="{Binding Data1}" />
+                    <telerikChart:LineSeries CategoryBinding="Category" Stroke="#FFAC3E" ValueBinding="Value" ItemsSource="{Binding Data2}" />
+                </telerikChart:RadCartesianChart.Series>
+            </telerikChart:RadCartesianChart>
+
+            <Label Text="Performance (planned vs actual):"
+                   FontSize="17"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"/>
+
+            <telerikChart:RadCartesianChart HeightRequest="400">
+                <telerikChart:RadCartesianChart.HorizontalAxis>
+                    <telerikChart:CategoricalAxis />
+                </telerikChart:RadCartesianChart.HorizontalAxis>
+                <telerikChart:RadCartesianChart.VerticalAxis>
+                    <telerikChart:NumericalAxis />
+                </telerikChart:RadCartesianChart.VerticalAxis>
+                <telerikChart:RadCartesianChart.Series>
+                    <telerikChart:BarSeries CategoryBinding="Category" ValueBinding="Value" ItemsSource="{Binding Data3}" CombineMode="Cluster" />
+                    <telerikChart:BarSeries CategoryBinding="Category" ValueBinding="Value" ItemsSource="{Binding Data4}" CombineMode="Cluster" />
+                </telerikChart:RadCartesianChart.Series>
+                <telerikChart:RadCartesianChart.Palette>
+                    <telerikChart:ChartPalette>
+                        <telerikChart:ChartPalette.Entries>
+                            <telerikChart:PaletteEntry FillColor="#FFAC3E" StrokeColor="#FFAC3E" />
+                            <telerikChart:PaletteEntry FillColor="#0E88F2" StrokeColor="#0E88F2" />
+                        </telerikChart:ChartPalette.Entries>
+                    </telerikChart:ChartPalette>
+               </telerikChart:RadCartesianChart.Palette>
+            </telerikChart:RadCartesianChart>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
