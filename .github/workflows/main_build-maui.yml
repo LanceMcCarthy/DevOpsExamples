@@ -101,15 +101,15 @@ jobs:
     - name: Install .NET 6 SDK
       shell: bash
       run: |
-        export PATH="$env:DotNetRoot:$env:DotNetTools:$PATH" &&
-        curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh &&
-        sh dotnet-install.sh --version $env:DotNetVersion --install-dir $DOTNET_ROOT --verbose &&
+        export PATH="$env:DotNetRoot:$env:DotNetTools:$PATH"
+        curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh
+        sh dotnet-install.sh --version $env:DotNetVersion --install-dir $DOTNET_ROOT --verbose
         dotnet --list-sdks
         
     - name: maui-check
       shell: bash
       run: |
-        dotnet tool update --global redth.net.maui.check --version $env:MauiCheckVersion --add-source https://api.nuget.org/v3/index.json &&
+        dotnet tool update --global redth.net.maui.check --version $env:MauiCheckVersion --add-source https://api.nuget.org/v3/index.json
         maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $env:MauiCheckManifest
     
     - name: select Xcode 12.4
