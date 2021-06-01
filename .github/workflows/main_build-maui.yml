@@ -1,0 +1,144 @@
+name: Build MAUI Project
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+
+jobs:
+# ********************** NET 6 MAUI app | Windows build ************************* #
+  maui-on-windows:
+    runs-on: windows-latest
+    env:
+      IsRunningOnCI: true
+      DotNetVersion: 6.0.100-preview.4.21255.9
+      DotNet.Cli.Telemetry.OptOut: true
+      MauiCheck.Version: 0.4.1
+      MauiCheck.Manifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
+      Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Generate version number
+      shell: pwsh
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+
+    - name: Install .NET 6 SDK
+      shell: pwsh
+      run: |
+        $ProgressPreference = 'SilentlyContinue'
+        Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
+        & .\dotnet-install.ps1 -Version $(DotNetVersion) -InstallDir "$env:ProgramFiles\dotnet\" -Verbose
+        & dotnet --list-sdks
+
+    - name: Run maui check
+      shell: pwsh
+      run: |
+        & dotnet tool update --global redth.net.maui.check --version $(MauiCheck.Version) --add-source https://api.nuget.org/v3/index.json
+        & maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $(MauiCheck.Manifest)
+
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: |
+        dotnet restore src\MAUI\HelloMaui\HelloMaui.csproj --configfile src\MAUI\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+
+    - name: Build Maui project
+      shell: pwsh
+      run: dotnet build src\MAUI\MauiDemo.sln -c Release
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: maui-windows-artifacts
+        path: '*Android\**\*-Signed.apk'
+
+# ********************** NET 6 MAUI app | MacOS Build ************************* #
+
+  maui-on-mac:
+    runs-on: macos-latest
+
+    env:
+      DotNetRoot: /usr/local/share/dotnet/
+      DotNetTools: ~/.dotnet/tools
+      IsRunningOnCI: true
+      DotNetVersion: 6.0.100-preview.4.21255.9
+      DotNet.Cli.Telemetry.OptOut: true
+      MauiCheck.Version: 0.4.1
+      MauiCheck.Manifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
+      Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - name: Generate version number
+      shell: bash
+      run: |
+        buildDay=`date +%Y.%m%d`
+        echo $buildDay
+        runNum=${{ github.run_number }}
+        ver="${buildDay}.${runNum}.0"
+        echo $ver
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+
+    - name: Install .NET 6 SDK
+      shell: bash
+      run: |
+        export PATH="$(DotNetRoot):$(DotNetTools):$PATH" &&
+        curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh &&
+        sh dotnet-install.sh --version $(DotNetVersion) --install-dir $DOTNET_ROOT --verbose &&
+        dotnet --list-sdks
+        
+    - name: maui-check
+      shell: bash
+      run: |
+        dotnet tool update --global redth.net.maui.check --version $(MauiCheck.Version) --add-source https://api.nuget.org/v3/index.json &&
+        maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $(MauiCheck.Manifest)
+    
+    - name: select Xcode 12.4
+      shell: bash
+      run: sudo xcode-select -s /Applications/Xcode_12.4.app
+
+    - name: configure vsmac xcode
+      shell: bash
+      run: |
+        set -x
+        mkdir -p ~/Library/Preferences/Xamarin
+        rm -f ~/Library/Preferences/Xamarin/Settings.plist
+        /usr/libexec/PlistBuddy -c "add :AppleSdkRoot string $(dirname $(dirname $(xcode-select -p)))" ~/Library/Preferences/Xamarin/Settings.plist || true
+        cat ~/Library/Preferences/Xamarin/Settings.plist || true
+
+    - name: Restore NuGet packages
+      shell: bash
+      run: |
+        dotnet restore src\MAUI\HelloMaui\HelloMaui.csproj --configfile src\MAUI\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+    
+    - name: Build Solution
+      shell: bash
+      run: dotnet build src/MAUI/MauiDemo.sln -c Release
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: maui-mac-artifacts
+        path: '*iOS/**/*.app/**'
