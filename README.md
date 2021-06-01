@@ -2,27 +2,19 @@
 
 This repository contains a rich set of CI-CD demos that show you how to use Azure DevOps and GitHub Actions to build your Telerik and Kendo powered applications in the following systems.
 
+| System        | CI/CD file(s) | Status | 
+|---------------|------------------|--------|
+| Azure DevOps  | [azure-pipelines.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/azure-pipelines.yml) | [Azure badges](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops) |
+| GitHub Actions | [.github/workflows](https://github.com/LanceMcCarthy/DevOpsExamples/tree/main/.github/workflows) | [Actions badges](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions) |
+| GitLab CI/CD   | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) | [GitLab badges](https://github.com/LanceMcCarthy/DevOpsExamples#gitlab-ci-cd) |
+| AppCenter | n/a | [AppCenter badges](https://github.com/LanceMcCarthy/DevOpsExamples#microsoft-appcenter) |
+
 These examples show you how to:
 
 - Authenticate and restore NuGet packages from the Telerik NuGet server.
-- Activate your Kendo UI Angular/React/Vue license prior to npm build.
+- Activate your Kendo UI Angular/React/Vue license in your CI workflow.
 
-With examples for each of the following CI-CD systems:
-
-- **Azure DevOps**
-  - View the yaml pipeline config in [azure-pipelines.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/azure-pipelines.yml).
-  - View the classic pipelines in [this repo's Azure DevOps portal](https://dev.azure.com/lance/DevOps%20Examples/_build).
-  - Skip down to the [pipeline status table](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops).
-- **GitHub Actions**
-  - View the Workflow files in the [.github/workflows](https://github.com/LanceMcCarthy/DevOpsExamples/tree/main/.github/workflows) folder.
-  - Skip down to the [Actions status table](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions).
-- **GitLab CI/CD**
-  - View the pipeline config in [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) (this will take you to GitLab).
-  - Skip down to the [pipeline status table](https://github.com/LanceMcCarthy/DevOpsExamples#gitlab-ci-cd).
-- **AppCenter**
-  - Skip down to the [build status table](https://github.com/LanceMcCarthy/DevOpsExamples#microsoft-appcenter).
-
-## Build Status
+## Build Statuses
 
 The following tables list the status badges for the various pipelines and workflows. To keep things organized, each CI system has its own table.
 
@@ -33,6 +25,7 @@ The following tables list the status badges for the various pipelines and workfl
 | ASP.NET Blazor (.NET 5) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyBlazorApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) | classic |
 | WPF (.NET Framework) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyWpfApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | classic |
 | Console (.NET 5) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | yaml |
+| MAUI | [![Build MAUI](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20MAUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=72) | classic |
 | Xamarin.Forms | [![Build Xamarin.Forms](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Xamarin.Forms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=68) | classic |
 | Angular | [![Build Angular](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) | classic |
 | React | [![Build Kendo React](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20React)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=66) | classic |
@@ -40,15 +33,15 @@ The following tables list the status badges for the various pipelines and workfl
 
 ### GitHub Actions
 
-| Project | Main Branch |
-|---------|------------|
-| ASP.NET Blazor (.NET 5) | ![Build Web](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Web%20Application/badge.svg?branch=main) |
-| WPF (.NET Framework) | ![Build WPF](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg?branch=main) |
-| Console (.NET 5) | ![Build Console](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg?branch=main) |
-| Xamarin.Forms | ![Build Xamarin.Forms](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Xamarin.Forms%20Applications/badge.svg?branch=main) |
-| Angular | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) |
-| React | [![Build React](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml) |
-| Vue | [![Build Vue Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml) |
+| Project | Main Branch | Dev Branch |
+|---------|------------|-------------|
+| ASP.NET Blazor (.NET 5) | ![Build Web](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Web%20Application/badge.svg?branch=main) | n/a |
+| WPF (.NET Framework) | ![Build WPF](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg?branch=main) | n/a |
+| Console (.NET 5) | ![Build Console](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg?branch=main) | n/a |
+| MAUI | [![MAUI main](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml/badge.svg?branch=main)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml) | [![MAUI dev ](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml/badge.svg?branch=dev)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml) |
+| Angular | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | n/a |
+| React | [![Build React](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml) | n/a |
+| Vue | [![Build Vue Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml) | n/a |
 
 ### GitLab CI-CD
 
