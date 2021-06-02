@@ -98,15 +98,21 @@ jobs:
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    - name: Install .NET 6 SDK
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+
+    - name: Install .NET 6 SDK and  check
       shell: bash
       run: |
         echo "$env:DotNetRoot" >> $GITHUB_PATH
         echo "$env:DotNetTools" >> $GITHUB_PATH
+        # install SDK
         curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh
-        sh dotnet-install.sh --version 6.0.100-preview.4.21255.9 --install-dir '/usr/local/share/dotnet/' --verbose
+        sh dotnet-install.sh --version $env:DotNetVersion --install-dir $DOTNET_ROOT --verbose
         dotnet --list-sdks
-        
+
     - name: maui-check
       shell: bash
       run: |
