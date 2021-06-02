@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -72,16 +71,6 @@ jobs:
   maui-on-mac:
     runs-on: macos-latest
 
-    env:
-      DotNetRoot: /usr/local/share/dotnet/
-      DotNetTools: ~/.dotnet/tools
-      IsRunningOnCI: true
-      DotNetVersion: 6.0.100-preview.4.21255.9
-      DotNet.Cli.Telemetry.OptOut: true
-      MauiCheckVersion: 0.4.1
-      MauiCheckManifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
-      Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -98,20 +87,29 @@ jobs:
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    - name: Install .NET 6 SDK
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+
+    - name: Install .NET 6 SDK and  check
       shell: bash
       run: |
-        export PATH="$env:DotNetRoot:$env:DotNetTools:$PATH"
+        # echo "$env:DotNetRoot" >> $GITHUB_PATH
+        # echo "$env:DotNetTools" >> $GITHUB_PATH
         curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh
-        sh dotnet-install.sh --version $env:DotNetVersion --install-dir $DOTNET_ROOT --verbose
+        sh dotnet-install.sh --version 6.0.100-preview.4.21255.9 --install-dir '/usr/local/share/dotnet/' --verbose
         dotnet --list-sdks
-        
+      env:
+        IsRunningOnCI: true
+        DotNet.Cli.Telemetry.OptOut: true
+
     - name: maui-check
       shell: bash
       run: |
-        dotnet tool update --global redth.net.maui.check --version $env:MauiCheckVersion --add-source https://api.nuget.org/v3/index.json
-        maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $env:MauiCheckManifest
-    
+        dotnet tool update --global redth.net.maui.check --version 0.4.1 --add-source https://api.nuget.org/v3/index.json
+        maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
+
     - name: select Xcode 12.4
       shell: bash
       run: sudo xcode-select -s /Applications/Xcode_12.4.app
@@ -128,14 +126,14 @@ jobs:
     - name: Restore NuGet packages
       shell: bash
       run: |
-        dotnet restore src\MAUI\HelloMaui\HelloMaui.csproj --configfile src\MAUI\NuGet.Config
+        dotnet restore src/MAUI/HelloMaui/HelloMaui.csproj --configfile src/MAUI/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
     - name: Build Solution
       shell: bash
-      run: dotnet build src/MAUI/MauiDemo.sln -c Release
+      run: dotnet build src/MAUI/MauiDemo.sln -c Release --no-restore -p:PublishTrimmed=false
     
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
