@@ -106,11 +106,11 @@ jobs:
     - name: Install .NET 6 SDK and  check
       shell: bash
       run: |
-        echo "$env:DotNetRoot" >> $GITHUB_PATH
-        echo "$env:DotNetTools" >> $GITHUB_PATH
+        # echo "$env:DotNetRoot" >> $GITHUB_PATH
+        # echo "$env:DotNetTools" >> $GITHUB_PATH
         # install SDK
         curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh
-        sh dotnet-install.sh --version $env:DotNetVersion --install-dir $DOTNET_ROOT --verbose
+        sh dotnet-install.sh --version '6.0.100-preview.4.21255.9' --install-dir '/usr/local/share/dotnet/' --verbose
         dotnet --list-sdks
 
     - name: maui-check
