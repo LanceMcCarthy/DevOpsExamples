@@ -103,7 +103,7 @@ jobs:
       run: |
         export PATH="$env:DotNetRoot:$env:DotNetTools:$PATH"
         curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh
-        sh dotnet-install.sh --version $env:DotNetVersion --install-dir $DOTNET_ROOT --verbose
+        sh dotnet-install.sh --version $env:DotNetVersion --install-dir $env:DotNetRoot --verbose
         dotnet --list-sdks
         
     - name: maui-check
