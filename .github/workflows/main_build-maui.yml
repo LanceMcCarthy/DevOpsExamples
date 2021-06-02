@@ -133,7 +133,7 @@ jobs:
     
     - name: Build Solution
       shell: bash
-      run: dotnet build src/MAUI/MauiDemo.sln -c Release
+      run: dotnet build src/MAUI/MauiDemo.sln -c Release --no-restore -p:PublishTrimmed=false
     
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
