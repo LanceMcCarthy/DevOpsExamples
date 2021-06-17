@@ -1,6 +1,7 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using Telerik.Maui;
 using Telerik.Maui.Handlers;
@@ -21,33 +22,34 @@ using PrimitivesRenderer = Telerik.XamarinForms.PrimitivesRenderer.UWP;
 
 namespace HelloMaui
 {
-	public class Startup : IStartup
-	{
-		public void Configure(IAppHostBuilder appBuilder)
-		{
-			appBuilder
-				.UseFormsCompatibility()
-				.ConfigureFonts(fonts => {
-					fonts.AddFont("ionicons.ttf", "IonIcons");
-				})
-				.ConfigureMauiHandlers(handlers => {
-					handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Input.RadButton), typeof(InputRenderer.ButtonRenderer));
-					handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Chart.RadCartesianChart), typeof(ChartRenderer.CartesianChartRenderer));
-					handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Input.RadSegmentedControl), typeof(InputRenderer.SegmentedControlRenderer));
-					handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Primitives.RadCheckBox), typeof(PrimitivesRenderer.CheckBoxRenderer));
-					handlers.AddHandler<IRadItemsControl, RadItemsControlHandler>();
-					handlers.AddHandler<IRadBorder, RadBorderHandler>();
-				})
-				.UseMauiApp<App>()
-				.ConfigureLifecycleEvents(lifecycle => {
+    public class Startup : IStartup
+    {
+        public void Configure(IAppHostBuilder appBuilder)
+        {
+            appBuilder
+                .UseMauiApp<App>()
+                //.UseFormsCompatibility()
+                .ConfigureFonts(fonts => {
+                    fonts.AddFont("ionicons.ttf", "IonIcons");
+                })
+                .ConfigureMauiHandlers(handlers => {
+                    handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Input.RadButton), typeof(InputRenderer.ButtonRenderer));
+                    handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Chart.RadCartesianChart), typeof(ChartRenderer.CartesianChartRenderer));
+                    handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Input.RadSegmentedControl), typeof(InputRenderer.SegmentedControlRenderer));
+                    handlers.AddCompatibilityRenderer(typeof(Telerik.XamarinForms.Primitives.RadCheckBox), typeof(PrimitivesRenderer.CheckBoxRenderer));
+                    handlers.AddHandler<IRadItemsControl, RadItemsControlHandler>();
+                    handlers.AddHandler<IRadBorder, RadBorderHandler>();
+                })
+                
+                .ConfigureLifecycleEvents(lifecycle => {
 #if ANDROID
-					lifecycle.AddAndroid(d => {
-						d.OnBackPressed(activity => {
-							System.Diagnostics.Debug.WriteLine("Back button pressed!");
-						});
-					});
+                    lifecycle.AddAndroid(d => {
+                        d.OnBackPressed(activity => {
+                            System.Diagnostics.Debug.WriteLine("Back button pressed!");
+                        });
+                    });
 #endif
-				});
-		}
-	}
+                });
+        }
+    }
 }
