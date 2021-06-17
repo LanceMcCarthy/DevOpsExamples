@@ -30,13 +30,15 @@
     </ApplicationDefinition>
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProjectReunion" Version="[0.5.7]">
+    <PackageReference Include="Microsoft.ProjectReunion" Version="0.8.0-preview">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.4.628" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.4.628" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="6.0.100-preview.4.628" />
-    <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.4.628" />
+    <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.798" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.5.798" />
+    <PackageReference Include="Microsoft.Maui.Compatibility" Version="6.0.100-preview.5.798" />
+    <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.5.798" />
+    <PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.8.0-preview" />
+    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.0-preview" />
     <PackageReference Include="Telerik.UI.for.Maui" Version="2021.2.617.1" />
   </ItemGroup>
 
