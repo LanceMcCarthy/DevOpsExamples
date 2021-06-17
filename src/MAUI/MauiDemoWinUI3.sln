@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31306.274
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloMaui", "HelloMaui\HelloMaui.csproj", "{96FAC174-1B89-47EB-AD34-101A49FD4885}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloMauiWinUI3", "HelloMauiWinUI3\HelloMauiWinUI3.csproj", "{BDB50297-00DF-401A-9C24-BE68E6A5176F}"
+EndProject
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "HelloMauiWinUI3 (Package)", "HelloMauiWinUI3 (Package)\HelloMauiWinUI3 (Package).wapproj", "{A88FCF8C-EC35-4623-B126-C591EEF99C70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

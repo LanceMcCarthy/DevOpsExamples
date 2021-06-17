@@ -6,6 +6,7 @@ namespace HelloMaui.ViewModels
 {
     public class MainViewModel : NotifyPropertyChangedBase
     {
+        public ObservableCollection<Task> Tasks { get; }
         public ObservableCollection<Experience> Experiences { get; }
         public ObservableCollection<CategoricalData> Data { get; }
         public ObservableCollection<CategoricalData> Data1 { get; }
@@ -15,6 +16,12 @@ namespace HelloMaui.ViewModels
 
         public MainViewModel()
         {
+            this.Tasks = new ObservableCollection<Task>()
+            {
+                new Task() { Title = "Create a MAUI app to test handlers ", Status = "Status: in progress" },
+                new Task() { Title = "Migrate wrappers to .NET 6", Status = "Status: in progress" },
+            };
+
             this.Experiences = new ObservableCollection<Experience>()
             {
                 new Experience() { Title = "JS Developer", Company = "@ Progress Software" },
