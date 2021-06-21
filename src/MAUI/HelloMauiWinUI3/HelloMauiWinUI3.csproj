@@ -33,13 +33,11 @@
     <PackageReference Include="Microsoft.ProjectReunion" Version="0.8.0-preview">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.798" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.5.798" />
-    <PackageReference Include="Microsoft.Maui.Compatibility" Version="6.0.100-preview.5.798" />
-    <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.5.798" />
-    <PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.8.0-preview" />
-    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.8.0-preview" />
-    <PackageReference Include="Telerik.UI.for.Maui" Version="2021.2.617.1" />
+    <PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.794" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="6.0.100-preview.5.794" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="6.0.100-preview.5.794" />
+    <PackageReference Include="Microsoft.Maui.Resizetizer" Version="6.0.100-preview.5.794" />
+    <PackageReference Include="Telerik.UI.for.Maui" Version="2021.2.618.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,7 +55,7 @@
     <Compile Include="..\HelloMaui\Models\*.cs" Link="Models\%(RecursiveDir)%(FileName)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\HelloMaui\*.xaml" Link="%(FileName)%(Extension)" />
+    <MauiXaml Include="..\HelloMaui\*.xaml" Link="%(FileName)%(Extension)" />
   </ItemGroup>
   <ItemGroup>
     <MauiImage Include="..\HelloMaui\Resources\AppIcons\**\*.svg" Link="Resources\AppIcons\%(RecursiveDir)%(FileName)%(Extension)" />
