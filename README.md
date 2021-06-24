@@ -23,7 +23,7 @@ The following tables list the status badges for the various pipelines and workfl
 | Project | Main Branch | Pipeline type |
 |---------|--------|---------------|
 | ASP.NET Blazor (.NET 5) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyBlazorApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) | classic |
-| WPF (.NET Framework) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/MyWpfApp%20Build)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | classic |
+| WPF & WinForms (.NET Framework) | [![Build status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WPF%20and%20WinForms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | classic |
 | Console (.NET 5) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | yaml |
 | MAUI | [![Build MAUI](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20MAUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=72) | classic |
 | MAUI (WinUI 3) | [![WinUI3 MAUI](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WinUI3%20(MAUI))](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=74) | classic |
