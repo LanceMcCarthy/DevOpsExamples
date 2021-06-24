@@ -1,4 +1,4 @@
-name: Build MAUI Project
+name: Build MAUI WinUI3 Project
 
 on:
   push:
