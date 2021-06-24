@@ -1,0 +1,36 @@
+name: Build WinForms Application
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # A job that builds a .NET Framework WPF application using Telerik UI for WPF
+  # It uses a Windows runner and builds for x86 and x64 runtime
+  build_desktop:
+    runs-on: windows-latest # WPF apps must be built on Windows runners
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+      
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 5.0.100
+    
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+    
+    # We use the dotnet CLI (instead of nuget.exe) to restore the nuget packages before using msbuild
+    - name: NuGet Restore
+      run: dotnet restore src\WinForms\MyWinFormsApp\MyWinFormsApp\MyWinFormsApp.csproj --configfile src\NuGet.Config --runtime win-x86
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+
+    # USe msbuild to compile the .NET Framework WPF project
+    - name: Build the WinForms application 
+      run: msbuild src\WinForms\MyWinFormsApp\MyWinFormsApp\MyWinFormsApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
