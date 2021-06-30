@@ -9,6 +9,8 @@ jobs:
   # It uses a Windows runner and builds for x86 and x64 runtime
   build_desktop:
     runs-on: windows-latest # WPF apps must be built on Windows runners
+    env:
+      Actions_Allow_Unsecure_Commands: true #This is only required for the AzureSignTool step
     
     steps:
     - name: Checkout
