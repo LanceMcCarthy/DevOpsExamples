@@ -31,6 +31,13 @@ jobs:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
-    # USe msbuild to compile the .NET Framework WPF project
+    # Uee msbuild to compile the .NET Framework WPF project
     - name: Build the WPF application
       run: msbuild src\Wpf\MyWpfApp\MyWpfApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
+
+    # If you need to sign the assembly or exe, you can use the Azure Key Vault
+    - name: AzureSignTool
+      uses: fluffy-bunny/action-azuresigntool@v0.1dev
+      with:
+        azure_sign_tool_credentials: ${{ secrets:AZURE_KEY_VAULT_CREDENTIALS }}
+        files_to_sign: src\Wpf\files_to_sign.txt
