@@ -39,5 +39,5 @@ jobs:
     - name: AzureSignTool
       uses: fluffy-bunny/action-azuresigntool@v0.1dev
       with:
-        azure_sign_tool_credentials: ${{ secrets:AZURE_KEY_VAULT_CREDENTIALS }}
+        azure_sign_tool_credentials: ${{ secrets.AZURE_KEY_VAULT_CREDENTIALS }}
         files_to_sign: src\Wpf\files_to_sign.txt
