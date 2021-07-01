@@ -34,14 +34,12 @@ jobs:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
-    # Uee msbuild to compile the .NET Framework WPF project
+    # Use msbuild to compile the .NET Framework WPF project
     - name: Build the WPF application
       run: msbuild src\Wpf\MyWpfApp\MyWpfApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
 
-    # If you need to sign the assembly or exe, you can use the Azure Key Vault
-    - name: AzureSignTool
-      uses: fluffy-bunny/action-azuresigntool@v0.1dev
-      with:
-        azure_sign_tool_credentials: ${{ secrets.AZURE_KEY_VAULT_CREDENTIALS }}
-        azure_sign_tool_assembly: ..\..\_actions\fluffy-bunny\action-azuresigntool\v0.1dev\tools\AzureSignTool\netcoreapp2.1\any\AzureSignTool.dll
-        files_to_sign: src\Wpf\files_to_sign.txt
+    # Install Azure SignTool and sign the exe
+    - name: Sign the app files
+      run: |
+        dotnet tool install AzureSignTool --global
+        AzureSignTool.exe sign --azure-key-vault-url $env:AZURE_KEYVAULT_URL --azure-key-vault-client-id $env:AZURE_KEYVAULT_CLIENT_ID --azure-key-vault-client-secret $env:AZURE_CLIENT_SECRET --azure-key-vault-certificate $env:AZURE_KEYVAULT_CERTIFICATE_NAME src\Wpf\MyWpfApp\bin\Release\MyWpfApp.exe
