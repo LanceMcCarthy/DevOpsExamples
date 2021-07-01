@@ -38,10 +38,10 @@ jobs:
     - name: Build the WPF application
       run: msbuild src\Wpf\MyWpfApp\MyWpfApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
 
-    - name: Install .NET Core 2.1.0 (for AzureSignTool)
+    - name: Install .NET Core 2.1.x (for AzureSignTool)
       uses: actions/setup-dotnet@v1.7.2
       with:
-        dotnet-version: 2.1.0
+        dotnet-version: 2.1.x
 
     # Install Azure SignTool and sign the exe
     - name: Sign the app files
