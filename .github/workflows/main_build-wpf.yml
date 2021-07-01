@@ -8,8 +8,8 @@ jobs:
   # A job that builds a .NET Framework WPF application using Telerik UI for WPF
   # It uses a Windows runner and builds for x86 and x64 runtime
   build_desktop:
-    #runs-on: windows-latest # WPF apps must be built on Windows runners
-    runs-on: [self-hosted, Windows, X64]
+    runs-on: windows-latest # WPF apps must be built on Windows runners
+    #runs-on: [self-hosted, Windows, X64]
     env:
       Actions_Allow_Unsecure_Commands: true #This is only required for the AzureSignTool step
     
