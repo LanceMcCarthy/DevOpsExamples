@@ -8,7 +8,8 @@ jobs:
   # A job that builds a .NET Framework WPF application using Telerik UI for WPF
   # It uses a Windows runner and builds for x86 and x64 runtime
   build_desktop:
-    runs-on: windows-latest # WPF apps must be built on Windows runners
+    #runs-on: windows-latest # WPF apps must be built on Windows runners
+    runs-on: [self-hosted, Windows, X64]
     env:
       Actions_Allow_Unsecure_Commands: true #This is only required for the AzureSignTool step
     
@@ -42,5 +43,5 @@ jobs:
       uses: fluffy-bunny/action-azuresigntool@v0.1dev
       with:
         azure_sign_tool_credentials: ${{ secrets.AZURE_KEY_VAULT_CREDENTIALS }}
-        azure_sign_tool_assembly: .\tools\AzureSignTool-DEV\netcoreapp2.1\any\AzureSignTool.dll
+        azure_sign_tool_assembly: .\tools\AzureSignTool\netcoreapp2.1\any\AzureSignTool.dll
         files_to_sign: src\Wpf\files_to_sign.txt
