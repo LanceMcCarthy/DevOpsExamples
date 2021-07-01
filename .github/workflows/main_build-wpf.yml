@@ -43,8 +43,11 @@ jobs:
       with:
         dotnet-version: 2.1.x
 
-    # Install Azure SignTool and sign the exe
-    - name: Sign the app files
+    - name: Install Azure SignTool
       run: |
         dotnet tool install AzureSignTool --global
-        AzureSignTool.exe sign --azure-key-vault-url $env:AZURE_KEYVAULT_URL --azure-key-vault-client-id $env:AZURE_KEYVAULT_CLIENT_ID --azure-key-vault-client-secret $env:AZURE_CLIENT_SECRET --azure-key-vault-certificate $env:AZURE_KEYVAULT_CERTIFICATE_NAME src\Wpf\MyWpfApp\bin\Release\MyWpfApp.exe
+        
+    # Signes file with certificate from Azure Key Vault
+    - name: Sign files
+      run: |
+        AzureSignTool.exe sign --azure-key-vault-url $env:AZURE_KEYVAULT_URL --azure-key-vault-client-id $env:AZURE_KEYVAULT_CLIENT_ID --azure-key-vault-client-secret $env:AZURE_CLIENT_SECRET --azure-key-vault-certificate $env:AZURE_KEYVAULT_CERTIFICATE_NAME --input-file-list src\Wpf\files_to_sign.txt
