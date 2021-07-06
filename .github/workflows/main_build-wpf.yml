@@ -37,17 +37,3 @@ jobs:
     # Use msbuild to compile the .NET Framework WPF project
     - name: Build the WPF application
       run: msbuild src\Wpf\MyWpfApp\MyWpfApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
-
-    - name: Install .NET Core 2.1.x (for AzureSignTool)
-      uses: actions/setup-dotnet@v1.7.2
-      with:
-        dotnet-version: 2.1.x
-
-    - name: Install Azure SignTool
-      run: |
-        dotnet tool install AzureSignTool --global
-        
-    # Signes file with certificate from Azure Key Vault
-    - name: Sign files
-      run: |
-        AzureSignTool.exe sign --azure-key-vault-url $env:AZURE_KEYVAULT_URL --azure-key-vault-client-id $env:AZURE_KEYVAULT_CLIENT_ID --azure-key-vault-client-secret $env:AZURE_CLIENT_SECRET --azure-key-vault-certificate $env:AZURE_KEYVAULT_CERTIFICATE_NAME src\Wpf\MyWpfApp\bin\Release\MyWpfApp.exe
