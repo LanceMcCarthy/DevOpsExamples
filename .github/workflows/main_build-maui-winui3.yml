@@ -19,9 +19,9 @@ jobs:
       NuGetConfigPath: src/MAUI/NuGet.Config
       BuildConfig: Debug
       IsRunningOnCI: true
-      DotNetVersion: 6.0.100-preview.5.21302.13
+      DotNetVersion: 6.0.100-preview.6.21355.2
       DotNet.Cli.Telemetry.OptOut: true
-      MauiCheckVersion: 0.5.6
+      MauiCheckVersion: 0.6.1
       MauiCheckManifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
       Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
     
