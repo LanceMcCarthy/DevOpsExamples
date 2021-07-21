@@ -14,6 +14,8 @@ namespace HelloMaui.ViewModels
         public ObservableCollection<CategoricalData> Data3 { get; }
         public ObservableCollection<CategoricalData> Data4 { get; }
 
+        public ObservableCollection<string> Frameworks { get; }
+
         public MainViewModel()
         {
             this.Tasks = new ObservableCollection<Task>()
@@ -73,6 +75,8 @@ namespace HelloMaui.ViewModels
                 new CategoricalData() { Category = "Thu", Value = 45 },
                 new CategoricalData() { Category = "Fri", Value = 55 }
             };
+
+            this.Frameworks = new ObservableCollection<string>() { "MAUI", "Xamarin", "Win UI" };
         }
     }
 }

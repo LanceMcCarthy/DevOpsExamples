@@ -1,5 +1,6 @@
-﻿using Microsoft.Maui;
-using Windows.ApplicationModel;
+﻿using HelloMaui;
+using Microsoft.Maui;
+using Microsoft.UI.Xaml;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -9,7 +10,7 @@ namespace HelloWinUI3
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public partial class App : MiddleApp
+    public partial class App : MauiWinUIApplication
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -19,11 +20,14 @@ namespace HelloWinUI3
         {
             this.InitializeComponent();
         }
-    }
 
-    // TODO: this is not nice.
-    public class MiddleApp : MauiWinUIApplication<HelloMaui.Startup>
-    {
-    }
+        protected override IStartup OnCreateStartup() => new Startup();
 
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            base.OnLaunched(args);
+
+            Microsoft.Maui.Essentials.Platform.OnLaunched(args);
+        }
+    }
 }

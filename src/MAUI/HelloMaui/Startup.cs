@@ -1,18 +1,19 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.LifecycleEvents;
 using Telerik.Maui;
 using Telerik.Maui.Handlers;
 using Microsoft.Maui.Controls.Hosting;
+using SkiaSharp.Views.Maui.Controls.Compatibility;
+using SkiaSharp.Views.Maui.Controls;
 
 #if __ANDROID__
-using InputRenderer = Telerik.XamarinForms.InputRenderer.Android;
 using ChartRenderer = Telerik.XamarinForms.ChartRenderer.Android;
+using InputRenderer = Telerik.XamarinForms.InputRenderer.Android;
 using PrimitivesRenderer = Telerik.XamarinForms.PrimitivesRenderer.Android;
 #elif __IOS__
-using InputRenderer = Telerik.XamarinForms.InputRenderer.iOS;
 using ChartRenderer = Telerik.XamarinForms.ChartRenderer.iOS;
+using InputRenderer = Telerik.XamarinForms.InputRenderer.iOS;
 using PrimitivesRenderer = Telerik.XamarinForms.PrimitivesRenderer.iOS;
 #else
 using ChartRenderer = Telerik.XamarinForms.ChartRenderer.UWP;
@@ -38,16 +39,9 @@ namespace HelloMaui
 					handlers.AddHandler(typeof(IRadItemsControl), typeof(RadItemsControlHandler));
 					handlers.AddHandler(typeof(Telerik.Maui.Controls.RadBorder), typeof(RadBorderHandler));
 				})
-				.UseMauiApp<App>()
-				.ConfigureLifecycleEvents(lifecycle => {
-#if ANDROID
-					lifecycle.AddAndroid(d => {
-						d.OnBackPressed(activity => {
-							System.Diagnostics.Debug.WriteLine("Back button pressed!");
-						});
-					});
-#endif
-				});
+				.UseSkiaSharpCompatibilityRenderers()
+				.UseSkiaSharpHandlers()
+				.UseMauiApp<App>();
 		}
 	}
 }

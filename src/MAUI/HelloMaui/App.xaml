@@ -1,26 +1,18 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:HelloMaui"
-             x:Class="HelloMaui.App">
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.Maui.Controls.Compatibility"
+             x:Class="HelloMaui.App"
+             windows:Application.ImageDirectory="Assets">
     <Application.Resources>
         <ResourceDictionary>
-
-            <!-- Add any additional resources here. -->
             <Color x:Key="PageBackgroundColor">White</Color>
-
             <Color x:Key="PrimaryTextColor">Black</Color>
-
-            <Color x:Key="GlyphColor">#2B0B98</Color>
-
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
             </Style>
-
-            <Style TargetType="Label" x:Key="Glyph">
-                <Setter Property="TextColor" Value="{DynamicResource GlyphColor}" />
-                <Setter Property="FontFamily" Value="IonIcons" />
-                <Setter Property="FontSize" Value="32" />
-            </Style>
+            <telerikCommon:AnimationSettings x:Key="disabledAnimation" Enabled="False" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
