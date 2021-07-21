@@ -62,20 +62,19 @@ jobs:
 
     - name: Build Maui project
       shell: pwsh
-      run: dotnet build $env:SolutionPath -c $env:BuildConfig --no-restore
+      run: dotnet build $env:SolutionPath -c $env:BuildConfig -t net6.0-android --no-restore
     
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: maui-windows-artifacts
+        name: maui-windows-android-artifacts
         path: '*Android\**\*-Signed.apk'
 
 # ********************** NET 6 MAUI app | MacOS Build ************************* #
 
   maui-on-mac:
     #runs-on: macos-latest
-    # in order to easily use Xcode 13 beta, I run tthis job on alocal Mac using a runner.
-    runs-on: self-hosted
+    runs-on: self-hosted # I am running this in a self-hosted runner while we're in between Xcode releases
     env:
       ProjectPath: src/MAUI/HelloMaui/HelloMaui.csproj
       SolutionPath: src/MAUI/DemoApp.sln
@@ -106,36 +105,8 @@ jobs:
     - name: Setup dotnet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.x'
-
-# Not needed when running on a self-hosted machine with the tools preinstalled
-    # - name: Install .NET 6 SDK and  check
-    #   shell: bash
-    #   run: |
-    #     # echo "$env:DotNetRoot" >> $GITHUB_PATH
-    #     # echo "$env:DotNetTools" >> $GITHUB_PATH
-    #     curl -L https://raw.githubusercontent.com/dotnet/install-scripts/7a9d5dcab92cf131fc2d8977052f8c2c2d540e22/src/dotnet-install.sh > dotnet-install.sh
-    #     sh dotnet-install.sh --version $env:DotNetVersion --install-dir '/usr/local/share/dotnet/' --verbose
-    #     dotnet --list-sdks
-
-    # - name: maui-check
-    #   shell: bash
-    #   run: |
-    #     dotnet tool update --global redth.net.maui.check --version $env:MauiCheckVersion --add-source https://api.nuget.org/v3/index.json
-    #     maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $env:MauiCheckManifest
-
-    # - name: select Xcode 13
-    #   shell: bash
-    #   run: sudo xcode-select -s /Applications/Xcode_13.app
-
-    # - name: configure vsmac xcode
-    #   shell: bash
-    #   run: |
-    #     set -x
-    #     mkdir -p ~/Library/Preferences/Xamarin
-    #     rm -f ~/Library/Preferences/Xamarin/Settings.plist
-    #     /usr/libexec/PlistBuddy -c "add :AppleSdkRoot string $(dirname $(dirname $(xcode-select -p)))" ~/Library/Preferences/Xamarin/Settings.plist || true
-    #     cat ~/Library/Preferences/Xamarin/Settings.plist || true
+        dotnet-version: '6.0.x'
+        include-prerelease: true
 
     - name: Restore NuGet packages
       shell: bash
@@ -145,12 +116,12 @@ jobs:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
-    - name: Build Solution
+    - name: Build iOS Solution
       shell: bash
       run: dotnet build $env:SolutionPath -c Debug -t net6.0-ios --no-restore
     
-    - name: Upload build artifacts
+    - name: Upload iOS build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: maui-mac-artifacts
+        name: maui-ios-artifacts
         path: '*iOS/**/*.app/**'
