@@ -11,8 +11,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommonHelpers" Version="1.1.2" />
-    <PackageReference Include="Telerik.UI.for.Xamarin" Version="2021.1.413.1" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
+    <PackageReference Include="Telerik.UI.for.Xamarin" Version="2021.2.728.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.XamarinForms.Chart">
