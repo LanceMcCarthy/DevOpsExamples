@@ -29,7 +29,8 @@
     "browserslist": ">=4.16.5",
     "normalize-url": "^4.5.1",
     "react-scripts": "^4.0.3",
-    "tar": ">=6.1.2"
+    "tar": ">=6.1.2",
+    "url-parse": "^1.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
