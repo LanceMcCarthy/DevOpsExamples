@@ -12,7 +12,7 @@
     <UseMaui>true</UseMaui>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Maui" Version="2021.2.719.1" />
+    <PackageReference Include="Telerik.UI.for.Maui" Version="2021.2.817.1" />
   </ItemGroup>
   <ItemGroup>
     <MauiImage Include="Resources\AppIcons\appicon.svg" ForegroundFile="Resources\AppIcons\appiconfg.svg" IsAppIcon="true" />
