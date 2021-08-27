@@ -19,9 +19,9 @@ jobs:
       NuGetConfigPath: src/MAUI/NuGet.Config
       BuildConfig: Debug
       IsRunningOnCI: true
-      DotNetVersion: 6.0.100-preview.6.21355.2
+      DotNetVersion: 6.0.100-preview.7.21379.14
       DotNet.Cli.Telemetry.OptOut: true
-      MauiCheckVersion: 0.6.1
+      MauiCheckVersion: 0.8.2
       MauiCheckManifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
       Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
     
@@ -73,16 +73,15 @@ jobs:
 # ********************** NET 6 MAUI app | MacOS Build ************************* #
 
   maui-on-mac:
-    #runs-on: macos-latest
-    runs-on: self-hosted # I am running this in a self-hosted runner while we're in between Xcode releases
+    runs-on: macos-latest
     env:
       ProjectPath: src/MAUI/HelloMaui/HelloMaui.csproj
       SolutionPath: src/MAUI/DemoApp.sln
       NuGetConfigPath: src/MAUI/NuGet.Config
       IsRunningOnCI: true
-      DotNetVersion: 6.0.100-preview.6.21355.2
+      DotNetVersion: 6.0.100-preview.7.21379.14
       DotNet.Cli.Telemetry.OptOut: true
-      MauiCheckVersion: 0.6.1
+      MauiCheckVersion: 0.8.2
       MauiCheckManifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
       Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
 
