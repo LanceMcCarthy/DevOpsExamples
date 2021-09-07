@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "browserslist": ">=4.16.5",
+    "immer": "^9.0.6",
     "normalize-url": "^4.5.1",
     "postcss": "^8.3.6",
     "react-scripts": "^4.0.3",
