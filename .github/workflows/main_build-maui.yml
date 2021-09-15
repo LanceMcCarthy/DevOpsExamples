@@ -10,8 +10,8 @@ on:
       - '**/*.gitattributes'
 
 jobs:
-# ********************** WinUI3 MAUI app | Windows build ************************* #
-  maui-on-windows:
+# ********************** MAUI Android build ************************* #
+  maui-android:
     runs-on: windows-latest
     env:
       ProjectPath: src/MAUI/HelloMaui/HelloMaui.csproj
@@ -19,9 +19,9 @@ jobs:
       NuGetConfigPath: src/MAUI/NuGet.Config
       BuildConfig: Debug
       IsRunningOnCI: true
-      DotNetVersion: 6.0.100-preview.7.21379.14
+      DotNetVersion: 6.0.100-rc.1.21458.32
       DotNet.Cli.Telemetry.OptOut: true
-      MauiCheckVersion: 0.8.2
+      MauiCheckVersion: 0.8.6
       MauiCheckManifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
       Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
     
@@ -70,18 +70,18 @@ jobs:
         name: maui-windows-android-artifacts
         path: '*Android\**\*-Signed.apk'
 
-# ********************** NET 6 MAUI app | MacOS Build ************************* #
+# ********************** MAUI iOS Build ************************* #
 
-  maui-on-mac:
+  maui-ios:
     runs-on: macos-latest
     env:
       ProjectPath: src/MAUI/HelloMaui/HelloMaui.csproj
       SolutionPath: src/MAUI/DemoApp.sln
       NuGetConfigPath: src/MAUI/NuGet.Config
       IsRunningOnCI: true
-      DotNetVersion: 6.0.100-preview.7.21379.14
+      DotNetVersion: 6.0.100-rc.1.21458.32
       DotNet.Cli.Telemetry.OptOut: true
-      MauiCheckVersion: 0.8.2
+      MauiCheckVersion: 0.8.6
       MauiCheckManifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
       Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
 
@@ -124,3 +124,63 @@ jobs:
       with:
         name: maui-ios-artifacts
         path: '*iOS/**/*.app/**'
+
+# ********************** Future MAUI Windows build ************************* #
+  # maui-windows:
+  #   runs-on: windows-latest
+  #   env:
+  #     ProjectPath: src/MAUI/HelloMaui/HelloMaui.csproj
+  #     SolutionPath: src/MAUI/DemoApp.sln
+  #     NuGetConfigPath: src/MAUI/NuGet.Config
+  #     BuildConfig: Debug
+  #     IsRunningOnCI: true
+  #     DotNetVersion: 6.0.100-rc.1.21458.32
+  #     DotNet.Cli.Telemetry.OptOut: true
+  #     MauiCheckVersion: 0.8.6
+  #     MauiCheckManifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
+  #     Actions_Allow_Unsecure_Commands: true # Allows env variables on the job-level
+    
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v2
+  #     with:
+  #       fetch-depth: 0
+
+  #   - name: Generate version number
+  #     shell: pwsh
+  #     run: |
+  #       $buildDay = Get-Date -Format "yyyy.Mdd"
+  #       $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+  #       echo "APP_VERSION=$ver" >> $GITHUB_ENV
+
+  #   - name: Install .NET 6 SDK
+  #     shell: pwsh
+  #     run: |
+  #       $ProgressPreference = 'SilentlyContinue'
+  #       Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
+  #       & .\dotnet-install.ps1 -Version $env:DotNetVersion -InstallDir "$env:ProgramFiles\dotnet\" -Verbose
+  #       & dotnet --list-sdks
+
+  #   - name: Run maui check
+  #     shell: pwsh
+  #     run: |
+  #       & dotnet tool update --global redth.net.maui.check --version $env:MauiCheckVersion --add-source https://api.nuget.org/v3/index.json
+  #       & maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $env:MauiCheckManifest
+
+  #   - name: Restore NuGet packages
+  #     shell: pwsh
+  #     run: |
+  #       dotnet restore $env:ProjectPath --configfile $env:NuGetConfigPath
+  #     env:
+  #       TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+  #       TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+
+  #   - name: Build Maui project
+  #     shell: pwsh
+  #     run: dotnet build $env:SolutionPath -c $env:BuildConfig --no-restore
+    
+  #   - name: Upload build artifacts
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: maui-windows-artifacts
+  #       path: '*Android\**\*-Signed.apk'
