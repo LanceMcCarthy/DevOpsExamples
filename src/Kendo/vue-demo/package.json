@@ -31,8 +31,10 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "normalize-url": "^6.0.1",
+    "nth-check": "^2.0.1",
     "path-parse": "^1.0.7",
     "postcss": "^8.2.15",
+    "set-value": "^4.1.0",
     "url-parse": "^1.5.3",
     "vue-template-compiler": "^2.6.11"
   },

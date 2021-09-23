@@ -28,9 +28,12 @@
     "browserslist": ">=4.16.5",
     "immer": "^9.0.6",
     "normalize-url": "^4.5.1",
+    "nth-check": "^2.0.1",
     "postcss": "^8.3.6",
     "react-scripts": "^4.0.3",
+    "set-value": "^4.1.0",
     "tar": ">=6.1.9",
+    "tmpl": "^1.0.5",
     "url-parse": "^1.5.3"
   },
   "scripts": {
