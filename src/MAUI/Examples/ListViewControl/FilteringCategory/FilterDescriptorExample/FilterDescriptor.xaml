@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ListViewControl.FilteringCategory.FilterDescriptorExample"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.FilteringCategory.FilterDescriptorExample.FilterDescriptor"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <!-- >> listview-features-filtering-xaml -->
+            <telerikDataControls:RadListView x:Name="listView" 
+                                             ItemsSource="{Binding Items}">
+                <telerikDataControls:RadListView.BindingContext>
+                    <local:ViewModel/>
+                </telerikDataControls:RadListView.BindingContext>
+                <telerikDataControls:RadListView.ItemTemplate>
+                    <DataTemplate>
+                        <telerikListView:ListViewTemplateCell>
+                            <telerikListView:ListViewTemplateCell.View>
+                                <HorizontalStackLayout>
+                                    <Label Text="Name:"/>
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Text=", Age:"/>
+                                    <Label Text="{Binding Age}"/>
+                                </HorizontalStackLayout>
+                            </telerikListView:ListViewTemplateCell.View>
+                        </telerikListView:ListViewTemplateCell>
+                    </DataTemplate>
+                </telerikDataControls:RadListView.ItemTemplate>
+            </telerikDataControls:RadListView>
+            <!-- << listview-features-filtering-xaml -->
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

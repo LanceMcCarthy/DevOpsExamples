@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikBarcode="clr-namespace:Telerik.XamarinForms.Barcode;assembly=Telerik.Maui.Controls.Compatibility"  
+                        x:Class="SDKBrowserMaui.Examples.BarcodeControl.PDF417Category.PDF417Example.PDF417"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <!-- >> pdf417-example-xaml -->
+            <telerikBarcode:RadBarcode x:Name="Barcode"                                 
+                                   Value="Encoded data which will influence the rendered PDF417">
+                <telerikBarcode:RadBarcode.Symbology>
+                    <telerikBarcode:PDF417 SizingMode="Stretch"
+                                Rows="30"
+                                ECLevel="5"/>
+                </telerikBarcode:RadBarcode.Symbology>
+            </telerikBarcode:RadBarcode>
+            <!-- << pdf417-example-xaml -->
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

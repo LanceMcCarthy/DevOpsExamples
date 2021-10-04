@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListViewCommands="clr-namespace:Telerik.XamarinForms.DataControls.ListView.Commands;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ListViewControl.LoadOnDemandCategory.LoadOnDemandTemplateExample"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.LoadOnDemandCategory.LoadOnDemandTemplateExample.LoadOnDemandTemplate"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <telerikDataControls:RadListView x:Name="listView"
+                                             IsLoadOnDemandEnabled="True"
+                                             ItemsSource="{Binding Source}"
+                                             LoadOnDemandMode="Manual">
+                <telerikDataControls:RadListView.BindingContext>
+                    <local:ViewModel/>
+                </telerikDataControls:RadListView.BindingContext>
+                <!--  >> listview-loadondemand-loadondemandcustomizations-lodbutton  -->
+                <telerikDataControls:RadListView.LoadOnDemandItemTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="Red">
+                            <Label FontSize="24"
+                               HorizontalOptions="Center"
+                               Text="Load more items"
+                               TextColor="Black" />
+                        </Grid>
+                    </DataTemplate>
+                </telerikDataControls:RadListView.LoadOnDemandItemTemplate>
+                <!--  << listview-loadondemand-loadondemandcustomizations-lodbutton  -->
+
+                <!--  >> listview-loadondemand-loadondemandcustomizations-loadingindicator  -->
+                <telerikDataControls:RadListView.LoadingOnDemandItemTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="Green">
+                            <Label FontSize="24"
+                               HorizontalOptions="Center"
+                               Text="Loading..."
+                               TextColor="White" />
+                        </Grid>
+                    </DataTemplate>
+                </telerikDataControls:RadListView.LoadingOnDemandItemTemplate>
+                <!--  << listview-loadondemand-loadondemandcustomizations-loadingindicator  -->
+            </telerikDataControls:RadListView>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

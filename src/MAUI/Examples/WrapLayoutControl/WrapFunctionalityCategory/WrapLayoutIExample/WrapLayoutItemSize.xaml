@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"
+                        
+                        x:Class="SDKBrowserMaui.Examples.WrapLayoutControl.WrapFunctionalityCategory.WrapLayoutItemSizeExample.WrapLayoutItemSize"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="Start">
+            <Label Text="Change items width: " Margin="0,0,0,5"/>
+            <Slider Value="{Binding Source={x:Reference wrapLayout}, Path=ItemWidth, Mode=TwoWay}" Minimum="0" Maximum="250" WidthRequest="300"/>
+            <Label Text="Change items height: " Margin="0,10,0,5"/>
+            <Slider Value="{Binding Source={x:Reference wrapLayout}, Path=ItemHeight, Mode=TwoWay}" Minimum="0" Maximum="250" WidthRequest="300"/>
+            
+            <telerik:RadWrapLayout x:Name="wrapLayout" ItemHeight="50" ItemWidth="150" Margin="0,20,0,0">
+                <telerikInput:RadButton BorderThickness="1" Text="Item 1" Margin="2"/>
+                <telerikInput:RadButton BorderThickness="1" Text="Item 2" Margin="2"/>
+                <telerikInput:RadButton BorderThickness="1" Text="Item 3" Margin="2"/>
+            </telerik:RadWrapLayout>
+        </StackLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

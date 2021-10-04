@@ -1,0 +1,34 @@
+﻿<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:SDKBrowserMaui.Models"
+    xmlns:v="clr-namespace:SDKBrowserMaui.Views" 
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+    xmlns:telerikMauiControls="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+    xmlns:telerikDataControlsCompat="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+    ios:Page.UseSafeArea="True"
+    Title="{Binding AppTitle}"
+    NavigationPage.HasBackButton="True"
+    x:Class="SDKBrowserMaui.Pages.ControlPage">
+    <Grid Style="{StaticResource RootGridStyle}">
+        <telerik:RadBorder Style="{StaticResource BackButtonBorderStyle}">
+            <Button Clicked="Back_Clicked" Style="{StaticResource BackButtonStyle}" />
+        </telerik:RadBorder>
+        <telerikDataControlsCompat:NonVirtualizedItemsControl x:Name="categories" 
+                                                              Grid.Row="1"  
+                                                              ItemsSource="{Binding Categories}" 
+                                                              SelectionMode="Single" 
+                                                              SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"  
+                                                              VerticalOptions="Start">
+            <telerikDataControlsCompat:NonVirtualizedItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnSpacing="5" RowDefinitions="40" ColumnDefinitions="50,*">
+                        <Image Source="bullet.png" HorizontalOptions="Center" VerticalOptions="Center" Aspect="Fill" WidthRequest="8" HeightRequest="8"/>
+                        <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </telerikDataControlsCompat:NonVirtualizedItemsControl.ItemTemplate>
+        </telerikDataControlsCompat:NonVirtualizedItemsControl>
+    </Grid>
+</ContentPage>

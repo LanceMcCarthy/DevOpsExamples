@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.NumericInputControl.FeaturesCategory.KeyFeaturesExample.KeyFeatures"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+            <Label Text="NumericInput with defined Value" />
+            <!-- >> numericinput-features-value -->
+            <telerikInput:RadNumericInput x:Name="numericInput" Value="12" />
+            <!-- << numericinput-features-value -->
+            <Label Text="NumericInput with Minimum=0 and Maximum=15" />
+            <!-- >> numericinput-features-minmax -->
+            <telerikInput:RadNumericInput x:Name="numericMinMax" Minimum="0" Maximum="15" />
+            <!-- << numericinput-features-minmax -->
+            <Label Text="NumericInput with Step=10" />
+            <!-- >> numericinput-features-step -->
+            <telerikInput:RadNumericInput x:Name="numericStep" Step="10" />
+            <!-- << numericinput-features-step -->
+            <Label Text="NumericInput with Buttons Text applied" />
+            <!-- >> numericinput-features-btntext -->
+            <telerikInput:RadNumericInput x:Name="numericBtnText" IncreaseButtonText=" &gt;" DecreaseButtonText=" &lt;" />
+            <!-- << numericinput-features-btntext -->
+            <Label Text="NumericInput in read-only mode" />
+            <!-- >> numericinput-features-readonly -->
+            <telerikInput:RadNumericInput x:Name="numericReadOnly" IsReadOnly="True" />
+            <!-- << numericinput-features-readonly -->
+        </StackLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

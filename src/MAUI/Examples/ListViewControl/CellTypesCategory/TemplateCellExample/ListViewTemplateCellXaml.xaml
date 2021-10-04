@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ListViewControl.CellTypesCategory.TemplateCellExample"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.CellTypesCategory.TemplateCellExample.ListViewTemplateCellXaml"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <telerikDataControls:RadListView ItemsSource="{Binding Source}" x:Name="listView">
+                <telerikDataControls:RadListView.BindingContext>
+                    <local:ViewModel />
+                </telerikDataControls:RadListView.BindingContext>
+                <telerikDataControls:RadListView.ItemTemplate>
+                    <DataTemplate>
+                        <telerikListView:ListViewTemplateCell>
+                            <telerikListView:ListViewTemplateCell.View>
+                                <Grid>
+                                    <HorizontalStackLayout Margin="10, 10, 10, 0">
+                                        <Image IsVisible="{Binding IsFavourite}" Source="favourite.png" HeightRequest="16" VerticalOptions="Center" />
+                                        <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="1" Margin="10, 0, 10, 10">
+                                        <Label Text="by" FontSize="13" FontAttributes="Italic" TextColor="Gray" />
+                                        <Label Text="{Binding Author}" FontSize="13" FontAttributes="Italic" TextColor="Gray" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </telerikListView:ListViewTemplateCell.View>
+                        </telerikListView:ListViewTemplateCell>
+                    </DataTemplate>
+                </telerikDataControls:RadListView.ItemTemplate>
+                <telerikDataControls:RadListView.LayoutDefinition>
+                    <telerikListView:ListViewLinearLayout ItemLength="60" />
+                </telerikDataControls:RadListView.LayoutDefinition>
+            </telerikDataControls:RadListView>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

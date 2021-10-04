@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.HeaderAndFooterCategory.HeaderAndFooterExample.HeaderAndFooter"
+                        Margin="5">
+    <telerik:RadContentView.Resources>
+        <ResourceDictionary>
+
+            <!-- >> listview-features-header-template-xaml -->
+            <DataTemplate x:Key="HeaderTemplate">
+                <Label Text="The Available Items are: " 
+                       TextColor="Black" 
+                       FontAttributes="Bold" 
+                       FontSize="25"/>
+            </DataTemplate>
+            <!-- << listview-features-header-template-xaml -->
+
+            <!-- >> listview-features-footer-template-xaml -->
+            <DataTemplate x:Key="FooterTemplate">
+                <Label Text="All Items!" 
+                       TextColor="Black" 
+                       FontAttributes="Bold" 
+                       FontSize="25"/>
+            </DataTemplate>
+            <!-- << listview-features-footer-template-xaml -->
+        </ResourceDictionary>
+    </telerik:RadContentView.Resources>
+    <telerik:RadContentView.Content>
+        <!-- >> listview-features-header-and-footer-xaml -->
+        <telerikDataControls:RadListView x:Name="listView" 
+                                     ItemsSource="{Binding Items}"
+                                     HeaderTemplate="{StaticResource HeaderTemplate}" 
+                                     FooterTemplate="{StaticResource FooterTemplate}"/>
+        <!-- << listview-features-header-and-footer-xaml -->
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.SelectionCategory.SelectionExample.Selection"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+                    <VerticalStackLayout Margin="10">
+                        <Label Text="Set selection mode:" />
+                        <Picker x:Name="selectionModePicker" AutomationId="SelectionModePicker"/>
+                        <Label Text="Set selection gesture:" />
+                        <Picker x:Name="selectionGesturePicker" AutomationId="SelectionGesturePicker"/>
+                    </VerticalStackLayout>
+            <Grid Grid.Row="1">
+                <!-- >> listview-features-selection-xaml -->
+                <telerikDataControls:RadListView  x:Name="listView" Margin="10"
+                                              ItemsSource="{Binding Names}"
+                                              SelectionMode="Multiple"
+                                              SelectedItems="{Binding SelectedNames}">
+                    <telerikDataControls:RadListView.SelectedItemStyle>
+                        <telerikListView:ListViewItemStyle BackgroundColor="#88FFF5BA" 
+                                                       BorderColor="#88FFF5BA" />
+                    </telerikDataControls:RadListView.SelectedItemStyle>
+                </telerikDataControls:RadListView>
+                <!-- << listview-features-selection-xaml -->
+            </Grid>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>
