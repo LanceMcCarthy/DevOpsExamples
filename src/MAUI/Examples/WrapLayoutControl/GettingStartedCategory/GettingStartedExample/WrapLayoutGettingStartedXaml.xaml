@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        x:Class="SDKBrowserMaui.Examples.WrapLayoutControl.GettingStartedCategory.GettingStartedExample.WrapLayoutGettingStartedXaml"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <telerik:RadWrapLayout Orientation="Horizontal">
+            <telerik:RadBorder BorderColor="Gray" BorderThickness="2" Margin="2" WidthRequest="100">
+                <Label Text="Item 1" HorizontalOptions="Center" Margin="2"/>
+            </telerik:RadBorder>
+            <telerik:RadBorder BorderColor="Gray" BorderThickness="2" Margin="2" WidthRequest="120">
+                <Label Text="Item 2" HorizontalOptions="Center" Margin="2"/>
+            </telerik:RadBorder>
+            <telerik:RadBorder BorderColor="Gray" BorderThickness="2" Margin="2" WidthRequest="140">
+                <Label Text="Item 3" HorizontalOptions="Center" Margin="2"/>
+            </telerik:RadBorder>
+            <telerik:RadBorder BorderColor="Gray" BorderThickness="2" Margin="2" WidthRequest="160">
+                <Label Text="Item 4" HorizontalOptions="Center" Margin="2"/>
+            </telerik:RadBorder>
+            <telerik:RadBorder BorderColor="Gray" BorderThickness="2" Margin="2" WidthRequest="200">
+                <Label Text="Item 5" HorizontalOptions="Center" Margin="2"/>
+            </telerik:RadBorder>
+        </telerik:RadWrapLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

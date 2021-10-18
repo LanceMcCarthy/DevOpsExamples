@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.Maui.Controls.Compatibility"
+                         x:Name="page"
+                         BackgroundColor="{DynamicResource PageBackgroundColor}"
+                        x:Class="SDKBrowserMaui.Examples.PathControl.FeaturesCategory.PathGeometryExample.PathGeometry"
+                        Margin="5">
+    <telerik:RadContentView.Resources>
+        <Style TargetType="telerikPrimitives:RadPath" x:Key="pathStyle">
+            <Setter Property="WidthRequest" Value="{OnPlatform UWP='200', Default='150'}"/>
+            <Setter Property="HeightRequest" Value="{OnPlatform UWP='200', Default='150'}"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+    </telerik:RadContentView.Resources>
+    <telerik:RadContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="230"/>
+                <RowDefinition Height="230"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <!--  >> path-geometry-simpleline-xaml  -->
+                <telerikPrimitives:RadPath x:Name="simpleLinePath"
+                                           Style="{StaticResource pathStyle}"
+                                           StrokeThickness="4" 
+                                           Stroke="#2EC262">
+                    <telerikCommon:RadPathGeometry>
+                        <telerikCommon:RadPathFigure StartPoint="0.8, 0.1">
+                            <telerikCommon:RadLineSegment Point="0.1, 0.8" />
+                        </telerikCommon:RadPathFigure>
+                    </telerikCommon:RadPathGeometry>
+                </telerikPrimitives:RadPath>
+                <!--  << path-geometry-simpleline-xaml  -->
+                <Label Text="Simple Line Path" 
+                       TextColor="Black"
+                       HorizontalOptions="Center"
+                       Grid.Row="1"/>
+            </Grid>
+
+            <Grid Margin="10" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <!--  >> path-geometry-simplearc-xaml  -->
+                <telerikPrimitives:RadPath x:Name="simpleArcPath"
+                                           Style="{StaticResource pathStyle}"
+                                           StrokeThickness="4" 
+                                           Stroke="#2EC262">
+                    <telerikCommon:RadPathGeometry>
+                        <telerikCommon:RadPathFigure StartPoint="1, 0.5">
+                            <telerikCommon:RadArcSegment Center = "0.5, 0.5"
+                                                     Size = "1, 1"
+                                                     StartAngle = "0"
+                                                     SweepAngle = "180" />
+                        </telerikCommon:RadPathFigure>
+                    </telerikCommon:RadPathGeometry>
+                </telerikPrimitives:RadPath>
+                <!--  << path-geometry-simplearc-xaml  -->
+                <Label Text="Simple Arc Path" 
+                       TextColor="Black"
+                       HorizontalOptions="Center"
+                       Grid.Row="1"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <!--  >> path-geometry-customline-xaml  -->
+                <telerikPrimitives:RadPath x:Name="customLinePath"
+                                           Style="{StaticResource pathStyle}"
+                                           Grid.Row="0"
+                                           StrokeThickness="0" 
+                                           Fill="#3DBAFE"/>
+                <!--  << path-geometry-customline-xaml  -->
+                <Label Text="Custom Line Path" 
+                       TextColor="Black"
+                       HorizontalOptions="Center"
+                       Grid.Row="1"/>
+            </Grid>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

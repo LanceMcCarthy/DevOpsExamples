@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ListViewControl.GroupingCategory.BindableGroupDescriptorExample"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.GroupingCategory.BindableGroupDescriptorExample.BindablePropertyGrouping"
+                        Margin="5">
+    <telerik:RadContentView.BindingContext>
+        <local:ViewModel/>
+    </telerik:RadContentView.BindingContext>
+    <telerik:RadContentView.Content>
+        <Grid Margin="16,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="Group Descending" />
+                    <Label Text="Updates group descriptor" FontSize="Micro" TextColor="LimeGreen" />
+                </VerticalStackLayout>
+                <Switch IsToggled="{Binding IsSortOrderGroupSwitchToggled, Mode=TwoWay}" AutomationId="GroupSortingSwitch"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Grid.Row="1">
+                <VerticalStackLayout>
+                    <Label Text="Group Day/Category" />
+                    <Label Text="Updates existing group descriptor" FontSize="Micro" TextColor="LimeGreen" />
+                </VerticalStackLayout>
+                <Switch IsToggled="{Binding IsPropertyNameGroupSwitchToggled, Mode=OneWayToSource}" AutomationId="GroupOrderSwitch"/>
+            </HorizontalStackLayout>
+            <!-- >> listview-features-bindable-groupdescriptor-xaml -->
+            <telerikDataControls:RadListView x:Name="listView" 
+                                        Grid.Row="2" 
+                                        GroupDescriptors="{Binding GroupDescriptors, Mode=OneWayToSource}"  
+                                        ItemsSource="{Binding Items}">
+                <!-- << listview-features-bindable-groupdescriptor-xaml -->
+                <telerikDataControls:RadListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding }" TextColor="Violet" FontSize="Large" HorizontalOptions="CenterAndExpand" />
+                    </DataTemplate>
+                </telerikDataControls:RadListView.GroupHeaderTemplate>
+                <telerikDataControls:RadListView.ItemTemplate>
+                    <DataTemplate>
+                        <telerikListView:ListViewTemplateCell>
+                            <telerikListView:ListViewTemplateCell.View>
+                                <StackLayout>
+                                    <Label Text="{Binding Content}" FontSize="Medium" />
+                                    <Label Text="{Binding Day}" FontSize="Small" TextColor="LimeGreen" />
+                                    <Label Text="{Binding Category}" FontSize="Micro" TextColor="Red" />
+                                </StackLayout>
+                            </telerikListView:ListViewTemplateCell.View>
+                        </telerikListView:ListViewTemplateCell>
+                    </DataTemplate>
+                </telerikDataControls:RadListView.ItemTemplate>
+            </telerikDataControls:RadListView>
+         </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

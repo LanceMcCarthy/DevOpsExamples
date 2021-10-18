@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ListViewControl.StylingCategory.ItemStylesExample"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.StylingCategory.ItemStylesExample.ListViewItemStylesXaml"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <!--  >> listview-styling-listview-xaml  -->
+            <telerikDataControls:RadListView x:Name="listView" 
+                                             ItemsSource="{Binding Source}" 
+                                             IsItemsReorderEnabled="True">
+                <telerikDataControls:RadListView.BindingContext>
+                    <local:ViewModel />
+                </telerikDataControls:RadListView.BindingContext>
+                <telerikDataControls:RadListView.ItemTemplate>
+                    <DataTemplate>
+                        <telerikListView:ListViewTextCell Text="{Binding Name}" />
+                    </DataTemplate>
+                </telerikDataControls:RadListView.ItemTemplate>
+                <telerikDataControls:RadListView.ItemStyle>
+                    <telerikListView:ListViewItemStyle BackgroundColor="#1263E5"
+                                            TextCellTextColor="#AAC7F6"
+                                            BorderColor="#0A3A82"                                                
+                                            BorderWidth="2"
+                                            BorderLocation="All" />
+                </telerikDataControls:RadListView.ItemStyle>
+                <telerikDataControls:RadListView.SelectedItemStyle>
+                    <telerikListView:ListViewItemStyle BackgroundColor="#83A9E2"
+                                            TextCellTextColor="#AAC7F6"
+                                            BorderColor="#0A3A82"
+                                            BorderWidth="2" 
+                                            BorderLocation="Bottom"/>
+                </telerikDataControls:RadListView.SelectedItemStyle>
+                <telerikDataControls:RadListView.PressedItemStyle>
+                    <telerikListView:ListViewItemStyle BackgroundColor="#C1C1C1" 
+                                            TextCellTextColor="#AAC7F6"
+                                            BorderColor="#0B3D89" 
+                                            BorderWidth="2" 
+                                            BorderLocation="Bottom"/>
+                </telerikDataControls:RadListView.PressedItemStyle>
+                <telerikDataControls:RadListView.ReorderItemStyle>
+                    <telerikListView:ListViewItemStyle BackgroundColor="#0B3D89"
+                                            TextCellTextColor="#AAC7F6"
+                                            BorderColor="Black"
+                                            BorderWidth="2"
+                                            BorderLocation="All" />
+                </telerikDataControls:RadListView.ReorderItemStyle>
+            </telerikDataControls:RadListView>
+            <!--  << listview-styling-listview-xaml  -->
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

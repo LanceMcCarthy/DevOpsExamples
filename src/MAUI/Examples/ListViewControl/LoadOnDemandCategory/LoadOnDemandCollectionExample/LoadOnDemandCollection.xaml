@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ListViewControl.LoadOnDemandCategory.LoadOnDemandCollectionExample"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.LoadOnDemandCategory.LoadOnDemandCollectionExample.LoadOnDemandCollection"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <telerikDataControls:RadListView x:Name="listView"
+                                             IsLoadOnDemandEnabled="True"
+                                             ItemsSource="{Binding Source}"
+                                             LoadOnDemandMode="Automatic" >
+                <telerikDataControls:RadListView.BindingContext>
+                    <local:ViewModel />
+                </telerikDataControls:RadListView.BindingContext>
+            </telerikDataControls:RadListView>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

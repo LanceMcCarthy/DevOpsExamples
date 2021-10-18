@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.ReorderItemsCategory.ReorderItemsExample.ReorderItems"
+                        Margin="5">
+    
+    <telerik:RadContentView.Content>
+        <!--  >> listview-gestures-reorderitems-listview  -->
+        <telerikDataControls:RadListView x:Name="listView"
+                                         IsItemsReorderEnabled="True"
+                                         SelectionMode="None">
+            <telerikDataControls:RadListView.ItemTemplate>
+                <DataTemplate>
+                    <telerikListView:ListViewTemplateCell>
+                        <telerikListView:ListViewTemplateCell.View>
+                            <StackLayout Spacing="0">
+                                <Label Margin="5,10,5,10"
+                                   FontSize="16"
+                                   Text="{Binding}"
+                                   TextColor="Black"
+                                   VerticalTextAlignment="Center" />
+                                <BoxView Margin="0"
+                                     BackgroundColor="Gray"
+                                     HeightRequest="1" />
+                            </StackLayout>
+                        </telerikListView:ListViewTemplateCell.View>
+                    </telerikListView:ListViewTemplateCell>
+                </DataTemplate>
+            </telerikDataControls:RadListView.ItemTemplate>
+        </telerikDataControls:RadListView>
+        <!--  << listview-gestures-reorderitems-listview  -->
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

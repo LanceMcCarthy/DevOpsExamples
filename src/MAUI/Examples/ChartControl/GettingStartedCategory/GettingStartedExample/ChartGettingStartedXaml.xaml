@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikChart="clr-namespace:Telerik.XamarinForms.Chart;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ChartControl.GettingStartedCategory.GettingStartedExample"
+                        x:Class="SDKBrowserMaui.Examples.ChartControl.GettingStartedCategory.GettingStartedExample.ChartGettingStartedXaml"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <VerticalStackLayout>
+            <!-- >> chart-getting-started-xaml -->
+            <telerikChart:RadCartesianChart x:Name="chart" >
+                <telerikChart:RadCartesianChart.BindingContext>
+                    <local:ViewModel />
+                </telerikChart:RadCartesianChart.BindingContext>
+                <telerikChart:RadCartesianChart.HorizontalAxis>
+                    <telerikChart:CategoricalAxis />
+                </telerikChart:RadCartesianChart.HorizontalAxis>
+                <telerikChart:RadCartesianChart.VerticalAxis>
+                    <telerikChart:NumericalAxis />
+                </telerikChart:RadCartesianChart.VerticalAxis>
+                <telerikChart:RadCartesianChart.Series>
+                    <telerikChart:BarSeries CategoryBinding="Category"
+                              ValueBinding="Value"
+                              ItemsSource="{Binding Data}" />
+                </telerikChart:RadCartesianChart.Series>
+            </telerikChart:RadCartesianChart>
+            <!-- << chart-getting-started-xaml -->
+        </VerticalStackLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

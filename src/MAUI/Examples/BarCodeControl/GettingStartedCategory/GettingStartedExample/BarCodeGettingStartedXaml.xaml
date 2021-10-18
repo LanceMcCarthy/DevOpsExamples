@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikBarcode="clr-namespace:Telerik.XamarinForms.Barcode;assembly=Telerik.Maui.Controls.Compatibility"  
+                        x:Class="SDKBrowserMaui.Examples.BarcodeControl.GettingStartedCategory.GettingStartedExample.BarcodeGettingStartedXaml"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid RowDefinitions="3*,2*">
+            <telerikBarcode:RadBarcode x:Name="barcode"
+                       Value="https://www.telerik.com/maui-ui">
+                <telerikBarcode:RadBarcode.Symbology>
+                    <telerikBarcode:QRCode SizingMode="Stretch" />
+                </telerikBarcode:RadBarcode.Symbology>
+            </telerikBarcode:RadBarcode>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

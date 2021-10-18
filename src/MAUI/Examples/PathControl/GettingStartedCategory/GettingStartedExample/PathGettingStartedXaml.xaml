@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.PathControl.GettingStartedCategory.GettingStartedExample.PathGettingStartedXaml"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid RowDefinitions="{OnPlatform UWP='500', Default='230'}" ColumnDefinitions="{OnPlatform UWP='*,*,*', Default='*,*'}">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <!--  >> path-gettingstarted-starpath-xaml  -->
+                <telerikPrimitives:RadPath x:Name="starPath"
+                                           StrokeThickness="0"
+                                           Fill="#FFC325"
+                                           Geometry="{x:Static telerikInput:Geometries.Star}" />
+                <!--  << path-gettingstarted-starpath-xaml  -->
+                <Label Text="Star Path"
+                       TextColor="Black"
+                       HorizontalOptions="Center"
+                       Grid.Row="1"/>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <!--  >> path-gettingstarted-custompath-xaml  -->
+                <telerikPrimitives:RadPath x:Name="customPath"
+                                       Grid.Row="0"
+                                       StrokeThickness="4"
+                                       Stroke="#2EC262">
+                    <telerikCommon:RadPathGeometry>
+                        <telerikCommon:RadPathFigure StartPoint="0.85, 0.85">
+                            <telerikCommon:RadArcSegment Center = "0.5, 0.5"
+                                                         Size = "1, 1"
+                                                         StartAngle = "315"
+                                                         SweepAngle = "270" />
+                        </telerikCommon:RadPathFigure>
+                    </telerikCommon:RadPathGeometry>
+                </telerikPrimitives:RadPath>
+                <!--  << path-gettingstarted-custompath-xaml  -->
+                <Label Text="Arc Path"
+                       TextColor="Black"
+                       HorizontalOptions="Center"
+                       Grid.Row="1"/>
+            </Grid>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

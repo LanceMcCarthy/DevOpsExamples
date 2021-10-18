@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikGauges="clr-namespace:Telerik.XamarinForms.DataVisualization.Gauges;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikCommon="clr-namespace:Telerik.XamarinForms.Common;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.GaugeControl.GettingStartedCategory.GettingStartedExample.GaugeGettingStartedXaml"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <telerikGauges:RadRadialGauge x:Name="gauge">
+                <telerikGauges:RadRadialGauge.Axis>
+                    <telerikGauges:GaugeLinearAxis Maximum="200"
+                                           Minimum="0"
+                                           Step="25" />
+                </telerikGauges:RadRadialGauge.Axis>
+                <telerikGauges:RadRadialGauge.Indicators>
+                    <telerikGauges:GaugeNeedleIndicator Offset="30" Value="60" />
+                    <telerikGauges:GaugeShapeIndicator Value="80" />
+                </telerikGauges:RadRadialGauge.Indicators>
+                <telerikGauges:RadRadialGauge.Ranges>
+                    <telerikGauges:GaugeRangesDefinition>
+                        <telerikGauges:GaugeRange Color="Green"
+                                          From="0"
+                                          To="150" />
+                        <telerikGauges:GaugeGradientRange From="150" To="200">
+                            <telerikCommon:RadGradientStop Offset="150" Color="Yellow" />
+                            <telerikCommon:RadGradientStop Offset="200" Color="Red" />
+                        </telerikGauges:GaugeGradientRange>
+                    </telerikGauges:GaugeRangesDefinition>
+                </telerikGauges:RadRadialGauge.Ranges>
+            </telerikGauges:RadRadialGauge>
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

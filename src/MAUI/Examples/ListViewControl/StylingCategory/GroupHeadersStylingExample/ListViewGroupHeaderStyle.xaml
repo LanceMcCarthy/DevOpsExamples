@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.Maui.Controls.Compatibility"
+                        xmlns:local="clr-namespace:SDKBrowserMaui.Examples.ListViewControl.StylingCategory.GroupHeadersStylingExample"
+                        x:Class="SDKBrowserMaui.Examples.ListViewControl.StylingCategory.GroupHeadersStylingExample.ListViewGroupHeaderStyle"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <Grid>
+            <!--  >> listview-groupstyle-listview-xaml  -->
+            <telerikDataControls:RadListView x:Name="listView"
+                                             ItemsSource="{Binding Cities}">
+                <telerikDataControls:RadListView.BindingContext>
+                    <local:ViewModel />
+                </telerikDataControls:RadListView.BindingContext>
+                <telerikDataControls:RadListView.ItemTemplate>
+                    <DataTemplate>
+                        <telerikListView:ListViewTextCell Text="{Binding Name}"
+                                                          TextColor="#1263E5" />
+                    </DataTemplate>
+                </telerikDataControls:RadListView.ItemTemplate>
+                <telerikDataControls:RadListView.GroupHeaderStyle>
+                    <telerikListView:ListViewGroupStyle BackgroundColor="#1263E5"
+                                                        TextColor="#AAC7F6"
+                                                        BorderColor="#0A3A82"              
+                                                        BorderWidth="1" />  
+                </telerikDataControls:RadListView.GroupHeaderStyle>
+                <telerikDataControls:RadListView.GroupDescriptors>
+                    <telerikListView:PropertyGroupDescriptor PropertyName="Country" />
+                </telerikDataControls:RadListView.GroupDescriptors>
+            </telerikDataControls:RadListView>
+            <!--  << listview-groupstyle-listview-xaml  -->
+        </Grid>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>
