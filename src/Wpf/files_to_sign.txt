@@ -1,3 +1,0 @@
-src\Wpf\MyWpfApp\bin\Release\MyWpfApp.exe
-src\Wpf\MyWpfApp\bin\Release\MyWpfApp.exe.config
-src\Wpf\MyWpfApp\bin\Release\MyWpfApp.pdb

@@ -24,12 +24,15 @@ jobs:
       with:
         dotnet-version: 6
 
+    # Removed while using self-hosted runner
     # - name: Install MAUI workloads
-    #   shell: pwsh
-    #   run: |
-    #     dotnet workload install maui-ios --ignore-failed-sources
-    #     dotnet workload install maui-android --ignore-failed-sources
-    #     dotnet workload install maccatalyst --ignore-failed-sources
+      # shell: pwsh
+      # run: |
+        # dotnet workload install android --ignore-failed-sources
+        # dotnet workload install ios --ignore-failed-sources
+        # dotnet workload install maui-android --ignore-failed-sources
+        # dotnet workload install maui-ios --ignore-failed-sources
+        # dotnet workload install maccatalyst
 
     # - name: Generate version number
     #   shell: pwsh
@@ -41,7 +44,7 @@ jobs:
     - name: Restore NuGet packages
       shell: pwsh
       run: |
-        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/MAUI/NuGet.Config
+        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
@@ -82,17 +85,20 @@ jobs:
     #     echo $ver
     #     echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
+    # Removed while using self-hosted runner
     # - name: Install MAUI workloads
-    #   shell: pwsh
-    #   run: |
-    #     dotnet workload install maui-ios --ignore-failed-sources
-    #     dotnet workload install maui-android --ignore-failed-sources
-    #     dotnet workload install maccatalyst --ignore-failed-sources
+      # shell: pwsh
+      # run: |
+        # dotnet workload install android --ignore-failed-sources
+        # dotnet workload install ios --ignore-failed-sources
+        # dotnet workload install maui-android --ignore-failed-sources
+        # dotnet workload install maui-ios --ignore-failed-sources
+        # dotnet workload install maccatalyst
 
     - name: Restore NuGet packages
       shell: bash
       run: |
-        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/MAUI/NuGet.Config
+        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
@@ -129,17 +135,20 @@ jobs:
     #     $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
     #     echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
+    # Removed while using self-hosted runner
     # - name: Install MAUI workloads
-    #   shell: pwsh
-    #   run: |
-    #     dotnet workload install maui-ios --ignore-failed-sources
-    #     dotnet workload install maui-android --ignore-failed-sources
-    #     dotnet workload install maccatalyst --ignore-failed-sources
+      # shell: pwsh
+      # run: |
+        # dotnet workload install android --ignore-failed-sources
+        # dotnet workload install ios --ignore-failed-sources
+        # dotnet workload install maui-android --ignore-failed-sources
+        # dotnet workload install maui-ios --ignore-failed-sources
+        # dotnet workload install maccatalyst
 
     - name: Restore NuGet packages
       shell: pwsh
       run: |
-        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/MAUI/NuGet.Config
+        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
