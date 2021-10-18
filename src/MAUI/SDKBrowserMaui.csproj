@@ -49,6 +49,9 @@
 		<PackageReference Include="Microsoft.WindowsAppSDK.WinUI" Version="1.0.0-experimental1" />
 		<PackageReference Include="Microsoft.WindowsAppSDK.InteractiveExperiences" Version="1.0.0-experimental1" NoWarn="NU1701" />
 	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Telerik.UI.for.Maui" Version="0.0.1" />
+	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<OutputType>WinExe</OutputType>
@@ -90,8 +93,5 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="config.xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Telerik.UI.for.Maui" Version="0.0.1" />
 	</ItemGroup>
 </Project>
