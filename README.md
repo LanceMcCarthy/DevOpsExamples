@@ -120,10 +120,10 @@ You could also dynamically update the credentials of a Package Source defined in
 
 ```powershell
 # Updates a source named 'Telerik' in the nuget.config
-dotnet nuget update source Telerik --source https://nuget.telerik.com/nuget --configfile src/nuget.config --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text
+dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --configfile src/nuget.config --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text
 ```
  That command will look through the nuget.config for a package source with the key `Telerik` and then add/update the credentials for that source.
 
-> Note: the `--store-password-in-clear-text` switch only means the password should not encrypted by the runner, it does not make the password visible in logs.
+> The `--store-password-in-clear-text` switch is important. It does *not* mean the password is visible, rather it means that you're using the password text and not a custom encrypted variant. For more information, please visit https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file#packagesourcecredentials
 
 
