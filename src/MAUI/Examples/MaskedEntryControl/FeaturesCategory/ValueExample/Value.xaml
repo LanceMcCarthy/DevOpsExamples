@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        x:Class="SDKBrowserMaui.Examples.MaskedEntryControl.FeaturesCategory.ValueExample.Value"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <Label Text="Numeric mask:" Margin="0, 30, 0, 0" />
+                <telerik:RadNumericMaskedEntry x:Name="numericMaskedEntry"/>
+
+                <HorizontalStackLayout Margin="10,0,0,0">
+                    <Button Text="Change the Value" Clicked="ChangeNumericValue_Clicked" GridLayout.Column="1" Margin="0,0,20,0"/>
+                    <Button Text="Clear the Value" Clicked="ClearNumeric_Clicked"/>
+                </HorizontalStackLayout>
+
+                <Label Text="Regex mask:" Margin="0, 30, 0, 0" />
+                <telerik:RadRegexMaskedEntry x:Name="regexMaskedEntry" Mask="^[0-9]+$" PlaceholderText="^[0-9]+$" />
+
+                <HorizontalStackLayout Margin="10,0,0,0">
+                    <Button Text="Change the Value" Clicked="ChangeRegexValue_Clicked" GridLayout.Column="1" Margin="0,0,20,0"/>
+                    <Button Text="Clear the Value" Clicked="ClearRegex_Clicked"/>
+                </HorizontalStackLayout>
+
+                <Label Text="Text mask with initial vlaue set:" Margin="0, 30, 0, 0" />
+                <telerik:RadTextMaskedEntry x:Name="textMaskedEntry" Mask="aaaa" Value="ABCD"/>
+
+                <HorizontalStackLayout Margin="10,0,0,0">
+                    <Button Text="Change the Value" Clicked="ChangeTextValue_Clicked" GridLayout.Column="1" Margin="0,0,20,0"/>
+                    <Button Text="Clear the Value" Clicked="ClearText_Clicked"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

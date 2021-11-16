@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        x:Class="SDKBrowserMaui.Examples.MaskedEntryControl.MaskTypesCategory.EmailMaskExample.EmailMask"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <Label Text="Default Email Mask:" Margin="0, 10, 0, 0" />
+                <telerik:RadEmailMaskedEntry/>
+
+                <Label Text="Email Mask with changed placeholder:" Margin="0, 10, 0, 0" />
+                <telerik:RadEmailMaskedEntry  PlaceholderText="your_email@gmail.com"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

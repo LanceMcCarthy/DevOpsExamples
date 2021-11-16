@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        x:Class="SDKBrowserMaui.Examples.MaskedEntryControl.FeaturesCategory.ValueFormatExample.ValueFormat"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <Label Text="ValueFormat = ExcludePromptAndLiterals" Margin="0, 30, 0, 0" />
+                <telerik:RadTextMaskedEntry x:Name="excludePromptAndLiteralsMask" Mask="##-##" ValueFormat="ExcludePromptAndLiterals" Value="222"/>
+                <HorizontalStackLayout>
+                    <Label Text="Current Value: " Margin="0,0,10,0"/>
+                    <Label Text="{Binding Source={x:Reference excludePromptAndLiteralsMask}, Path=Value}"/>
+                </HorizontalStackLayout>
+
+                <Label Text="ValueFormat = IncludeLiterals" Margin="0, 30, 0, 0" />
+                <telerik:RadTextMaskedEntry x:Name="includeLiteralsMask" Mask="##-##" ValueFormat="IncludeLiterals"  Value="22-2"/>
+                <HorizontalStackLayout>
+                    <Label Text="Current Value: " Margin="0,0,10,0"/>
+                    <Label Text="{Binding Source={x:Reference includeLiteralsMask}, Path=Value}"/>
+                </HorizontalStackLayout>
+
+                <Label Text="ValueFormat = IncludePrompt" Margin="0, 30, 0, 0" />
+                <telerik:RadTextMaskedEntry x:Name="includePromptMask" Mask="##-##" ValueFormat="IncludePrompt"  Value="222_"/>
+                <HorizontalStackLayout>
+                    <Label Text="Current Value: " Margin="0,0,10,0"/>
+                    <Label Text="{Binding Source={x:Reference includePromptMask}, Path=Value}"/>
+                </HorizontalStackLayout>
+
+                <Label Text="ValueFormat = IncludePromptAndLiterals" Margin="0, 30, 0, 0" />
+                <telerik:RadTextMaskedEntry x:Name="includePromptAndLiteralsMask" Mask="##-##" ValueFormat="IncludePromptAndLiterals" Value="22-2_"/>
+                <HorizontalStackLayout>
+                    <Label Text="Current Value: " Margin="0,0,10,0"/>
+                    <Label Text="{Binding Source={x:Reference includePromptAndLiteralsMask}, Path=Value}"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"  
+                        x:Class="SDKBrowserMaui.Examples.RatingControl.ReadOnlyModeCategory.ReadOnlyModeExample.ReadOnlyMode"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <VerticalStackLayout>
+            <!-- >> rating-features-readonly -->
+            <telerikInput:RadShapeRating AutomationId="readOnlyRating"
+                                         Value="4"
+                                         x:Name="radRating"
+                                         IsReadOnly="True"/>
+            <!-- << rating-features-readonly -->
+        </VerticalStackLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

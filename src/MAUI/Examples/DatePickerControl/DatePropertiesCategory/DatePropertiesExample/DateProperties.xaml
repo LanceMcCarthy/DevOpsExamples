@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.DatePickerControl.DatePropertiesCategory.DatePropertiesExample.DateProperties">
+    <telerik:RadContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="labelStyle">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </telerik:RadContentView.Resources>
+
+    <telerik:RadContentView.Content>
+        <VerticalStackLayout Padding="10">
+            <Label Text="Date Picker with minimum date and maximum date properties" Style="{StaticResource labelStyle}"/>
+            <!-- >> datepicker-dateproperties-minmaxdate -->
+            <telerikInput:RadDatePicker MinimumDate="2020,1,1"
+                                        MaximumDate="2020,12,31"
+                                        DisplayStringFormat="yyy-ddd-MMM"/>
+            <!-- << datepicker-dateproperties-minmaxdate -->
+            <Label Text="Date Picker with selected date" Style="{StaticResource labelStyle}"/>
+            <!-- >> datepicker-dateproperties-date-spinnerformat -->
+            <telerikInput:RadDatePicker Date="2020,05,15"
+                                        SpinnerFormat="yyy-MMM"/>
+            <!-- << datepicker-dateproperties-date-spinnerformat -->
+            <Label Text="Date Picker with default highlighted date and hidden spinner headers" Style="{StaticResource labelStyle}"/>
+            <!-- >> datepicker-dateproperties-date-defaulthighlighted -->
+            <telerikInput:RadDatePicker DefaultHighlightedDate="2020,05,15"
+                                        DisplayStringFormat="yyyy/MMM/dd"
+                                        Placeholder="Pick a date!"
+                                        SpinnerFormat="dd/MMM/yyyy"
+                                        AreSpinnerHeadersVisible="False"/>
+            <!-- << datepicker-dateproperties-date-defaulthighlighted -->
+        </VerticalStackLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

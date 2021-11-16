@@ -9,7 +9,7 @@ trigger:
 
 # The pool is the VM that is being use to run the tasks on.
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows-2022'
 
 # In the variables section, you can define a variable for values are the are frequently reused
 variables:

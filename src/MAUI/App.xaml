@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility" 
              xmlns:local="clr-namespace:SDKBrowserMaui"
              x:Class="SDKBrowserMaui.App"
              windows:Application.ImageDirectory="Assets">
@@ -10,6 +11,7 @@
 
             <Color x:Key="PrimaryColor">#1188FF</Color>
             <Color x:Key="SecondaryColor">White</Color>
+            <Color x:Key="DefaultTextColor">#000000</Color>
 
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
@@ -23,27 +25,44 @@
                 <Setter Property="Padding" Value="14,10" />
             </Style>
 
-            <Style TargetType="Button" x:Key="BackButtonStyle">
-                <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
-                <Setter Property="FontFamily" Value="OpenSansRegular" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="WidthRequest" Value="60" />
-                <Setter Property="Text" Value="Back" />
-                <Setter Property="FontSize" Value="Body" />
-                <Setter Property="IsVisible" Value="{OnPlatform Default=False, UWP=True}" />
-            </Style>
-
-            <Style TargetType="Grid" x:Key="RootGridStyle">
-                <Setter Property="RowSpacing" Value="{OnPlatform UWP=16, Default=0}" />
-                <!-- Workaround for missing "Back" button on Windows -->
-                <Setter Property="RowDefinitions">
+            <Style TargetType="ImageButton" x:Key="DefaultBackButtonStyle">
+                <Setter Property="Source" Value="arrowleft.png" />
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="Aspect">
                     <Setter.Value>
-                        <RowDefinitionCollection>
-                            <RowDefinition Height="{OnPlatform UWP=Auto, Default=0}"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </RowDefinitionCollection>
+                        <OnPlatform x:TypeArguments="Aspect" Default="Center">
+                            <On Platform="Android">AspectFit</On>
+                        </OnPlatform>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+            
+            <Style TargetType="ImageButton" x:Key="IOSBackButtonStyle">
+                <Setter Property="Source" Value="arrowleft.png" />
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+            </Style>
+
+            <Style TargetType="Image" x:Key="HeaderImageStyle">
+                <Setter Property="Source" Value="logo.png" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="WidthRequest" Value="20" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style TargetType="HorizontalStackLayout" x:Key="HeaderStyle">
+                <Setter Property="Spacing" Value="10" />
+                <Setter Property="BackgroundColor" Value="#8660C5" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="Padding" Value="10, 0, 0, 0" />
+            </Style>
+
+            <Style TargetType="Label" x:Key="HeaderLabelStyle">
+                <Setter Property="Text" Value="{Binding AppTitle}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="VerticalOptions" Value="Center" />
             </Style>
 
             <Style TargetType="telerik:RadBorder" x:Key="BackButtonBorderStyle">

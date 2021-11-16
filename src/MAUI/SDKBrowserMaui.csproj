@@ -1,23 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>
+		<TargetFrameworks>$(MauiPlatforms)</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>SDKBrowserMaui</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
-
-		<!-- Display name -->
 		<ApplicationTitle>Telerik SDKBrowser Maui</ApplicationTitle>
-
-		<!-- App Identifier -->
 		<ApplicationId>com.telerik.SDKBrowserMaui</ApplicationId>
-
-		<!-- Versions -->
-		<ApplicationVersion>1.0</ApplicationVersion>
-		<AndroidVersionCode>1</AndroidVersionCode>
+		<ApplicationVersion>1</ApplicationVersion>
 
 		<!-- Required for C# Hot Reload -->
 		<UseInterpreter Condition="'$(Configuration)' == 'Debug'">False</UseInterpreter>
@@ -29,28 +21,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- App Icon -->
 		<MauiImage Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" IsAppIcon="true" Color="#512BD4" />
-
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" />
-
-		<!-- Images -->
+		<MauiSplashScreen Include="Resources\Images\logosplashscreen.svg" Color="#512BD4" />
 		<MauiImage Include="Resources\Images\*" />
-
-		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-experimental1" />
-		<PackageReference Include="Microsoft.WindowsAppSDK.Foundation" Version="1.0.0-experimental1" />
-		<PackageReference Include="Microsoft.WindowsAppSDK.WinUI" Version="1.0.0-experimental1" />
-		<PackageReference Include="Microsoft.WindowsAppSDK.InteractiveExperiences" Version="1.0.0-experimental1" NoWarn="NU1701" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Telerik.UI.for.Maui" Version="0.0.1" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview3" />
+		<PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.29-preview3" />
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
@@ -59,39 +39,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="config.xml" />
-		<None Remove="Images\listview.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<MauiImage Include="Images\barcode.png" />
-		<MauiImage Include="Images\bullet.png" />
-		<MauiImage Include="Images\border.png" />
-		<MauiImage Include="Images\button.png" />
-		<MauiImage Include="Images\chart.png" />
-		<MauiImage Include="Images\checkbox.png" />
-    <MauiImage Include="Images\datagrid.png" />
-    <MauiImage Include="Images\docklayout.png" />
-		<MauiImage Include="Images\entry.png" />
-		<MauiImage Include="Images\gauge.png" />
-		<MauiImage Include="Images\listview.png" />
-		<MauiImage Include="Images\numeric.png" />
-		<MauiImage Include="Images\path.png" />
-		<MauiImage Include="Images\popup.png" />
-		<MauiImage Include="Images\segmented.png" />
-		<MauiImage Include="Images\wraplayout.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<MauiImage Include="Images\available.png" />
-		<MauiImage Include="Images\away.png" />
-		<MauiImage Include="Images\busy.png" />
-		<MauiImage Include="Images\favourite.png" />
-		<MauiImage Include="Images\unread.png" />
-		<MauiImage Include="Images\delete.png" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<EmbeddedResource Include="config.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Telerik.UI.for.Maui" Version="0.2.0" />
 	</ItemGroup>
 </Project>

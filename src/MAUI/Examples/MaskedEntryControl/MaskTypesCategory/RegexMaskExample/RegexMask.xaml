@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        x:Class="SDKBrowserMaui.Examples.MaskedEntryControl.MaskTypesCategory.RegexMaskExample.RegexMask"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <Label Text="US Phone number Regex mask:" Margin="0, 10, 0, 0" />
+                <telerik:RadRegexMaskedEntry Mask="^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$" PlaceholderText="(415) 555-2671"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

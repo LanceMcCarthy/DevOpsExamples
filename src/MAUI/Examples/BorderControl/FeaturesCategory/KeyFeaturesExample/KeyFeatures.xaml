@@ -23,17 +23,15 @@
             <Label Text="Creating Circular Image" />
             <Grid>
                 <!-- >> border-features-circularimage -->
-                <telerik:RadBorder CornerRadius="30"
-                                   BorderThickness="5" 
-                                   BorderColor="#4488F6"
-                                   HorizontalOptions="Start">
-                    <Image Source="dot_net.svg" 
-                           WidthRequest="50" 
-                           HeightRequest="50" 
-                           BackgroundColor="#512BD4"/>
+                <telerik:RadBorder WidthRequest="50" 
+                                    HeightRequest="50"
+                                    CornerRadius="30"
+                                    BorderThickness="5" 
+                                    BorderColor="#4488F6">
+                    <Image Source="dotnet_bot.png"/>
                 </telerik:RadBorder>
                 <!-- << border-features-circularimage -->
-            </Grid>            
+            </Grid>
         </VerticalStackLayout>
     </telerik:RadContentView.Content>
 </telerik:RadContentView>

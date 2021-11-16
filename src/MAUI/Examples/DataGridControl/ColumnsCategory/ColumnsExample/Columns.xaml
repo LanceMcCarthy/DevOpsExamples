@@ -11,8 +11,7 @@
         <Grid>
             <telerikDataGrid:RadDataGrid x:Name="grid" 
                                          ItemsSource="{Binding Clubs}" 
-                                         AutoGenerateColumns="False" 
-                                         UserEditMode="Cell">
+                                         AutoGenerateColumns="False">
                 <telerikDataGrid:RadDataGrid.BindingContext>
                     <local:ViewModel />
                 </telerikDataGrid:RadDataGrid.BindingContext>

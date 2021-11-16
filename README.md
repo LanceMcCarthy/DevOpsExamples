@@ -77,11 +77,13 @@ The following **4 minute** video takes you though all the steps on adding a priv
 - [1:47](https://youtu.be/rUWU2n6FwgA?t=107) Classic .NET Framework pipeline
 - [2:25](https://youtu.be/rUWU2n6FwgA?t=145) YAML pipeline setup for .NET Core
 
-## Troubleshooting
+## Tips and Troubleshooting
+
+### GitHub Actions: Using Secrets to Set Environment Variables
 
 A common problem to run into is to think that the environment variable is the same thing as the GitHub Secret (or Azure DevOps pipeline variable). In this demo, I intentionally named the secrets a different name than the environment variable name so that it is easier for you to tell the difference.
 
-However, I know that not everyone has the tiime to watch the video and just copy/paste the YAML instead. This will cause you to hit a roadblock because you missed the part about setting up the GitHub secret, Azure DevOps pipeline variable or . Here is a 2 screenshot crash-course on how to get back on track.
+However, I know that not everyone has the time to watch the video and just copy/paste the YAML instead. This will cause you to hit a roadblock because you missed the part about setting up the GitHub secret, Azure DevOps pipeline variable or . Here is a 2 screenshot crash-course on how to get back on track.
 
 In your YAML, you probably have done this:
 
@@ -90,3 +92,38 @@ In your YAML, you probably have done this:
 That mean you must also have the secrets in your **Settings** > **Secrets** list
 
 ![image](https://user-images.githubusercontent.com/3520532/104634438-9cae6c00-566e-11eb-9a78-79d955247867.png)
+
+### Powershell: Restore Packages
+
+If your nuget.config has a `packageSourceCredentials` section that uses environment variables for the values, you can also use Powershell to set those env variables using the pipeline secrets variables, than manually invoke the package restore.
+
+```ps
+# 1. Set the Env Variables being used in the nuget.config credentials using pipeline secrets (e.g., $(MyTelerikEmail) is a secret)
+$env:TELERIK_USERNAME = '$(MyTelerikEmail)'
+$env:TELERIK_PASSWORD ='$(MyTelerikPassword)'
+
+# 2. Set the project file path and nuget.config file path
+$myBlazorProjectFilePath = 'src/Web/MyBlazorApp/MyBlazorApp.csproj'
+$myNugetConfigFilePath = 'src/nuget.config'
+
+# 3. Restore the Telerik and nuget.org packages using the nuget.config file
+dotnet restore $myBlazorProjectFilePath --configfile $myNugetConfigFilePath --runtime win-x86
+
+# 4. Clear those variables when done (not required, but good practice)
+$env:TELERIK_USERNAME = ''
+$env:TELERIK_PASSWORD =''
+```
+
+### Powershell: Update Package Source Dynamically
+
+You could also dynamically update the credentials of a Package Source defined in your nuget.config file This is a good option when you do not want to use a `packageSourceCredentials` section that uses environment variables.
+
+```powershell
+# Updates a source named 'Telerik' in the nuget.config
+dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --configfile src/nuget.config --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text
+```
+ That command will look through the nuget.config for a package source with the key `Telerik` and then add/update the credentials for that source.
+
+> The `--store-password-in-clear-text` switch is important. It does *not* mean the password is visible, rather it means that you're using the password text and not a custom encrypted variant. For more information, please visit https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file#packagesourcecredentials
+
+

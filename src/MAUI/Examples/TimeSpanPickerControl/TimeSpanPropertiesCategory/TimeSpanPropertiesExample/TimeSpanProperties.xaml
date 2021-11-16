@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.TimeSpanPickerControl.TimeSpanPropertiesCategory.TimeSpanPropertiesExample.TimeSpanProperties">
+    <telerik:RadContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="labelStyle">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </telerik:RadContentView.Resources>
+
+    <telerik:RadContentView.Content>
+        <VerticalStackLayout Padding="10">
+            <Label Text="TimeSpan Picker with minimum time and maximum time" Style="{StaticResource labelStyle}"/>
+            <!-- >> timespanpicker-keyfeatures-minmaxtime -->
+            <telerikInput:RadTimeSpanPicker MinimumTime="0:0:00:00"
+                                            MaximumTime="8:00:00:0"/>
+            <!-- << timespanpicker-keyfeatures-minmaxtime -->
+            <Label Text="TimeSpan Picker with selected time" Style="{StaticResource labelStyle}"/>
+            <!-- >> timespanpicker-keyfeatures-time -->
+            <telerikInput:RadTimeSpanPicker Time="5:10:30:00"/>
+            <!-- << timespanpicker-keyfeatures-time -->
+            <Label Text="TimeSpan Picker with spinner format 'G' and hidden spinner headers" Style="{StaticResource labelStyle}"/>
+            <!-- >> timespanpicker-keyfeatures-time-defaulthighlighted -->
+            <telerikInput:RadTimeSpanPicker DefaultHighlightedTime="5:10:30:00"
+                                            SpinnerFormat="G"
+                                            AreSpinnerHeadersVisible="False"/>
+            <!-- << timespanpicker-keyfeatures-time-defaulthighlighted -->
+            <Label Text="TimeSpan Picker with steps for day, hour, minute and second" Style="{StaticResource labelStyle}"/>
+            <!-- >> timespanpicker-keyfeatures-time-steps -->
+            <telerikInput:RadTimeSpanPicker DayStep="2"
+                                            HourStep="4" 
+                                            MinuteStep="10" 
+                                            SecondStep="30"/>
+            <!-- << timespanpicker-keyfeatures-time-steps -->
+        </VerticalStackLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

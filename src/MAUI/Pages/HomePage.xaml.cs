@@ -1,11 +1,7 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
-using Microsoft.Maui.Graphics;
-using System;
-using System.Diagnostics;
-using SDKBrowserMaui.Services;
+﻿using Microsoft.Maui.Controls;
+using SDKBrowserMaui.Common;
 using SDKBrowserMaui.ViewModels;
+using System.ComponentModel;
 
 namespace SDKBrowserMaui.Pages
 {
@@ -17,11 +13,22 @@ namespace SDKBrowserMaui.Pages
             this.BindingContext = new HomeViewModel();
         }
 
-        protected override void OnAppearing()
+        private void controlsListView_ItemTapped(object sender, Telerik.XamarinForms.DataControls.ListView.ItemTapEventArgs e)
         {
-            base.OnAppearing();
-            //this.controls.SelectedItem = null;
-            (this.BindingContext as HomeViewModel).SelectedControl= null;
+            HomeViewModel vm = (HomeViewModel)this.BindingContext;
+            Control control = (Control)e.Item;
+            vm.NavigateTo(control);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+#if __ANDROID__
+            //TODO: Remove this when NavigationPage starts using the Maui Handler instead of the old compat Renderer.
+            if (e.PropertyName == nameof(this.Width) || e.PropertyName == nameof(this.Height))
+            {
+                this.Frame = this.Content.Frame;
+            }
+#endif
         }
     }
 }

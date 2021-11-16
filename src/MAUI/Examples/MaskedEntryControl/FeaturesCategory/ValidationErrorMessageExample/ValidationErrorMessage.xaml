@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.Maui.Controls.Compatibility"  
+                        x:Class="SDKBrowserMaui.Examples.MaskedEntryControl.FeaturesCategory.ValidationErrorMessageExample.ValidationErrorMessage"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <Label Text="Email mask:" Margin="0, 10, 0, 0" />
+                <telerik:RadEmailMaskedEntry x:Name="emailMaskedEntry" ValidationErrorMessage="Please, enter a valid e-mail adress"/>
+
+                <Label Text="Regex mask:" Margin="0, 30, 0, 0" />
+                <telerik:RadRegexMaskedEntry x:Name="regexMaskedEntry" Mask="^[a-z]$" PlaceholderText="^[a-z]$" ValidationErrorMessage="Only one symbol can be entered" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>
