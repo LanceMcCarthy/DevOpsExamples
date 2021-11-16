@@ -50,7 +50,7 @@ namespace SDKBrowserMaui.Examples.ListViewControl.SelectionCategory.SelectionExa
         {
             if (this.SelectedNames.Count > 0)
             {
-                Application.Current.MainPage.DisplayAlert("Selected items:", string.Join(",", this.SelectedNames.ToArray()), "OK");
+                App.DisplayAlert($"Selected items: {string.Join(",", this.SelectedNames.ToArray())}");
             }
         }
     }

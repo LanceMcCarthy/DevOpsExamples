@@ -1,14 +1,9 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Essentials;
-using Microsoft.Maui.Graphics;
-using System;
-using System.Diagnostics;
+﻿using Microsoft.Maui.Controls;
+using SDKBrowserMaui.Common;
 using SDKBrowserMaui.Services;
 using SDKBrowserMaui.ViewModels;
-using Telerik.Maui.Controls;
-using SDKBrowserMaui.Common;
-using Telerik.XamarinForms.DataControls;
+using System;
+using System.ComponentModel;
 
 namespace SDKBrowserMaui.Pages
 {
@@ -25,10 +20,23 @@ namespace SDKBrowserMaui.Pages
             await navigationService.NavigateBackAsync();
         }
 
-        protected override void OnAppearing()
+        private void CategoryTapped(object sender, EventArgs e)
         {
-            base.OnAppearing();
-            (this.BindingContext as ControlViewModel).SelectedCategory = null;
+            ControlViewModel vm = (ControlViewModel)this.BindingContext;
+            BindableObject bindableObject = (BindableObject)sender;
+            Category category = (Category)bindableObject.BindingContext;
+            vm.NavigateTo(category);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+#if __ANDROID__
+            //TODO: Remove this when NavigationPage starts using the Maui Handler instead of the old compat Renderer.
+            if (e.PropertyName == nameof(this.Width) || e.PropertyName == nameof(this.Height))
+            {
+                this.Frame = this.Content.Frame;
+            }
+#endif
         }
     }
 }

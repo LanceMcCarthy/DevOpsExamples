@@ -1,39 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Maui.Controls;
 using SDKBrowserMaui.Common;
 using SDKBrowserMaui.Services;
-using Microsoft.Maui.Controls;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace SDKBrowserMaui.ViewModels
 {
     public class ControlViewModel : SearchViewModel
     {
-        private Category selectedCategory;
-
-        public ObservableCollection<Category> Categories { get; private set; }
-        public ObservableCollection<Example> Examples { get; private set; }
-
-        public Category SelectedCategory
-        {
-            get
-            {
-                return this.selectedCategory;
-            }
-            set
-            {
-                if (this.selectedCategory != value)
-                {
-                    this.selectedCategory = value;
-                    this.OnPropertyChanged();
-                }
-            }
-        }
-
         public ControlViewModel(Control control)
         {
             this.IsBackVisible = true;
@@ -52,31 +27,26 @@ namespace SDKBrowserMaui.ViewModels
             }
         }
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            base.OnPropertyChanged(propertyName);
-            if (propertyName == nameof(SelectedCategory))
-            {
-                this.Select(this.selectedCategory);
-            }
-        }
+        public ObservableCollection<Category> Categories { get; private set; }
+        public ObservableCollection<Example> Examples { get; private set; }
 
-        private void Select(Category category)
+        public void NavigateTo(Category category)
         {
+            if (category == null)
+            {
+                return;
+            }
+
             var navigationService = DependencyService.Get<INavigationService>();
 
-            if (category != null)
+            if (category.Examples.Count == 1)
             {
-                if (category.Examples.Count > 1)
-                {
-                    navigationService.NavigateToAsync<CategoryViewModel>(category);
-                }
-                else if (category.Examples.Count > 0)
-                {
-                    var example = category.Examples[0];
-
-                    navigationService.NavigateToAsync<ExampleViewModel>(example);
-                }
+                var example = category.Examples[0];
+                navigationService.NavigateToAsync<ExampleViewModel>(example);
+            }
+            else if (category.Examples.Count > 0)
+            {
+                navigationService.NavigateToAsync<CategoryViewModel>(category);
             }
         }
 

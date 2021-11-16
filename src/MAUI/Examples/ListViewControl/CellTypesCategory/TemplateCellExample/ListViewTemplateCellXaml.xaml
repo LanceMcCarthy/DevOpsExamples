@@ -18,6 +18,10 @@
                         <telerikListView:ListViewTemplateCell>
                             <telerikListView:ListViewTemplateCell.View>
                                 <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
                                     <HorizontalStackLayout Margin="10, 10, 10, 0">
                                         <Image IsVisible="{Binding IsFavourite}" Source="favourite.png" HeightRequest="16" VerticalOptions="Center" />
                                         <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center" />

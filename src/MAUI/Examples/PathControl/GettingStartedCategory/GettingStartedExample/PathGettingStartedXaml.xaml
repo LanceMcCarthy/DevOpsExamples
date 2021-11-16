@@ -17,7 +17,7 @@
                 <!--  >> path-gettingstarted-starpath-xaml  -->
                 <telerikPrimitives:RadPath x:Name="starPath"
                                            StrokeThickness="0"
-                                           Fill="#FFC325"
+                                           Fill="#ffac3e"
                                            Geometry="{x:Static telerikInput:Geometries.Star}" />
                 <!--  << path-gettingstarted-starpath-xaml  -->
                 <Label Text="Star Path"
@@ -35,7 +35,7 @@
                 <telerikPrimitives:RadPath x:Name="customPath"
                                        Grid.Row="0"
                                        StrokeThickness="4"
-                                       Stroke="#2EC262">
+                                       Stroke="#4fad4e">
                     <telerikCommon:RadPathGeometry>
                         <telerikCommon:RadPathFigure StartPoint="0.85, 0.85">
                             <telerikCommon:RadArcSegment Center = "0.5, 0.5"

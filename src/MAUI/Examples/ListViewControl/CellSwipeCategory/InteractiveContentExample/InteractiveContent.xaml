@@ -25,6 +25,10 @@
                     <telerikListView:ListViewTemplateCell>
                         <telerikListView:ListViewTemplateCell.View>
                             <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
                                 <Label Margin="10,10,10,0"
                                        FontAttributes="Bold"
                                        FontSize="16"

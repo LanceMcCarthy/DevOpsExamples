@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.Maui.Controls.Compatibility"  
+                        x:Class="SDKBrowserMaui.Examples.MaskedEntryControl.EventsCategory.EventsExample.Events"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <Label Text="Email mask:" Margin="0, 10, 0, 0" />
+                <telerik:RadEmailMaskedEntry x:Name="emailMaskedEntry" ValueChanged="emailMaskedEntry_ValueChanged" ValueChanging="EmailMaskedEntry_ValueChanging" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <VerticalStackLayout Margin="10,10,0,5" GridLayout.Column="0">
+                        <Label Text="ValueChanging Event:" FontFamily="Bold"/>
+                        <HorizontalStackLayout Margin="0,10,10,0">
+                            <Label Text="Cancel The Event:" Margin="0,0,10,0" />
+                            <telerikPrimitives:RadCheckBox IsChecked="False" x:Name="emailMaskCancelValueChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="IsValid:" Margin="0,0,10,0"/>
+                            <telerikPrimitives:RadCheckBox x:Name="emailMaskIsValidChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout >
+                            <Label Text="New Value:" Margin="0,0,10,0" />
+                            <Label x:Name="emailMaskNewValueChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout >
+                            <Label Text="Actual Value:" Margin="0,0,10,0" />
+                            <Label Text="{Binding Source={x:Reference emailMaskedEntry}, Path=Value}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    
+                    <VerticalStackLayout Margin="10,10,0,5" GridLayout.Column="1">
+                        <Label Text="ValueChanged Event:" FontFamily="Bold"/>
+                        <HorizontalStackLayout  Margin="0,10,0,0">
+                            <Label Text="New Value:" Margin="0,0,10,0"/>
+                            <Label x:Name="emailMaskNewValue"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="New Text:" Margin="0,0,10,0"/>
+                            <Label x:Name="emailMaskNewText"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="IsValid:" Margin="0,0,10,0"/>
+                            <Label x:Name="emailMaskIsValid"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <Label Text="Numeric mask:" Margin="0, 30, 0, 0" />
+                <telerik:RadNumericMaskedEntry x:Name="numericMaskedEntry" Mask="C" ValueChanged="numericMaskedEntry_ValueChanged" ValueChanging="numericMaskedEntry_ValueChanging"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <VerticalStackLayout Margin="10,10,0,5" GridLayout.Column="0">
+                        <Label Text="ValueChanging Event:" FontFamily="Bold"/>
+                        <HorizontalStackLayout Margin="0,10,10,0">
+                            <Label Text="Cancel The Event:" Margin="0,0,10,0" />
+                            <telerikPrimitives:RadCheckBox IsChecked="False" x:Name="numericMaskCancelValueChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="IsValid:" Margin="0,0,10,0"/>
+                            <telerikPrimitives:RadCheckBox x:Name="numericMaskIsValidChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout >
+                            <Label Text="New Value:" Margin="0,0,10,0" />
+                            <Label x:Name="numericMaskNewValueChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout >
+                            <Label Text="Actual Value:" Margin="0,0,10,0" />
+                            <Label Text="{Binding Source={x:Reference numericMaskedEntry}, Path=Value}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Margin="10,10,0,5" GridLayout.Column="1">
+                        <Label Text="ValueChanged Event:" FontFamily="Bold"/>
+                        <HorizontalStackLayout  Margin="0,10,10,0">
+                            <Label Text="New Value:" Margin="0,0,10,0"/>
+                            <Label x:Name="numericMaskNewValue"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="New Text:" Margin="0,0,10,0"/>
+                            <Label x:Name="numericMaskNewText"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="IsValid:" Margin="0,0,10,0"/>
+                            <Label x:Name="numericMaskIsValid"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+                
+
+                <Label Text="IP mask:" Margin="0, 30, 0, 0" />
+                <telerik:RadIPMaskedEntry x:Name="ipMaskedEntry" ValueChanged="ipMaskedEntry_ValueChanged" ValueChanging="ipMaskedEntry_ValueChanging"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <VerticalStackLayout Margin="10,10,0,5" GridLayout.Column="0">
+                        <Label Text="ValueChanging Event:" FontFamily="Bold"/>
+                        <HorizontalStackLayout Margin="0,10,10,0">
+                            <Label Text="Cancel The Event:" Margin="0,0,10,0" />
+                            <telerikPrimitives:RadCheckBox IsChecked="False" x:Name="ipMaskCancelValueChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="IsValid:" Margin="0,0,10,0"/>
+                            <telerikPrimitives:RadCheckBox x:Name="ipMaskIsValidChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout >
+                            <Label Text="New Value:" Margin="0,0,10,0" />
+                            <Label x:Name="ipMaskNewValueChanging"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout >
+                            <Label Text="Actual Value:" Margin="0,0,10,0" />
+                            <Label Text="{Binding Source={x:Reference ipMaskedEntry}, Path=Value}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Margin="10,10,0,5" GridLayout.Column="1">
+                        <Label Text="ValueChanged Event:" FontFamily="Bold"/>
+                        <HorizontalStackLayout  Margin="0,10,10,0">
+                            <Label Text="New Value:" Margin="0,0,10,0"/>
+                            <Label x:Name="ipMaskNewValue"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="New Text:" Margin="0,0,10,0"/>
+                            <Label x:Name="ipMaskNewText"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Label Text="IsValid:" Margin="0,0,10,0"/>
+                            <Label x:Name="ipMaskIsValid"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

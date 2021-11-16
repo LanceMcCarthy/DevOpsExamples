@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        x:Class="SDKBrowserMaui.Examples.MaskedEntryControl.FeaturesCategory.CultureExample.Culture"
+                        Margin="5">
+    <telerik:RadContentView.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+
+                <Label Text="Culture = default" Margin="0, 30, 0, 0" />
+                <telerik:RadNumericMaskedEntry  Mask="C"/>
+
+                <Label Text="Culture = de-DE" Margin="0, 30, 0, 0" />
+                <telerik:RadNumericMaskedEntry x:Name="germanCultureMask" Mask="C" />
+
+                <Label Text="Culture = bg-BG" Margin="0, 30, 0, 0" />
+                <telerik:RadNumericMaskedEntry x:Name="bulgarianCultureMask" Mask="C"  />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

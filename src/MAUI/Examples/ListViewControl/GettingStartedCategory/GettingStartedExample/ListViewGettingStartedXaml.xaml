@@ -13,14 +13,15 @@
                 <telerikListView:ListViewTemplateCell>
                     <telerikListView:ListViewTemplateCell.View>
                         <Grid>
-                            <Label Margin="10" Text="{Binding Name}" />
+                            <Label Margin="10" 
+                                   Text="{Binding Name}" />
                         </Grid>
                     </telerikListView:ListViewTemplateCell.View>
                 </telerikListView:ListViewTemplateCell>
             </DataTemplate>
             <DataTemplate x:Key="UWPTemplate">
                 <telerikListView:ListViewTextCell Text="{Binding Name}"
-                                                  TextColor="{DynamicResource PrimaryColor}" />
+                                                  TextColor="{DynamicResource DefaultTextColor}" />
             </DataTemplate>
         </ResourceDictionary>
     </telerik:RadContentView.Resources>

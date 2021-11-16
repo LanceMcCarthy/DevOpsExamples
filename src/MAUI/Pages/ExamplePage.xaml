@@ -3,14 +3,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+    xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"  
     ios:Page.UseSafeArea="True"
-    Title="{Binding AppTitle}"
+    NavigationPage.HasNavigationBar="False"
+    NavigationPage.HasBackButton="False"
     x:Class="SDKBrowserMaui.Pages.ExamplePage">
 
-    <Grid Style="{StaticResource RootGridStyle}">
-        <telerik:RadBorder Style="{StaticResource BackButtonBorderStyle}">
-            <Button Clicked="Back_Clicked" Style="{StaticResource BackButtonStyle}" />
-        </telerik:RadBorder>
-        <ContentView Content="{Binding Content}" Grid.Row="1"></ContentView>
+    <Grid PropertyChanged="OnPropertyChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <HorizontalStackLayout Style="{StaticResource HeaderStyle}">
+            <ImageButton Clicked="Back_Clicked">
+                <ImageButton.Style>
+                    <OnPlatform x:TypeArguments="Style" Default="{StaticResource DefaultBackButtonStyle}">
+                        <On Platform="iOS" Value="{StaticResource IOSBackButtonStyle}" />
+                    </OnPlatform>
+                </ImageButton.Style>
+            </ImageButton>
+            <Image Style="{StaticResource HeaderImageStyle}" />
+            <Label Style="{StaticResource HeaderLabelStyle}" />
+        </HorizontalStackLayout>
+        <ContentView Content="{Binding Content}" 
+                     Grid.Row="1" 
+                     Padding="16, 20"/>
     </Grid>
 </ContentPage>

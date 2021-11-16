@@ -16,7 +16,7 @@ namespace SDKBrowserMaui.Examples.ListViewControl.CommandsCategory
         {
             var tappedItem = context.Item;
             //add your logic here
-            Application.Current.MainPage.DisplayAlert("", "You've selected " + tappedItem, "OK");
+            App.DisplayAlert("You've selected " + tappedItem);
         }
         public List<string> Source { get; set; }
         public ICommand ItemTapCommand { get; set; }

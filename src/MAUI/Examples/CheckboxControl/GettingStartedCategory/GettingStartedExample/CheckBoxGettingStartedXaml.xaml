@@ -7,14 +7,18 @@
                         Margin="5">
     <telerik:RadContentView.Content>
         <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <telerikPrimitives:RadCheckBox x:Name="checkbox" />
-                <Label Text="Agree to the Terms &amp; Conditions" />
+            <HorizontalStackLayout  Margin="0, 0, 0, 20">
+                <telerikPrimitives:RadCheckBox x:Name="checkbox"
+                                               Margin="0, 0, 10, 0"/>
+                <Label Text="Agree to the Terms &amp; Conditions"
+                       TextColor="{DynamicResource DefaultTextColor}"/>
             </HorizontalStackLayout>
             <!-- << checkbox-getting-started-xaml -->
             <HorizontalStackLayout>
-                <Label Text="IsChecked value: " />
-                <Label Text="{Binding Source={x:Reference checkbox}, Path=IsChecked}" />
+                <Label Text="IsChecked value: "
+                       TextColor="{DynamicResource DefaultTextColor}"/>
+                <Label Text="{Binding Source={x:Reference checkbox}, Path=IsChecked}" 
+                       TextColor="{DynamicResource DefaultTextColor}"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </telerik:RadContentView.Content>

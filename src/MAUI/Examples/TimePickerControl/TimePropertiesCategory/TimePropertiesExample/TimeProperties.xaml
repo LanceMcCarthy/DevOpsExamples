@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<telerik:RadContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+                        xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"
+                        x:Class="SDKBrowserMaui.Examples.TimePickerControl.TimePropertiesCategory.TimePropertiesExample.TimeProperties">
+    <telerik:RadContentView.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="labelStyle">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+            </Style>
+        </ResourceDictionary>
+    </telerik:RadContentView.Resources>
+
+    <telerik:RadContentView.Content>
+        <VerticalStackLayout Padding="10">
+            <Label Text="Time Picker with minimum time and maximum time properties" Style="{StaticResource labelStyle}"/>
+            <!-- >> timepicker-keyfeatures-minmaxtime -->
+            <telerikInput:RadTimePicker MinimumTime="8:00:00"
+                                        MaximumTime="19:00:00"/>
+            <!-- << timepicker-keyfeatures-minmaxtime -->
+            <Label Text="Time Picker with selected time" Style="{StaticResource labelStyle}"/>
+            <!-- >> timepicker-keyfeatures-time -->
+            <telerikInput:RadTimePicker Time="10:30:00"/>
+            <!-- << timepicker-keyfeatures-time -->
+            <Label Text="Time Picker with default highlighted time, spinner format and hidden spinner headers" Style="{StaticResource labelStyle}"/>
+            <!-- >> timepicker-keyfeatures-time-defaulthighlighted -->
+            <telerikInput:RadTimePicker DefaultHighlightedTime="11:30:00"
+                                        SpinnerFormat="t"
+                                        AreSpinnerHeadersVisible="False"/>
+            <!-- << timepicker-keyfeatures-time-defaulthighlighted -->
+            <Label Text="Time Picker with steps for hour, minute and second" Style="{StaticResource labelStyle}"/>
+            <!-- >> timepicker-keyfeatures-time-steps -->
+            <telerikInput:RadTimePicker HourStep="2" 
+                                        MinuteStep="10" 
+                                        SecondStep="30"/>
+            <!-- << timepicker-keyfeatures-time-steps -->
+        </VerticalStackLayout>
+    </telerik:RadContentView.Content>
+</telerik:RadContentView>

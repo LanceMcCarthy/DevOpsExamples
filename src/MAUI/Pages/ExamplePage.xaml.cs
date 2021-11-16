@@ -3,6 +3,7 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Essentials;
 using Microsoft.Maui.Graphics;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using SDKBrowserMaui.Services;
 using SDKBrowserMaui.ViewModels;
@@ -20,6 +21,17 @@ namespace SDKBrowserMaui.Pages
         {
             var navigationService = DependencyService.Get<INavigationService>();
             await navigationService.NavigateBackAsync();
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+#if __ANDROID__
+            //TODO: Remove this when NavigationPage starts using the Maui Handler instead of the old compat Renderer.
+            if (e.PropertyName == nameof(this.Width) || e.PropertyName == nameof(this.Height))
+            {
+                this.Frame = this.Content.Frame;
+            }
+#endif
         }
     }
 }

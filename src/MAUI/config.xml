@@ -88,6 +88,62 @@
 			</Categories>
 		</Control>
 		<Control>
+			<Name>BusyIndicator</Name>
+			<Title>BusyIndicator</Title>
+			<Icon>busyindicator.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>BusyIndicatorGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Animations</Name>
+					<Title>Animations</Title>
+					<Examples>
+						<Example>
+							<Page>AnimationsXaml</Page>
+							<Name>Animations</Name>
+							<Title>Built-in Animation</Title>
+						</Example>
+						<Example>
+							<Page>CustomAnimationXaml</Page>
+							<Name>CustomAnimation</Name>
+							<Title>Custom Animation</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<!--<Category>
+					<Name>CustomBusyContent</Name>
+					<Title>Custom Busy Content</Title>
+					<Examples>
+						<Example>
+							<Page>CustomBusyContent</Page>
+							<Name>CustomBusyContent</Name>
+							<Title>CustomBusyContent</Title>
+						</Example>
+					</Examples>
+				</Category>-->
+        <!--<Category>
+					<Name>Integration</Name>
+					<Title>Integration</Title>
+					<Examples>
+						<Example>
+							<Page>ListViewIntegration</Page>
+							<Name>ListViewIntegration</Name>
+							<Title>ListViewIntegration</Title>
+						</Example>
+					</Examples>
+				</Category>-->
+			</Categories>
+		</Control>
+		<Control>
 			<Name>Button</Name>
 			<Title>Button</Title>
 			<Icon>button.png</Icon>
@@ -122,7 +178,6 @@
 							<Page>AreaSeriesXaml</Page>
 							<Name>AreaSeries</Name>
 							<Title>Area - Xaml</Title>
-							<ExcludeFrom>UWP</ExcludeFrom>
 						</Example>
 						<Example>
 							<Page>BarSeriesHorizontalXaml</Page>
@@ -138,31 +193,28 @@
 							<Page>LineSeriesXaml</Page>
 							<Name>LineSeries</Name>
 							<Title>Line - Xaml</Title>
-							<ExcludeFrom>UWP</ExcludeFrom>
 						</Example>
 						<Example>
 							<Page>SplineAreaSeriesXaml</Page>
 							<Name>SplineAreaSeries</Name>
 							<Title>Spline Area - Xaml</Title>
-							<ExcludeFrom>UWP</ExcludeFrom>
 						</Example>
 						<Example>
 							<Page>SplineSeriesXaml</Page>
 							<Name>SplineSeries</Name>
 							<Title>Spline - Xaml</Title>
-							<ExcludeFrom>UWP</ExcludeFrom>
 						</Example>
 						<!--<Example>
 							<Page>ScatterLineSeriesXaml</Page>
 							<Name>ScatterLineSeries</Name>
 							<Title>Scatter Line - Xaml</Title>
 						</Example>-->
-            <Example>
-              <Page>ScatterPointSeriesXaml</Page>
-              <Name>ScatterPointSeries</Name>
-              <Title>Scatter Point - Xaml</Title>
-            </Example>
-            <!--<Example>
+						<Example>
+							<Page>ScatterPointSeriesXaml</Page>
+							<Name>ScatterPointSeries</Name>
+							<Title>Scatter Point - Xaml</Title>
+						</Example>
+						<!--<Example>
 							<Page>ScatterAreaSeriesXaml</Page>
 							<Name>ScatterAreaSeries</Name>
 							<Title>Scatter Area - Xaml</Title>
@@ -171,7 +223,6 @@
 							<Page>StackAreaSeriesXaml</Page>
 							<Name>StackAreaSeries</Name>
 							<Title>Stacked Area - Xaml</Title>
-							<ExcludeFrom>UWP</ExcludeFrom>
 						</Example>
 						<Example>
 							<Page>StackBarSeriesHorizontalXaml</Page>
@@ -187,13 +238,11 @@
 							<Page>StackSplineAreaSeriesXaml</Page>
 							<Name>StackSplineAreaSeries</Name>
 							<Title>Stack Spline Area - Xaml</Title>
-							<ExcludeFrom>UWP</ExcludeFrom>
 						</Example>
 						<Example>
 							<Page>CandlestickSeriesExampleXaml</Page>
 							<Name>CandlestickSeries</Name>
 							<Title>Candlestick Series - Xaml</Title>
-							<ExcludeFrom>UWP</ExcludeFrom>
 						</Example>
 						<Example>
 							<Page>OhlcSeriesExampleXaml</Page>
@@ -210,457 +259,604 @@
 							<Name>ScatterSplineAreaSeries</Name>
 							<Title>Scatter Spline Area - Xaml</Title>
 						</Example>-->
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>CheckBox</Name>
-      <Title>CheckBox</Title>
-      <Icon>checkbox.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>CheckBoxGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started - Xaml</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>DataGrid</Name>
-      <Title>DataGrid</Title>
-      <Icon>datagrid.png</Icon>
-      <ExcludeFrom>UWP,macOS</ExcludeFrom>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>DataGridGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>Columns</Name>
-          <Title>Columns</Title>
-          <Examples>
-            <Example>
-              <Page>Columns</Page>
-              <Name>Columns</Name>
-              <Title>Columns Overview</Title>
-			  <ExcludeFrom>Android</ExcludeFrom>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>DockLayout</Name>
-      <Title>DockLayout</Title>
-      <Icon>docklayout.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>DockLayoutGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started - Xaml</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>DockingFunctionality</Name>
-          <Title>Docking Funcionality</Title>
-          <Examples>
-            <Example>
-              <Page>DockingFeature</Page>
-              <Name>DockingFeature</Name>
-              <Title>Docking Functionality</Title>
-            </Example>
-            <Example>
-              <Page>PositionLastChild</Page>
-              <Name>PositionLastChild</Name>
-              <Title>Set last element not to stretch</Title>
-            </Example>
-            <Example>
-              <Page>PositionElementsOneSide</Page>
-              <Name>PositionElementsOneSide</Name>
-              <Title>Position multiple elements on one side</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>Entry</Name>
-      <Title>Entry</Title>
-      <Icon>entry.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>EntryGettingStarted</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>Gauge</Name>
-      <Title>Gauge</Title>
-      <Icon>gauge.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>GaugeGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started - Xaml</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>GaugeTypes</Name>
-          <Title>Gauge Types</Title>
-          <Examples>
-            <Example>
-              <Page>VerticalGauge</Page>
-              <Name>VerticalGauge</Name>
-              <Title>Vertical Gauge</Title>
-            </Example>
-            <Example>
-              <Page>HorizontalGauge</Page>
-              <Name>HorizontalGauge</Name>
-              <Title>Horizontal Gauge</Title>
-            </Example>
-            <Example>
-              <Page>RadialGauge</Page>
-              <Name>RadialGauge</Name>
-              <Title>Radial Gauge</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>ItemsControl</Name>
-      <Title>ItemsControl</Title>
-      <Icon>listview.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>ItemsControlGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>ListView</Name>
-      <Title>ListView</Title>
-      <Icon>listview.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>ListViewGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started - Xaml</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>CellTypes</Name>
-          <Title>Cell Types</Title>
-          <Examples>
-            <Example>
-              <Page>ListViewTextCellXaml</Page>
-              <Name>TextCell</Name>
-              <Title>Text Cell - Xaml</Title>
-            </Example>
-            <Example>
-              <Page>ListViewTemplateCellXaml</Page>
-              <Name>TemplateCell</Name>
-              <Title>Template Cell - Xaml</Title>
-			  <ExcludeFrom>UWP</ExcludeFrom>
-            </Example>
-            <Example>
-              <Page>TemplateCellSelector</Page>
-              <Name>TemplateCellSelector</Name>
-              <Title>Template Cell Selector - Xaml</Title>
-			  <ExcludeFrom>UWP</ExcludeFrom>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>HeaderAndFooter</Name>
-          <Title>Header And Footer</Title>
-          <Examples>
-            <Example>
-              <Page>HeaderAndFooter</Page>
-              <Name>HeaderAndFooter</Name>
-              <Title>Header And Footer</Title>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>Selection</Name>
-          <Title>Selection</Title>
-          <Examples>
-            <Example>
-              <Page>Selection</Page>
-              <Name>Selection</Name>
-              <Title>Selection</Title>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>CellSwipe</Name>
-          <Title>Cell Swipe</Title>
-          <Examples>
-            <Example>
-              <Page>InteractiveContent</Page>
-              <Name>InteractiveContent</Name>
-              <Title>Cell Swipe with Interactive Content</Title>
-			  <ExcludeFrom>Android</ExcludeFrom>
-            </Example>
-            <Example>
-              <Page>SwipeEvents</Page>
-              <Name>SwipeEvents</Name>
-              <Title>Swipe Events</Title>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>PullToRefresh</Name>
-          <Title>Pull To Refresh</Title>
-          <Examples>
-            <Example>
-              <Page>PullToRefresh</Page>
-              <Name>PullToRefresh</Name>
-              <Title>Pull To Refresh</Title>
-            </Example>
-          </Examples>
-        <ExcludeFrom>UWP,macOS</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>ReorderItems</Name>
-          <Title>Reorder Items</Title>
-          <Examples>
-            <Example>
-              <Page>ReorderItems</Page>
-              <Name>ReorderItems</Name>
-              <Title>Reorder ListView Items</Title>
-            </Example>
-          </Examples>
-	      <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>Scrolling</Name>
-          <Title>Scrolling</Title>
-          <Examples>
-            <Example>
-              <Page>ProgrammaticScrolling</Page>
-              <Name>Scrolling</Name>
-              <Title>Programmatic Scrolling</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>Grouping</Name>
-          <Title>Grouping</Title>
-          <Examples>
-            <Example>
-              <Page>PropertyGrouping</Page>
-              <Name>PropertyGroupDescriptor</Name>
-              <Title>Property Group Descriptor</Title>
-            </Example>
-            <Example>
-              <Page>DelegateGrouping</Page>
-              <Name>DelegateGroupDescriptor</Name>
-              <Title>Delegate Group Descriptor</Title>
-            </Example>
-            <Example>
-              <Page>MultiLevelGrouping</Page>
-              <Name>MultiLevelGrouping</Name>
-              <Title>Multi Level Grouping</Title>
-            </Example>
-            <Example>
-              <Page>BindablePropertyGrouping</Page>
-              <Name>BindableGroupDescriptor</Name>
-              <Title>Bindable Property Grouping</Title>
-			  <ExcludeFrom>Android</ExcludeFrom>
-            </Example>
-            <Example>
-              <Page>ReorderInGroupedListView</Page>
-              <Name>ReorderInGroupedListView</Name>
-              <Title>Reorder In Grouped ListView</Title>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>Sorting</Name>
-          <Title>Sorting</Title>
-          <Examples>
-            <Example>
-              <Page>PropertySorting</Page>
-              <Name>PropertySortDescriptor</Name>
-              <Title>Property Sort Descriptor</Title>
-            </Example>
-            <Example>
-              <Page>BindablePropertySorting</Page>
-              <Name>BindablePropertySortDescriptor</Name>
-              <Title>Bindable PropertySortDescriptor</Title>
-            <ExcludeFrom>macOS</ExcludeFrom>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>Filtering</Name>
-          <Title>Filtering</Title>
-          <Examples>
-            <Example>
-              <Page>FilterDescriptor</Page>
-              <Name>FilterDescriptor</Name>
-              <Title>Delegate Filter Descriptor</Title>
-            </Example>
-            <Example>
-              <Page>BindableFilterDescriptor</Page>
-              <Name>BindableFilterDescriptor</Name>
-              <Title>Bindable FilterDescriptor</Title>
-			  <ExcludeFrom>Android</ExcludeFrom>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>LoadOnDemand</Name>
-          <Title>Load On Demand</Title>
-          <Examples>
-            <Example>
-              <Page>LoadOnDemandCollection</Page>
-              <Name>LoadOnDemandCollection</Name>
-              <Title>Using LoadOnDemandCollection</Title>
-            </Example>
-            <Example>
-              <Page>LoadOnDemandCommand</Page>
-              <Name>LoadOnDemandCommand</Name>
-              <Title>Using LoadOnDemandCommand</Title>
-            </Example>
-            <Example>
-              <Page>LoadOnDemandEvent</Page>
-              <Name>LoadOnDemandEvent</Name>
-              <Title>Using LoadOnDemandEvent</Title>
-            </Example>
-            <Example>
-              <Page>LoadOnDemandTemplate</Page>
-              <Name>LoadOnDemandTemplate</Name>
-              <Title>Custom LoadOnDemandTemplate</Title>
-			  <ExcludeFrom>UWP</ExcludeFrom>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>Layouts</Name>
-          <Title>Layouts</Title>
-          <Examples>
-            <Example>
-              <Page>GridLayout</Page>
-              <Name>GridLayout</Name>
-              <Title>GridLayout</Title>
-            </Example>
-            <Example>
-              <Page>LinearLayout</Page>
-              <Name>LinearLayout</Name>
-              <Title>LinearLayout</Title>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>Commands</Name>
-          <Title>Commands</Title>
-          <Examples>
-            <Example>
-              <Page>InheritListViewCommand</Page>
-              <Name>ListViewCommand</Name>
-              <Title>Inherit ListViewCommand</Title>
-            </Example>
-            <Example>
-              <Page>ListViewItemTapUserCommand</Page>
-              <Name>ListViewUserCommand</Name>
-              <Title>Bind ListViewUserCommand</Title>
-            </Example>
-          </Examples>
-		  <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-        <Category>
-          <Name>Styling</Name>
-          <Title>Styling</Title>
-          <Examples>
-            <Example>
-              <Page>ListViewItemStylesXaml</Page>
-              <Name>ItemStyles</Name>
-              <Title>Item Styles - Xaml</Title>
-            </Example>
-            <!--<Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>CheckBox</Name>
+			<Title>CheckBox</Title>
+			<Icon>checkbox.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>CheckBoxGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>DataGrid</Name>
+			<Title>DataGrid</Title>
+			<Icon>datagrid.png</Icon>
+			<ExcludeFrom>UWP,macOS</ExcludeFrom>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>DataGridGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Columns</Name>
+					<Title>Columns</Title>
+					<Examples>
+						<Example>
+							<Page>Columns</Page>
+							<Name>Columns</Name>
+							<Title>Columns Overview</Title>
+							<ExcludeFrom>Android</ExcludeFrom>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>DatePicker</Name>
+			<Title>DatePicker</Title>
+			<Icon>datepicker.png</Icon>
+			<ExcludeFrom>UWP,macOS</ExcludeFrom>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>DatePickerGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+						<Example>
+							<Page>DatePickerGettingStartedCSharp</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Code</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>DateProperties</Name>
+					<Title>Date Properties</Title>
+					<Examples>
+						<Example>
+							<Page>DateProperties</Page>
+							<Name>DateProperties</Name>
+							<Title>Date Properties</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Templates</Name>
+					<Title>Templates</Title>
+					<Examples>
+						<Example>
+							<Page>CustomTemplates</Page>
+							<Name>CustomTemplates</Name>
+							<Title>Custom Templates</Title>
+						</Example>
+						<Example>
+							<Page>DefaultTemplates</Page>
+							<Name>DefaultTemplates</Name>
+							<Title>Default Templates</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Styling</Name>
+					<Title>Styling</Title>
+					<Examples>
+						<Example>
+							<Page>Styling</Page>
+							<Name>Styling</Name>
+							<Title>Styling</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>DockLayout</Name>
+			<Title>DockLayout</Title>
+			<Icon>docklayout.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>DockLayoutGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>DockingFunctionality</Name>
+					<Title>Docking Funcionality</Title>
+					<Examples>
+						<Example>
+							<Page>DockingFeature</Page>
+							<Name>DockingFeature</Name>
+							<Title>Docking Functionality</Title>
+						</Example>
+						<Example>
+							<Page>PositionLastChild</Page>
+							<Name>PositionLastChild</Name>
+							<Title>Set last element not to stretch</Title>
+						</Example>
+						<Example>
+							<Page>PositionElementsOneSide</Page>
+							<Name>PositionElementsOneSide</Name>
+							<Title>Position multiple elements on one side</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>Entry</Name>
+			<Title>Entry</Title>
+			<Icon>entry.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>EntryGettingStarted</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>Gauge</Name>
+			<Title>Gauge</Title>
+			<Icon>gauge.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>GaugeGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>GaugeTypes</Name>
+					<Title>Gauge Types</Title>
+					<Examples>
+						<Example>
+							<Page>VerticalGauge</Page>
+							<Name>VerticalGauge</Name>
+							<Title>Vertical Gauge</Title>
+						</Example>
+						<Example>
+							<Page>HorizontalGauge</Page>
+							<Name>HorizontalGauge</Name>
+							<Title>Horizontal Gauge</Title>
+						</Example>
+						<Example>
+							<Page>RadialGauge</Page>
+							<Name>RadialGauge</Name>
+							<Title>Radial Gauge</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>ItemsControl</Name>
+			<Title>ItemsControl</Title>
+			<Icon>listview.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>ItemsControlGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>ListPicker</Name>
+			<Title>ListPicker</Title>
+			<Icon>listpicker.png</Icon>
+			<ExcludeFrom>UWP,macOS</ExcludeFrom>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>ListPickerGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+						<Example>
+							<Page>ListPickerGettingStartedCSharp</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Code</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Templates</Name>
+					<Title>Templates</Title>
+					<Examples>
+						<Example>
+							<Page>CustomTemplates</Page>
+							<Name>CustomTemplates</Name>
+							<Title>Item and SelectedItem Templates</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Looping</Name>
+					<Title>Looping</Title>
+					<Examples>
+						<Example>
+							<Page>Looping</Page>
+							<Name>Looping</Name>
+							<Title>Looping List</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Styling</Name>
+					<Title>Styling</Title>
+					<Examples>
+						<Example>
+							<Page>Styling</Page>
+							<Name>Styling</Name>
+							<Title>Styling</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>ListView</Name>
+			<Title>ListView</Title>
+			<Icon>listview.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>ListViewGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>CellTypes</Name>
+					<Title>Cell Types</Title>
+					<Examples>
+						<Example>
+							<Page>ListViewTextCellXaml</Page>
+							<Name>TextCell</Name>
+							<Title>Text Cell - Xaml</Title>
+						</Example>
+						<Example>
+							<Page>ListViewTemplateCellXaml</Page>
+							<Name>TemplateCell</Name>
+							<Title>Template Cell - Xaml</Title>
+							<ExcludeFrom>UWP</ExcludeFrom>
+						</Example>
+						<Example>
+							<Page>TemplateCellSelector</Page>
+							<Name>TemplateCellSelector</Name>
+							<Title>Template Cell Selector - Xaml</Title>
+							<ExcludeFrom>UWP</ExcludeFrom>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>HeaderAndFooter</Name>
+					<Title>Header And Footer</Title>
+					<Examples>
+						<Example>
+							<Page>HeaderAndFooter</Page>
+							<Name>HeaderAndFooter</Name>
+							<Title>Header And Footer</Title>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>Selection</Name>
+					<Title>Selection</Title>
+					<Examples>
+						<Example>
+							<Page>Selection</Page>
+							<Name>Selection</Name>
+							<Title>Selection</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>CellSwipe</Name>
+					<Title>Cell Swipe</Title>
+					<Examples>
+						<Example>
+							<Page>InteractiveContent</Page>
+							<Name>InteractiveContent</Name>
+							<Title>Cell Swipe with Interactive Content</Title>
+							<ExcludeFrom>Android</ExcludeFrom>
+						</Example>
+						<Example>
+							<Page>SwipeEvents</Page>
+							<Name>SwipeEvents</Name>
+							<Title>Swipe Events</Title>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>PullToRefresh</Name>
+					<Title>Pull To Refresh</Title>
+					<Examples>
+						<Example>
+							<Page>PullToRefresh</Page>
+							<Name>PullToRefresh</Name>
+							<Title>Pull To Refresh</Title>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP,macOS</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>ReorderItems</Name>
+					<Title>Reorder Items</Title>
+					<Examples>
+						<Example>
+							<Page>ReorderItems</Page>
+							<Name>ReorderItems</Name>
+							<Title>Reorder ListView Items</Title>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>Scrolling</Name>
+					<Title>Scrolling</Title>
+					<Examples>
+						<Example>
+							<Page>ProgrammaticScrolling</Page>
+							<Name>Scrolling</Name>
+							<Title>Programmatic Scrolling</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Grouping</Name>
+					<Title>Grouping</Title>
+					<Examples>
+						<Example>
+							<Page>PropertyGrouping</Page>
+							<Name>PropertyGroupDescriptor</Name>
+							<Title>Property Group Descriptor</Title>
+						</Example>
+						<Example>
+							<Page>DelegateGrouping</Page>
+							<Name>DelegateGroupDescriptor</Name>
+							<Title>Delegate Group Descriptor</Title>
+						</Example>
+						<Example>
+							<Page>MultiLevelGrouping</Page>
+							<Name>MultiLevelGrouping</Name>
+							<Title>Multi Level Grouping</Title>
+						</Example>
+						<Example>
+							<Page>BindablePropertyGrouping</Page>
+							<Name>BindableGroupDescriptor</Name>
+							<Title>Bindable Property Grouping</Title>
+							<ExcludeFrom>Android</ExcludeFrom>
+						</Example>
+						<Example>
+							<Page>ReorderInGroupedListView</Page>
+							<Name>ReorderInGroupedListView</Name>
+							<Title>Reorder In Grouped ListView</Title>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>Sorting</Name>
+					<Title>Sorting</Title>
+					<Examples>
+						<Example>
+							<Page>PropertySorting</Page>
+							<Name>PropertySortDescriptor</Name>
+							<Title>Property Sort Descriptor</Title>
+						</Example>
+						<Example>
+							<Page>BindablePropertySorting</Page>
+							<Name>BindablePropertySortDescriptor</Name>
+							<Title>Bindable PropertySortDescriptor</Title>
+							<ExcludeFrom>macOS</ExcludeFrom>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>Filtering</Name>
+					<Title>Filtering</Title>
+					<Examples>
+						<Example>
+							<Page>FilterDescriptor</Page>
+							<Name>FilterDescriptor</Name>
+							<Title>Delegate Filter Descriptor</Title>
+						</Example>
+						<Example>
+							<Page>BindableFilterDescriptor</Page>
+							<Name>BindableFilterDescriptor</Name>
+							<Title>Bindable FilterDescriptor</Title>
+							<ExcludeFrom>Android</ExcludeFrom>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>LoadOnDemand</Name>
+					<Title>Load On Demand</Title>
+					<Examples>
+						<Example>
+							<Page>LoadOnDemandCollection</Page>
+							<Name>LoadOnDemandCollection</Name>
+							<Title>Using LoadOnDemandCollection</Title>
+						</Example>
+						<Example>
+							<Page>LoadOnDemandCommand</Page>
+							<Name>LoadOnDemandCommand</Name>
+							<Title>Using LoadOnDemandCommand</Title>
+						</Example>
+						<Example>
+							<Page>LoadOnDemandEvent</Page>
+							<Name>LoadOnDemandEvent</Name>
+							<Title>Using LoadOnDemandEvent</Title>
+						</Example>
+						<Example>
+							<Page>LoadOnDemandTemplate</Page>
+							<Name>LoadOnDemandTemplate</Name>
+							<Title>Custom LoadOnDemandTemplate</Title>
+							<ExcludeFrom>UWP</ExcludeFrom>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Layouts</Name>
+					<Title>Layouts</Title>
+					<Examples>
+						<Example>
+							<Page>GridLayout</Page>
+							<Name>GridLayout</Name>
+							<Title>GridLayout</Title>
+						</Example>
+						<Example>
+							<Page>LinearLayout</Page>
+							<Name>LinearLayout</Name>
+							<Title>LinearLayout</Title>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+				<Category>
+					<Name>Commands</Name>
+					<Title>Commands</Title>
+					<Examples>
+						<Example>
+							<Page>InheritListViewCommand</Page>
+							<Name>ListViewCommand</Name>
+							<Title>Inherit ListViewCommand</Title>
+						</Example>
+						<Example>
+							<Page>ListViewItemTapUserCommand</Page>
+							<Name>ListViewUserCommand</Name>
+							<Title>Bind ListViewUserCommand</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Styling</Name>
+					<Title>Styling</Title>
+					<Examples>
+						<Example>
+							<Page>ListViewItemStylesXaml</Page>
+							<Name>ItemStyles</Name>
+							<Title>Item Styles - Xaml</Title>
+						</Example>
+						<!--<Example>
               <Page>ListViewItemStyleSelectorXaml</Page>
               <Name>StyleSelector</Name>
               <Title>Conditional Styling</Title>
             </Example>-->
-            <Example>
-              <Page>ListViewGroupHeaderStyle</Page>
-              <Name>GroupHeadersStyling</Name>
-              <Title>GroupHeader Style</Title>
-            </Example>
-          </Examples>
-	      <ExcludeFrom>UWP</ExcludeFrom>
-        </Category>
-      </Categories>
-    </Control>
+						<Example>
+							<Page>ListViewGroupHeaderStyle</Page>
+							<Name>GroupHeadersStyling</Name>
+							<Title>GroupHeader Style</Title>
+						</Example>
+					</Examples>
+					<ExcludeFrom>UWP</ExcludeFrom>
+				</Category>
+			</Categories>
+		</Control>
     <Control>
-      <Name>NumericInput</Name>
-      <Title>NumericInput</Title>
-      <Icon>numeric.png</Icon>
-      <ExcludeFrom>UWP</ExcludeFrom>
+      <Name>MaskedEntry</Name>
+      <Title>MaskedEntry</Title>
+      <Icon>mask.png</Icon>
       <Categories>
         <Category>
           <Name>GettingStarted</Name>
           <Title>Getting Started</Title>
           <Examples>
             <Example>
-              <Page>NumericInputGettingStartedXaml</Page>
+              <Page>MaskedEntryGettingStartedXaml</Page>
               <Name>GettingStarted</Name>
               <Title>Getting Started - Xaml</Title>
+            </Example>
+          </Examples>
+        </Category>
+        <Category>
+          <Name>MaskTypes</Name>
+          <Title>Mask Types</Title>
+          <Examples>
+            <Example>
+              <Page>TextMask</Page>
+              <Name>TextMask</Name>
+              <Title>Text Mask</Title>
+            </Example>
+            <Example>
+              <Page>NumericMask</Page>
+              <Name>NumericMask</Name>
+              <Title>Numeric Mask</Title>
+            </Example>
+            <Example>
+              <Page>RegexMask</Page>
+              <Name>RegexMask</Name>
+              <Title>Regex Mask</Title>
+            </Example>
+            <Example>
+              <Page>EmailMask</Page>
+              <Name>EmailMask</Name>
+              <Title>Email Mask</Title>
+            </Example>
+            <Example>
+              <Page>IpMask</Page>
+              <Name>IpMask</Name>
+              <Title>IP Mask</Title>
             </Example>
           </Examples>
         </Category>
@@ -669,160 +865,440 @@
           <Title>Features</Title>
           <Examples>
             <Example>
-              <Page>KeyFeatures</Page>
-              <Name>KeyFeatures</Name>
-              <Title>Key Features</Title>
+              <Page>Value</Page>
+              <Name>Value</Name>
+              <Title>Value</Title>
             </Example>
             <Example>
-              <Page>Commands</Page>
-              <Name>Commands</Name>
-              <Title>Commands</Title>
+              <Page>ValueFormat</Page>
+              <Name>ValueFormat</Name>
+              <Title>Value Format</Title>
+            </Example>
+            <Example>
+              <Page>AllowNullValues</Page>
+              <Name>AllowNullValues</Name>
+              <Title>Allow Null Values</Title>
+            </Example>
+            <!-- <Example>
+              <Page>ValidationErrorMessage</Page>
+              <Name>ValidationErrorMessage</Name>
+              <Title>Validation Error Message</Title>
+              <ExcludeFrom>Android,iOS,macOS</ExcludeFrom>
+            </Example> -->
+            <Example>
+              <Page>Culture</Page>
+              <Name>Culture</Name>
+              <Title>Culture</Title>
             </Example>
           </Examples>
         </Category>
+        <!--<Category>
+          <Name>Events</Name>
+          <Title>Events</Title>
+          <Examples>
+            <Example>
+              <Page>Events</Page>
+              <Name>Events</Name>
+              <Title>Events</Title>
+            </Example>
+          </Examples>
+        </Category>-->
       </Categories>
     </Control>
-    <Control>
-      <Name>Path</Name>
-      <Title>Path</Title>
-      <Icon>path.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>PathGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started - Xaml</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>Features</Name>
-          <Title>Features</Title>
-          <Examples>
-            <Example>
-              <Page>PathGeometry</Page>
-              <Name>PathGeometry</Name>
-              <Title>PathGeometry</Title>
-            </Example>
-            <Example>
-              <Page>MultiPath</Page>
-              <Name>MultiPath</Name>
-              <Title>Multi Path</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>Popup</Name>
-      <Title>Popup</Title>
-      <Icon>popup.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>PopupGettingStarted</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>Placement</Name>
-          <Title>Placement</Title>
-          <Examples>
-            <Example>
-              <Page>PopupPlacement</Page>
-              <Name>Placement</Name>
-              <Title>Popup Placement</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>ContentTemplate</Name>
-          <Title>Popup Content Template</Title>
-          <Examples>
-            <Example>
-              <Page>ContentTemplate</Page>
-              <Name>ContentTemplate</Name>
-              <Title>Popup Content Template</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>ModalPopup</Name>
-          <Title>Modal Popup</Title>
-          <Examples>
-            <Example>
-              <Page>ModalPopup</Page>
-              <Name>ModalPopup</Name>
-              <Title>Modal Popup</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>Segmented</Name>
-      <Title>Segmented</Title>
-      <Icon>segmented.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>SegmentControlGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started - Xaml</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-    <Control>
-      <Name>WrapLayout</Name>
-      <Title>WrapLayout</Title>
-      <Icon>wraplayout.png</Icon>
-      <Categories>
-        <Category>
-          <Name>GettingStarted</Name>
-          <Title>Getting Started</Title>
-          <Examples>
-            <Example>
-              <Page>WrapLayoutGettingStartedXaml</Page>
-              <Name>GettingStarted</Name>
-              <Title>Getting Started</Title>
-            </Example>
-          </Examples>
-        </Category>
-        <Category>
-          <Name>WrapFunctionality</Name>
-          <Title>Wrap Functionality</Title>
-          <Examples>
-            <Example>
-              <Page>WrapLayoutOrientations</Page>
-              <Name>WrapLayoutOrientations</Name>
-              <Title>Orientation</Title>
-            </Example>
-            <Example>
-              <Page>WrapLayoutItemSize</Page>
-              <Name>WrapLayoutItemSize</Name>
-              <Title>Item Size</Title>
-            </Example>
-            <Example>
-              <Page>WrapLayoutStretchLastChild</Page>
-              <Name>WrapLayoutStretchLastChild</Name>
-              <Title>Stretch Last Child</Title>
-            </Example>
-          </Examples>
-        </Category>
-      </Categories>
-    </Control>
-  </Controls>
+		<Control>
+			<Name>NumericInput</Name>
+			<Title>NumericInput</Title>
+			<Icon>numeric.png</Icon>
+			<ExcludeFrom>UWP</ExcludeFrom>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>NumericInputGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Features</Name>
+					<Title>Features</Title>
+					<Examples>
+						<Example>
+							<Page>KeyFeatures</Page>
+							<Name>KeyFeatures</Name>
+							<Title>Key Features</Title>
+						</Example>
+						<Example>
+							<Page>Commands</Page>
+							<Name>Commands</Name>
+							<Title>Commands</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>Path</Name>
+			<Title>Path</Title>
+			<Icon>path.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>PathGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Features</Name>
+					<Title>Features</Title>
+					<Examples>
+						<Example>
+							<Page>PathGeometry</Page>
+							<Name>PathGeometry</Name>
+							<Title>PathGeometry</Title>
+						</Example>
+						<Example>
+							<Page>MultiPath</Page>
+							<Name>MultiPath</Name>
+							<Title>Multi Path</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>Popup</Name>
+			<Title>Popup</Title>
+			<Icon>popup.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>PopupGettingStarted</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Placement</Name>
+					<Title>Placement</Title>
+					<Examples>
+						<Example>
+							<Page>PopupPlacement</Page>
+							<Name>Placement</Name>
+							<Title>Popup Placement</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>ContentTemplate</Name>
+					<Title>Popup Content Template</Title>
+					<Examples>
+						<Example>
+							<Page>ContentTemplate</Page>
+							<Name>ContentTemplate</Name>
+							<Title>Popup Content Template</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>ModalPopup</Name>
+					<Title>Modal Popup</Title>
+					<Examples>
+						<Example>
+							<Page>ModalPopup</Page>
+							<Name>ModalPopup</Name>
+							<Title>Modal Popup</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>Rating</Name>
+			<Title>Rating</Title>
+			<Icon>rating.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>RatingGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>RatingTypes</Name>
+					<Title>Rating Types</Title>
+					<Examples>
+						<Example>
+							<Page>Geometries</Page>
+							<Name>Geometries</Name>
+							<Title>Geometries</Title>
+						</Example>
+					</Examples>
+					<Examples>
+						<Example>
+							<Page>Templated</Page>
+							<Name>Templated</Name>
+							<Title>Templated</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>ReadOnlyMode</Name>
+					<Title>ReadOnly Mode</Title>
+					<Examples>
+						<Example>
+							<Page>ReadOnlyMode</Page>
+							<Name>ReadOnlyMode</Name>
+							<Title>ReadOnly Mode</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Configuration</Name>
+					<Title>Configuration</Title>
+					<Examples>
+						<Example>
+							<Page>ConfigurationSettings</Page>
+							<Name>ConfigurationSettings</Name>
+							<Title>Configuration Settings</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>Segmented</Name>
+			<Title>Segmented</Title>
+			<Icon>segmented.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>SegmentControlGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>TemplatedPicker</Name>
+			<Title>TemplatedPicker</Title>
+			<Icon>templatedpicker.png</Icon>
+			<ExcludeFrom>UWP,macOS</ExcludeFrom>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>TemplatedPickerGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+						<Example>
+							<Page>TemplatedPickerGettingStartedCSharp</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Code</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>DataBinding</Name>
+					<Title>Data Binding</Title>
+					<Examples>
+						<Example>
+							<Page>DataBinding</Page>
+							<Name>DataBinding</Name>
+							<Title>Data Binding</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Styling</Name>
+					<Title>Styling</Title>
+					<Examples>
+						<Example>
+							<Page>Styling</Page>
+							<Name>Styling</Name>
+							<Title>Styling</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>TimePicker</Name>
+			<Title>TimePicker</Title>
+			<Icon>timepicker.png</Icon>
+			<ExcludeFrom>UWP,macOS</ExcludeFrom>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>TimePickerGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+						<Example>
+							<Page>TimePickerGettingStartedCSharp</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Code</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Templates</Name>
+					<Title>Templates</Title>
+					<Examples>
+						<Example>
+							<Page>CustomTemplates</Page>
+							<Name>CustomTemplates</Name>
+							<Title>Custom Templates</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>TimeProperties</Name>
+					<Title>Time Properties</Title>
+					<Examples>
+						<Example>
+							<Page>TimeProperties</Page>
+							<Name>TimeProperties</Name>
+							<Title>Time Properties</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Styling</Name>
+					<Title>Styling</Title>
+					<Examples>
+						<Example>
+							<Page>Styling</Page>
+							<Name>Styling</Name>
+							<Title>Styling</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>TimeSpanPicker</Name>
+			<Title>TimeSpanPicker</Title>
+			<Icon>timespanpicker.png</Icon>
+			<ExcludeFrom>UWP,macOS</ExcludeFrom>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>TimeSpanPickerGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Xaml</Title>
+						</Example>
+						<Example>
+							<Page>TimeSpanPickerGettingStartedCSharp</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started - Code</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Templates</Name>
+					<Title>Templates</Title>
+					<Examples>
+						<Example>
+							<Page>CustomTemplates</Page>
+							<Name>CustomTemplates</Name>
+							<Title>Custom Templates</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>TimeSpanProperties</Name>
+					<Title>TimeSpan Properties</Title>
+					<Examples>
+						<Example>
+							<Page>TimeSpanProperties</Page>
+							<Name>TimeSpanProperties</Name>
+							<Title>TimeSpan Properties</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>Styling</Name>
+					<Title>Styling</Title>
+					<Examples>
+						<Example>
+							<Page>Styling</Page>
+							<Name>Styling</Name>
+							<Title>Styling</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+		<Control>
+			<Name>WrapLayout</Name>
+			<Title>WrapLayout</Title>
+			<Icon>wraplayout.png</Icon>
+			<Categories>
+				<Category>
+					<Name>GettingStarted</Name>
+					<Title>Getting Started</Title>
+					<Examples>
+						<Example>
+							<Page>WrapLayoutGettingStartedXaml</Page>
+							<Name>GettingStarted</Name>
+							<Title>Getting Started</Title>
+						</Example>
+					</Examples>
+				</Category>
+				<Category>
+					<Name>WrapFunctionality</Name>
+					<Title>Wrap Functionality</Title>
+					<Examples>
+						<Example>
+							<Page>WrapLayoutOrientations</Page>
+							<Name>WrapLayoutOrientations</Name>
+							<Title>Orientation</Title>
+						</Example>
+						<Example>
+							<Page>WrapLayoutItemSize</Page>
+							<Name>WrapLayoutItemSize</Name>
+							<Title>Item Size</Title>
+						</Example>
+						<Example>
+							<Page>WrapLayoutStretchLastChild</Page>
+							<Name>WrapLayoutStretchLastChild</Name>
+							<Title>Stretch Last Child</Title>
+						</Example>
+					</Examples>
+				</Category>
+			</Categories>
+		</Control>
+	</Controls>
 </Configuration>

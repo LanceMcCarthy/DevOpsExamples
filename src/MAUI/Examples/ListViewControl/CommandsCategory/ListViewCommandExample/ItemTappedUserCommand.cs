@@ -18,7 +18,7 @@ namespace SDKBrowserMaui.Examples.ListViewControl.CommandsCategory.ListViewComma
         {
             var tappedItem = (parameter as ItemTapCommandContext).Item;
             //add your logic here
-            Application.Current.MainPage.DisplayAlert("", "You've selected " + tappedItem, "OK");
+            App.DisplayAlert("You've selected " + tappedItem);
         }
     }
     // << listview-features-commands-listviewcommand

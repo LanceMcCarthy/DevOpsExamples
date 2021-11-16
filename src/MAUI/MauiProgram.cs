@@ -1,12 +1,10 @@
-﻿using Microsoft.Maui;
+﻿using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
-using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.Controls.Hosting;
 using Telerik.Maui.Controls.Compatibility;
 
 namespace SDKBrowserMaui
 {
-	public static class MauiProgram
+    public static class MauiProgram
 	{
 		public static MauiApp CreateMauiApp()
 		{
@@ -17,6 +15,7 @@ namespace SDKBrowserMaui
 				.ConfigureFonts(fonts =>
 				{
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+					fonts.AddFont("telerikfontexamples.ttf", "TelerikFontExamples");
 				});
 
 			return builder.Build();
