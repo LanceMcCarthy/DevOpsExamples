@@ -7,7 +7,7 @@ on:
 jobs:
   # A job that builds a .NET 5.0 web application using Telerik UI for Blazor. 
   build_web:
-    runs-on: windows-latest
+    runs-on: windows-2022
     
     steps:
     - name: Checkout
@@ -16,9 +16,9 @@ jobs:
         fetch-depth: 0
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100
+        dotnet-version: 6
 
     - name: Restore NuGet Packages
       run: dotnet restore src\Web\Web.sln --configfile src\NuGet.Config --runtime any

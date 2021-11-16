@@ -8,7 +8,7 @@ jobs:
   # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
   # It uses a Windows runner and builds for Any CPU
   build_console:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - name: Checkout
@@ -17,9 +17,9 @@ jobs:
         fetch-depth: 0
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100
+        dotnet-version: 6
     
     - name: Restore NuGet Packages
       run: dotnet restore src\Console\MyDocProcApp\MyDocProcApp.csproj --configfile src\NuGet.Config --runtime win-x86
