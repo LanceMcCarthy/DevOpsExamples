@@ -14,9 +14,8 @@ jobs:
 # ***************************** #
 # >>>>>>> Android build <<<<<<< #
 # ***************************** #
-
   maui-android:
-    runs-on: [self-hosted, maui, windows]
+    runs-on: [self-hosted, maui, windows] # Using a self-hosted Windows runner while MAUI is still in preview
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -71,12 +70,12 @@ jobs:
     #     name: maui-android-artifacts
     #     path: '*Android\**\*-Signed.apk'
 
+
 # ***************************** #
 # >>>>>>> Windows Build <<<<<<< #
 # ***************************** #
-
   maui-windows:
-    runs-on: [self-hosted, maui, windows]
+    runs-on: [self-hosted, maui, windows] # Using a self-hosted Windows runner while MAUI is still in preview
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -131,12 +130,12 @@ jobs:
     #     name: maui-windows-artifacts
     #     path: '*Windows\**\*.msix'
 
+
 # ************************* #
 # >>>>>>> iOS Build <<<<<<< #
 # ************************* #
-
   maui-ios:
-    runs-on: [self-hosted, maui, macOS]
+    runs-on: [self-hosted, maui, macOS] # Using a self-hosted MacOS runner while MAUI is still in preview
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -198,9 +197,8 @@ jobs:
 # ********************************* #
 # >>>>>>> MacCatalyst Build <<<<<<< #
 # ********************************* #
-
-  maui-ios:
-    runs-on: [self-hosted, maui, macOS]
+  maui-macos:
+    runs-on: [self-hosted, maui, macOS] # Using a self-hosted MacOS runner while MAUI is still in preview
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true

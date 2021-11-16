@@ -2,16 +2,17 @@ name: Build WPF Application
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
 
 jobs:
   # A job that builds a .NET Framework WPF application using Telerik UI for WPF
-  # It uses a Windows runner and builds for x86 and x64 runtime
   build_desktop:
     runs-on: windows-latest # WPF apps must be built on Windows runners
-    #runs-on: [self-hosted, Windows, X64]
-    env:
-      Actions_Allow_Unsecure_Commands: true #This is only required for the AzureSignTool step
     
     steps:
     - name: Checkout
@@ -20,12 +21,12 @@ jobs:
         fetch-depth: 0
       
     - name: Install .NET 5 SDK
-      uses: actions/setup-dotnet@v1.7.2
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100
+        dotnet-version: '6.0.x'
     
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.1
     
     # We use the dotnet CLI (instead of nuget.exe) to restore the nuget packages before using msbuild
     - name: NuGet Restore

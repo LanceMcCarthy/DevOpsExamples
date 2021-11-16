@@ -28,7 +28,7 @@ jobs:
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
     
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.1
       
     - name: NuGet Restore - Class Library Project
       run: nuget restore src\Xamarin\XamForms\Portable\XamForms.Portable.csproj -ConfigFile src\nuget.config
@@ -72,7 +72,7 @@ jobs:
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
     
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.1
 
     - name: NuGet Restore - Class Library Project
       run: nuget restore src\Xamarin\XamForms\Portable\XamForms.Portable.csproj -ConfigFile src\nuget.config

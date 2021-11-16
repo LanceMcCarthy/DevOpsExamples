@@ -2,7 +2,12 @@ name: Build Console App
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
 
 jobs:
   # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
@@ -19,7 +24,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6
+        dotnet-version: '6.0.x'
     
     - name: Restore NuGet Packages
       run: dotnet restore src\Console\MyDocProcApp\MyDocProcApp.csproj --configfile src\NuGet.Config --runtime win-x86

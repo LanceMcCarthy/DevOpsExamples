@@ -2,10 +2,15 @@ name: Build Web Application
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
 
 jobs:
-  # A job that builds a .NET 5.0 web application using Telerik UI for Blazor. 
+  # A job that builds a .NET 6.0 web application using Telerik UI for Blazor. 
   build_web:
     runs-on: windows-2022
     
@@ -18,7 +23,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6
+        dotnet-version: '6.0.x'
 
     - name: Restore NuGet Packages
       run: dotnet restore src\Web\Web.sln --configfile src\NuGet.Config --runtime any
