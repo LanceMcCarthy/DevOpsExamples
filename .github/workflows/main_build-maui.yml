@@ -15,10 +15,7 @@ jobs:
 # >>>>>>> Android build <<<<<<< #
 # ***************************** #
   maui-android:
-    runs-on: [self-hosted, maui, windows] # Using a self-hosted Windows runner while MAUI is still in preview
-    env:
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    runs-on: windows-2022 (required for current windows-2022 runners)
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -29,28 +26,28 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
       with:
         vs-prerelease: true
 
-    # Removed while using self-hosted runner
-    # - name: Install MAUI workloads
-      # shell: pwsh
-      # run: |
-        # dotnet workload install android --ignore-failed-sources
-        # dotnet workload install ios --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maccatalyst
+    - name: Generate version number
+      shell: pwsh
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    # - name: Generate version number
-    #   shell: pwsh
-    #   run: |
-    #     $buildDay = Get-Date -Format "yyyy.Mdd"
-    #     $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-    #     echo "APP_VERSION=$ver" >> $GITHUB_ENV
+    - name: Install MAUI workloads (required for current windows-2022 runners)
+      shell: pwsh
+      run: |
+        dotnet workload install android --ignore-failed-sources
+        dotnet workload install ios --ignore-failed-sources
+        dotnet workload install maui-android --ignore-failed-sources
+        dotnet workload install maui-ios --ignore-failed-sources
+        dotnet workload install maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: pwsh
@@ -75,10 +72,7 @@ jobs:
 # >>>>>>> Windows Build <<<<<<< #
 # ***************************** #
   maui-windows:
-    runs-on: [self-hosted, maui, windows] # Using a self-hosted Windows runner while MAUI is still in preview
-    env:
-      DOTNET_NOLOGO: true
-      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    runs-on: windows-2022
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -89,28 +83,28 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
       with:
         vs-prerelease: true
 
-    # - name: Generate version number
-    #   shell: pwsh
-    #   run: |
-    #     $buildDay = Get-Date -Format "yyyy.Mdd"
-    #     $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-    #     echo "APP_VERSION=$ver" >> $GITHUB_ENV
+    - name: Generate version number
+      shell: pwsh
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    # Removed while using self-hosted runner
-    # - name: Install MAUI workloads
-      # shell: pwsh
-      # run: |
-        # dotnet workload install android --ignore-failed-sources
-        # dotnet workload install ios --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maccatalyst
+    - name: Install MAUI workloads
+      shell: pwsh
+      run: |
+        dotnet workload install android --ignore-failed-sources
+        dotnet workload install ios --ignore-failed-sources
+        dotnet workload install maui-android --ignore-failed-sources
+        dotnet workload install maui-ios --ignore-failed-sources
+        dotnet workload install maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: pwsh
@@ -135,7 +129,7 @@ jobs:
 # >>>>>>> iOS Build <<<<<<< #
 # ************************* #
   maui-ios:
-    runs-on: [self-hosted, maui, macOS] # Using a self-hosted MacOS runner while MAUI is still in preview
+    runs-on: macos-11
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -149,31 +143,31 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
       with:
         vs-prerelease: true
 
-    # - name: Generate version number
-    #   shell: bash
-    #   run: |
-    #     buildDay=`date +%Y.%m%d`
-    #     echo $buildDay
-    #     runNum=${{ github.run_number }}
-    #     ver="${buildDay}.${runNum}.0"
-    #     echo $ver
-    #     echo "APP_VERSION=$ver" >> $GITHUB_ENV
+    - name: Generate version number
+      shell: bash
+      run: |
+        buildDay=`date +%Y.%m%d`
+        echo $buildDay
+        runNum=${{ github.run_number }}
+        ver="${buildDay}.${runNum}.0"
+        echo $ver
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    # Removed while using self-hosted runner
-    # - name: Install MAUI workloads
-      # shell: pwsh
-      # run: |
-        # dotnet workload install android --ignore-failed-sources
-        # dotnet workload install ios --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maccatalyst
+    - name: Install MAUI workloads
+      shell: pwsh
+      run: |
+        dotnet workload install android --ignore-failed-sources
+        dotnet workload install ios --ignore-failed-sources
+        dotnet workload install maui-android --ignore-failed-sources
+        dotnet workload install maui-ios --ignore-failed-sources
+        dotnet workload install maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: bash
@@ -198,7 +192,7 @@ jobs:
 # >>>>>>> MacCatalyst Build <<<<<<< #
 # ********************************* #
   maui-macos:
-    runs-on: [self-hosted, maui, macOS] # Using a self-hosted MacOS runner while MAUI is still in preview
+    runs-on: macos-11
     env:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -212,31 +206,31 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
 
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
       with:
         vs-prerelease: true
 
-    # - name: Generate version number
-    #   shell: bash
-    #   run: |
-    #     buildDay=`date +%Y.%m%d`
-    #     echo $buildDay
-    #     runNum=${{ github.run_number }}
-    #     ver="${buildDay}.${runNum}.0"
-    #     echo $ver
-    #     echo "APP_VERSION=$ver" >> $GITHUB_ENV
+    - name: Generate version number
+      shell: bash
+      run: |
+        buildDay=`date +%Y.%m%d`
+        echo $buildDay
+        runNum=${{ github.run_number }}
+        ver="${buildDay}.${runNum}.0"
+        echo $ver
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    # Removed while using self-hosted runner
-    # - name: Install MAUI workloads
-      # shell: pwsh
-      # run: |
-        # dotnet workload install android --ignore-failed-sources
-        # dotnet workload install ios --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maccatalyst
+    - name: Install MAUI workloads
+      shell: pwsh
+      run: |
+        dotnet workload install android --ignore-failed-sources
+        dotnet workload install ios --ignore-failed-sources
+        dotnet workload install maui-android --ignore-failed-sources
+        dotnet workload install maui-ios --ignore-failed-sources
+        dotnet workload install maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: bash
@@ -248,10 +242,10 @@ jobs:
     
     - name: Build MAUI iOS project
       shell: bash
-      run: dotnet build src/MAUI/SDKBrowserMaui.csproj -c Debug -f net6.0-ios --no-restore
+      run: dotnet build src/MAUI/SDKBrowserMaui.csproj -c Debug -f net6.0-maccatalyst --no-restore
     
     # - name: Upload iOS build artifacts
     #   uses: actions/upload-artifact@v2
     #   with:
     #     name: maui-ios-artifacts
-    #     path: '*iOS/**/*.app/**'
+    #     path: '*maccatalyst/**/*.app/**'
