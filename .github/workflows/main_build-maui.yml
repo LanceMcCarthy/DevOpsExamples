@@ -15,7 +15,7 @@ jobs:
 # >>>>>>> Android build <<<<<<< #
 # ***************************** #
   maui-android:
-    runs-on: windows-2022 (required for current windows-2022 runners)
+    runs-on: windows-2022
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    - name: Install MAUI workloads (required for current windows-2022 runners)
+    - name: Install MAUI workloads (currently required for hosted runners)
       shell: pwsh
       run: |
         dotnet workload install android --ignore-failed-sources
@@ -52,14 +52,14 @@ jobs:
     - name: Restore NuGet packages
       shell: pwsh
       run: |
-        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/MAUI/NuGet.Config
+        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime any
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
 
     - name: Build Maui Android project
       shell: pwsh
-      run: dotnet build src/MAUI/SDKBrowserMaui.csproj -c Debug -f net6.0-android --no-restore
+      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-android --no-restore
     
     # - name: Upload build artifacts
     #   uses: actions/upload-artifact@v2
@@ -97,7 +97,7 @@ jobs:
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    - name: Install MAUI workloads
+    - name: Install MAUI workloads (currently required for hosted runners)
       shell: pwsh
       run: |
         dotnet workload install android --ignore-failed-sources
@@ -109,14 +109,14 @@ jobs:
     - name: Restore NuGet packages
       shell: pwsh
       run: |
-        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/MAUI/NuGet.Config
+        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime win-x64
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build src/MAUI/SDKBrowserMaui.csproj -c Debug -f net6.0-windows10.0.19041 --no-restore
+      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-windows10.0.19041 --no-restore
     
     # - name: Upload build artifacts
     #   uses: actions/upload-artifact@v2
@@ -145,10 +145,10 @@ jobs:
         dotnet-version: '6.0.x'
         include-prerelease: true
 
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.1
-      with:
-        vs-prerelease: true
+    # - name: Setup MSBuild.exe
+    #   uses: microsoft/setup-msbuild@v1.1
+    #   with:
+    #     vs-prerelease: true
 
     - name: Generate version number
       shell: bash
@@ -172,14 +172,14 @@ jobs:
     - name: Restore NuGet packages
       shell: bash
       run: |
-        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/MAUI/NuGet.Config
+        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime ios-x64
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
     - name: Build MAUI iOS project
       shell: bash
-      run: dotnet build src/MAUI/SDKBrowserMaui.csproj -c Debug -f net6.0-ios --no-restore
+      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-ios --no-restore
     
     # - name: Upload iOS build artifacts
     #   uses: actions/upload-artifact@v2
@@ -208,10 +208,10 @@ jobs:
         dotnet-version: '6.0.x'
         include-prerelease: true
 
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.1
-      with:
-        vs-prerelease: true
+    # - name: Setup MSBuild.exe
+    #   uses: microsoft/setup-msbuild@v1.1
+    #   with:
+    #     vs-prerelease: true
 
     - name: Generate version number
       shell: bash
@@ -235,14 +235,14 @@ jobs:
     - name: Restore NuGet packages
       shell: bash
       run: |
-        dotnet restore src/MAUI/SDKBrowserMaui.csproj --configfile src/MAUI/NuGet.Config
+        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
     - name: Build MAUI iOS project
       shell: bash
-      run: dotnet build src/MAUI/SDKBrowserMaui.csproj -c Debug -f net6.0-maccatalyst --no-restore
+      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-maccatalyst --no-restore
     
     # - name: Upload iOS build artifacts
     #   uses: actions/upload-artifact@v2
