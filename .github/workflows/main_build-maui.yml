@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev-maui
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -46,14 +45,17 @@ jobs:
       run: |
         dotnet workload install android --ignore-failed-sources
         dotnet workload install ios --ignore-failed-sources
-        dotnet workload install maui-android --ignore-failed-sources
-        dotnet workload install maui-ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
+        dotnet workload install maui --ignore-failed-sources
+        # dotnet workload install maui-android --ignore-failed-sources
+        # dotnet workload install maui-ios --ignore-failed-sources
+        # dotnet workload install maui-desktop --ignore-failed-sources
+        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: pwsh
       run: |
-        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime any
+        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
@@ -103,21 +105,26 @@ jobs:
       run: |
         dotnet workload install android --ignore-failed-sources
         dotnet workload install ios --ignore-failed-sources
-        dotnet workload install maui-android --ignore-failed-sources
-        dotnet workload install maui-ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
+        dotnet workload install maui --ignore-failed-sources
+        # dotnet workload install maui-android --ignore-failed-sources
+        # dotnet workload install maui-ios --ignore-failed-sources
+        # dotnet workload install maui-desktop --ignore-failed-sources
+        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: pwsh
       run: |
-        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime win-x64
+        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-windows10.0.19041 --no-restore
+      run: |
+        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041 
+        #dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-windows10.0.19041 --no-restore
     
     # - name: Upload build artifacts
     #   uses: actions/upload-artifact@v2
@@ -166,14 +173,17 @@ jobs:
       run: |
         dotnet workload install android --ignore-failed-sources
         dotnet workload install ios --ignore-failed-sources
-        dotnet workload install maui-android --ignore-failed-sources
-        dotnet workload install maui-ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
+        dotnet workload install maui --ignore-failed-sources
+        # dotnet workload install maui-android --ignore-failed-sources
+        # dotnet workload install maui-ios --ignore-failed-sources
+        # dotnet workload install maui-desktop --ignore-failed-sources
+        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: bash
       run: |
-        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime ios-x64
+        dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
@@ -229,9 +239,12 @@ jobs:
       run: |
         dotnet workload install android --ignore-failed-sources
         dotnet workload install ios --ignore-failed-sources
-        dotnet workload install maui-android --ignore-failed-sources
-        dotnet workload install maui-ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
+        dotnet workload install maui --ignore-failed-sources
+        # dotnet workload install maui-android --ignore-failed-sources
+        # dotnet workload install maui-ios --ignore-failed-sources
+        # dotnet workload install maui-desktop --ignore-failed-sources
+        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: bash
