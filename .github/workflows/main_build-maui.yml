@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev-maui
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
@@ -240,7 +241,7 @@ jobs:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
-    - name: Build MAUI iOS project
+    - name: Build MAUI MAcCatalyst project
       shell: bash
       run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-maccatalyst --no-restore
     
