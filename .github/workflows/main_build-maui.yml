@@ -26,31 +26,25 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-        include-prerelease: true
 
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.1
-      with:
-        vs-prerelease: true
-
-    - name: Generate version number
+    - name: Generate version number using date and run number
       shell: pwsh
+      id: version-creator
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+        echo "::set-output name=APP_VERSION::$ver"
 
     - name: Install MAUI workloads (currently required for hosted runners)
       shell: pwsh
       run: |
+        # These are the platform workloads
         dotnet workload install android --ignore-failed-sources
         dotnet workload install ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
+
+        # This installs the .NET MAUI workloads for all the target platforms
         dotnet workload install maui --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maui-desktop --ignore-failed-sources
-        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: pwsh
@@ -86,19 +80,20 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-        include-prerelease: true
 
+    # Needed for Windows build
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
       with:
         vs-prerelease: true
 
-    - name: Generate version number
+    - name: Generate version number using date and run number
       shell: pwsh
+      id: version-creator
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+        echo "::set-output name=APP_VERSION::$ver"
 
     - name: Install MAUI workloads (currently required for hosted runners)
       shell: pwsh
@@ -107,10 +102,6 @@ jobs:
         dotnet workload install ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
         dotnet workload install maui --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maui-desktop --ignore-failed-sources
-        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: pwsh
@@ -123,8 +114,7 @@ jobs:
     - name: Build Maui WinUI project
       shell: pwsh
       run: |
-        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041 
-        #dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-windows10.0.19041 --no-restore
+        msbuild src/MAUI/MauiDemo/MauiDemo.csproj p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041 
     
     # - name: Upload build artifacts
     #   uses: actions/upload-artifact@v2
@@ -151,19 +141,13 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-        include-prerelease: true
 
-    # - name: Setup MSBuild.exe
-    #   uses: microsoft/setup-msbuild@v1.1
-    #   with:
-    #     vs-prerelease: true
-
-    - name: Generate version number
+    - name: Generate version number using date and run number
       shell: bash
       run: |
         buildDay=`date +%Y.%m%d`
         echo $buildDay
-        runNum=${{ github.run_number }}
+        runNum=${{ env.GITHUB_RUN_NUMBER }}
         ver="${buildDay}.${runNum}.0"
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
@@ -175,10 +159,6 @@ jobs:
         dotnet workload install ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
         dotnet workload install maui --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maui-desktop --ignore-failed-sources
-        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: bash
@@ -217,19 +197,13 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-        include-prerelease: true
 
-    # - name: Setup MSBuild.exe
-    #   uses: microsoft/setup-msbuild@v1.1
-    #   with:
-    #     vs-prerelease: true
-
-    - name: Generate version number
+    - name: Generate version number using date and run number
       shell: bash
       run: |
         buildDay=`date +%Y.%m%d`
         echo $buildDay
-        runNum=${{ github.run_number }}
+        runNum=${{ env.GITHUB_RUN_NUMBER }}
         ver="${buildDay}.${runNum}.0"
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
@@ -241,10 +215,6 @@ jobs:
         dotnet workload install ios --ignore-failed-sources
         dotnet workload install maccatalyst --ignore-failed-sources
         dotnet workload install maui --ignore-failed-sources
-        # dotnet workload install maui-android --ignore-failed-sources
-        # dotnet workload install maui-ios --ignore-failed-sources
-        # dotnet workload install maui-desktop --ignore-failed-sources
-        # dotnet workload install maui-maccatalyst --ignore-failed-sources
 
     - name: Restore NuGet packages
       shell: bash
