@@ -114,7 +114,9 @@ jobs:
     - name: Build Maui WinUI project
       shell: pwsh
       run: |
-        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041 
+        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041
+        # Do not use
+        # dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-windows10.0.19041 --no-restore
     
     # - name: Upload build artifacts
     #   uses: actions/upload-artifact@v2
