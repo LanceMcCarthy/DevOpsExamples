@@ -88,7 +88,7 @@ jobs:
   #     nugetConfigPath: $(consoleNugetConfigPath)
   #     externalFeedCredentials: 'TelerikFeed' 
 
-  # RESTORE OPTION 2. USe Powershell Task
+  # RESTORE OPTION 2. Use Powershell Task and call dotnet restore
   # - task: PowerShell@2
   #   inputs:
   #     targetType: 'inline'
@@ -100,18 +100,20 @@ jobs:
   #       # USe the nuget.config to restore the packages.
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
-  # RESTORE OPTION 3.Update an existing package source's credentials
+  # RESTORE OPTION 3.Update an existing package source's credentials before dotnet restore
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
       script: |
         # Update a package source in the nuget.config with the update source command
-        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text --configfile src/nuget.config
+        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+        # Restore packages
+        dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
   # Step 2. Build the project
   - task: DotNetCoreCLI@2
-    displayName: 'Build MyDocProcApp'
+    displayName: 'Build Blazor Project'
     inputs:
       command: 'build'
-      projects: $(consoleProjectPath)
+      projects: $(blazorProjectPath)
       configuration: $(buildConfiguration)
