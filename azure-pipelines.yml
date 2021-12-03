@@ -9,18 +9,24 @@ trigger:
 
 jobs:
 
-# ************************* DOCUMENT PROCESSING CONSOLE APP ************************* #
+# ************** Job 1 - DOCUMENT PROCESSING CONSOLE APP ************** #
 
 - job: BuildConsoleApp
   pool:
     vmImage: 'windows-2022'
+
   variables:
     consoleNugetConfigPath: 'src/nuget.config'
     consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
     buildConfiguration: 'Debug'
-  steps:
 
-  # Step 1. Restore the NuGet packges
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '6.0.x'
+
+  # Step 1. Restore the NuGet packges using Service connection for credentials
   - task: DotNetCoreCLI@2
     displayName: 'NuGet restore MyDocProcApp'
     inputs:
@@ -54,7 +60,9 @@ jobs:
   #    ArtifactName: 'ConsoleDrop'
   #    publishLocation: 'Container'
 
-# ************************* ASP.NET CORE BLAZOR ************************* #
+
+# ************** JOB 2 - ASP.NET CORE BLAZOR ************** #
+
 - job: BuildBlazorApp
   pool:
     vmImage: 'windows-2022'
@@ -64,6 +72,10 @@ jobs:
     buildConfiguration: 'Debug'
     rid: win-x86
   steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '6.0.x'
   
   # RESTORE OPTION 1. Restore the NuGet packges using a prebuilt task and a Service connection
   # Important: make sure the pipeline has permission to use that Service connection, otherwise it will fail with a 401 Unauthorized
