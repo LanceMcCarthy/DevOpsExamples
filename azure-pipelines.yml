@@ -90,6 +90,7 @@ jobs:
 
   # RESTORE OPTION 2. Use Powershell Task and call dotnet restore
   # - task: PowerShell@2
+  #   displayName: 'Restore NuGet Packages'
   #   inputs:
   #     targetType: 'inline'
   #     script: |
@@ -97,7 +98,7 @@ jobs:
   #       $env:TELERIK_USERNAME = '$(MY_TELERIK_EMAIL)'
   #       $env:TELERIK_PASSWORD ='$(MY_TELERIK_PASSWORD)'
 
-  #       # USe the nuget.config to restore the packages.
+  #       # Use the nuget.config to restore the packages.
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
   # RESTORE OPTION 3.Update an existing package source's credentials before dotnet restore
@@ -106,7 +107,7 @@ jobs:
       targetType: 'inline'
       script: |
         # Update a package source in the nuget.config with the update source command
-        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MY_TELERIK_EMAIL)' --password '$(MY_TELERIK_PASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
         # Restore packages
         dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
