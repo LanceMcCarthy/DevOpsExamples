@@ -7,49 +7,99 @@ trigger:
     exclude:
     - dev
 
-# The pool is the VM that is being use to run the tasks on.
-pool:
-  vmImage: 'windows-2022'
+jobs:
 
-# In the variables section, you can define a variable for values are the are frequently reused
-variables:
-  consoleNugetConfigPath: 'src/nuget.config'
-  consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
-  buildConfiguration: 'Debug'
+# ************************* DOCUMENT PROCESSING CONSOLE APP ************************* #
 
-steps:
+- job: BuildConsoleApp
+  pool:
+    vmImage: 'windows-2022'
+  variables:
+    consoleNugetConfigPath: 'src/nuget.config'
+    consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+    buildConfiguration: 'Debug'
+  steps:
 
-# Step 1. Restore the NuGet packges
-# IMPORTANT - This task is the key part where you get the packages from the private feed (as well as NuGet.org)
-- task: DotNetCoreCLI@2
-  displayName: 'NuGet restore MyDocProcApp'
-  inputs:
-    command: 'restore'
-    projects: $(consoleProjectPath)
-    feedsToUse: 'config'
-    nugetConfigPath: $(consoleNugetConfigPath)
-    externalFeedCredentials: 'TelerikFeed'
+  # Step 1. Restore the NuGet packges
+  - task: DotNetCoreCLI@2
+    displayName: 'NuGet restore MyDocProcApp'
+    inputs:
+      command: 'restore'
+      projects: $(consoleProjectPath)
+      feedsToUse: 'config'
+      nugetConfigPath: $(consoleNugetConfigPath)
+      externalFeedCredentials: 'TelerikFeed'
 
-# Step 2. Build the project
-- task: DotNetCoreCLI@2
-  displayName: 'Build MyDocProcApp'
-  inputs:
-    command: 'build'
-    projects: $(consoleProjectPath)
-    configuration: $(buildConfiguration)
+  # Step 2. Build the project
+  - task: DotNetCoreCLI@2
+    displayName: 'Build MyDocProcApp'
+    inputs:
+      command: 'build'
+      projects: $(consoleProjectPath)
+      configuration: $(buildConfiguration)
 
-# Step 3. Publish
-- task: DotNetCoreCLI@2
-  displayName: 'Publish MyDocProcApp'
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: $(consoleProjectPath)
+  # Step 3. Publish
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish MyDocProcApp'
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: $(consoleProjectPath)
 
-# Step 4. upload the pipeline's artifacts (this means the result of any build)
-#- task: PublishBuildArtifacts@1
-#  displayName: 'Publish pipeline artifacts'
-#  inputs:
-#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#    ArtifactName: 'ConsoleDrop'
-#    publishLocation: 'Container'
+  # Step 4. upload the pipeline's artifacts (this means the result of any build)
+  #- task: PublishBuildArtifacts@1
+  #  displayName: 'Publish pipeline artifacts'
+  #  inputs:
+  #    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+  #    ArtifactName: 'ConsoleDrop'
+  #    publishLocation: 'Container'
+
+# ************************* ASP.NET CORE BLAZOR ************************* #
+- job: BuildBlazorApp
+  pool:
+    vmImage: 'windows-2022'
+  variables:
+    nugetConfigPath: 'src/nuget.config'
+    blazorProjectPath: 'src/Web/MyBlazorApp/MyBlazorApp.csproj'
+    buildConfiguration: 'Debug'
+    rid: win-x86
+  steps:
+  
+  # RESTORE OPTION 1. Restore the NuGet packges using a prebuilt task and a Service connection
+  # Important: make sure the pipeline has permission to use that Service connection, otherwise it will fail with a 401 Unauthorized
+  # - task: DotNetCoreCLI@2
+  #   displayName: 'NuGet restore MyDocProcApp'
+  #   inputs:
+  #     command: 'restore'
+  #     projects: $(consoleProjectPath)
+  #     feedsToUse: 'config'
+  #     nugetConfigPath: $(consoleNugetConfigPath)
+  #     externalFeedCredentials: 'TelerikFeed' 
+
+  # RESTORE OPTION 2. USe Powershell Task
+  # - task: PowerShell@2
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: |
+  #       # Copy the secret's value into the env var defined in your nuget.config.
+  #       $env:TELERIK_USERNAME = '$(MY_TELERIK_EMAIL)'
+  #       $env:TELERIK_PASSWORD ='$(MY_TELERIK_PASSWORD)'
+
+  #       # USe the nuget.config to restore the packages.
+  #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
+
+  # RESTORE OPTION 3.Update an existing package source's credentials
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Update a package source in the nuget.config with the update source command
+        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text --configfile src/nuget.config
+
+  # Step 2. Build the project
+  - task: DotNetCoreCLI@2
+    displayName: 'Build MyDocProcApp'
+    inputs:
+      command: 'build'
+      projects: $(consoleProjectPath)
+      configuration: $(buildConfiguration)
