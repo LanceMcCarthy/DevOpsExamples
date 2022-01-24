@@ -11,8 +11,8 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-theme-default/all.css" />
-    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
+    <link id="kendoCss" rel="stylesheet preload" as="style" type="text/css"
+          href="https://unpkg.com/@@progress/kendo-theme-default@5.0.0/dist/all.css" />
 </head>
 <body>
     <component type="typeof(App)" render-mode="ServerPrerendered" />
@@ -30,5 +30,6 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
 </body>
 </html>
