@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -20,10 +20,10 @@
     "@angular/platform-browser": "~11.2.7",
     "@angular/platform-browser-dynamic": "~11.2.7",
     "@angular/router": "~11.2.7",
-    "@progress/kendo-angular-buttons": "^6.4.1",
+    "@progress/kendo-angular-buttons": "^7.0.2",
     "@progress/kendo-angular-common": "^2.0.2",
     "@progress/kendo-angular-l10n": "^3.0.3",
-    "@progress/kendo-angular-popup": "^4.0.2",
+    "@progress/kendo-angular-popup": "^4.0.4",
     "@progress/kendo-licensing": "^1.2.1",
     "@progress/kendo-theme-default": "latest",
     "is-svg": "^4.3.1",
