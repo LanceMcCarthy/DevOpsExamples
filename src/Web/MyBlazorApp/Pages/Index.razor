@@ -2,84 +2,41 @@
 
 @using MyBlazorApp.Models
 @using MyBlazorApp.Services
-@using MyBlazorApp.Components.Tiles
+@using Telerik.DataSource
 
 @inject DashboardDataService _dataService
 
 <div class="d-flex justify-content-center">
-    <TelerikTileLayout Columns="4"
-                       RowHeight="145px"
-                       ColumnWidth="350px"
-                       Reorderable="true" 
-                       Resizable="true" 
-                       OnResize="@ResizeCharts">
-        <TileLayoutItems>
-            <TileLayoutItem HeaderText="Total Streams">
-                <Content>
-                    <TotalStreams />
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Total Downloads">
-                <Content>
-                    <TotalDownloads />
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Reach">
-                <Content>
-                    <TotalReach />
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Revenue">
-                <Content>
-                    <TotalRevenue />
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Weekly Recap-Downloads" ColSpan="2" RowSpan="2">
-                <Content>
-                    <WeeklyRecap Podcasts="@Podcasts" @ref="@WeeklyRecap"/>
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Performance Trend" ColSpan="2" RowSpan="2">
-                <Content>
-                    <PerformanceTrend Podcasts="@Podcasts" @ref="@PerformanceTrend"/>
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Top 5 Episodes" ColSpan="4" RowSpan="2">
-                <Content>
-                    <TopEpisodes TopN="5" Podcasts="@Podcasts" />
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Listening platforms - App" ColSpan="2" RowSpan="2">
-                <Content>
-                    <PlatformsChart @ref="@AppBreakdown" />
-                </Content>
-            </TileLayoutItem>
-            <TileLayoutItem HeaderText="Listening platforms - Device" ColSpan="2" RowSpan="2">
-                <Content>
-                    <PlatformsChart ByDevice="true" @ref="@DeviceBreakdown" />
-                </Content>
-            </TileLayoutItem>
-        </TileLayoutItems>
-    </TelerikTileLayout>
+    <TelerikGrid Data="@Podcasts" 
+                 Sortable="true" 
+                 Height="100%" 
+                 Pageable="false" 
+                 ScrollMode="@GridScrollMode.Scrollable"
+                 OnStateInit="@((GridStateEventArgs<PodcastViewModel> args) => OnStateInit(args))">
+        <GridColumns>
+            <GridColumn Field="@( nameof(PodcastViewModel.Name) )" Title="Podcast Episode" Width="320px" />
+            <GridColumn Field="@( nameof(PodcastViewModel.Streams) )" Width="150px" />
+            <GridColumn Field="@( nameof(PodcastViewModel.Downloads) )" Width="150px" />
+        </GridColumns>
+    </TelerikGrid>
 </div>
 
 @code{
-    IEnumerable<PodcastViewModel> Podcasts { get; set; }
-    WeeklyRecap WeeklyRecap { get; set; }
-    PerformanceTrend PerformanceTrend { get; set; }
-    PlatformsChart DeviceBreakdown { get; set; }
-    PlatformsChart AppBreakdown { get; set; }
+    public IEnumerable<PodcastViewModel> Podcasts { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         Podcasts = await _dataService.GetPodcasts();
     }
-
-    void ResizeCharts()
+    
+    void OnStateInit(GridStateEventArgs<PodcastViewModel> args)
     {
-        WeeklyRecap.Resize();
-        PerformanceTrend.Resize();
-        DeviceBreakdown.Resize();
-        AppBreakdown.Resize();
+        args.GridState = new GridState<PodcastViewModel>()
+        {
+            SortDescriptors = new List<SortDescriptor>
+            {
+                new SortDescriptor { Member = nameof(PodcastViewModel.Streams), SortDirection = ListSortDirection.Descending }
+            }
+        };
     }
 }
