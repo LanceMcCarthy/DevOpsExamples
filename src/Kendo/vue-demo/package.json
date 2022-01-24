@@ -33,6 +33,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "follow-redirects": "^1.14.7",
     "json-schema": "^0.4.0",
+    "log4js": "^6.4.1",
     "node-forge": "^1.2.1",
     "normalize-url": "^6.0.1",
     "nth-check": "^2.0.1",
