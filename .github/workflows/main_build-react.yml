@@ -31,4 +31,4 @@ jobs:
 
     - name: Build
       working-directory: src/Kendo/react-demo
-      run: npm run build --prod
+      run: npm run build
