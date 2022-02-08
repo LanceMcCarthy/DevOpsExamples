@@ -16,9 +16,13 @@ jobs:
     vmImage: 'windows-2022'
 
   variables:
-    consoleNugetConfigPath: 'src/nuget.config'
-    consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
-    buildConfiguration: 'Debug'
+  - group: KeyVaultVariables
+  - name: consoleNugetConfigPath
+    value: 'src/nuget.config'
+  - name: consoleProjectPath
+    value: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+  - name: buildConfiguration
+    value: 'Debug'
 
   steps:
   - task: UseDotNet@2
@@ -66,19 +70,27 @@ jobs:
 - job: BuildBlazorApp
   pool:
     vmImage: 'windows-2022'
+
   variables:
-    nugetConfigPath: 'src/nuget.config'
-    blazorProjectPath: 'src/Web/MyBlazorApp/MyBlazorApp.csproj'
-    buildConfiguration: 'Debug'
-    rid: win-x86
+  - group: KeyVaultVariables
+  - name: nugetConfigPath
+    value: 'src/nuget.config'
+  - name: blazorProjectPath
+    value: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+  - name: buildConfiguration
+    value: 'Debug'
+  - name: rid
+    value: win-x86
+  
   steps:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
       version: '6.0.x'
   
-  # RESTORE OPTION 1. Restore the NuGet packges using a prebuilt task and a Service connection
-  # Important: make sure the pipeline has permission to use that Service connection, otherwise it will fail with a 401 Unauthorized
+  # ***************** RESTORE: OPTION 1 ***************** #
+  # Restore the NuGet packges using a prebuilt task and a Service connection
+  # Note: make sure the pipeline has permission to use the Service connection, otherwise it will fail with a 401 Unauthorized
   # - task: DotNetCoreCLI@2
   #   displayName: 'NuGet restore MyDocProcApp'
   #   inputs:
@@ -88,7 +100,8 @@ jobs:
   #     nugetConfigPath: $(consoleNugetConfigPath)
   #     externalFeedCredentials: 'TelerikFeed' 
 
-  # RESTORE OPTION 2. Use Powershell Task and call dotnet restore
+  # ***************** RESTORE: OPTION 2 ***************** #
+  # Use Powershell Task and call dotnet restore
   # - task: PowerShell@2
   #   displayName: 'Restore NuGet Packages'
   #   inputs:
@@ -101,13 +114,15 @@ jobs:
   #       # Use the nuget.config to restore the packages.
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
-  # RESTORE OPTION 3.Update an existing package source's credentials before dotnet restore
+  # ***************** RESTORE: OPTION 3 ***************** #
+  # Use secrets to directly update the package source in nuget.config
+  # This example uses Azure KeyVault secrets via the linked variable group 'KeyVaultVariables'.
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
       script: |
-        # Update a package source in the nuget.config with the update source command
-        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MY_TELERIK_EMAIL)' --password '$(MY_TELERIK_PASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+        # Update a package source in the nuget.config with the update source command (these variables are linked Azure KeyVault secrets)
+        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MYTELERIKACCOUNTUSERNAME)' --password '$(MYTELERIKACCOUNTPASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
         # Restore packages
         dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
