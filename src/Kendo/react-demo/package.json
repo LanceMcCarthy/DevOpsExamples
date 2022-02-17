@@ -5,7 +5,7 @@
   "dependencies": {
     "@progress/kendo-data-query": "^1.5.5",
     "@progress/kendo-drawing": "^1.16.2",
-    "@progress/kendo-licensing": "^1.2.1",
+    "@progress/kendo-licensing": "^1.2.2",
     "@progress/kendo-react-animation": "^5.0.1",
     "@progress/kendo-react-data-tools": "^5.0.1",
     "@progress/kendo-react-dateinputs": "^5.0.1",
@@ -41,9 +41,9 @@
     "url-parse": "^1.5.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "test": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
