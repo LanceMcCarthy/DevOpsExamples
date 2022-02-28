@@ -6,6 +6,11 @@ trigger:
     - main
     exclude:
     - dev
+  paths:
+   include:
+     - 'src/Console/**/*'
+     - 'src/Web/**/*'
+    
 
 jobs:
 
@@ -88,9 +93,11 @@ jobs:
       packageType: 'sdk'
       version: '6.0.x'
   
-  # ***************** RESTORE: OPTION 1 ***************** #
-  # Restore the NuGet packges using a prebuilt task and a Service connection
-  # Note: make sure the pipeline has permission to use the Service connection, otherwise it will fail with a 401 Unauthorized
+  # ***** Step 1. Restore NuGet packages ***** #
+
+  # [Option 1]: Service connection
+  # Important: make sure the pipeline has permission to use the Service connection, otherwise it will fail with a 401 Unauthorized
+
   # - task: DotNetCoreCLI@2
   #   displayName: 'NuGet restore MyDocProcApp'
   #   inputs:
@@ -100,8 +107,9 @@ jobs:
   #     nugetConfigPath: $(consoleNugetConfigPath)
   #     externalFeedCredentials: 'TelerikFeed' 
 
-  # ***************** RESTORE: OPTION 2 ***************** #
-  # Use Powershell Task and call dotnet restore
+
+  # [Option 2] - dotnet restore, with env variables
+
   # - task: PowerShell@2
   #   displayName: 'Restore NuGet Packages'
   #   inputs:
@@ -114,8 +122,7 @@ jobs:
   #       # Use the nuget.config to restore the packages.
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
-  # ***************** RESTORE: OPTION 3 ***************** #
-  # Use secrets to directly update the package source in nuget.config
+  # [Option 3] - dotnet nuget update source & dotnet restore, with env variables
   # This example uses Azure KeyVault secrets via the linked variable group 'KeyVaultVariables'.
   - task: PowerShell@2
     inputs:
@@ -126,7 +133,9 @@ jobs:
         # Restore packages
         dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
-  # Step 2. Build the project
+  
+  # ***** Step 2. Build the project ***** #
+
   - task: DotNetCoreCLI@2
     displayName: 'Build Blazor Project'
     inputs:
