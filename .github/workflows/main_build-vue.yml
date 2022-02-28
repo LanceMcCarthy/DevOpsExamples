@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/Kendo/vue-demo/**/*'
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
