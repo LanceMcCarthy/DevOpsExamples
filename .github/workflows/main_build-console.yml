@@ -6,10 +6,7 @@ on:
       - main
     paths:
       - 'src/Console/**/*'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '.github\workflows\main_build-console.yml'
 
 jobs:
   # A job that builds a .NET Core console application using Telerik Document Processing Libraries 

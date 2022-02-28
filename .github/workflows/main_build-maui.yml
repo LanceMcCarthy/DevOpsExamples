@@ -6,10 +6,7 @@ on:
       - main
     paths:
       - 'src/MAUI/**/*'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '.github\workflows\main_build-maui.yml'
 
 jobs:
 

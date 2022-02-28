@@ -6,10 +6,7 @@ on:
       - main
     paths:
       - 'src/Xamarin/**/*'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '.github\workflows\main_build-xamarin.yml'
 
 jobs:
   # UWP project build
