@@ -1,5 +1,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:input="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.Maui.Controls.Compatibility"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
              x:Class="MauiDemo.MainPage"
              BackgroundColor="{DynamicResource SecondaryColor}">
 
@@ -32,12 +33,12 @@
                    x:Name="CounterLabel"
                    HorizontalOptions="Center" />
 
-            <input:RadButton Text="Click me"
-                    FontAttributes="Bold"
-                    Grid.Row="3"
-                    SemanticProperties.Hint="Counts the number of times you click"
-                    Clicked="OnCounterClicked"
-                    HorizontalOptions="Center" />
+            <telerik:RadButton Text="Click me"
+                               FontAttributes="Bold"
+                               Grid.Row="3"
+                               SemanticProperties.Hint="Counts the number of times you click"
+                               Clicked="OnCounterClicked"
+                               HorizontalOptions="Center" />
 
             <Image Grid.Row="4"
                    Source="dotnet_bot.png"
