@@ -40,7 +40,7 @@
     "path-parse": "^1.0.7",
     "postcss": "^8.2.15",
     "set-value": "^4.1.0",
-    "url-parse": "^1.5.3",
+    "url-parse": "^1.5.8",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
