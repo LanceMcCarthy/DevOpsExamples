@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'src/MAUI/**/*'
-      - '.github\workflows\main_build-maui.yml'
+      - '.github/workflows/main_build-maui.yml'
 
 jobs:
 

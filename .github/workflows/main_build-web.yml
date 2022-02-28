@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'src/Web/**/*'
-      - '.github\workflows\main_build-web.yml'
+      - '.github/workflows/main_build-web.yml'
 
 jobs:
   # A job that builds a .NET 6.0 web application using Telerik UI for Blazor. 
