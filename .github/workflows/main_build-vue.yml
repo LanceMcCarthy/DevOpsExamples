@@ -6,10 +6,7 @@ on:
       - main
     paths:
       - 'src/Kendo/vue-demo/**/*'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '.github\workflows\main_build-vue.yml'
 
 jobs:
   build_vue:

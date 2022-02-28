@@ -6,10 +6,7 @@ on:
       - main
     paths:
       - 'src/Wpf/**/*'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '.github\workflows\main_build-wpf.yml'
 
 jobs:
   # A job that builds a .NET Framework WPF application using Telerik UI for WPF

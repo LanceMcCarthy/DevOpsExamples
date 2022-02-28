@@ -6,10 +6,7 @@ on:
       - main
     paths:
       - 'src/WinForms/**/*'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '.github\workflows\main_build-winforms.yml'
 
 jobs:
   # A job that builds a .NET Framework WPF application using Telerik UI for WinForms
