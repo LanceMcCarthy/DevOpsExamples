@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'src/Kendo/vue-demo/**/*'
-      - '.github/workflows/main_build-vue.yml'
+      - '.github/workflows/main_build-vue.yml' 
 
 jobs:
   build_vue:

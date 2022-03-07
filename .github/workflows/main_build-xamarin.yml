@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'src/Xamarin/**/*'
-      - '.github/workflows/main_build-xamarin.yml'
+      - '.github/workflows/main_build-xamarin.yml' 
 
 jobs:
   # UWP project build

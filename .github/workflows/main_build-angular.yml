@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/Kendo/angular-demo/**/*'
+      - 'src/Kendo/angular-demo/**/*' 
       - '.github/workflows/main_build-angular.yml'
 
 jobs:
