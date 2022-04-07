@@ -34,7 +34,7 @@
     "normalize-url": "^4.5.1",
     "nth-check": "^2.0.1",
     "postcss": "^8.4.6",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.0",
     "set-value": "^4.1.0",
     "tar": ">=6.1.9",
     "tmpl": "^1.0.5",
