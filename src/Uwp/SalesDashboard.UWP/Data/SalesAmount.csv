@@ -1,0 +1,4006 @@
+TargetAmount,OrderDate,ActualAmount,ProductCategory,Country
+365.25,1/1/2015,548.98,Bikes,France
+568.25,1/1/2015,30.48,Bikes,Germany
+749.25,1/1/2015,3666.89,Bikes,United Kingdom
+381,1/1/2015,39.98,Bikes,Canada
+309.5,1/1/2015,4344.31,Bikes,Australia
+2348,1/1/2015,63.5,Bikes,United States
+396,1/1/2015,0,Clothing,France
+393.5,1/1/2015,1126.96,Clothing,Germany
+280.25,1/1/2015,42.97,Clothing,United Kingdom
+512,1/1/2015,4.99,Clothing,Canada
+529,1/1/2015,747.34,Clothing,Australia
+2602.25,1/1/2015,158.42,Clothing,United States
+327.75,1/1/2015,0,Accessories,France
+467,1/1/2015,0,Accessories,Germany
+1528,1/1/2015,104.97,Accessories,United Kingdom
+349.5,1/1/2015,0,Accessories,Canada
+632.25,1/1/2015,75.97,Accessories,Australia
+2867,1/1/2015,141.12,Accessories,United States
+381,1/2/2015,3.99,Bikes,Canada
+2348,1/2/2015,3949.29,Bikes,United States
+365.25,1/2/2015,13.98,Bikes,France
+749.25,1/2/2015,46.47,Bikes,United Kingdom
+568.25,1/2/2015,113.47,Bikes,Germany
+309.5,1/2/2015,4907.39,Bikes,Australia
+2288.75,1/2/2015,96.25,Components,France
+1777.75,1/2/2015,1904.41,Components,United Kingdom
+1698.25,1/2/2015,8226.56,Components,Germany
+512,1/2/2015,65.79,Clothing,Canada
+2602.25,1/2/2015,2442.45,Clothing,United States
+396,1/2/2015,24.49,Clothing,France
+280.25,1/2/2015,53.99,Clothing,United Kingdom
+393.5,1/2/2015,1827.9,Clothing,Germany
+529,1/2/2015,3079.05,Clothing,Australia
+349.5,1/2/2015,0,Accessories,Canada
+2867,1/2/2015,2551.5,Accessories,United States
+327.75,1/2/2015,2414.06,Accessories,France
+1528,1/2/2015,0,Accessories,United Kingdom
+467,1/2/2015,34.99,Accessories,Germany
+632.25,1/2/2015,75.26,Accessories,Australia
+314.5,1/3/2015,2418.94,Bikes,United Kingdom
+2877.75,1/3/2015,2563.89,Bikes,United States
+818.25,1/3/2015,83.98,Bikes,France
+795.5,1/3/2015,1079.98,Bikes,Germany
+768,1/3/2015,115.95,Bikes,Australia
+528.5,1/3/2015,119.45,Bikes,Canada
+595.25,1/3/2015,3569.19,Components,Australia
+680.25,1/3/2015,0,Clothing,United Kingdom
+3196.5,1/3/2015,134.94,Clothing,United States
+459.75,1/3/2015,123.99,Clothing,France
+591.25,1/3/2015,30.48,Clothing,Germany
+802.75,1/3/2015,2329.98,Clothing,Australia
+720.75,1/3/2015,2462.02,Clothing,Canada
+80.75,1/3/2015,0,Accessories,United Kingdom
+2180.75,1/3/2015,77.96,Accessories,United States
+627.5,1/3/2015,2483.33,Accessories,France
+539,1/3/2015,2419.06,Accessories,Germany
+396.75,1/3/2015,2275.96,Accessories,Australia
+435.25,1/3/2015,7.95,Accessories,Canada
+528.5,1/4/2015,109.48,Bikes,Canada
+2877.75,1/4/2015,4604.96,Bikes,United States
+818.25,1/4/2015,787.34,Bikes,France
+795.5,1/4/2015,1754.98,Bikes,Germany
+768,1/4/2015,53.87,Bikes,Australia
+314.5,1/4/2015,2393.06,Bikes,United Kingdom
+12609.75,1/4/2015,2607.08,Components,United States
+1473,1/4/2015,5501.15,Components,France
+720.75,1/4/2015,148.95,Clothing,Canada
+3196.5,1/4/2015,179.75,Clothing,United States
+459.75,1/4/2015,2420.92,Clothing,France
+591.25,1/4/2015,0,Clothing,Germany
+802.75,1/4/2015,1983.33,Clothing,Australia
+680.25,1/4/2015,113.97,Clothing,United Kingdom
+435.25,1/4/2015,2423.64,Accessories,Canada
+2180.75,1/4/2015,0,Accessories,United States
+627.5,1/4/2015,4.99,Accessories,France
+539,1/4/2015,49.99,Accessories,Germany
+396.75,1/4/2015,33.98,Accessories,Australia
+80.75,1/4/2015,561.97,Accessories,United Kingdom
+768,1/5/2015,2455.24,Bikes,Australia
+2877.75,1/5/2015,227.96,Bikes,United States
+314.5,1/5/2015,814.7,Bikes,United Kingdom
+795.5,1/5/2015,0,Bikes,Germany
+528.5,1/5/2015,94.98,Bikes,Canada
+818.25,1/5/2015,30.48,Bikes,France
+802.75,1/5/2015,2508.32,Clothing,Australia
+3196.5,1/5/2015,115.52,Clothing,United States
+680.25,1/5/2015,2324.97,Clothing,United Kingdom
+591.25,1/5/2015,0,Clothing,Germany
+720.75,1/5/2015,658.43,Clothing,Canada
+459.75,1/5/2015,0,Clothing,France
+396.75,1/5/2015,93.97,Accessories,Australia
+2180.75,1/5/2015,59.98,Accessories,United States
+80.75,1/5/2015,76.27,Accessories,United Kingdom
+539,1/5/2015,0,Accessories,Germany
+435.25,1/5/2015,2514.69,Accessories,Canada
+627.5,1/5/2015,2344.98,Accessories,France
+795.5,1/6/2015,53.96,Bikes,Germany
+528.5,1/6/2015,9.98,Bikes,Canada
+818.25,1/6/2015,2424.05,Bikes,France
+768,1/6/2015,2297.95,Bikes,Australia
+314.5,1/6/2015,2892.96,Bikes,United Kingdom
+2877.75,1/6/2015,741.9,Bikes,United States
+591.25,1/6/2015,1736.95,Clothing,Germany
+720.75,1/6/2015,103.24,Clothing,Canada
+459.75,1/6/2015,646.95,Clothing,France
+802.75,1/6/2015,48.24,Clothing,Australia
+680.25,1/6/2015,164,Clothing,United Kingdom
+3196.5,1/6/2015,3179.4,Clothing,United States
+539,1/6/2015,34.99,Accessories,Germany
+435.25,1/6/2015,160.92,Accessories,Canada
+627.5,1/6/2015,0,Accessories,France
+396.75,1/6/2015,890.76,Accessories,Australia
+80.75,1/6/2015,1164.47,Accessories,United Kingdom
+2180.75,1/6/2015,89.2,Accessories,United States
+768,1/7/2015,2512.32,Bikes,Australia
+2877.75,1/7/2015,4795.91,Bikes,United States
+795.5,1/7/2015,4.99,Bikes,Germany
+314.5,1/7/2015,1214.85,Bikes,United Kingdom
+818.25,1/7/2015,2578.87,Bikes,France
+528.5,1/7/2015,2323.55,Bikes,Canada
+802.75,1/7/2015,34.99,Clothing,Australia
+3196.5,1/7/2015,7283.24,Clothing,United States
+591.25,1/7/2015,132.76,Clothing,Germany
+680.25,1/7/2015,21.98,Clothing,United Kingdom
+459.75,1/7/2015,4689.32,Clothing,France
+720.75,1/7/2015,262.41,Clothing,Canada
+396.75,1/7/2015,2443.05,Accessories,Australia
+2180.75,1/7/2015,2538.99,Accessories,United States
+539,1/7/2015,29.98,Accessories,Germany
+80.75,1/7/2015,8.99,Accessories,United Kingdom
+627.5,1/7/2015,49.99,Accessories,France
+435.25,1/7/2015,48.77,Accessories,Canada
+2877.75,1/8/2015,4664.72,Bikes,United States
+818.25,1/8/2015,582.96,Bikes,France
+795.5,1/8/2015,2459.96,Bikes,Germany
+314.5,1/8/2015,2308.97,Bikes,United Kingdom
+768,1/8/2015,52.46,Bikes,Australia
+528.5,1/8/2015,57.98,Bikes,Canada
+3196.5,1/8/2015,988.7,Clothing,United States
+459.75,1/8/2015,3081.8,Clothing,France
+591.25,1/8/2015,42.28,Clothing,Germany
+680.25,1/8/2015,37.27,Clothing,United Kingdom
+802.75,1/8/2015,2446.73,Clothing,Australia
+720.75,1/8/2015,4769.04,Clothing,Canada
+2180.75,1/8/2015,840.84,Accessories,United States
+627.5,1/8/2015,22.56,Accessories,France
+539,1/8/2015,6028.18,Accessories,Germany
+80.75,1/8/2015,0,Accessories,United Kingdom
+396.75,1/8/2015,544.98,Accessories,Australia
+435.25,1/8/2015,0,Accessories,Canada
+528.5,1/9/2015,32.27,Bikes,Canada
+314.5,1/9/2015,34.99,Bikes,United Kingdom
+2877.75,1/9/2015,807.89,Bikes,United States
+818.25,1/9/2015,70.26,Bikes,France
+795.5,1/9/2015,539.99,Bikes,Germany
+768,1/9/2015,67.97,Bikes,Australia
+12609.75,1/9/2015,7645.18,Components,United States
+1473,1/9/2015,568.76,Components,France
+720.75,1/9/2015,2.29,Clothing,Canada
+680.25,1/9/2015,13.98,Clothing,United Kingdom
+3196.5,1/9/2015,10048.8,Clothing,United States
+459.75,1/9/2015,0,Clothing,France
+591.25,1/9/2015,0,Clothing,Germany
+802.75,1/9/2015,13.98,Clothing,Australia
+435.25,1/9/2015,64.99,Accessories,Canada
+80.75,1/9/2015,8.99,Accessories,United Kingdom
+2180.75,1/9/2015,56.97,Accessories,United States
+627.5,1/9/2015,25.48,Accessories,France
+539,1/9/2015,0,Accessories,Germany
+396.75,1/9/2015,1709.98,Accessories,Australia
+2854.75,1/10/2015,290.21,Bikes,United States
+718.5,1/10/2015,96.57,Bikes,France
+469.75,1/10/2015,4644.96,Bikes,Germany
+673.5,1/10/2015,39.53,Bikes,Australia
+433,1/10/2015,34.99,Bikes,United Kingdom
+676.25,1/10/2015,1342.23,Bikes,Canada
+2131.75,1/10/2015,8119.43,Clothing,United States
+523.25,1/10/2015,1925.82,Clothing,France
+789,1/10/2015,2.29,Clothing,Germany
+523.5,1/10/2015,2444.97,Clothing,Australia
+527.25,1/10/2015,38.97,Clothing,United Kingdom
+376.75,1/10/2015,78.97,Clothing,Canada
+3153.25,1/10/2015,857.74,Accessories,United States
+374.25,1/10/2015,8.99,Accessories,France
+611.25,1/10/2015,97.46,Accessories,Germany
+714,1/10/2015,14.98,Accessories,Australia
+843.75,1/10/2015,0,Accessories,United Kingdom
+521.25,1/10/2015,2398.04,Accessories,Canada
+676.25,1/11/2015,93.91,Bikes,Canada
+718.5,1/11/2015,4.99,Bikes,France
+673.5,1/11/2015,1440.28,Bikes,Australia
+2854.75,1/11/2015,1529.97,Bikes,United States
+469.75,1/11/2015,63.5,Bikes,Germany
+433,1/11/2015,4.99,Bikes,United Kingdom
+376.75,1/11/2015,151.94,Clothing,Canada
+523.25,1/11/2015,59.48,Clothing,France
+523.5,1/11/2015,4767.04,Clothing,Australia
+2131.75,1/11/2015,1033.21,Clothing,United States
+789,1/11/2015,2513.98,Clothing,Germany
+527.25,1/11/2015,68.49,Clothing,United Kingdom
+521.25,1/11/2015,13.98,Accessories,Canada
+374.25,1/11/2015,1705.98,Accessories,France
+714,1/11/2015,63.98,Accessories,Australia
+3153.25,1/11/2015,3675.54,Accessories,United States
+611.25,1/11/2015,0,Accessories,Germany
+843.75,1/11/2015,1718.97,Accessories,United Kingdom
+673.5,1/12/2015,3668.18,Bikes,Australia
+433,1/12/2015,49.99,Bikes,United Kingdom
+2854.75,1/12/2015,128.96,Bikes,United States
+469.75,1/12/2015,0,Bikes,Germany
+676.25,1/12/2015,124.97,Bikes,Canada
+718.5,1/12/2015,0,Bikes,France
+523.5,1/12/2015,1189.05,Clothing,Australia
+527.25,1/12/2015,4.99,Clothing,United Kingdom
+2131.75,1/12/2015,4724.32,Clothing,United States
+789,1/12/2015,2384.07,Clothing,Germany
+376.75,1/12/2015,100.24,Clothing,Canada
+523.25,1/12/2015,0,Clothing,France
+714,1/12/2015,3704.04,Accessories,Australia
+843.75,1/12/2015,34.99,Accessories,United Kingdom
+3153.25,1/12/2015,2385.93,Accessories,United States
+611.25,1/12/2015,0,Accessories,Germany
+521.25,1/12/2015,88.99,Accessories,Canada
+374.25,1/12/2015,0,Accessories,France
+469.75,1/13/2015,0,Bikes,Germany
+433,1/13/2015,784.47,Bikes,United Kingdom
+718.5,1/13/2015,2419.06,Bikes,France
+676.25,1/13/2015,1244.11,Bikes,Canada
+673.5,1/13/2015,1249.84,Bikes,Australia
+2854.75,1/13/2015,2459.5,Bikes,United States
+431,1/13/2015,7435.59,Components,Australia
+789,1/13/2015,0,Clothing,Germany
+527.25,1/13/2015,8.99,Clothing,United Kingdom
+523.25,1/13/2015,1129.48,Clothing,France
+376.75,1/13/2015,3185.52,Clothing,Canada
+523.5,1/13/2015,5288.69,Clothing,Australia
+2131.75,1/13/2015,3012.31,Clothing,United States
+611.25,1/13/2015,539.99,Accessories,Germany
+843.75,1/13/2015,38.98,Accessories,United Kingdom
+374.25,1/13/2015,8.99,Accessories,France
+521.25,1/13/2015,8.99,Accessories,Canada
+714,1/13/2015,539.99,Accessories,Australia
+3153.25,1/13/2015,42.28,Accessories,United States
+2659.75,1/14/2015,5847.2,Bikes,United States
+659.25,1/14/2015,0,Bikes,France
+716.75,1/14/2015,3.99,Bikes,United Kingdom
+302.5,1/14/2015,1120.49,Bikes,Germany
+688.5,1/14/2015,2501.9,Bikes,Australia
+745.5,1/14/2015,9.99,Bikes,Canada
+1449.75,1/14/2015,2517.4,Components,France
+1648,1/14/2015,131.95,Components,United Kingdom
+2792.25,1/14/2015,3102.07,Clothing,United States
+444.75,1/14/2015,60.96,Clothing,France
+349,1/14/2015,119.98,Clothing,United Kingdom
+525,1/14/2015,0,Clothing,Germany
+676.5,1/14/2015,2473.06,Clothing,Australia
+572.5,1/14/2015,129.95,Clothing,Canada
+2855.5,1/14/2015,3651.73,Accessories,United States
+309.5,1/14/2015,2344.48,Accessories,France
+560.25,1/14/2015,1805.97,Accessories,United Kingdom
+402.25,1/14/2015,1282.31,Accessories,Germany
+665.75,1/14/2015,606.25,Accessories,Australia
+601.75,1/14/2015,39.98,Accessories,Canada
+659.25,1/15/2015,6.28,Bikes,France
+716.75,1/15/2015,0,Bikes,United Kingdom
+2659.75,1/15/2015,1863.79,Bikes,United States
+302.5,1/15/2015,3060.53,Bikes,Germany
+688.5,1/15/2015,1847.56,Bikes,Australia
+745.5,1/15/2015,44.96,Bikes,Canada
+1331.5,1/15/2015,3237.8,Components,Canada
+444.75,1/15/2015,63.86,Clothing,France
+349,1/15/2015,5343.12,Clothing,United Kingdom
+2792.25,1/15/2015,3495.73,Clothing,United States
+525,1/15/2015,4.99,Clothing,Germany
+676.5,1/15/2015,4027.15,Clothing,Australia
+572.5,1/15/2015,83.47,Clothing,Canada
+309.5,1/15/2015,2.29,Accessories,France
+560.25,1/15/2015,2294.99,Accessories,United Kingdom
+2855.5,1/15/2015,54.98,Accessories,United States
+402.25,1/15/2015,0,Accessories,Germany
+665.75,1/15/2015,5024.36,Accessories,Australia
+601.75,1/15/2015,15.27,Accessories,Canada
+745.5,1/16/2015,1158.44,Bikes,Canada
+2659.75,1/16/2015,1641.3,Bikes,United States
+659.25,1/16/2015,1180.47,Bikes,France
+302.5,1/16/2015,89.97,Bikes,Germany
+688.5,1/16/2015,1793.24,Bikes,Australia
+716.75,1/16/2015,50.48,Bikes,United Kingdom
+3106.5,1/16/2015,3323.72,Components,United States
+449.75,1/16/2015,4165.95,Components,France
+572.5,1/16/2015,146.95,Clothing,Canada
+2792.25,1/16/2015,3708.65,Clothing,United States
+444.75,1/16/2015,539.99,Clothing,France
+525,1/16/2015,1227.83,Clothing,Germany
+676.5,1/16/2015,1936.25,Clothing,Australia
+349,1/16/2015,1705.98,Clothing,United Kingdom
+601.75,1/16/2015,68.56,Accessories,Canada
+2855.5,1/16/2015,177.41,Accessories,United States
+309.5,1/16/2015,0,Accessories,France
+402.25,1/16/2015,4.99,Accessories,Germany
+665.75,1/16/2015,82.48,Accessories,Australia
+560.25,1/16/2015,2395.34,Accessories,United Kingdom
+2636.75,1/17/2015,31.77,Bikes,United States
+282,1/17/2015,4.99,Bikes,United Kingdom
+594,1/17/2015,136.83,Bikes,Australia
+529.75,1/17/2015,4599.95,Bikes,Germany
+340,1/17/2015,0,Bikes,Canada
+559.5,1/17/2015,34.99,Bikes,France
+1445.75,1/17/2015,3048.16,Components,Germany
+449.75,1/17/2015,414.22,Components,Canada
+2833.75,1/17/2015,1786.47,Clothing,United States
+749,1/17/2015,4.99,Clothing,United Kingdom
+397,1/17/2015,2290.97,Clothing,Australia
+722.75,1/17/2015,566.47,Clothing,Germany
+781.5,1/17/2015,873.74,Clothing,Canada
+508.5,1/17/2015,4.99,Clothing,France
+3275.25,1/17/2015,46.93,Accessories,United States
+218,1/17/2015,29.99,Accessories,United Kingdom
+430,1/17/2015,3440.48,Accessories,Australia
+474.25,1/17/2015,32.6,Accessories,Germany
+687.5,1/17/2015,139.98,Accessories,Canada
+609.25,1/17/2015,0,Accessories,France
+340,1/18/2015,642.47,Bikes,Canada
+559.5,1/18/2015,9.99,Bikes,France
+594,1/18/2015,5273.29,Bikes,Australia
+282,1/18/2015,2409.03,Bikes,United Kingdom
+2636.75,1/18/2015,669.95,Bikes,United States
+529.75,1/18/2015,599.96,Bikes,Germany
+2354.5,1/18/2015,4396.97,Components,Australia
+781.5,1/18/2015,166.95,Clothing,Canada
+508.5,1/18/2015,4.99,Clothing,France
+397,1/18/2015,42.76,Clothing,Australia
+749,1/18/2015,1734.97,Clothing,United Kingdom
+2833.75,1/18/2015,3526.96,Clothing,United States
+722.75,1/18/2015,48.97,Clothing,Germany
+687.5,1/18/2015,0,Accessories,Canada
+609.25,1/18/2015,63.97,Accessories,France
+430,1/18/2015,776.33,Accessories,Australia
+218,1/18/2015,636.25,Accessories,United Kingdom
+3275.25,1/18/2015,126.24,Accessories,United States
+474.25,1/18/2015,25.48,Accessories,Germany
+594,1/19/2015,835.32,Bikes,Australia
+282,1/19/2015,3134.47,Bikes,United Kingdom
+2636.75,1/19/2015,3451.88,Bikes,United States
+529.75,1/19/2015,26.48,Bikes,Germany
+340,1/19/2015,2384.07,Bikes,Canada
+559.5,1/19/2015,0,Bikes,France
+397,1/19/2015,88.47,Clothing,Australia
+749,1/19/2015,62.26,Clothing,United Kingdom
+2833.75,1/19/2015,4877.26,Clothing,United States
+722.75,1/19/2015,1191.25,Clothing,Germany
+781.5,1/19/2015,18.97,Clothing,Canada
+508.5,1/19/2015,68.97,Clothing,France
+430,1/19/2015,73.45,Accessories,Australia
+218,1/19/2015,3.99,Accessories,United Kingdom
+3275.25,1/19/2015,18.98,Accessories,United States
+474.25,1/19/2015,3.99,Accessories,Germany
+687.5,1/19/2015,0,Accessories,Canada
+609.25,1/19/2015,7.28,Accessories,France
+559.5,1/20/2015,589.98,Bikes,France
+529.75,1/20/2015,747.34,Bikes,Germany
+282,1/20/2015,2393.05,Bikes,United Kingdom
+340,1/20/2015,73.98,Bikes,Canada
+594,1/20/2015,1775.2,Bikes,Australia
+2636.75,1/20/2015,155.87,Bikes,United States
+508.5,1/20/2015,0,Clothing,France
+722.75,1/20/2015,726.38,Clothing,Germany
+749,1/20/2015,656.95,Clothing,United Kingdom
+781.5,1/20/2015,53.99,Clothing,Canada
+397,1/20/2015,574.46,Clothing,Australia
+2833.75,1/20/2015,3159.82,Clothing,United States
+609.25,1/20/2015,34.99,Accessories,France
+474.25,1/20/2015,136.93,Accessories,Germany
+218,1/20/2015,579.97,Accessories,United Kingdom
+687.5,1/20/2015,0,Accessories,Canada
+430,1/20/2015,1771.73,Accessories,Australia
+3275.25,1/20/2015,5455.66,Accessories,United States
+340,1/21/2015,29.48,Bikes,Canada
+2636.75,1/21/2015,282.94,Bikes,United States
+559.5,1/21/2015,2414.45,Bikes,France
+282,1/21/2015,8.99,Bikes,United Kingdom
+529.75,1/21/2015,3.99,Bikes,Germany
+594,1/21/2015,152.55,Bikes,Australia
+445.75,1/21/2015,1303.44,Components,Germany
+781.5,1/21/2015,4.99,Clothing,Canada
+2833.75,1/21/2015,114.24,Clothing,United States
+508.5,1/21/2015,50.57,Clothing,France
+749,1/21/2015,0,Clothing,United Kingdom
+722.75,1/21/2015,802.32,Clothing,Germany
+397,1/21/2015,22.97,Clothing,Australia
+687.5,1/21/2015,38.99,Accessories,Canada
+3275.25,1/21/2015,2498.34,Accessories,United States
+609.25,1/21/2015,39.99,Accessories,France
+218,1/21/2015,58.98,Accessories,United Kingdom
+474.25,1/21/2015,21.49,Accessories,Germany
+430,1/21/2015,13.98,Accessories,Australia
+2636.75,1/22/2015,13.98,Bikes,United States
+282,1/22/2015,1660.48,Bikes,United Kingdom
+559.5,1/22/2015,0,Bikes,France
+529.75,1/22/2015,2393.06,Bikes,Germany
+594,1/22/2015,84.98,Bikes,Australia
+340,1/22/2015,289.35,Bikes,Canada
+1449.75,1/22/2015,2629.14,Components,Canada
+2833.75,1/22/2015,1718.46,Clothing,United States
+749,1/22/2015,1867.83,Clothing,United Kingdom
+508.5,1/22/2015,0,Clothing,France
+722.75,1/22/2015,2510.94,Clothing,Germany
+397,1/22/2015,4980.37,Clothing,Australia
+781.5,1/22/2015,6.28,Clothing,Canada
+3275.25,1/22/2015,632.93,Accessories,United States
+218,1/22/2015,7.95,Accessories,United Kingdom
+609.25,1/22/2015,28.99,Accessories,France
+474.25,1/22/2015,1248.83,Accessories,Germany
+430,1/22/2015,0,Accessories,Australia
+687.5,1/22/2015,35,Accessories,Canada
+340,1/23/2015,78.87,Bikes,Canada
+559.5,1/23/2015,13.98,Bikes,France
+2636.75,1/23/2015,4916.8,Bikes,United States
+529.75,1/23/2015,0,Bikes,Germany
+282,1/23/2015,0,Bikes,United Kingdom
+594,1/23/2015,11.27,Bikes,Australia
+1634,1/23/2015,2499.31,Components,France
+3095.75,1/23/2015,8089.16,Components,United States
+781.5,1/23/2015,48.24,Clothing,Canada
+508.5,1/23/2015,2300.97,Clothing,France
+2833.75,1/23/2015,2384.27,Clothing,United States
+722.75,1/23/2015,4589.98,Clothing,Germany
+749,1/23/2015,2389.06,Clothing,United Kingdom
+397,1/23/2015,7.28,Clothing,Australia
+687.5,1/23/2015,8.99,Accessories,Canada
+609.25,1/23/2015,0,Accessories,France
+3275.25,1/23/2015,37.28,Accessories,United States
+474.25,1/23/2015,0,Accessories,Germany
+218,1/23/2015,29.99,Accessories,United Kingdom
+430,1/23/2015,2294.99,Accessories,Australia
+609,1/24/2015,5117.93,Bikes,Australia
+2995.25,1/24/2015,2408.72,Bikes,United States
+565.75,1/24/2015,8.99,Bikes,United Kingdom
+362.75,1/24/2015,4095.05,Bikes,Germany
+500.25,1/24/2015,564.98,Bikes,France
+409.25,1/24/2015,74.97,Bikes,Canada
+550,1/24/2015,2561.13,Clothing,Australia
+2941.25,1/24/2015,7391.89,Clothing,United States
+571,1/24/2015,4174.03,Clothing,United Kingdom
+458.75,1/24/2015,48.97,Clothing,Germany
+430,1/24/2015,21.49,Clothing,France
+424.25,1/24/2015,2457.53,Clothing,Canada
+381.75,1/24/2015,2651.3,Accessories,Australia
+2977.75,1/24/2015,2370.74,Accessories,United States
+1038,1/24/2015,1129.48,Accessories,United Kingdom
+818.5,1/24/2015,2366.96,Accessories,Germany
+544.75,1/24/2015,0,Accessories,France
+768,1/24/2015,579.46,Accessories,Canada
+362.75,1/25/2015,3.99,Bikes,Germany
+409.25,1/25/2015,69.97,Bikes,Canada
+500.25,1/25/2015,0,Bikes,France
+609,1/25/2015,78.98,Bikes,Australia
+565.75,1/25/2015,126.46,Bikes,United Kingdom
+2995.25,1/25/2015,3168.93,Bikes,United States
+2426.75,1/25/2015,126.95,Components,France
+1442.25,1/25/2015,7276.34,Components,Australia
+458.75,1/25/2015,0,Clothing,Germany
+424.25,1/25/2015,1130.47,Clothing,Canada
+430,1/25/2015,3672.81,Clothing,France
+550,1/25/2015,4.99,Clothing,Australia
+571,1/25/2015,66.94,Clothing,United Kingdom
+2941.25,1/25/2015,2472.31,Clothing,United States
+818.5,1/25/2015,0,Accessories,Germany
+768,1/25/2015,0,Accessories,Canada
+544.75,1/25/2015,0,Accessories,France
+381.75,1/25/2015,4.99,Accessories,Australia
+1038,1/25/2015,647.94,Accessories,United Kingdom
+2977.75,1/25/2015,138.95,Accessories,United States
+609,1/26/2015,1384.29,Bikes,Australia
+2995.25,1/26/2015,184.54,Bikes,United States
+362.75,1/26/2015,2298.98,Bikes,Germany
+565.75,1/26/2015,0,Bikes,United Kingdom
+500.25,1/26/2015,1780.07,Bikes,France
+409.25,1/26/2015,707.47,Bikes,Canada
+12497.5,1/26/2015,5138.35,Components,United States
+1464.75,1/26/2015,108.96,Components,Germany
+1656.5,1/26/2015,4214.44,Components,United Kingdom
+550,1/26/2015,9848.88,Clothing,Australia
+2941.25,1/26/2015,2437.95,Clothing,United States
+458.75,1/26/2015,1700.99,Clothing,Germany
+571,1/26/2015,1209.47,Clothing,United Kingdom
+430,1/26/2015,56.97,Clothing,France
+424.25,1/26/2015,34.97,Clothing,Canada
+381.75,1/26/2015,786.33,Accessories,Australia
+2977.75,1/26/2015,577.27,Accessories,United States
+818.5,1/26/2015,561.48,Accessories,Germany
+1038,1/26/2015,2323.98,Accessories,United Kingdom
+544.75,1/26/2015,1764.96,Accessories,France
+768,1/26/2015,70.96,Accessories,Canada
+2995.25,1/27/2015,3255.8,Bikes,United States
+500.25,1/27/2015,14.98,Bikes,France
+362.75,1/27/2015,7.28,Bikes,Germany
+565.75,1/27/2015,539.99,Bikes,United Kingdom
+609,1/27/2015,3578.82,Bikes,Australia
+409.25,1/27/2015,2398.05,Bikes,Canada
+1284,1/27/2015,1340.38,Components,Canada
+2941.25,1/27/2015,85.43,Clothing,United States
+430,1/27/2015,98.49,Clothing,France
+458.75,1/27/2015,8.98,Clothing,Germany
+571,1/27/2015,2474.05,Clothing,United Kingdom
+550,1/27/2015,80.96,Clothing,Australia
+424.25,1/27/2015,36.27,Clothing,Canada
+2977.75,1/27/2015,44.97,Accessories,United States
+544.75,1/27/2015,0,Accessories,France
+818.5,1/27/2015,34.99,Accessories,Germany
+1038,1/27/2015,100.46,Accessories,United Kingdom
+381.75,1/27/2015,4739.05,Accessories,Australia
+768,1/27/2015,568.98,Accessories,Canada
+409.25,1/28/2015,17.97,Bikes,Canada
+565.75,1/28/2015,89.97,Bikes,United Kingdom
+2995.25,1/28/2015,4280.74,Bikes,United States
+500.25,1/28/2015,0,Bikes,France
+362.75,1/28/2015,74.97,Bikes,Germany
+609,1/28/2015,92.96,Bikes,Australia
+424.25,1/28/2015,816.41,Clothing,Canada
+571,1/28/2015,49.99,Clothing,United Kingdom
+2941.25,1/28/2015,7611.37,Clothing,United States
+430,1/28/2015,2344.98,Clothing,France
+458.75,1/28/2015,60.9,Clothing,Germany
+550,1/28/2015,126.94,Clothing,Australia
+768,1/28/2015,0,Accessories,Canada
+1038,1/28/2015,2389.06,Accessories,United Kingdom
+2977.75,1/28/2015,231.91,Accessories,United States
+544.75,1/28/2015,9.99,Accessories,France
+818.5,1/28/2015,4704.06,Accessories,Germany
+381.75,1/28/2015,2367.5,Accessories,Australia
+500.25,1/29/2015,1217.14,Bikes,France
+2995.25,1/29/2015,3040.42,Bikes,United States
+362.75,1/29/2015,2445.64,Bikes,Germany
+565.75,1/29/2015,564.48,Bikes,United Kingdom
+609,1/29/2015,3995.45,Bikes,Australia
+409.25,1/29/2015,237.54,Bikes,Canada
+2442.25,1/29/2015,5689.28,Components,Australia
+1284,1/29/2015,3354.42,Components,Canada
+430,1/29/2015,1595.25,Clothing,France
+2941.25,1/29/2015,4110.93,Clothing,United States
+458.75,1/29/2015,2451.65,Clothing,Germany
+571,1/29/2015,574.98,Clothing,United Kingdom
+550,1/29/2015,14.98,Clothing,Australia
+424.25,1/29/2015,1705.98,Clothing,Canada
+544.75,1/29/2015,8.99,Accessories,France
+2977.75,1/29/2015,24.97,Accessories,United States
+818.5,1/29/2015,9.99,Accessories,Germany
+1038,1/29/2015,2465.33,Accessories,United Kingdom
+381.75,1/29/2015,2.29,Accessories,Australia
+768,1/29/2015,0,Accessories,Canada
+409.25,1/30/2015,32.28,Bikes,Canada
+500.25,1/30/2015,89.98,Bikes,France
+609,1/30/2015,2601.53,Bikes,Australia
+2995.25,1/30/2015,1995.13,Bikes,United States
+362.75,1/30/2015,2377.93,Bikes,Germany
+565.75,1/30/2015,4.99,Bikes,United Kingdom
+424.25,1/30/2015,98.5,Clothing,Canada
+430,1/30/2015,2382.96,Clothing,France
+550,1/30/2015,594.98,Clothing,Australia
+2941.25,1/30/2015,6562.99,Clothing,United States
+458.75,1/30/2015,63.98,Clothing,Germany
+571,1/30/2015,138.97,Clothing,United Kingdom
+768,1/30/2015,0,Accessories,Canada
+544.75,1/30/2015,43.47,Accessories,France
+381.75,1/30/2015,542.28,Accessories,Australia
+2977.75,1/30/2015,2402,Accessories,United States
+818.5,1/30/2015,55.47,Accessories,Germany
+1038,1/30/2015,33.96,Accessories,United Kingdom
+609,1/31/2015,5938.52,Bikes,Australia
+565.75,1/31/2015,0,Bikes,United Kingdom
+2995.25,1/31/2015,4995.56,Bikes,United States
+362.75,1/31/2015,3420.47,Bikes,Germany
+409.25,1/31/2015,74.98,Bikes,Canada
+500.25,1/31/2015,606.75,Bikes,France
+550,1/31/2015,7040.42,Clothing,Australia
+571,1/31/2015,0,Clothing,United Kingdom
+2941.25,1/31/2015,78.46,Clothing,United States
+458.75,1/31/2015,805.33,Clothing,Germany
+424.25,1/31/2015,60.92,Clothing,Canada
+430,1/31/2015,777.34,Clothing,France
+381.75,1/31/2015,2405.9,Accessories,Australia
+1038,1/31/2015,30.48,Accessories,United Kingdom
+2977.75,1/31/2015,90.93,Accessories,United States
+818.5,1/31/2015,97.97,Accessories,Germany
+768,1/31/2015,59.98,Accessories,Canada
+544.75,1/31/2015,44.98,Accessories,France
+362.75,2/1/2015,2522.8,Bikes,Germany
+409.25,2/1/2015,179.95,Bikes,Canada
+500.25,2/1/2015,666.56,Bikes,France
+609,2/1/2015,48.87,Bikes,Australia
+2995.25,2/1/2015,2391.82,Bikes,United States
+565.75,2/1/2015,7.28,Bikes,United Kingdom
+1442.25,2/1/2015,9675.58,Components,Australia
+458.75,2/1/2015,1513.69,Clothing,Germany
+424.25,2/1/2015,2570.97,Clothing,Canada
+430,2/1/2015,3459.46,Clothing,France
+550,2/1/2015,1769.85,Clothing,Australia
+2941.25,2/1/2015,7825.19,Clothing,United States
+571,2/1/2015,37.98,Clothing,United Kingdom
+818.5,2/1/2015,120,Accessories,Germany
+768,2/1/2015,46.92,Accessories,Canada
+544.75,2/1/2015,49.99,Accessories,France
+381.75,2/1/2015,21.49,Accessories,Australia
+2977.75,2/1/2015,91.88,Accessories,United States
+1038,2/1/2015,58.98,Accessories,United Kingdom
+514.5,2/2/2015,5905.76,Bikes,Australia
+2419.25,2/2/2015,2398.25,Bikes,United States
+589.75,2/2/2015,2384.07,Bikes,Germany
+684.25,2/2/2015,2324.98,Bikes,United Kingdom
+556.75,2/2/2015,63.74,Bikes,Canada
+400.5,2/2/2015,106.96,Bikes,France
+823.75,2/2/2015,3160.31,Clothing,Australia
+2429.75,2/2/2015,3501.24,Clothing,United States
+656.5,2/2/2015,2403.04,Clothing,Germany
+417.75,2/2/2015,21.49,Clothing,United Kingdom
+633.25,2/2/2015,82.95,Clothing,Canada
+493.75,2/2/2015,2369.96,Clothing,France
+699,2/2/2015,0,Accessories,Australia
+2844.5,2/2/2015,686.95,Accessories,United States
+337.5,2/2/2015,37.27,Accessories,Germany
+1802,2/2/2015,539.99,Accessories,United Kingdom
+301,2/2/2015,2.29,Accessories,Canada
+291.5,2/2/2015,1925.45,Accessories,France
+400.5,2/3/2015,26.92,Bikes,France
+2419.25,2/3/2015,1252.41,Bikes,United States
+684.25,2/3/2015,2423.05,Bikes,United Kingdom
+589.75,2/3/2015,2379.97,Bikes,Germany
+514.5,2/3/2015,1893.93,Bikes,Australia
+556.75,2/3/2015,139.97,Bikes,Canada
+493.75,2/3/2015,15.27,Clothing,France
+2429.75,2/3/2015,5135.83,Clothing,United States
+417.75,2/3/2015,2486.65,Clothing,United Kingdom
+656.5,2/3/2015,72.98,Clothing,Germany
+823.75,2/3/2015,2965.9,Clothing,Australia
+633.25,2/3/2015,164.95,Clothing,Canada
+291.5,2/3/2015,2359.97,Accessories,France
+2844.5,2/3/2015,50.75,Accessories,United States
+1802,2/3/2015,39.98,Accessories,United Kingdom
+337.5,2/3/2015,2384.07,Accessories,Germany
+699,2/3/2015,4843.93,Accessories,Australia
+301,2/3/2015,10.24,Accessories,Canada
+704.5,2/4/2015,97.07,Bikes,Canada
+2948.75,2/4/2015,3002.25,Bikes,United States
+802.5,2/4/2015,2454.06,Bikes,United Kingdom
+300.5,2/4/2015,17.98,Bikes,France
+817,2/4/2015,3.99,Bikes,Germany
+420,2/4/2015,4139.04,Bikes,Australia
+1379.75,2/4/2015,4164.43,Components,United Kingdom
+795.25,2/4/2015,7370.99,Components,France
+284,2/4/2015,194.2,Components,Germany
+289,2/4/2015,93.96,Clothing,Canada
+2471,2/4/2015,170.44,Clothing,United States
+817.75,2/4/2015,0,Clothing,United Kingdom
+557.25,2/4/2015,13.98,Clothing,France
+301,2/4/2015,2.29,Clothing,Germany
+544.5,2/4/2015,4864.61,Clothing,Australia
+386.75,2/4/2015,9.98,Accessories,Canada
+2711.25,2/4/2015,73.48,Accessories,United States
+1461,2/4/2015,0,Accessories,United Kingdom
+591.25,2/4/2015,1120.49,Accessories,France
+409.75,2/4/2015,0,Accessories,Germany
+463.25,2/4/2015,2513.47,Accessories,Australia
+2948.75,2/5/2015,3506.37,Bikes,United States
+300.5,2/5/2015,1757.94,Bikes,France
+817,2/5/2015,0,Bikes,Germany
+420,2/5/2015,4.99,Bikes,Australia
+802.5,2/5/2015,4.99,Bikes,United Kingdom
+704.5,2/5/2015,39.47,Bikes,Canada
+520.25,2/5/2015,1919.66,Components,Canada
+22471,2/5/2015,2767.4,Clothing,United States
+557.25,2/5/2015,155.24,Clothing,France
+301,2/5/2015,29.48,Clothing,Germany
+544.5,2/5/2015,38.97,Clothing,Australia
+817.75,2/5/2015,2439.05,Clothing,United Kingdom
+289,2/5/2015,2483.38,Clothing,Canada
+2711.25,2/5/2015,4749.51,Accessories,United States
+591.25,2/5/2015,34.99,Accessories,France
+409.75,2/5/2015,4.99,Accessories,Germany
+463.25,2/5/2015,2859.97,Accessories,Australia
+1461,2/5/2015,0,Accessories,United Kingdom
+386.75,2/5/2015,147.42,Accessories,Canada
+704.5,2/6/2015,0,Bikes,Canada
+300.5,2/6/2015,36.59,Bikes,France
+420,2/6/2015,1190.74,Bikes,Australia
+2948.75,2/6/2015,1970.14,Bikes,United States
+802.5,2/6/2015,2324.98,Bikes,United Kingdom
+817,2/6/2015,120.45,Bikes,Germany
+1666.5,2/6/2015,7194.12,Components,Australia
+289,2/6/2015,79.44,Clothing,Canada
+557.25,2/6/2015,0,Clothing,France
+544.5,2/6/2015,2572.78,Clothing,Australia
+2471,2/6/2015,1155.17,Clothing,United States
+817.75,2/6/2015,742.35,Clothing,United Kingdom
+301,2/6/2015,53.99,Clothing,Germany
+386.75,2/6/2015,117.97,Accessories,Canada
+591.25,2/6/2015,0,Accessories,France
+463.25,2/6/2015,1175.47,Accessories,Australia
+2711.25,2/6/2015,2452.71,Accessories,United States
+1461,2/6/2015,28.99,Accessories,United Kingdom
+409.75,2/6/2015,21.49,Accessories,Germany
+420,2/7/2015,2428.52,Bikes,Australia
+2948.75,2/7/2015,5482.75,Bikes,United States
+802.5,2/7/2015,2549.95,Bikes,United Kingdom
+817,2/7/2015,0,Bikes,Germany
+300.5,2/7/2015,0,Bikes,France
+704.5,2/7/2015,2552.29,Bikes,Canada
+544.5,2/7/2015,1184.96,Clothing,Australia
+2471,2/7/2015,2954.21,Clothing,United States
+817.75,2/7/2015,4187.31,Clothing,United Kingdom
+301,2/7/2015,3633.91,Clothing,Germany
+557.25,2/7/2015,34.99,Clothing,France
+289,2/7/2015,24.99,Clothing,Canada
+463.25,2/7/2015,1780.96,Accessories,Australia
+2711.25,2/7/2015,1715.97,Accessories,United States
+1461,2/7/2015,28.77,Accessories,United Kingdom
+409.75,2/7/2015,574.98,Accessories,Germany
+591.25,2/7/2015,0,Accessories,France
+386.75,2/7/2015,49.99,Accessories,Canada
+817,2/8/2015,784.47,Bikes,Germany
+802.5,2/8/2015,59.97,Bikes,United Kingdom
+704.5,2/8/2015,26.78,Bikes,Canada
+300.5,2/8/2015,578.97,Bikes,France
+420,2/8/2015,39.98,Bikes,Australia
+2948.75,2/8/2015,814.4,Bikes,United States
+1795.25,2/8/2015,3654.43,Components,France
+1666.5,2/8/2015,11404.02,Components,Australia
+301,2/8/2015,49.99,Clothing,Germany
+817.75,2/8/2015,2557.31,Clothing,United Kingdom
+289,2/8/2015,57.98,Clothing,Canada
+557.25,2/8/2015,21.49,Clothing,France
+544.5,2/8/2015,6028.62,Clothing,Australia
+2471,2/8/2015,7608.36,Clothing,United States
+409.75,2/8/2015,49.99,Accessories,Germany
+1461,2/8/2015,9.99,Accessories,United Kingdom
+386.75,2/8/2015,79.98,Accessories,Canada
+591.25,2/8/2015,42.94,Accessories,France
+463.25,2/8/2015,2894.97,Accessories,Australia
+2711.25,2/8/2015,3469.93,Accessories,United States
+420,2/9/2015,189.88,Bikes,Australia
+2948.75,2/9/2015,1777.74,Bikes,United States
+300.5,2/9/2015,84.97,Bikes,France
+802.5,2/9/2015,2304.98,Bikes,United Kingdom
+817,2/9/2015,1125.48,Bikes,Germany
+704.5,2/9/2015,134.46,Bikes,Canada
+2475.25,2/9/2015,473.17,Components,United States
+379.75,2/9/2015,2551.38,Components,United Kingdom
+544.5,2/9/2015,5905.07,Clothing,Australia
+2471,2/9/2015,1496.07,Clothing,United States
+557.25,2/9/2015,34.99,Clothing,France
+817.75,2/9/2015,1120.49,Clothing,United Kingdom
+301,2/9/2015,1008.47,Clothing,Germany
+289,2/9/2015,3.99,Clothing,Canada
+463.25,2/9/2015,775.83,Accessories,Australia
+2711.25,2/9/2015,105.92,Accessories,United States
+591.25,2/9/2015,34.99,Accessories,France
+1461,2/9/2015,2397.01,Accessories,United Kingdom
+409.75,2/9/2015,8.99,Accessories,Germany
+386.75,2/9/2015,568.97,Accessories,Canada
+2948.75,2/10/2015,2394.54,Bikes,United States
+300.5,2/10/2015,8.99,Bikes,France
+802.5,2/10/2015,1751.47,Bikes,United Kingdom
+817,2/10/2015,14.98,Bikes,Germany
+420,2/10/2015,163.92,Bikes,Australia
+704.5,2/10/2015,4668.94,Bikes,Canada
+1520.25,2/10/2015,2857.61,Components,Canada
+2471,2/10/2015,8849.13,Clothing,United States
+557.25,2/10/2015,1252.13,Clothing,France
+817.75,2/10/2015,84.96,Clothing,United Kingdom
+301,2/10/2015,2324.98,Clothing,Germany
+544.5,2/10/2015,4964.34,Clothing,Australia
+289,2/10/2015,42.2,Clothing,Canada
+2711.25,2/10/2015,2306.27,Accessories,United States
+591.25,2/10/2015,49.99,Accessories,France
+1461,2/10/2015,3.99,Accessories,United Kingdom
+409.75,2/10/2015,0,Accessories,Germany
+463.25,2/10/2015,116.24,Accessories,Australia
+386.75,2/10/2015,2.29,Accessories,Canada
+773.5,2/11/2015,34.95,Bikes,Canada
+533.25,2/11/2015,17.98,Bikes,United Kingdom
+2754,2/11/2015,53.24,Bikes,United States
+794.5,2/11/2015,44.97,Bikes,France
+650,2/11/2015,0,Bikes,Germany
+435,2/11/2015,43.98,Bikes,Australia
+484.75,2/11/2015,74.98,Clothing,Canada
+639.5,2/11/2015,94.98,Clothing,United Kingdom
+2578.75,2/11/2015,103.25,Clothing,United States
+478.75,2/11/2015,2381.26,Clothing,France
+590.25,2/11/2015,0,Clothing,Germany
+697.25,2/11/2015,1436.79,Clothing,Australia
+467.25,2/11/2015,4.99,Accessories,Canada
+70,2/11/2015,0,Accessories,United Kingdom
+2966.25,2/11/2015,686.92,Accessories,United States
+526.5,2/11/2015,0,Accessories,France
+753.75,2/11/2015,0,Accessories,Germany
+415.25,2/11/2015,818.45,Accessories,Australia
+2754,2/12/2015,152.2,Bikes,United States
+533.25,2/12/2015,89.97,Bikes,United Kingdom
+435,2/12/2015,2638.26,Bikes,Australia
+650,2/12/2015,49.99,Bikes,Germany
+773.5,2/12/2015,67.97,Bikes,Canada
+794.5,2/12/2015,34.99,Bikes,France
+1354.75,2/12/2015,2418.2,Components,Canada
+2578.75,2/12/2015,1314.42,Clothing,United States
+639.5,2/12/2015,2421.34,Clothing,United Kingdom
+697.25,2/12/2015,48.96,Clothing,Australia
+590.25,2/12/2015,8.99,Clothing,Germany
+484.75,2/12/2015,34.89,Clothing,Canada
+478.75,2/12/2015,30.48,Clothing,France
+2966.25,2/12/2015,2595.91,Accessories,United States
+70,2/12/2015,14.98,Accessories,United Kingdom
+415.25,2/12/2015,2402.94,Accessories,Australia
+753.75,2/12/2015,9.99,Accessories,Germany
+467.25,2/12/2015,71.97,Accessories,Canada
+526.5,2/12/2015,39.98,Accessories,France
+794.5,2/13/2015,855.42,Bikes,France
+773.5,2/13/2015,0,Bikes,Canada
+435,2/13/2015,2484.73,Bikes,Australia
+2754,2/13/2015,3219.39,Bikes,United States
+533.25,2/13/2015,2322.96,Bikes,United Kingdom
+650,2/13/2015,163.99,Bikes,Germany
+478.75,2/13/2015,52.97,Clothing,France
+484.75,2/13/2015,83.95,Clothing,Canada
+697.25,2/13/2015,3482.76,Clothing,Australia
+2578.75,2/13/2015,2613.26,Clothing,United States
+639.5,2/13/2015,544.98,Clothing,United Kingdom
+590.25,2/13/2015,87.97,Clothing,Germany
+526.5,2/13/2015,599.98,Accessories,France
+467.25,2/13/2015,9.99,Accessories,Canada
+415.25,2/13/2015,628.98,Accessories,Australia
+2966.25,2/13/2015,35.46,Accessories,United States
+70,2/13/2015,0,Accessories,United Kingdom
+753.75,2/13/2015,21.98,Accessories,Germany
+435,2/14/2015,544.98,Bikes,Australia
+533.25,2/14/2015,49.99,Bikes,United Kingdom
+2754,2/14/2015,2446.72,Bikes,United States
+650,2/14/2015,34.99,Bikes,Germany
+773.5,2/14/2015,0,Bikes,Canada
+794.5,2/14/2015,2298.98,Bikes,France
+1303,2/14/2015,6707.21,Components,Germany
+697.25,2/14/2015,4056.24,Clothing,Australia
+639.5,2/14/2015,829.62,Clothing,United Kingdom
+2578.75,2/14/2015,1405.82,Clothing,United States
+590.25,2/14/2015,2424.04,Clothing,Germany
+484.75,2/14/2015,2308.97,Clothing,Canada
+478.75,2/14/2015,88.98,Clothing,France
+415.25,2/14/2015,4679.06,Accessories,Australia
+70,2/14/2015,2329.98,Accessories,United Kingdom
+2966.25,2/14/2015,2423.91,Accessories,United States
+753.75,2/14/2015,120,Accessories,Germany
+467.25,2/14/2015,119.98,Accessories,Canada
+526.5,2/14/2015,21.98,Accessories,France
+650,2/15/2015,69.99,Bikes,Germany
+533.25,2/15/2015,4741.34,Bikes,United Kingdom
+773.5,2/15/2015,30.48,Bikes,Canada
+794.5,2/15/2015,2388.06,Bikes,France
+435,2/15/2015,5881.3,Bikes,Australia
+2754,2/15/2015,5342.77,Bikes,United States
+754.5,2/15/2015,3975.36,Components,Australia
+590.25,2/15/2015,4.99,Clothing,Germany
+639.5,2/15/2015,171.28,Clothing,United Kingdom
+484.75,2/15/2015,127.97,Clothing,Canada
+478.75,2/15/2015,2324.98,Clothing,France
+697.25,2/15/2015,1808.94,Clothing,Australia
+2578.75,2/15/2015,5746.41,Clothing,United States
+753.75,2/15/2015,0,Accessories,Germany
+70,2/15/2015,0,Accessories,United Kingdom
+467.25,2/15/2015,2391.35,Accessories,Canada
+526.5,2/15/2015,21.49,Accessories,France
+415.25,2/15/2015,5123.93,Accessories,Australia
+2966.25,2/15/2015,3060.9,Accessories,United States
+773.5,2/16/2015,1704.45,Bikes,Canada
+2754,2/16/2015,3024.38,Bikes,United States
+794.5,2/16/2015,133.56,Bikes,France
+533.25,2/16/2015,2323.98,Bikes,United Kingdom
+650,2/16/2015,1712.93,Bikes,Germany
+435,2/16/2015,118.49,Bikes,Australia
+1526.5,2/16/2015,0,Components,United Kingdom
+1303,2/16/2015,3545.2,Components,Germany
+484.75,2/16/2015,21.49,Clothing,Canada
+2578.75,2/16/2015,3190.88,Clothing,United States
+478.75,2/16/2015,2462.31,Clothing,France
+639.5,2/16/2015,38.76,Clothing,United Kingdom
+590.25,2/16/2015,59.48,Clothing,Germany
+697.25,2/16/2015,92.97,Clothing,Australia
+467.25,2/16/2015,0,Accessories,Canada
+2966.25,2/16/2015,12.28,Accessories,United States
+526.5,2/16/2015,0,Accessories,France
+70,2/16/2015,34.99,Accessories,United Kingdom
+753.75,2/16/2015,4.99,Accessories,Germany
+415.25,2/16/2015,0,Accessories,Australia
+533.25,2/17/2015,2334.97,Bikes,United Kingdom
+2754,2/17/2015,3075.3,Bikes,United States
+794.5,2/17/2015,870.41,Bikes,France
+650,2/17/2015,38.98,Bikes,Germany
+435,2/17/2015,124.24,Bikes,Australia
+773.5,2/17/2015,189.92,Bikes,Canada
+639.5,2/17/2015,2511.55,Clothing,United Kingdom
+2578.75,2/17/2015,747.81,Clothing,United States
+478.75,2/17/2015,2469.32,Clothing,France
+590.25,2/17/2015,0,Clothing,Germany
+697.25,2/17/2015,5379.78,Clothing,Australia
+484.75,2/17/2015,229.89,Clothing,Canada
+70,2/17/2015,28.99,Accessories,United Kingdom
+2966.25,2/17/2015,120.24,Accessories,United States
+526.5,2/17/2015,1214.85,Accessories,France
+753.75,2/17/2015,2297.28,Accessories,Germany
+415.25,2/17/2015,127.07,Accessories,Australia
+467.25,2/17/2015,34.99,Accessories,Canada
+773.5,2/18/2015,118.85,Bikes,Canada
+2754,2/18/2015,1416.88,Bikes,United States
+794.5,2/18/2015,0,Bikes,France
+650,2/18/2015,586.48,Bikes,Germany
+533.25,2/18/2015,2294.99,Bikes,United Kingdom
+435,2/18/2015,2588.33,Bikes,Australia
+12983,2/18/2015,18237.66,Components,United States
+1587.75,2/18/2015,4872.49,Components,France
+484.75,2/18/2015,39.58,Clothing,Canada
+2578.75,2/18/2015,5029.04,Clothing,United States
+478.75,2/18/2015,71.26,Clothing,France
+590.25,2/18/2015,2319.99,Clothing,Germany
+639.5,2/18/2015,2400.28,Clothing,United Kingdom
+697.25,2/18/2015,7600.81,Clothing,Australia
+467.25,2/18/2015,7.28,Accessories,Canada
+2966.25,2/18/2015,2953.12,Accessories,United States
+526.5,2/18/2015,0,Accessories,France
+753.75,2/18/2015,34.99,Accessories,Germany
+70,2/18/2015,88.46,Accessories,United Kingdom
+415.25,2/18/2015,81.25,Accessories,Australia
+340.5,2/19/2015,603.55,Bikes,Australia
+2731,2/19/2015,3049.19,Bikes,United States
+324.25,2/19/2015,59.97,Bikes,Germany
+651.5,2/19/2015,3549.82,Bikes,United Kingdom
+368.25,2/19/2015,107.26,Bikes,Canada
+694.5,2/19/2015,4030.95,Bikes,France
+1388.25,2/19/2015,199.92,Components,United Kingdom
+418,2/19/2015,31.27,Clothing,Australia
+2619.75,2/19/2015,681.51,Clothing,United States
+787.75,2/19/2015,2329.98,Clothing,Germany
+486.5,2/19/2015,2408.34,Clothing,United Kingdom
+693.75,2/19/2015,8.57,Clothing,Canada
+542.5,2/19/2015,79.47,Clothing,France
+732.5,2/19/2015,226.49,Accessories,Australia
+2280.25,2/19/2015,3597.7,Accessories,United States
+825.75,2/19/2015,44.98,Accessories,Germany
+281,2/19/2015,0,Accessories,United Kingdom
+553.25,2/19/2015,29.98,Accessories,Canada
+826.25,2/19/2015,1120.49,Accessories,France
+324.25,2/20/2015,2406.45,Bikes,Germany
+368.25,2/20/2015,30.97,Bikes,Canada
+694.5,2/20/2015,2420.34,Bikes,France
+340.5,2/20/2015,237.43,Bikes,Australia
+651.5,2/20/2015,1724.96,Bikes,United Kingdom
+2731,2/20/2015,4903.26,Bikes,United States
+1590,2/20/2015,13916.19,Components,Australia
+787.75,2/20/2015,1158.43,Clothing,Germany
+693.75,2/20/2015,82.98,Clothing,Canada
+542.5,2/20/2015,1785.9,Clothing,France
+418,2/20/2015,1812.42,Clothing,Australia
+486.5,2/20/2015,5271.91,Clothing,United Kingdom
+2619.75,2/20/2015,1176.67,Clothing,United States
+825.75,2/20/2015,3183.93,Accessories,Germany
+553.25,2/20/2015,0,Accessories,Canada
+826.25,2/20/2015,24.99,Accessories,France
+732.5,2/20/2015,1700.99,Accessories,Australia
+281,2/20/2015,9.98,Accessories,United Kingdom
+2280.25,2/20/2015,7660.81,Accessories,United States
+355.5,2/21/2015,881.48,Bikes,Australia
+3089.75,2/21/2015,6181.81,Bikes,United States
+710,2/21/2015,69.98,Bikes,Germany
+382.25,2/21/2015,176.97,Bikes,United Kingdom
+635.5,2/21/2015,113.95,Bikes,France
+437.5,2/21/2015,1284.84,Bikes,Canada
+571,2/21/2015,3035.87,Clothing,Australia
+2727.75,2/21/2015,3365.91,Clothing,United States
+524,2/21/2015,777.34,Clothing,Germany
+308.5,2/21/2015,102.58,Clothing,United Kingdom
+464,2/21/2015,64.98,Clothing,France
+336.5,2/21/2015,103.56,Clothing,Canada
+684.25,2/21/2015,44.97,Accessories,Australia
+2535.25,2/21/2015,1414.62,Accessories,United States
+617,2/21/2015,2294.99,Accessories,Germany
+547.75,2/21/2015,0,Accessories,United Kingdom
+761.75,2/21/2015,13.97,Accessories,France
+633.75,2/21/2015,0,Accessories,Canada
+3089.75,2/22/2015,104.96,Bikes,United States
+635.5,2/22/2015,0,Bikes,France
+710,2/22/2015,564.99,Bikes,Germany
+382.25,2/22/2015,1214.85,Bikes,United Kingdom
+355.5,2/22/2015,1937.25,Bikes,Australia
+437.5,2/22/2015,129.97,Bikes,Canada
+2727.75,2/22/2015,117.93,Clothing,United States
+464,2/22/2015,3698.83,Clothing,France
+524,2/22/2015,148.92,Clothing,Germany
+308.5,2/22/2015,1174.48,Clothing,United Kingdom
+571,2/22/2015,214.39,Clothing,Australia
+336.5,2/22/2015,53.99,Clothing,Canada
+2535.25,2/22/2015,804.48,Accessories,United States
+761.75,2/22/2015,69.98,Accessories,France
+617,2/22/2015,0,Accessories,Germany
+547.75,2/22/2015,38.98,Accessories,United Kingdom
+684.25,2/22/2015,4905.34,Accessories,Australia
+633.75,2/22/2015,0,Accessories,Canada
+437.5,2/23/2015,0,Bikes,Canada
+382.25,2/23/2015,45.93,Bikes,United Kingdom
+3089.75,2/23/2015,3012.92,Bikes,United States
+635.5,2/23/2015,0,Bikes,France
+710,2/23/2015,43.97,Bikes,Germany
+355.5,2/23/2015,64.97,Bikes,Australia
+12927,2/23/2015,7143.49,Components,United States
+1564.5,2/23/2015,2358.42,Components,France
+336.5,2/23/2015,19.97,Clothing,Canada
+308.5,2/23/2015,162.93,Clothing,United Kingdom
+2727.75,2/23/2015,2429.71,Clothing,United States
+464,2/23/2015,4143.9,Clothing,France
+524,2/23/2015,61.47,Clothing,Germany
+571,2/23/2015,548.98,Clothing,Australia
+633.75,2/23/2015,21.49,Accessories,Canada
+547.75,2/23/2015,2316.48,Accessories,United Kingdom
+2535.25,2/23/2015,2515.61,Accessories,United States
+761.75,2/23/2015,9.99,Accessories,France
+617,2/23/2015,742.35,Accessories,Germany
+684.25,2/23/2015,3593.26,Accessories,Australia
+3089.75,2/24/2015,4359.47,Bikes,United States
+635.5,2/24/2015,1261.81,Bikes,France
+710,2/24/2015,14.57,Bikes,Germany
+382.25,2/24/2015,2354.47,Bikes,United Kingdom
+355.5,2/24/2015,4782.12,Bikes,Australia
+437.5,2/24/2015,34.99,Bikes,Canada
+2727.75,2/24/2015,980.7,Clothing,United States
+464,2/24/2015,53.55,Clothing,France
+524,2/24/2015,2406.25,Clothing,Germany
+308.5,2/24/2015,4166.32,Clothing,United Kingdom
+571,2/24/2015,1191.39,Clothing,Australia
+336.5,2/24/2015,17.97,Clothing,Canada
+2535.25,2/24/2015,3020.82,Accessories,United States
+761.75,2/24/2015,4089.05,Accessories,France
+617,2/24/2015,7.95,Accessories,Germany
+547.75,2/24/2015,3563.84,Accessories,United Kingdom
+684.25,2/24/2015,2393.06,Accessories,Australia
+633.75,2/24/2015,24.49,Accessories,Canada
+437.5,2/25/2015,2454.06,Bikes,Canada
+635.5,2/25/2015,73.96,Bikes,France
+355.5,2/25/2015,131.56,Bikes,Australia
+3089.75,2/25/2015,565.96,Bikes,United States
+710,2/25/2015,568.98,Bikes,Germany
+382.25,2/25/2015,2330.23,Bikes,United Kingdom
+12927,2/25/2015,3375.54,Components,United States
+336.5,2/25/2015,792.46,Clothing,Canada
+464,2/25/2015,769.49,Clothing,France
+571,2/25/2015,8.99,Clothing,Australia
+2727.75,2/25/2015,629.46,Clothing,United States
+524,2/25/2015,74.48,Clothing,Germany
+308.5,2/25/2015,0,Clothing,United Kingdom
+633.75,2/25/2015,0,Accessories,Canada
+761.75,2/25/2015,0,Accessories,France
+684.25,2/25/2015,39.99,Accessories,Australia
+2535.25,2/25/2015,1256.75,Accessories,United States
+617,2/25/2015,28.99,Accessories,Germany
+547.75,2/25/2015,28.99,Accessories,United Kingdom
+355.5,2/26/2015,53.99,Bikes,Australia
+382.25,2/26/2015,85.21,Bikes,United Kingdom
+3089.75,2/26/2015,4739.87,Bikes,United States
+710,2/26/2015,0,Bikes,Germany
+635.5,2/26/2015,59.49,Bikes,France
+437.5,2/26/2015,4.99,Bikes,Canada
+571,2/26/2015,1310.47,Clothing,Australia
+308.5,2/26/2015,74.98,Clothing,United Kingdom
+2727.75,2/26/2015,747.86,Clothing,United States
+524,2/26/2015,8.99,Clothing,Germany
+464,2/26/2015,34.99,Clothing,France
+336.5,2/26/2015,4.99,Clothing,Canada
+684.25,2/26/2015,24.99,Accessories,Australia
+547.75,2/26/2015,542.28,Accessories,United Kingdom
+2535.25,2/26/2015,1754.97,Accessories,United States
+617,2/26/2015,2443.35,Accessories,Germany
+761.75,2/26/2015,0,Accessories,France
+633.75,2/26/2015,4.99,Accessories,Canada
+710,2/27/2015,0,Bikes,Germany
+382.25,2/27/2015,579.97,Bikes,United Kingdom
+437.5,2/27/2015,116.45,Bikes,Canada
+635.5,2/27/2015,29.99,Bikes,France
+355.5,2/27/2015,2430.42,Bikes,Australia
+3089.75,2/27/2015,683.72,Bikes,United States
+1678,2/27/2015,6655.81,Components,Australia
+524,2/27/2015,2.29,Clothing,Germany
+308.5,2/27/2015,30.48,Clothing,United Kingdom
+336.5,2/27/2015,213.42,Clothing,Canada
+464,2/27/2015,91.93,Clothing,France
+571,2/27/2015,135.23,Clothing,Australia
+2727.75,2/27/2015,4955.95,Clothing,United States
+617,2/27/2015,2329.99,Accessories,Germany
+547.75,2/27/2015,32.98,Accessories,United Kingdom
+633.75,2/27/2015,26.97,Accessories,Canada
+761.75,2/27/2015,0,Accessories,France
+684.25,2/27/2015,2998.8,Accessories,Australia
+2535.25,2/27/2015,4873.79,Accessories,United States
+814,2/28/2015,2452.85,Bikes,Australia
+2513.25,2/28/2015,754.24,Bikes,United States
+535.5,2/28/2015,4.99,Bikes,France
+500.75,2/28/2015,2491.53,Bikes,United Kingdom
+384.25,2/28/2015,4639.47,Bikes,Germany
+585,2/28/2015,54.98,Bikes,Canada
+1748.75,2/28/2015,1288.21,Components,France
+1396.75,2/28/2015,2943.49,Components,United Kingdom
+1694,2/28/2015,5436.7,Components,Germany
+291.75,2/28/2015,2514.25,Clothing,Australia
+2769.25,2/28/2015,2456.9,Clothing,United States
+527.75,2/28/2015,0,Clothing,France
+708.25,2/28/2015,59.98,Clothing,United Kingdom
+721.5,2/28/2015,100.95,Clothing,Germany
+545.5,2/28/2015,88.97,Clothing,Canada
+448.5,2/28/2015,2582.8,Accessories,Australia
+2402.25,2/28/2015,6407.93,Accessories,United States
+508.5,2/28/2015,1120.49,Accessories,France
+759.75,2/28/2015,7.28,Accessories,United Kingdom
+689,2/28/2015,8.99,Accessories,Germany
+719.5,2/28/2015,28.99,Accessories,Canada
+585,3/1/2015,2379.56,Bikes,Canada
+535.5,3/1/2015,1740.97,Bikes,France
+814,3/1/2015,4090.05,Bikes,Australia
+2513.25,3/1/2015,104.98,Bikes,United States
+384.25,3/1/2015,43.96,Bikes,Germany
+500.75,3/1/2015,2411.21,Bikes,United Kingdom
+1513.5,3/1/2015,11569.93,Components,Australia
+12915.5,3/1/2015,12529.49,Components,United States
+545.5,3/1/2015,158.92,Clothing,Canada
+527.75,3/1/2015,2443.35,Clothing,France
+291.75,3/1/2015,2577.01,Clothing,Australia
+2769.25,3/1/2015,3232.46,Clothing,United States
+721.5,3/1/2015,553.96,Clothing,Germany
+708.25,3/1/2015,34.99,Clothing,United Kingdom
+719.5,3/1/2015,0,Accessories,Canada
+508.5,3/1/2015,39.98,Accessories,France
+448.5,3/1/2015,3945.96,Accessories,Australia
+2402.25,3/1/2015,674.04,Accessories,United States
+689,3/1/2015,58.98,Accessories,Germany
+759.75,3/1/2015,28.99,Accessories,United Kingdom
+814,3/2/2015,8273.81,Bikes,Australia
+500.75,3/2/2015,174.53,Bikes,United Kingdom
+2513.25,3/2/2015,1191.75,Bikes,United States
+384.25,3/2/2015,0,Bikes,Germany
+585,3/2/2015,28.99,Bikes,Canada
+535.5,3/2/2015,764.32,Bikes,France
+291.75,3/2/2015,751.93,Clothing,Australia
+708.25,3/2/2015,6276.94,Clothing,United Kingdom
+2769.25,3/2/2015,2662.44,Clothing,United States
+721.5,3/2/2015,0,Clothing,Germany
+545.5,3/2/2015,24.49,Clothing,Canada
+527.75,3/2/2015,2.29,Clothing,France
+448.5,3/2/2015,29.98,Accessories,Australia
+759.75,3/2/2015,68.97,Accessories,United Kingdom
+2402.25,3/2/2015,98.24,Accessories,United States
+689,3/2/2015,34.99,Accessories,Germany
+719.5,3/2/2015,2.29,Accessories,Canada
+508.5,3/2/2015,34.99,Accessories,France
+384.25,3/3/2015,0,Bikes,Germany
+585,3/3/2015,209.54,Bikes,Canada
+535.5,3/3/2015,38.88,Bikes,France
+814,3/3/2015,628.49,Bikes,Australia
+500.75,3/3/2015,9.99,Bikes,United Kingdom
+2513.25,3/3/2015,166.88,Bikes,United States
+721.5,3/3/2015,638.96,Clothing,Germany
+545.5,3/3/2015,18.97,Clothing,Canada
+527.75,3/3/2015,56.48,Clothing,France
+291.75,3/3/2015,56.96,Clothing,Australia
+708.25,3/3/2015,0,Clothing,United Kingdom
+2769.25,3/3/2015,2468.02,Clothing,United States
+689,3/3/2015,2318.96,Accessories,Germany
+719.5,3/3/2015,2404.97,Accessories,Canada
+508.5,3/3/2015,30.97,Accessories,France
+448.5,3/3/2015,1156.26,Accessories,Australia
+759.75,3/3/2015,8.99,Accessories,United Kingdom
+2402.25,3/3/2015,2399.56,Accessories,United States
+814,3/4/2015,1166.76,Bikes,Australia
+2513.25,3/4/2015,1298.37,Bikes,United States
+535.5,3/4/2015,62.76,Bikes,France
+384.25,3/4/2015,2327.76,Bikes,Germany
+500.75,3/4/2015,848.26,Bikes,United Kingdom
+585,3/4/2015,14.98,Bikes,Canada
+1748.75,3/4/2015,200.69,Components,France
+694,3/4/2015,3215.38,Components,Germany
+396.75,3/4/2015,183.44,Components,United Kingdom
+291.75,3/4/2015,3416.24,Clothing,Australia
+2769.25,3/4/2015,1210.34,Clothing,United States
+527.75,3/4/2015,621.47,Clothing,France
+721.5,3/4/2015,24.27,Clothing,Germany
+708.25,3/4/2015,2463.27,Clothing,United Kingdom
+545.5,3/4/2015,66.96,Clothing,Canada
+448.5,3/4/2015,91.26,Accessories,Australia
+2402.25,3/4/2015,38.98,Accessories,United States
+508.5,3/4/2015,0,Accessories,France
+689,3/4/2015,0,Accessories,Germany
+759.75,3/4/2015,28.99,Accessories,United Kingdom
+719.5,3/4/2015,98.96,Accessories,Canada
+500.75,3/5/2015,3.99,Bikes,United Kingdom
+2513.25,3/5/2015,2401.34,Bikes,United States
+535.5,3/5/2015,64.98,Bikes,France
+384.25,3/5/2015,135.95,Bikes,Germany
+814,3/5/2015,2874.96,Bikes,Australia
+585,3/5/2015,93.48,Bikes,Canada
+708.25,3/5/2015,8.99,Clothing,United Kingdom
+2769.25,3/5/2015,6582.34,Clothing,United States
+527.75,3/5/2015,0,Clothing,France
+721.5,3/5/2015,1257.44,Clothing,Germany
+291.75,3/5/2015,2578.32,Clothing,Australia
+545.5,3/5/2015,1796.53,Clothing,Canada
+759.75,3/5/2015,74.96,Accessories,United Kingdom
+2402.25,3/5/2015,1857.55,Accessories,United States
+508.5,3/5/2015,0,Accessories,France
+689,3/5/2015,3062.34,Accessories,Germany
+448.5,3/5/2015,2447.05,Accessories,Australia
+719.5,3/5/2015,44.97,Accessories,Canada
+732.5,3/6/2015,2438.04,Bikes,Canada
+619,3/6/2015,157.95,Bikes,United Kingdom
+2490,3/6/2015,743.93,Bikes,United States
+435.75,3/6/2015,63.97,Bikes,France
+611.5,3/6/2015,539.99,Bikes,Germany
+719.5,3/6/2015,1341.81,Bikes,Australia
+12904.75,3/6/2015,2132.6,Components,United States
+1380,3/6/2015,2478.82,Components,France
+754.5,3/6/2015,85.96,Clothing,Canada
+555.25,3/6/2015,34.99,Clothing,United Kingdom
+2810.25,3/6/2015,161.43,Clothing,United States
+591.25,3/6/2015,9.98,Clothing,France
+366.25,3/6/2015,813.47,Clothing,Germany
+565.5,3/6/2015,4837.3,Clothing,Australia
+805.5,3/6/2015,65.79,Accessories,Canada
+0,3/6/2015,844.47,Accessories,United Kingdom
+3375,3/6/2015,165.45,Accessories,United States
+808.25,3/6/2015,0,Accessories,France
+285.75,3/6/2015,9.99,Accessories,Germany
+0,3/6/2015,4.99,Accessories,Australia
+2490,3/7/2015,1537.8,Bikes,United States
+435.75,3/7/2015,8.98,Bikes,France
+611.5,3/7/2015,0,Bikes,Germany
+719.5,3/7/2015,630.57,Bikes,Australia
+619,3/7/2015,3718.19,Bikes,United Kingdom
+732.5,3/7/2015,261.71,Bikes,Canada
+2000.25,3/7/2015,2520.9,Components,United Kingdom
+2810.25,3/7/2015,4694.19,Clothing,United States
+591.25,3/7/2015,9.99,Clothing,France
+366.25,3/7/2015,98.96,Clothing,Germany
+565.5,3/7/2015,3539.55,Clothing,Australia
+555.25,3/7/2015,2369.96,Clothing,United Kingdom
+754.5,3/7/2015,2364.97,Clothing,Canada
+3375,3/7/2015,103.96,Accessories,United States
+808.25,3/7/2015,0,Accessories,France
+285.75,3/7/2015,2383.96,Accessories,Germany
+0,3/7/2015,644.94,Accessories,Australia
+0,3/7/2015,39.98,Accessories,United Kingdom
+805.5,3/7/2015,35,Accessories,Canada
+801.75,3/8/2015,0,Bikes,Canada
+376.5,3/8/2015,0,Bikes,France
+734.5,3/8/2015,3078.52,Bikes,Australia
+349.75,3/8/2015,575.95,Bikes,United Kingdom
+2295.5,3/8/2015,1353.39,Bikes,United States
+444.25,3/8/2015,2354.98,Bikes,Germany
+397.25,3/8/2015,34.99,Clothing,Canada
+512.75,3/8/2015,2324.98,Clothing,France
+718.25,3/8/2015,89.57,Clothing,Australia
+377,3/8/2015,568.98,Clothing,United Kingdom
+2917.75,3/8/2015,822.94,Clothing,United States
+655.25,3/8/2015,9.99,Clothing,Germany
+333,3/8/2015,4.99,Accessories,Canada
+743.5,3/8/2015,0,Accessories,France
+717.5,3/8/2015,5247.43,Accessories,Australia
+1239,3/8/2015,2388.48,Accessories,United Kingdom
+2524.5,3/8/2015,1704.46,Accessories,United States
+552.25,3/8/2015,2294.99,Accessories,Germany
+734.5,3/9/2015,1284.82,Bikes,Australia
+349.75,3/9/2015,88.98,Bikes,United Kingdom
+2295.5,3/9/2015,2024.9,Bikes,United States
+444.25,3/9/2015,88.96,Bikes,Germany
+801.75,3/9/2015,142.44,Bikes,Canada
+376.5,3/9/2015,2544.13,Bikes,France
+1622.5,3/9/2015,2541.32,Components,Germany
+718.25,3/9/2015,4893.31,Clothing,Australia
+377,3/9/2015,79.98,Clothing,United Kingdom
+2917.75,3/9/2015,13884.07,Clothing,United States
+655.25,3/9/2015,43.98,Clothing,Germany
+397.25,3/9/2015,63.54,Clothing,Canada
+512.75,3/9/2015,47.97,Clothing,France
+717.5,3/9/2015,4819.43,Accessories,Australia
+1239,3/9/2015,59.97,Accessories,United Kingdom
+2524.5,3/9/2015,1843.71,Accessories,United States
+552.25,3/9/2015,0,Accessories,Germany
+333,3/9/2015,1120.49,Accessories,Canada
+743.5,3/9/2015,2503.33,Accessories,France
+444.25,3/10/2015,34.99,Bikes,Germany
+349.75,3/10/2015,1242.22,Bikes,United Kingdom
+376.5,3/10/2015,14.98,Bikes,France
+801.75,3/10/2015,208.94,Bikes,Canada
+734.5,3/10/2015,62.98,Bikes,Australia
+2295.5,3/10/2015,2340.92,Bikes,United States
+377.75,3/10/2015,1410.61,Components,Canada
+1437,3/10/2015,9287.88,Components,Australia
+655.25,3/10/2015,49.99,Clothing,Germany
+377,3/10/2015,86.26,Clothing,United Kingdom
+512.75,3/10/2015,1721.26,Clothing,France
+397.25,3/10/2015,54.98,Clothing,Canada
+718.25,3/10/2015,4306.78,Clothing,Australia
+2917.75,3/10/2015,2424.94,Clothing,United States
+552.25,3/10/2015,0,Accessories,Germany
+1239,3/10/2015,2427.01,Accessories,United Kingdom
+743.5,3/10/2015,57.97,Accessories,France
+333,3/10/2015,33.98,Accessories,Canada
+717.5,3/10/2015,131.56,Accessories,Australia
+2524.5,3/10/2015,112.95,Accessories,United States
+2295.5,3/11/2015,5186.92,Bikes,United States
+376.5,3/11/2015,102.96,Bikes,France
+349.75,3/11/2015,3.99,Bikes,United Kingdom
+444.25,3/11/2015,823.45,Bikes,Germany
+734.5,3/11/2015,54.95,Bikes,Australia
+801.75,3/11/2015,178.46,Bikes,Canada
+12859.75,3/11/2015,5633.66,Components,United States
+725.75,3/11/2015,4852.45,Components,France
+1405,3/11/2015,2455.91,Components,United Kingdom
+2917.75,3/11/2015,938.22,Clothing,United States
+512.75,3/11/2015,4764.03,Clothing,France
+377,3/11/2015,34.99,Clothing,United Kingdom
+655.25,3/11/2015,7128.11,Clothing,Germany
+718.25,3/11/2015,132.47,Clothing,Australia
+397.25,3/11/2015,32.28,Clothing,Canada
+2524.5,3/11/2015,2463.94,Accessories,United States
+743.5,3/11/2015,27.97,Accessories,France
+1239,3/11/2015,34.99,Accessories,United Kingdom
+552.25,3/11/2015,13.98,Accessories,Germany
+717.5,3/11/2015,1735.98,Accessories,Australia
+333,3/11/2015,33.98,Accessories,Canada
+349.75,3/12/2015,1725.98,Bikes,United Kingdom
+2295.5,3/12/2015,4688.95,Bikes,United States
+376.5,3/12/2015,31.96,Bikes,France
+734.5,3/12/2015,5645.94,Bikes,Australia
+444.25,3/12/2015,5878.54,Bikes,Germany
+801.75,3/12/2015,194,Bikes,Canada
+1377.75,3/12/2015,2369.18,Components,Canada
+377,3/12/2015,48.98,Clothing,United Kingdom
+2917.75,3/12/2015,2548.96,Clothing,United States
+512.75,3/12/2015,747.34,Clothing,France
+718.25,3/12/2015,1916.91,Clothing,Australia
+655.25,3/12/2015,58.98,Clothing,Germany
+397.25,3/12/2015,0,Clothing,Canada
+1239,3/12/2015,2294.99,Accessories,United Kingdom
+2524.5,3/12/2015,1281.92,Accessories,United States
+743.5,3/12/2015,8.99,Accessories,France
+717.5,3/12/2015,83.47,Accessories,Australia
+552.25,3/12/2015,13.98,Accessories,Germany
+333,3/12/2015,11.94,Accessories,Canada
+396.5,3/13/2015,173.4,Bikes,Canada
+2825.25,3/13/2015,7608.94,Bikes,United States
+276.75,3/13/2015,54.99,Bikes,France
+671.5,3/13/2015,22.55,Bikes,Germany
+640,3/13/2015,3053.31,Bikes,Australia
+468,3/13/2015,37.98,Bikes,United Kingdom
+2848.25,3/13/2015,6360.4,Components,United States
+357,3/13/2015,2489.39,Components,France
+606,3/13/2015,78.98,Clothing,Canada
+2406.25,3/13/2015,391.9,Clothing,United States
+576.5,3/13/2015,1164.47,Clothing,France
+300,3/13/2015,2448.04,Clothing,Germany
+439,3/13/2015,2929.92,Clothing,Australia
+777,3/13/2015,4850.39,Clothing,United Kingdom
+418.75,3/13/2015,66.26,Accessories,Canada
+2943.75,3/13/2015,3096,Accessories,United States
+490.25,3/13/2015,34.99,Accessories,France
+624.25,3/13/2015,2443.34,Accessories,Germany
+481.75,3/13/2015,39.99,Accessories,Australia
+897.75,3/13/2015,35,Accessories,United Kingdom
+640,3/14/2015,1808.83,Bikes,Australia
+2825.25,3/14/2015,1957.2,Bikes,United States
+468,3/14/2015,0,Bikes,United Kingdom
+671.5,3/14/2015,0,Bikes,Germany
+396.5,3/14/2015,38.98,Bikes,Canada
+276.75,3/14/2015,6.28,Bikes,France
+4000,3/14/2015,2351.96,Components,Germany
+496,3/14/2015,121.21,Components,Canada
+439,3/14/2015,2923.79,Clothing,Australia
+2406.25,3/14/2015,8313.26,Clothing,United States
+777,3/14/2015,34.99,Clothing,United Kingdom
+300,3/14/2015,2393.95,Clothing,Germany
+606,3/14/2015,2354.97,Clothing,Canada
+576.5,3/14/2015,4.99,Clothing,France
+481.75,3/14/2015,90.75,Accessories,Australia
+2943.75,3/14/2015,2896.94,Accessories,United States
+897.75,3/14/2015,4.99,Accessories,United Kingdom
+624.25,3/14/2015,35,Accessories,Germany
+418.75,3/14/2015,0,Accessories,Canada
+490.25,3/14/2015,4.99,Accessories,France
+396.5,3/15/2015,12.98,Bikes,Canada
+276.75,3/15/2015,9.98,Bikes,France
+640,3/15/2015,218.21,Bikes,Australia
+468,3/15/2015,548.98,Bikes,United Kingdom
+2825.25,3/15/2015,765.68,Bikes,United States
+671.5,3/15/2015,48.98,Bikes,Germany
+606,3/15/2015,94.95,Clothing,Canada
+576.5,3/15/2015,0,Clothing,France
+439,3/15/2015,2909.33,Clothing,Australia
+777,3/15/2015,1289.82,Clothing,United Kingdom
+2406.25,3/15/2015,2617.98,Clothing,United States
+300,3/15/2015,539.99,Clothing,Germany
+418.75,3/15/2015,59.99,Accessories,Canada
+490.25,3/15/2015,0,Accessories,France
+481.75,3/15/2015,2489.04,Accessories,Australia
+897.75,3/15/2015,75.48,Accessories,United Kingdom
+2943.75,3/15/2015,238.43,Accessories,United States
+624.25,3/15/2015,2.29,Accessories,Germany
+640,3/16/2015,1204.47,Bikes,Australia
+2825.25,3/16/2015,2539.81,Bikes,United States
+671.5,3/16/2015,34.99,Bikes,Germany
+468,3/16/2015,43.98,Bikes,United Kingdom
+276.75,3/16/2015,3.99,Bikes,France
+396.5,3/16/2015,2.29,Bikes,Canada
+439,3/16/2015,173.95,Clothing,Australia
+2406.25,3/16/2015,1146.24,Clothing,United States
+300,3/16/2015,4.99,Clothing,Germany
+777,3/16/2015,4.99,Clothing,United Kingdom
+576.5,3/16/2015,2319.99,Clothing,France
+606,3/16/2015,26.97,Clothing,Canada
+481.75,3/16/2015,140.94,Accessories,Australia
+2943.75,3/16/2015,828.47,Accessories,United States
+624.25,3/16/2015,0,Accessories,Germany
+897.75,3/16/2015,0,Accessories,United Kingdom
+490.25,3/16/2015,0,Accessories,France
+418.75,3/16/2015,1145.48,Accessories,Canada
+276.75,3/17/2015,2409.33,Bikes,France
+468,3/17/2015,2443.35,Bikes,United Kingdom
+671.5,3/17/2015,593.98,Bikes,Germany
+640,3/17/2015,1624.8,Bikes,Australia
+396.5,3/17/2015,44.97,Bikes,Canada
+2825.25,3/17/2015,656.55,Bikes,United States
+576.5,3/17/2015,4.99,Clothing,France
+777,3/17/2015,69.99,Clothing,United Kingdom
+300,3/17/2015,0,Clothing,Germany
+439,3/17/2015,1797.57,Clothing,Australia
+606,3/17/2015,3277.71,Clothing,Canada
+2406.25,3/17/2015,4154.52,Clothing,United States
+490.25,3/17/2015,0,Accessories,France
+897.75,3/17/2015,0,Accessories,United Kingdom
+624.25,3/17/2015,13.98,Accessories,Germany
+481.75,3/17/2015,92.97,Accessories,Australia
+418.75,3/17/2015,24.49,Accessories,Canada
+2943.75,3/17/2015,109.96,Accessories,United States
+396.5,3/18/2015,73.48,Bikes,Canada
+2825.25,3/18/2015,4842.21,Bikes,United States
+276.75,3/18/2015,901.44,Bikes,France
+468,3/18/2015,56.28,Bikes,United Kingdom
+671.5,3/18/2015,4.99,Bikes,Germany
+640,3/18/2015,3030.92,Bikes,Australia
+532,3/18/2015,5350.16,Components,Germany
+606,3/18/2015,2493.93,Clothing,Canada
+2406.25,3/18/2015,341.96,Clothing,United States
+576.5,3/18/2015,105.77,Clothing,France
+777,3/18/2015,1422.43,Clothing,United Kingdom
+300,3/18/2015,52.97,Clothing,Germany
+439,3/18/2015,34.99,Clothing,Australia
+418.75,3/18/2015,34.99,Accessories,Canada
+2943.75,3/18/2015,2418.32,Accessories,United States
+490.25,3/18/2015,775.33,Accessories,France
+897.75,3/18/2015,2.29,Accessories,United Kingdom
+624.25,3/18/2015,2384.07,Accessories,Germany
+481.75,3/18/2015,67.26,Accessories,Australia
+2630.5,3/19/2015,2447.22,Bikes,United States
+770.5,3/19/2015,0,Bikes,France
+504.25,3/19/2015,4692.32,Bikes,Germany
+655,3/19/2015,67.97,Bikes,Australia
+751.75,3/19/2015,2419.06,Bikes,United Kingdom
+465.5,3/19/2015,161.29,Bikes,Canada
+413.5,3/19/2015,7220.97,Components,United Kingdom
+1330.25,3/19/2015,182.38,Components,Canada
+3066.5,3/19/2015,2645.39,Clothing,United States
+498,3/19/2015,574.98,Clothing,France
+589,3/19/2015,89.98,Clothing,Germany
+592,3/19/2015,602.26,Clothing,Australia
+599,3/19/2015,0,Clothing,United Kingdom
+802,3/19/2015,2409.97,Clothing,Canada
+2646.25,3/19/2015,80.52,Accessories,United States
+425.75,3/19/2015,0,Accessories,France
+415.5,3/19/2015,63.98,Accessories,Germany
+433.5,3/19/2015,1731.47,Accessories,Australia
+1165.5,3/19/2015,0,Accessories,United Kingdom
+499.25,3/19/2015,2.29,Accessories,Canada
+465.5,3/20/2015,104.45,Bikes,Canada
+770.5,3/20/2015,2324.98,Bikes,France
+2630.5,3/20/2015,3120.55,Bikes,United States
+751.75,3/20/2015,2334.97,Bikes,United Kingdom
+655,3/20/2015,2562.17,Bikes,Australia
+504.25,3/20/2015,0,Bikes,Germany
+2250.5,3/20/2015,14400.87,Components,United States
+802,3/20/2015,3690.92,Clothing,Canada
+498,3/20/2015,2297.28,Clothing,France
+3066.5,3/20/2015,3111.93,Clothing,United States
+599,3/20/2015,79.96,Clothing,United Kingdom
+592,3/20/2015,2719.54,Clothing,Australia
+589,3/20/2015,56.48,Clothing,Germany
+499.25,3/20/2015,60.23,Accessories,Canada
+425.75,3/20/2015,4.99,Accessories,France
+2646.25,3/20/2015,240.03,Accessories,United States
+1165.5,3/20/2015,43.98,Accessories,United Kingdom
+433.5,3/20/2015,625.23,Accessories,Australia
+415.5,3/20/2015,4.99,Accessories,Germany
+655,3/21/2015,112.96,Bikes,Australia
+2630.5,3/21/2015,985.26,Bikes,United States
+751.75,3/21/2015,16.94,Bikes,United Kingdom
+504.25,3/21/2015,48.97,Bikes,Germany
+770.5,3/21/2015,39.98,Bikes,France
+465.5,3/21/2015,117.75,Bikes,Canada
+592,3/21/2015,145.92,Clothing,Australia
+3066.5,3/21/2015,6562.54,Clothing,United States
+599,3/21/2015,3428.76,Clothing,United Kingdom
+589,3/21/2015,122.95,Clothing,Germany
+498,3/21/2015,1189.46,Clothing,France
+802,3/21/2015,2987.42,Clothing,Canada
+433.5,3/21/2015,2419.06,Accessories,Australia
+2646.25,3/21/2015,143.95,Accessories,United States
+1165.5,3/21/2015,2448.34,Accessories,United Kingdom
+415.5,3/21/2015,1282.34,Accessories,Germany
+425.75,3/21/2015,4.99,Accessories,France
+499.25,3/21/2015,49.99,Accessories,Canada
+504.25,3/22/2015,4017.96,Bikes,Germany
+465.5,3/22/2015,25.48,Bikes,Canada
+770.5,3/22/2015,20.27,Bikes,France
+655,3/22/2015,3281.65,Bikes,Australia
+751.75,3/22/2015,88.75,Bikes,United Kingdom
+2630.5,3/22/2015,177.94,Bikes,United States
+1702.5,3/22/2015,1342.75,Components,France
+1360.5,3/22/2015,6870.23,Components,Australia
+589,3/22/2015,60.47,Clothing,Germany
+802,3/22/2015,49.98,Clothing,Canada
+498,3/22/2015,34.99,Clothing,France
+592,3/22/2015,4118.51,Clothing,Australia
+599,3/22/2015,824.47,Clothing,United Kingdom
+3066.5,3/22/2015,116.46,Clothing,United States
+415.5,3/22/2015,771.78,Accessories,Germany
+499.25,3/22/2015,2294.99,Accessories,Canada
+425.75,3/22/2015,28.99,Accessories,France
+433.5,3/22/2015,629.97,Accessories,Australia
+1165.5,3/22/2015,39.98,Accessories,United Kingdom
+2646.25,3/22/2015,3490.45,Accessories,United States
+655,3/23/2015,36.27,Bikes,Australia
+2630.5,3/23/2015,2893.21,Bikes,United States
+770.5,3/23/2015,603.97,Bikes,France
+504.25,3/23/2015,79.98,Bikes,Germany
+751.75,3/23/2015,2418.05,Bikes,United Kingdom
+465.5,3/23/2015,3565.3,Bikes,Canada
+2250.5,3/23/2015,5560.08,Components,United States
+1702.5,3/23/2015,641.72,Components,France
+1551,3/23/2015,3824.38,Components,Germany
+1413.5,3/23/2015,2041.21,Components,United Kingdom
+592,3/23/2015,2379.46,Clothing,Australia
+3066.5,3/23/2015,3744.95,Clothing,United States
+498,3/23/2015,8.99,Clothing,France
+589,3/23/2015,4005.96,Clothing,Germany
+599,3/23/2015,3097.32,Clothing,United Kingdom
+802,3/23/2015,142.76,Clothing,Canada
+433.5,3/23/2015,0,Accessories,Australia
+2646.25,3/23/2015,3238.51,Accessories,United States
+425.75,3/23/2015,0,Accessories,France
+415.5,3/23/2015,0,Accessories,Germany
+1165.5,3/23/2015,129.95,Accessories,United Kingdom
+499.25,3/23/2015,34.99,Accessories,Canada
+2630.5,3/24/2015,1176.03,Bikes,United States
+770.5,3/24/2015,3185.7,Bikes,France
+751.75,3/24/2015,2334.24,Bikes,United Kingdom
+504.25,3/24/2015,2318.77,Bikes,Germany
+655,3/24/2015,3578.52,Bikes,Australia
+465.5,3/24/2015,89.95,Bikes,Canada
+1330.25,3/24/2015,169.43,Components,Canada
+3066.5,3/24/2015,81.43,Clothing,United States
+498,3/24/2015,2392.25,Clothing,France
+599,3/24/2015,569.98,Clothing,United Kingdom
+589,3/24/2015,3.99,Clothing,Germany
+592,3/24/2015,4298.88,Clothing,Australia
+802,3/24/2015,117.25,Clothing,Canada
+2646.25,3/24/2015,56.26,Accessories,United States
+425.75,3/24/2015,39.98,Accessories,France
+1165.5,3/24/2015,89.25,Accessories,United Kingdom
+415.5,3/24/2015,2328.97,Accessories,Germany
+433.5,3/24/2015,19.22,Accessories,Australia
+499.25,3/24/2015,119.98,Accessories,Canada
+613.25,3/25/2015,19.23,Bikes,Canada
+317.25,3/25/2015,1724.77,Bikes,United Kingdom
+2607.75,3/25/2015,838.58,Bikes,United States
+670.75,3/25/2015,757.33,Bikes,France
+731.5,3/25/2015,0,Bikes,Germany
+560.5,3/25/2015,154.43,Bikes,Australia
+828.25,3/25/2015,2570.77,Components,United Kingdom
+457.75,3/25/2015,38.97,Clothing,Canada
+445.75,3/25/2015,83.98,Clothing,United Kingdom
+2555.25,3/25/2015,2388.05,Clothing,United States
+561.75,3/25/2015,23.96,Clothing,France
+786.75,3/25/2015,0,Clothing,Germany
+312.75,3/25/2015,2933.48,Clothing,Australia
+585,3/25/2015,56.49,Accessories,Canada
+269.25,3/25/2015,2428.05,Accessories,United Kingdom
+3066.25,3/25/2015,870.44,Accessories,United States
+725.5,3/25/2015,0,Accessories,France
+487.5,3/25/2015,0,Accessories,Germany
+751,3/25/2015,91.48,Accessories,Australia
+570.75,3/26/2015,599.99,Bikes,France
+2584.5,3/26/2015,652.38,Bikes,United States
+405.75,3/26/2015,544.98,Bikes,Germany
+435.5,3/26/2015,0,Bikes,United Kingdom
+466,3/26/2015,7814.03,Bikes,Australia
+760.75,3/26/2015,12.94,Bikes,Canada
+1584.75,3/26/2015,9206.47,Components,Australia
+1566.5,3/26/2015,144.46,Components,Canada
+625.25,3/26/2015,37.97,Clothing,France
+2043.5,3/26/2015,58.94,Clothing,United States
+431.5,3/26/2015,0,Clothing,Germany
+292.75,3/26/2015,4.99,Clothing,United Kingdom
+586.25,3/26/2015,2581.32,Clothing,Australia
+666.75,3/26/2015,41.27,Clothing,Canada
+472,3/26/2015,103.48,Accessories,France
+2932.75,3/26/2015,2484.85,Accessories,United States
+559.5,3/26/2015,799.32,Accessories,Germany
+2141,3/26/2015,34.99,Accessories,United Kingdom
+515.25,3/26/2015,58.98,Accessories,Australia
+671,3/26/2015,39.99,Accessories,Canada
+760.75,3/27/2015,58.95,Bikes,Canada
+570.75,3/27/2015,601.46,Bikes,France
+466,3/27/2015,2482.95,Bikes,Australia
+2584.5,3/27/2015,4700.17,Bikes,United States
+435.5,3/27/2015,39.99,Bikes,United Kingdom
+405.75,3/27/2015,44.91,Bikes,Germany
+666.75,3/27/2015,1735.98,Clothing,Canada
+625.25,3/27/2015,34.99,Clothing,France
+586.25,3/27/2015,2359.97,Clothing,Australia
+2043.5,3/27/2015,1570.46,Clothing,United States
+292.75,3/27/2015,73.97,Clothing,United Kingdom
+431.5,3/27/2015,643.97,Clothing,Germany
+671,3/27/2015,54.98,Accessories,Canada
+472,3/27/2015,2443.35,Accessories,France
+515.25,3/27/2015,39.98,Accessories,Australia
+2932.75,3/27/2015,1494.45,Accessories,United States
+2141,3/27/2015,4875.24,Accessories,United Kingdom
+559.5,3/27/2015,769.49,Accessories,Germany
+466,3/28/2015,2372.47,Bikes,Australia
+435.5,3/28/2015,1299.8,Bikes,United Kingdom
+2584.5,3/28/2015,4799.39,Bikes,United States
+405.75,3/28/2015,58.98,Bikes,Germany
+760.75,3/28/2015,650.94,Bikes,Canada
+570.75,3/28/2015,2839.97,Bikes,France
+1370.25,3/28/2015,3590.67,Components,Germany
+586.25,3/28/2015,612.27,Clothing,Australia
+292.75,3/28/2015,49.99,Clothing,United Kingdom
+2043.5,3/28/2015,1274.43,Clothing,United States
+431.5,3/28/2015,3603.91,Clothing,Germany
+666.75,3/28/2015,158.98,Clothing,Canada
+625.25,3/28/2015,4798.23,Clothing,France
+515.25,3/28/2015,34.99,Accessories,Australia
+2141,3/28/2015,67.97,Accessories,United Kingdom
+2932.75,3/28/2015,143.94,Accessories,United States
+559.5,3/28/2015,63.5,Accessories,Germany
+671,3/28/2015,124.97,Accessories,Canada
+472,3/28/2015,34.99,Accessories,France
+791.75,3/29/2015,777.34,Bikes,Germany
+719.25,3/29/2015,658.95,Bikes,United Kingdom
+277,3/29/2015,24.49,Bikes,Canada
+511.75,3/29/2015,21.49,Bikes,France
+481,3/29/2015,56.96,Bikes,Australia
+2942.75,3/29/2015,205.04,Bikes,United States
+672.5,3/29/2015,8170.37,Components,Australia
+720.5,3/29/2015,7.98,Clothing,Germany
+667.5,3/29/2015,2402.42,Clothing,United Kingdom
+309.5,3/29/2015,106.58,Clothing,Canada
+546.75,3/29/2015,4.99,Clothing,France
+739.25,3/29/2015,865.75,Clothing,Australia
+3257,3/29/2015,2628.89,Clothing,United States
+350.75,3/29/2015,53.48,Accessories,Germany
+196,3/29/2015,8.99,Accessories,United Kingdom
+751.5,3/29/2015,0,Accessories,Canada
+407.5,3/29/2015,18.97,Accessories,France
+467,3/29/2015,32.94,Accessories,Australia
+2635.25,3/29/2015,68.95,Accessories,United States
+2942.75,3/30/2015,2598.45,Bikes,United States
+511.75,3/30/2015,1735.98,Bikes,France
+791.75,3/30/2015,4094.47,Bikes,Germany
+719.25,3/30/2015,2373.98,Bikes,United Kingdom
+481,3/30/2015,1744.96,Bikes,Australia
+277,3/30/2015,2372.25,Bikes,Canada
+3289.25,3/30/2015,12740.01,Components,United States
+1310.5,3/30/2015,2530.39,Components,France
+389,3/30/2015,97.42,Components,Germany
+3257,3/30/2015,2450.03,Clothing,United States
+546.75,3/30/2015,2428.04,Clothing,France
+720.5,3/30/2015,539.99,Clothing,Germany
+667.5,3/30/2015,64.98,Clothing,United Kingdom
+739.25,3/30/2015,152.96,Clothing,Australia
+309.5,3/30/2015,94.99,Clothing,Canada
+2635.25,3/30/2015,1772.75,Accessories,United States
+407.5,3/30/2015,0,Accessories,France
+350.75,3/30/2015,2478.34,Accessories,Germany
+196,3/30/2015,9.99,Accessories,United Kingdom
+467,3/30/2015,2.29,Accessories,Australia
+751.5,3/30/2015,0,Accessories,Canada
+719.25,3/31/2015,539.99,Bikes,United Kingdom
+2942.75,3/31/2015,2701.3,Bikes,United States
+511.75,3/31/2015,769.49,Bikes,France
+481,3/31/2015,57.51,Bikes,Australia
+791.75,3/31/2015,0,Bikes,Germany
+277,3/31/2015,37.28,Bikes,Canada
+667.5,3/31/2015,41.59,Clothing,United Kingdom
+3257,3/31/2015,2473.31,Clothing,United States
+546.75,3/31/2015,13.98,Clothing,France
+739.25,3/31/2015,4144.86,Clothing,Australia
+720.5,3/31/2015,0,Clothing,Germany
+309.5,3/31/2015,0,Clothing,Canada
+196,3/31/2015,0,Accessories,United Kingdom
+2635.25,3/31/2015,3222.54,Accessories,United States
+407.5,3/31/2015,0,Accessories,France
+467,3/31/2015,53.99,Accessories,Australia
+350.75,3/31/2015,0,Accessories,Germany
+751.5,3/31/2015,4.99,Accessories,Canada
+268,4/1/2015,74.99,Bikes,Canada
+2847,4/1/2015,7681.85,Bikes,United States
+696,4/1/2015,0,Bikes,United Kingdom
+495,4/1/2015,1735.98,Bikes,France
+765.75,4/1/2015,38.92,Bikes,Germany
+465.5,4/1/2015,2438.04,Bikes,Australia
+1274.5,4/1/2015,88.98,Components,United Kingdom
+300.5,4/1/2015,5310.91,Components,France
+299.5,4/1/2015,113.82,Clothing,Canada
+3151,4/1/2015,3436.94,Clothing,United States
+646,4/1/2015,2419.06,Clothing,United Kingdom
+529,4/1/2015,2244.97,Clothing,France
+697,4/1/2015,21.93,Clothing,Germany
+715.25,4/1/2015,2510.3,Clothing,Australia
+727,4/1/2015,39.98,Accessories,Canada
+2549.5,4/1/2015,6447.67,Accessories,United States
+194,4/1/2015,83.97,Accessories,United Kingdom
+394.25,4/1/2015,84.98,Accessories,France
+339.25,4/1/2015,8.99,Accessories,Germany
+451.75,4/1/2015,1735.45,Accessories,Australia
+2847,4/2/2015,607.96,Bikes,United States
+495,4/2/2015,542.28,Bikes,France
+765.75,4/2/2015,4660.04,Bikes,Germany
+465.5,4/2/2015,105.94,Bikes,Australia
+696,4/2/2015,185.93,Bikes,United Kingdom
+268,4/2/2015,1700.99,Bikes,Canada
+387.75,4/2/2015,216.9,Components,Canada
+3151,4/2/2015,2436.88,Clothing,United States
+529,4/2/2015,32.6,Clothing,France
+697,4/2/2015,83.97,Clothing,Germany
+715.25,4/2/2015,80.44,Clothing,Australia
+646,4/2/2015,3074.62,Clothing,United Kingdom
+299.5,4/2/2015,3425.47,Clothing,Canada
+2549.5,4/2/2015,177.86,Accessories,United States
+394.25,4/2/2015,37.98,Accessories,France
+339.25,4/2/2015,1282.34,Accessories,Germany
+451.75,4/2/2015,53.96,Accessories,Australia
+194,4/2/2015,2389.06,Accessories,United Kingdom
+727,4/2/2015,35,Accessories,Canada
+268,4/3/2015,1853.38,Bikes,Canada
+495,4/3/2015,1705.98,Bikes,France
+465.5,4/3/2015,3063.35,Bikes,Australia
+2847,4/3/2015,5271.99,Bikes,United States
+696,4/3/2015,101.94,Bikes,United Kingdom
+765.75,4/3/2015,89.97,Bikes,Germany
+1650.75,4/3/2015,18151.5,Components,Australia
+299.5,4/3/2015,89.91,Clothing,Canada
+529,4/3/2015,43.97,Clothing,France
+715.25,4/3/2015,2621.78,Clothing,Australia
+3151,4/3/2015,2405.43,Clothing,United States
+646,4/3/2015,48.95,Clothing,United Kingdom
+697,4/3/2015,4177.3,Clothing,Germany
+727,4/3/2015,88.97,Accessories,Canada
+394.25,4/3/2015,63.98,Accessories,France
+451.75,4/3/2015,669.94,Accessories,Australia
+2549.5,4/3/2015,1452.21,Accessories,United States
+194,4/3/2015,46.27,Accessories,United Kingdom
+339.25,4/3/2015,133.96,Accessories,Germany
+465.5,4/4/2015,2347.96,Bikes,Australia
+2847,4/4/2015,99.46,Bikes,United States
+696,4/4/2015,1700.99,Bikes,United Kingdom
+765.75,4/4/2015,3082.32,Bikes,Germany
+268,4/4/2015,4758.05,Bikes,Canada
+495,4/4/2015,1730.43,Bikes,France
+715.25,4/4/2015,628.97,Clothing,Australia
+3151,4/4/2015,1350.4,Clothing,United States
+646,4/4/2015,108.98,Clothing,United Kingdom
+697,4/4/2015,1384.96,Clothing,Germany
+299.5,4/4/2015,135.45,Clothing,Canada
+529,4/4/2015,172.98,Clothing,France
+451.75,4/4/2015,0,Accessories,Australia
+2549.5,4/4/2015,2629.31,Accessories,United States
+194,4/4/2015,2325.47,Accessories,United Kingdom
+339.25,4/4/2015,846.33,Accessories,Germany
+727,4/4/2015,48.95,Accessories,Canada
+394.25,4/4/2015,53.99,Accessories,France
+450.75,4/5/2015,0,Bikes,Germany
+275.5,4/5/2015,8.99,Bikes,United Kingdom
+410.75,4/5/2015,168.95,Bikes,Canada
+398.25,4/5/2015,12.98,Bikes,France
+374,4/5/2015,2376.75,Bikes,Australia
+2289.75,4/5/2015,1396.1,Bikes,United States
+1491.75,4/5/2015,5180.13,Components,Australia
+353.25,4/5/2015,2.29,Clothing,Germany
+497.75,4/5/2015,0,Clothing,United Kingdom
+501.5,4/5/2015,43.96,Clothing,Canada
+590.75,4/5/2015,43.97,Clothing,France
+445,4/5/2015,2447.34,Clothing,Australia
+2655.75,4/5/2015,5657.36,Clothing,United States
+409,4/5/2015,53.99,Accessories,Germany
+3073.75,4/5/2015,4.99,Accessories,United Kingdom
+275,4/5/2015,51.57,Accessories,Canada
+684.25,4/5/2015,75.48,Accessories,France
+758.75,4/5/2015,4128.53,Accessories,Australia
+2420.5,4/5/2015,74.87,Accessories,United States
+398.25,4/6/2015,24.99,Bikes,France
+2289.75,4/6/2015,7647.34,Bikes,United States
+275.5,4/6/2015,4679.06,Bikes,United Kingdom
+450.75,4/6/2015,8.99,Bikes,Germany
+374,4/6/2015,1199.45,Bikes,Australia
+410.75,4/6/2015,1122.78,Bikes,Canada
+12101.25,4/6/2015,11586.17,Components,United States
+675.5,4/6/2015,3162.88,Components,United Kingdom
+590.75,4/6/2015,2.29,Clothing,France
+2655.75,4/6/2015,7380.47,Clothing,United States
+497.75,4/6/2015,0,Clothing,United Kingdom
+353.25,4/6/2015,21.98,Clothing,Germany
+445,4/6/2015,202.43,Clothing,Australia
+501.5,4/6/2015,2047.53,Clothing,Canada
+684.25,4/6/2015,4.99,Accessories,France
+2420.5,4/6/2015,4228.3,Accessories,United States
+3073.75,4/6/2015,0,Accessories,United Kingdom
+409,4/6/2015,0,Accessories,Germany
+758.75,4/6/2015,167.95,Accessories,Australia
+275,4/6/2015,56.97,Accessories,Canada
+2289.75,4/7/2015,1889.94,Bikes,United States
+275.5,4/7/2015,1228.82,Bikes,United Kingdom
+450.75,4/7/2015,56.48,Bikes,Germany
+398.25,4/7/2015,777.34,Bikes,France
+374,4/7/2015,1216.75,Bikes,Australia
+410.75,4/7/2015,2.29,Bikes,Canada
+1502.25,4/7/2015,1714.97,Components,Canada
+2655.75,4/7/2015,157.72,Clothing,United States
+497.75,4/7/2015,1964.95,Clothing,United Kingdom
+353.25,4/7/2015,2354.98,Clothing,Germany
+590.75,4/7/2015,1511.84,Clothing,France
+445,4/7/2015,66.42,Clothing,Australia
+501.5,4/7/2015,62.27,Clothing,Canada
+2420.5,4/7/2015,2345.47,Accessories,United States
+3073.75,4/7/2015,37.98,Accessories,United Kingdom
+409,4/7/2015,767.34,Accessories,Germany
+684.25,4/7/2015,128.96,Accessories,France
+758.75,4/7/2015,2.29,Accessories,Australia
+275,4/7/2015,34.98,Accessories,Canada
+410.75,4/8/2015,2394.96,Bikes,Canada
+2289.75,4/8/2015,5303.82,Bikes,United States
+398.25,4/8/2015,3028.45,Bikes,France
+450.75,4/8/2015,16.27,Bikes,Germany
+374,4/8/2015,2484.62,Bikes,Australia
+275.5,4/8/2015,68.96,Bikes,United Kingdom
+501.5,4/8/2015,2.29,Clothing,Canada
+2655.75,4/8/2015,722.17,Clothing,United States
+590.75,4/8/2015,119.97,Clothing,France
+353.25,4/8/2015,796.34,Clothing,Germany
+445,4/8/2015,1840.53,Clothing,Australia
+497.75,4/8/2015,2353.97,Clothing,United Kingdom
+275,4/8/2015,0,Accessories,Canada
+2420.5,4/8/2015,58.54,Accessories,United States
+684.25,4/8/2015,49.99,Accessories,France
+409,4/8/2015,4649.97,Accessories,Germany
+758.75,4/8/2015,4574.95,Accessories,Australia
+3073.75,4/8/2015,0,Accessories,United Kingdom
+374,4/9/2015,127.96,Bikes,Australia
+2289.75,4/9/2015,2400.24,Bikes,United States
+275.5,4/9/2015,58.98,Bikes,United Kingdom
+450.75,4/9/2015,73.97,Bikes,Germany
+410.75,4/9/2015,64.97,Bikes,Canada
+398.25,4/9/2015,1737.26,Bikes,France
+1502.25,4/9/2015,1191.22,Components,Canada
+445,4/9/2015,590.95,Clothing,Australia
+2655.75,4/9/2015,6518.96,Clothing,United States
+497.75,4/9/2015,0,Clothing,United Kingdom
+353.25,4/9/2015,24.27,Clothing,Germany
+501.5,4/9/2015,127.06,Clothing,Canada
+590.75,4/9/2015,4153.03,Clothing,France
+758.75,4/9/2015,0,Accessories,Australia
+2420.5,4/9/2015,216.41,Accessories,United States
+3073.75,4/9/2015,548.98,Accessories,United Kingdom
+409,4/9/2015,2419.06,Accessories,Germany
+275,4/9/2015,7.28,Accessories,Canada
+684.25,4/9/2015,0,Accessories,France
+398.25,4/10/2015,21.98,Bikes,France
+410.75,4/10/2015,539.99,Bikes,Canada
+374,4/10/2015,594.94,Bikes,Australia
+2289.75,4/10/2015,107.25,Bikes,United States
+275.5,4/10/2015,24.99,Bikes,United Kingdom
+450.75,4/10/2015,77.26,Bikes,Germany
+590.75,4/10/2015,63.5,Clothing,France
+501.5,4/10/2015,133.46,Clothing,Canada
+445,4/10/2015,2557.49,Clothing,Australia
+2655.75,4/10/2015,3126,Clothing,United States
+497.75,4/10/2015,1203.46,Clothing,United Kingdom
+353.25,4/10/2015,1318.37,Clothing,Germany
+684.25,4/10/2015,37.98,Accessories,France
+275,4/10/2015,2.29,Accessories,Canada
+758.75,4/10/2015,539.99,Accessories,Australia
+2420.5,4/10/2015,3004.83,Accessories,United States
+3073.75,4/10/2015,1164.53,Accessories,United Kingdom
+409,4/10/2015,2319.48,Accessories,Germany
+374,4/11/2015,699.24,Bikes,Australia
+2289.75,4/11/2015,604.97,Bikes,United States
+450.75,4/11/2015,2883.92,Bikes,Germany
+275.5,4/11/2015,21.49,Bikes,United Kingdom
+410.75,4/11/2015,51.96,Bikes,Canada
+398.25,4/11/2015,62.95,Bikes,France
+1289,4/11/2015,5395.89,Components,Germany
+1675.5,4/11/2015,76.96,Components,United Kingdom
+445,4/11/2015,3344.3,Clothing,Australia
+2655.75,4/11/2015,2015.65,Clothing,United States
+353.25,4/11/2015,186.77,Clothing,Germany
+497.75,4/11/2015,27.28,Clothing,United Kingdom
+501.5,4/11/2015,2.29,Clothing,Canada
+590.75,4/11/2015,3.99,Clothing,France
+758.75,4/11/2015,38.98,Accessories,Australia
+2420.5,4/11/2015,8326.1,Accessories,United States
+409,4/11/2015,4.99,Accessories,Germany
+3073.75,4/11/2015,0,Accessories,United Kingdom
+275,4/11/2015,1700.99,Accessories,Canada
+684.25,4/11/2015,8.99,Accessories,France
+670.75,4/12/2015,34.99,Bikes,France
+467.75,4/12/2015,0,Bikes,Germany
+604,4/12/2015,2348.98,Bikes,United Kingdom
+337.5,4/12/2015,2453.62,Bikes,Canada
+294.5,4/12/2015,758.62,Bikes,Australia
+2956.25,4/12/2015,1457.02,Bikes,United States
+635.25,4/12/2015,1319.4,Components,Australia
+769.5,4/12/2015,26.48,Clothing,France
+732.75,4/12/2015,2408.74,Clothing,Germany
+618.5,4/12/2015,47.93,Clothing,United Kingdom
+756,4/12/2015,1478.08,Clothing,Canada
+668.75,4/12/2015,1477.44,Clothing,Australia
+2012.75,4/12/2015,4127.94,Clothing,United States
+436.25,4/12/2015,0,Accessories,France
+636.5,4/12/2015,1755.97,Accessories,Germany
+0,4/12/2015,823.47,Accessories,United Kingdom
+534,4/12/2015,54.98,Accessories,Canada
+62.75,4/12/2015,79.48,Accessories,Australia
+2838.25,4/12/2015,131.47,Accessories,United States
+337.5,4/13/2015,54.98,Bikes,Canada
+2956.25,4/13/2015,2716.68,Bikes,United States
+670.75,4/13/2015,18.97,Bikes,France
+604,4/13/2015,2386.92,Bikes,United Kingdom
+467.75,4/13/2015,58.98,Bikes,Germany
+294.5,4/13/2015,11.28,Bikes,Australia
+1615,4/13/2015,3987.07,Components,United Kingdom
+1299.25,4/13/2015,5266.5,Components,Germany
+756,4/13/2015,24.49,Clothing,Canada
+2012.75,4/13/2015,131.11,Clothing,United States
+769.5,4/13/2015,0,Clothing,France
+618.5,4/13/2015,1316.33,Clothing,United Kingdom
+732.75,4/13/2015,49.99,Clothing,Germany
+668.75,4/13/2015,0,Clothing,Australia
+534,4/13/2015,0,Accessories,Canada
+2838.25,4/13/2015,242.97,Accessories,United States
+436.25,4/13/2015,9.99,Accessories,France
+0,4/13/2015,34.99,Accessories,United Kingdom
+636.5,4/13/2015,0,Accessories,Germany
+62.75,4/13/2015,49.97,Accessories,Australia
+604,4/14/2015,1208.96,Bikes,United Kingdom
+670.75,4/14/2015,2352.97,Bikes,France
+2956.25,4/14/2015,2751.2,Bikes,United States
+467.75,4/14/2015,1218.84,Bikes,Germany
+294.5,4/14/2015,3564.83,Bikes,Australia
+337.5,4/14/2015,3264.92,Bikes,Canada
+618.5,4/14/2015,2468.34,Clothing,United Kingdom
+769.5,4/14/2015,51.77,Clothing,France
+2012.75,4/14/2015,7009.67,Clothing,United States
+732.75,4/14/2015,1155.48,Clothing,Germany
+668.75,4/14/2015,1800.96,Clothing,Australia
+756,4/14/2015,657.01,Clothing,Canada
+0,4/14/2015,43.98,Accessories,United Kingdom
+436.25,4/14/2015,4.99,Accessories,France
+2838.25,4/14/2015,4924.08,Accessories,United States
+636.5,4/14/2015,32.6,Accessories,Germany
+62.75,4/14/2015,2299.98,Accessories,Australia
+534,4/14/2015,149.97,Accessories,Canada
+337.5,4/15/2015,2414.55,Bikes,Canada
+670.75,4/15/2015,1729.45,Bikes,France
+2956.25,4/15/2015,4237.88,Bikes,United States
+467.75,4/15/2015,51.48,Bikes,Germany
+604,4/15/2015,34.99,Bikes,United Kingdom
+294.5,4/15/2015,20.27,Bikes,Australia
+13163.25,4/15/2015,10184.65,Components,United States
+756,4/15/2015,69.99,Clothing,Canada
+769.5,4/15/2015,21.49,Clothing,France
+2012.75,4/15/2015,2789.27,Clothing,United States
+732.75,4/15/2015,539.99,Clothing,Germany
+618.5,4/15/2015,620.95,Clothing,United Kingdom
+668.75,4/15/2015,804.28,Clothing,Australia
+534,4/15/2015,3.99,Accessories,Canada
+436.25,4/15/2015,30.48,Accessories,France
+2838.25,4/15/2015,298.12,Accessories,United States
+636.5,4/15/2015,34.99,Accessories,Germany
+0,4/15/2015,0,Accessories,United Kingdom
+62.75,4/15/2015,1869.21,Accessories,Australia
+294.5,4/16/2015,92.97,Bikes,Australia
+2956.25,4/16/2015,3134.13,Bikes,United States
+604,4/16/2015,34.99,Bikes,United Kingdom
+467.75,4/16/2015,2986.45,Bikes,Germany
+670.75,4/16/2015,63.98,Bikes,France
+337.5,4/16/2015,44.97,Bikes,Canada
+668.75,4/16/2015,2459.04,Clothing,Australia
+2012.75,4/16/2015,1818.45,Clothing,United States
+618.5,4/16/2015,2389.06,Clothing,United Kingdom
+732.75,4/16/2015,25.48,Clothing,Germany
+769.5,4/16/2015,801.33,Clothing,France
+756,4/16/2015,70.46,Clothing,Canada
+62.75,4/16/2015,3566.13,Accessories,Australia
+2838.25,4/16/2015,867.95,Accessories,United States
+0,4/16/2015,49.99,Accessories,United Kingdom
+636.5,4/16/2015,54.99,Accessories,Germany
+436.25,4/16/2015,4.99,Accessories,France
+534,4/16/2015,4.99,Accessories,Canada
+467.75,4/17/2015,34.99,Bikes,Germany
+337.5,4/17/2015,7.28,Bikes,Canada
+670.75,4/17/2015,37.98,Bikes,France
+294.5,4/17/2015,68.98,Bikes,Australia
+604,4/17/2015,9.99,Bikes,United Kingdom
+2956.25,4/17/2015,714.92,Bikes,United States
+732.75,4/17/2015,48.97,Clothing,Germany
+756,4/17/2015,62.28,Clothing,Canada
+769.5,4/17/2015,39.98,Clothing,France
+668.75,4/17/2015,3050.25,Clothing,Australia
+618.5,4/17/2015,120,Clothing,United Kingdom
+2012.75,4/17/2015,8848.58,Clothing,United States
+636.5,4/17/2015,539.99,Accessories,Germany
+534,4/17/2015,153.95,Accessories,Canada
+436.25,4/17/2015,0,Accessories,France
+62.75,4/17/2015,83.97,Accessories,Australia
+0,4/17/2015,53.99,Accessories,United Kingdom
+2838.25,4/17/2015,1779.43,Accessories,United States
+294.5,4/18/2015,6919.44,Bikes,Australia
+2956.25,4/18/2015,2696.37,Bikes,United States
+467.75,4/18/2015,3153.56,Bikes,Germany
+604,4/18/2015,2024.32,Bikes,United Kingdom
+670.75,4/18/2015,49.99,Bikes,France
+337.5,4/18/2015,2393.06,Bikes,Canada
+668.75,4/18/2015,2929.92,Clothing,Australia
+2012.75,4/18/2015,2767.44,Clothing,United States
+732.75,4/18/2015,72.97,Clothing,Germany
+618.5,4/18/2015,7221.48,Clothing,United Kingdom
+769.5,4/18/2015,153.48,Clothing,France
+756,4/18/2015,34.98,Clothing,Canada
+62.75,4/18/2015,2363.95,Accessories,Australia
+2838.25,4/18/2015,2942.14,Accessories,United States
+636.5,4/18/2015,29.99,Accessories,Germany
+0,4/18/2015,70.26,Accessories,United Kingdom
+436.25,4/18/2015,4.99,Accessories,France
+534,4/18/2015,119.98,Accessories,Canada
+2768,4/19/2015,160.5,Bikes,United States
+343.5,4/19/2015,29.99,Bikes,United Kingdom
+613.5,4/19/2015,641.94,Bikes,France
+306,4/19/2015,4376.81,Bikes,Germany
+309.25,4/19/2015,592.27,Bikes,Australia
+404.5,4/19/2015,87.26,Bikes,Canada
+3187.5,4/19/2015,4664.13,Clothing,United States
+446.25,4/19/2015,2989.8,Clothing,United Kingdom
+693.5,4/19/2015,2476.04,Clothing,France
+477.5,4/19/2015,2313.97,Clothing,Germany
+281.5,4/19/2015,34.89,Clothing,Australia
+410.5,4/19/2015,98.95,Clothing,Canada
+2015.5,4/19/2015,8856.91,Accessories,United States
+2104.75,4/19/2015,13.98,Accessories,United Kingdom
+373.75,4/19/2015,2449.04,Accessories,France
+434.5,4/19/2015,34.99,Accessories,Germany
+309.75,4/19/2015,94.98,Accessories,Australia
+611.75,4/19/2015,8.99,Accessories,Canada
+404.5,4/20/2015,9.99,Bikes,Canada
+343.5,4/20/2015,34.99,Bikes,United Kingdom
+2768,4/20/2015,1561,Bikes,United States
+613.5,4/20/2015,182.97,Bikes,France
+306,4/20/2015,4.99,Bikes,Germany
+309.25,4/20/2015,3684.85,Bikes,Australia
+12584,4/20/2015,988.85,Components,United States
+1432.75,4/20/2015,1471.2,Components,France
+410.5,4/20/2015,4806.34,Clothing,Canada
+446.25,4/20/2015,547.27,Clothing,United Kingdom
+3187.5,4/20/2015,830.96,Clothing,United States
+693.5,4/20/2015,1766.95,Clothing,France
+477.5,4/20/2015,0,Clothing,Germany
+281.5,4/20/2015,138.94,Clothing,Australia
+611.75,4/20/2015,22.97,Accessories,Canada
+2104.75,4/20/2015,49.99,Accessories,United Kingdom
+2015.5,4/20/2015,802.33,Accessories,United States
+373.75,4/20/2015,2419.06,Accessories,France
+434.5,4/20/2015,0,Accessories,Germany
+309.75,4/20/2015,4808.28,Accessories,Australia
+2768,4/21/2015,273.7,Bikes,United States
+613.5,4/21/2015,0,Bikes,France
+306,4/21/2015,0,Bikes,Germany
+343.5,4/21/2015,39.98,Bikes,United Kingdom
+309.25,4/21/2015,2448.04,Bikes,Australia
+404.5,4/21/2015,3158.55,Bikes,Canada
+3187.5,4/21/2015,1986.15,Clothing,United States
+693.5,4/21/2015,8.99,Clothing,France
+477.5,4/21/2015,8.99,Clothing,Germany
+446.25,4/21/2015,2.29,Clothing,United Kingdom
+281.5,4/21/2015,2012.91,Clothing,Australia
+410.5,4/21/2015,2364.98,Clothing,Canada
+2015.5,4/21/2015,2480.33,Accessories,United States
+373.75,4/21/2015,0,Accessories,France
+434.5,4/21/2015,0,Accessories,Germany
+2104.75,4/21/2015,49.98,Accessories,United Kingdom
+309.75,4/21/2015,4954.37,Accessories,Australia
+611.75,4/21/2015,202.47,Accessories,Canada
+404.5,4/22/2015,671.94,Bikes,Canada
+613.5,4/22/2015,1332.81,Bikes,France
+309.25,4/22/2015,2513.33,Bikes,Australia
+2768,4/22/2015,214.95,Bikes,United States
+306,4/22/2015,8.98,Bikes,Germany
+343.5,4/22/2015,0,Bikes,United Kingdom
+410.5,4/22/2015,207.92,Clothing,Canada
+693.5,4/22/2015,33.98,Clothing,France
+281.5,4/22/2015,3739.67,Clothing,Australia
+3187.5,4/22/2015,5948.47,Clothing,United States
+477.5,4/22/2015,63.97,Clothing,Germany
+446.25,4/22/2015,589.96,Clothing,United Kingdom
+611.75,4/22/2015,74.98,Accessories,Canada
+373.75,4/22/2015,34.99,Accessories,France
+309.75,4/22/2015,742.35,Accessories,Australia
+2015.5,4/22/2015,4020.98,Accessories,United States
+434.5,4/22/2015,2419.06,Accessories,Germany
+2104.75,4/22/2015,4.99,Accessories,United Kingdom
+309.25,4/23/2015,2736.08,Bikes,Australia
+343.5,4/23/2015,4.99,Bikes,United Kingdom
+2768,4/23/2015,235,Bikes,United States
+306,4/23/2015,114.46,Bikes,Germany
+404.5,4/23/2015,48.97,Bikes,Canada
+613.5,4/23/2015,608.48,Bikes,France
+1317.5,4/23/2015,6984.02,Components,Germany
+281.5,4/23/2015,2343.24,Clothing,Australia
+446.25,4/23/2015,2317.95,Clothing,United Kingdom
+3187.5,4/23/2015,953.59,Clothing,United States
+477.5,4/23/2015,0,Clothing,Germany
+410.5,4/23/2015,2494.04,Clothing,Canada
+693.5,4/23/2015,2398.22,Clothing,France
+309.75,4/23/2015,2946.93,Accessories,Australia
+2104.75,4/23/2015,1120.49,Accessories,United Kingdom
+2015.5,4/23/2015,3302.5,Accessories,United States
+434.5,4/23/2015,0,Accessories,Germany
+611.75,4/23/2015,0,Accessories,Canada
+373.75,4/23/2015,2379.97,Accessories,France
+306,4/24/2015,2379.97,Bikes,Germany
+343.5,4/24/2015,63.99,Bikes,United Kingdom
+613.5,4/24/2015,46.96,Bikes,France
+404.5,4/24/2015,19.97,Bikes,Canada
+309.25,4/24/2015,283.8,Bikes,Australia
+2768,4/24/2015,136.2,Bikes,United States
+1720.25,4/24/2015,6738.29,Components,Australia
+477.5,4/24/2015,2443.35,Clothing,Germany
+446.25,4/24/2015,6920.04,Clothing,United Kingdom
+693.5,4/24/2015,4.99,Clothing,France
+410.5,4/24/2015,113.97,Clothing,Canada
+281.5,4/24/2015,6238.44,Clothing,Australia
+3187.5,4/24/2015,3040.52,Clothing,United States
+434.5,4/24/2015,0,Accessories,Germany
+2104.75,4/24/2015,2389.06,Accessories,United Kingdom
+373.75,4/24/2015,13.98,Accessories,France
+611.75,4/24/2015,0,Accessories,Canada
+309.75,4/24/2015,55.25,Accessories,Australia
+2015.5,4/24/2015,3469.03,Accessories,United States
+2768,4/25/2015,4071.83,Bikes,United States
+613.5,4/25/2015,172.88,Bikes,France
+306,4/25/2015,574.98,Bikes,Germany
+343.5,4/25/2015,4716.23,Bikes,United Kingdom
+309.25,4/25/2015,4339.75,Bikes,Australia
+404.5,4/25/2015,64.47,Bikes,Canada
+12584,4/25/2015,4926.53,Components,United States
+1432.75,4/25/2015,2568.76,Components,France
+1317.5,4/25/2015,616.42,Components,Germany
+1757,4/25/2015,69.18,Components,United Kingdom
+3187.5,4/25/2015,3662.39,Clothing,United States
+693.5,4/25/2015,37.28,Clothing,France
+477.5,4/25/2015,8.99,Clothing,Germany
+446.25,4/25/2015,34.99,Clothing,United Kingdom
+281.5,4/25/2015,5001.23,Clothing,Australia
+410.5,4/25/2015,34.99,Clothing,Canada
+2015.5,4/25/2015,118.25,Accessories,United States
+373.75,4/25/2015,548.98,Accessories,France
+434.5,4/25/2015,578.97,Accessories,Germany
+2104.75,4/25/2015,54.99,Accessories,United Kingdom
+309.75,4/25/2015,4986.86,Accessories,Australia
+611.75,4/25/2015,52.28,Accessories,Canada
+343.5,4/26/2015,54.98,Bikes,United Kingdom
+2768,4/26/2015,4471.56,Bikes,United States
+613.5,4/26/2015,48.27,Bikes,France
+306,4/26/2015,2840.96,Bikes,Germany
+309.25,4/26/2015,7038.29,Bikes,Australia
+404.5,4/26/2015,0,Bikes,Canada
+446.25,4/26/2015,94.97,Clothing,United Kingdom
+3187.5,4/26/2015,5440.76,Clothing,United States
+693.5,4/26/2015,0,Clothing,France
+477.5,4/26/2015,799.48,Clothing,Germany
+281.5,4/26/2015,2874.97,Clothing,Australia
+410.5,4/26/2015,193.44,Clothing,Canada
+2104.75,4/26/2015,0,Accessories,United Kingdom
+2015.5,4/26/2015,5928.81,Accessories,United States
+373.75,4/26/2015,2294.99,Accessories,France
+434.5,4/26/2015,0,Accessories,Germany
+309.75,4/26/2015,813.31,Accessories,Australia
+611.75,4/26/2015,1722.97,Accessories,Canada
+404.5,4/27/2015,2946.55,Bikes,Canada
+2768,4/27/2015,2620.5,Bikes,United States
+613.5,4/27/2015,2363.97,Bikes,France
+306,4/27/2015,1783.44,Bikes,Germany
+309.25,4/27/2015,6621.28,Bikes,Australia
+343.5,4/27/2015,2319.99,Bikes,United Kingdom
+12584,4/27/2015,20784.62,Components,United States
+410.5,4/27/2015,198.96,Clothing,Canada
+3187.5,4/27/2015,147.46,Clothing,United States
+693.5,4/27/2015,2344.21,Clothing,France
+477.5,4/27/2015,13.98,Clothing,Germany
+281.5,4/27/2015,3914.18,Clothing,Australia
+446.25,4/27/2015,0,Clothing,United Kingdom
+611.75,4/27/2015,196.48,Accessories,Canada
+2015.5,4/27/2015,2451.04,Accessories,United States
+373.75,4/27/2015,32.98,Accessories,France
+434.5,4/27/2015,4.99,Accessories,Germany
+309.75,4/27/2015,852.8,Accessories,Australia
+2104.75,4/27/2015,0,Accessories,United Kingdom
+752.75,4/28/2015,6115.71,Bikes,Australia
+2745.5,4/28/2015,3617.28,Bikes,United States
+458,4/28/2015,621.96,Bikes,United Kingdom
+526,4/28/2015,4777.04,Bikes,Germany
+547.25,4/28/2015,64.88,Bikes,Canada
+516.75,4/28/2015,0,Bikes,France
+1765,4/28/2015,1936.82,Components,Germany
+614,4/28/2015,3963.1,Components,Canada
+546.5,4/28/2015,298.83,Clothing,Australia
+2692.25,4/28/2015,4796.89,Clothing,United States
+298,4/28/2015,126.94,Clothing,United Kingdom
+668.75,4/28/2015,108.95,Clothing,Germany
+612.75,4/28/2015,73.46,Clothing,Canada
+755.25,4/28/2015,0,Clothing,France
+0,4/28/2015,76.45,Accessories,Australia
+2956.5,4/28/2015,1884.87,Accessories,United States
+0,4/28/2015,240.52,Accessories,United Kingdom
+219.5,4/28/2015,0,Accessories,Germany
+695,4/28/2015,2969.05,Accessories,Canada
+663.75,4/28/2015,0,Accessories,France
+547.25,4/29/2015,3204.44,Bikes,Canada
+516.75,4/29/2015,1721.84,Bikes,France
+752.75,4/29/2015,174.54,Bikes,Australia
+458,4/29/2015,709.98,Bikes,United Kingdom
+2745.5,4/29/2015,2440.22,Bikes,United States
+526,4/29/2015,84.98,Bikes,Germany
+612.75,4/29/2015,1252.44,Clothing,Canada
+755.25,4/29/2015,21.26,Clothing,France
+546.5,4/29/2015,4728.86,Clothing,Australia
+298,4/29/2015,77.96,Clothing,United Kingdom
+2692.25,4/29/2015,3389,Clothing,United States
+668.75,4/29/2015,0,Clothing,Germany
+695,4/29/2015,0,Accessories,Canada
+663.75,4/29/2015,3123.25,Accessories,France
+0,4/29/2015,50.57,Accessories,Australia
+0,4/29/2015,2299.98,Accessories,United Kingdom
+2956.5,4/29/2015,180.98,Accessories,United States
+219.5,4/29/2015,0,Accessories,Germany
+767.25,4/30/2015,4956.58,Bikes,Australia
+2557.25,4/30/2015,2763.91,Bikes,United States
+364.25,4/30/2015,1745.96,Bikes,Germany
+732.5,4/30/2015,3606.78,Bikes,United Kingdom
+614.25,4/30/2015,108.96,Bikes,Canada
+459.75,4/30/2015,88.98,Bikes,France
+694.25,4/30/2015,1251.43,Clothing,Australia
+3331.5,4/30/2015,4080.69,Clothing,United States
+413.25,4/30/2015,22.97,Clothing,Germany
+660.75,4/30/2015,4709.94,Clothing,United Kingdom
+802,4/30/2015,81.57,Clothing,Canada
+679.25,4/30/2015,7.28,Clothing,France
+0,4/30/2015,2324.98,Accessories,Australia
+2133.5,4/30/2015,2414.96,Accessories,United States
+0,4/30/2015,68.49,Accessories,Germany
+0,4/30/2015,2316.48,Accessories,United Kingdom
+772.75,4/30/2015,34.99,Accessories,Canada
+296.5,4/30/2015,4.99,Accessories,France
+2557.25,5/1/2015,5016.08,Bikes,United States
+459.75,5/1/2015,674.42,Bikes,France
+364.25,5/1/2015,2924.96,Bikes,Germany
+732.5,5/1/2015,0,Bikes,United Kingdom
+767.25,5/1/2015,2683.77,Bikes,Australia
+614.25,5/1/2015,134.23,Bikes,Canada
+1410.25,5/1/2015,9990.95,Components,France
+783.25,5/1/2015,4023.37,Components,Germany
+3331.5,5/1/2015,6557.38,Clothing,United States
+679.25,5/1/2015,8.99,Clothing,France
+413.25,5/1/2015,4025.92,Clothing,Germany
+660.75,5/1/2015,1133.47,Clothing,United Kingdom
+694.25,5/1/2015,6532.96,Clothing,Australia
+802,5/1/2015,64.97,Clothing,Canada
+2133.5,5/1/2015,4714.44,Accessories,United States
+296.5,5/1/2015,9.99,Accessories,France
+0,5/1/2015,4148.45,Accessories,Germany
+0,5/1/2015,608.96,Accessories,United Kingdom
+0,5/1/2015,1775.96,Accessories,Australia
+772.75,5/1/2015,24.97,Accessories,Canada
+732.5,5/2/2015,24.99,Bikes,United Kingdom
+2557.25,5/2/2015,1360.19,Bikes,United States
+459.75,5/2/2015,1141.98,Bikes,France
+364.25,5/2/2015,1129.48,Bikes,Germany
+767.25,5/2/2015,2390.35,Bikes,Australia
+614.25,5/2/2015,157.05,Bikes,Canada
+2453.75,5/2/2015,2700.63,Components,Canada
+660.75,5/2/2015,28.99,Clothing,United Kingdom
+3331.5,5/2/2015,2419.63,Clothing,United States
+679.25,5/2/2015,24.99,Clothing,France
+413.25,5/2/2015,42.94,Clothing,Germany
+694.25,5/2/2015,212.05,Clothing,Australia
+802,5/2/2015,2393.45,Clothing,Canada
+0,5/2/2015,0,Accessories,United Kingdom
+2133.5,5/2/2015,1430.16,Accessories,United States
+296.5,5/2/2015,0,Accessories,France
+0,5/2/2015,0,Accessories,Germany
+0,5/2/2015,34.99,Accessories,Australia
+772.75,5/2/2015,71.58,Accessories,Canada
+614.25,5/3/2015,71.97,Bikes,Canada
+459.75,5/3/2015,34.99,Bikes,France
+2557.25,5/3/2015,6281.05,Bikes,United States
+364.25,5/3/2015,2596.59,Bikes,Germany
+732.5,5/3/2015,1819.52,Bikes,United Kingdom
+767.25,5/3/2015,1295.88,Bikes,Australia
+1410.25,5/3/2015,748.91,Components,France
+802,5/3/2015,64.99,Clothing,Canada
+679.25,5/3/2015,769.49,Clothing,France
+3331.5,5/3/2015,4009.89,Clothing,United States
+413.25,5/3/2015,3110.31,Clothing,Germany
+660.75,5/3/2015,3678.69,Clothing,United Kingdom
+694.25,5/3/2015,90.95,Clothing,Australia
+772.75,5/3/2015,73.48,Accessories,Canada
+296.5,5/3/2015,0,Accessories,France
+2133.5,5/3/2015,930.75,Accessories,United States
+0,5/3/2015,2545.36,Accessories,Germany
+0,5/3/2015,2429.97,Accessories,United Kingdom
+0,5/3/2015,777.34,Accessories,Australia
+2557.25,5/4/2015,1367.45,Bikes,United States
+767.25,5/4/2015,1180.47,Bikes,Australia
+364.25,5/4/2015,2486.32,Bikes,Germany
+732.5,5/4/2015,1748.25,Bikes,United Kingdom
+614.25,5/4/2015,71.46,Bikes,Canada
+459.75,5/4/2015,767.34,Bikes,France
+3331.5,5/4/2015,3301.98,Clothing,United States
+694.25,5/4/2015,3713.43,Clothing,Australia
+413.25,5/4/2015,771.78,Clothing,Germany
+660.75,5/4/2015,97.95,Clothing,United Kingdom
+802,5/4/2015,224.2,Clothing,Canada
+679.25,5/4/2015,25.26,Clothing,France
+2133.5,5/4/2015,614.97,Accessories,United States
+0,5/4/2015,4741.33,Accessories,Australia
+0,5/4/2015,120.96,Accessories,Germany
+0,5/4/2015,2419.06,Accessories,United Kingdom
+772.75,5/4/2015,0,Accessories,Canada
+296.5,5/4/2015,34.99,Accessories,France
+614.25,5/5/2015,131.94,Bikes,Canada
+459.75,5/5/2015,742.35,Bikes,France
+767.25,5/5/2015,104.56,Bikes,Australia
+732.5,5/5/2015,2392.96,Bikes,United Kingdom
+2557.25,5/5/2015,273.48,Bikes,United States
+364.25,5/5/2015,2298.98,Bikes,Germany
+802,5/5/2015,2399.05,Clothing,Canada
+679.25,5/5/2015,4030.97,Clothing,France
+694.25,5/5/2015,2923.12,Clothing,Australia
+660.75,5/5/2015,4.99,Clothing,United Kingdom
+3331.5,5/5/2015,8260.56,Clothing,United States
+413.25,5/5/2015,93.91,Clothing,Germany
+772.75,5/5/2015,124.96,Accessories,Canada
+296.5,5/5/2015,0,Accessories,France
+0,5/5/2015,81.26,Accessories,Australia
+0,5/5/2015,3534.04,Accessories,United Kingdom
+2133.5,5/5/2015,2539.4,Accessories,United States
+0,5/5/2015,2443.35,Accessories,Germany
+767.25,5/6/2015,811.32,Bikes,Australia
+732.5,5/6/2015,1723.46,Bikes,United Kingdom
+2557.25,5/6/2015,4494.21,Bikes,United States
+364.25,5/6/2015,1188.46,Bikes,Germany
+614.25,5/6/2015,34.99,Bikes,Canada
+459.75,5/6/2015,35,Bikes,France
+3065,5/6/2015,13386.89,Components,United States
+1783.25,5/6/2015,1202.75,Components,Germany
+694.25,5/6/2015,2936.8,Clothing,Australia
+660.75,5/6/2015,1674.46,Clothing,United Kingdom
+3331.5,5/6/2015,444.91,Clothing,United States
+413.25,5/6/2015,609.98,Clothing,Germany
+802,5/6/2015,153.74,Clothing,Canada
+679.25,5/6/2015,2421.36,Clothing,France
+0,5/6/2015,798.31,Accessories,Australia
+0,5/6/2015,159.98,Accessories,United Kingdom
+2133.5,5/6/2015,2565,Accessories,United States
+0,5/6/2015,1130.46,Accessories,Germany
+772.75,5/6/2015,36.96,Accessories,Canada
+296.5,5/6/2015,38.98,Accessories,France
+364.25,5/7/2015,3633.91,Bikes,Germany
+459.75,5/7/2015,2371.24,Bikes,France
+732.5,5/7/2015,4.99,Bikes,United Kingdom
+614.25,5/7/2015,71.48,Bikes,Canada
+767.25,5/7/2015,2602.23,Bikes,Australia
+2557.25,5/7/2015,4881.86,Bikes,United States
+453.75,5/7/2015,635.22,Components,Canada
+1646.25,5/7/2015,9380.55,Components,Australia
+413.25,5/7/2015,4257.8,Clothing,Germany
+679.25,5/7/2015,4851.94,Clothing,France
+660.75,5/7/2015,4073.95,Clothing,United Kingdom
+802,5/7/2015,32.6,Clothing,Canada
+694.25,5/7/2015,1203.41,Clothing,Australia
+3331.5,5/7/2015,83.93,Clothing,United States
+0,5/7/2015,5721.97,Accessories,Germany
+296.5,5/7/2015,127.27,Accessories,France
+0,5/7/2015,39.98,Accessories,United Kingdom
+772.75,5/7/2015,0,Accessories,Canada
+0,5/7/2015,2528.52,Accessories,Australia
+2133.5,5/7/2015,2425.24,Accessories,United States
+757,5/8/2015,62.93,Bikes,Canada
+312,5/8/2015,0,Bikes,United Kingdom
+3069.75,5/8/2015,6515.79,Bikes,United States
+363,5/8/2015,3.99,Bikes,France
+584,5/8/2015,543.98,Bikes,Germany
+675.75,5/8/2015,5570.59,Bikes,Australia
+13054.5,5/8/2015,17946.84,Components,United States
+1588.5,5/8/2015,34.99,Components,France
+469.25,5/8/2015,2319.99,Clothing,Canada
+512.75,5/8/2015,1660.48,Clothing,United Kingdom
+2836.25,5/8/2015,3442.69,Clothing,United States
+740.75,5/8/2015,792.34,Clothing,France
+604.5,5/8/2015,39.98,Clothing,Germany
+424.25,5/8/2015,3256.17,Clothing,Australia
+320.75,5/8/2015,37.27,Accessories,Canada
+98,5/8/2015,1243.83,Accessories,United Kingdom
+2539.5,5/8/2015,316.32,Accessories,United States
+356.25,5/8/2015,21.49,Accessories,France
+371.75,5/8/2015,24.49,Accessories,Germany
+342,5/8/2015,42.94,Accessories,Australia
+312,5/9/2015,82.45,Bikes,United Kingdom
+3069.75,5/9/2015,4864.64,Bikes,United States
+363,5/9/2015,4.99,Bikes,France
+584,5/9/2015,2324.98,Bikes,Germany
+675.75,5/9/2015,33.97,Bikes,Australia
+757,5/9/2015,68.97,Bikes,Canada
+1568,5/9/2015,4612.74,Components,Canada
+512.75,5/9/2015,1129.48,Clothing,United Kingdom
+2836.25,5/9/2015,3712.21,Clothing,United States
+740.75,5/9/2015,9.99,Clothing,France
+604.5,5/9/2015,9.98,Clothing,Germany
+424.25,5/9/2015,4069.44,Clothing,Australia
+469.25,5/9/2015,2488.98,Clothing,Canada
+98,5/9/2015,34.99,Accessories,United Kingdom
+2539.5,5/9/2015,7209.55,Accessories,United States
+356.25,5/9/2015,14.98,Accessories,France
+371.75,5/9/2015,34.99,Accessories,Germany
+342,5/9/2015,578.97,Accessories,Australia
+320.75,5/9/2015,111.96,Accessories,Canada
+757,5/10/2015,134.7,Bikes,Canada
+3069.75,5/10/2015,4986.75,Bikes,United States
+363,5/10/2015,104.97,Bikes,France
+584,5/10/2015,4020.98,Bikes,Germany
+675.75,5/10/2015,54.99,Bikes,Australia
+312,5/10/2015,22.27,Bikes,United Kingdom
+3054.5,5/10/2015,17976.98,Components,United States
+588.5,5/10/2015,113.94,Components,France
+469.25,5/10/2015,93.87,Clothing,Canada
+2836.25,5/10/2015,2488.57,Clothing,United States
+740.75,5/10/2015,4.99,Clothing,France
+604.5,5/10/2015,2351.27,Clothing,Germany
+424.25,5/10/2015,4.99,Clothing,Australia
+512.75,5/10/2015,2316.97,Clothing,United Kingdom
+320.75,5/10/2015,44.97,Accessories,Canada
+2539.5,5/10/2015,1297.42,Accessories,United States
+356.25,5/10/2015,0,Accessories,France
+371.75,5/10/2015,39.98,Accessories,Germany
+342,5/10/2015,3499.04,Accessories,Australia
+98,5/10/2015,2319.99,Accessories,United Kingdom
+675.75,5/11/2015,3646.54,Bikes,Australia
+312,5/11/2015,16.27,Bikes,United Kingdom
+3069.75,5/11/2015,222.97,Bikes,United States
+584,5/11/2015,3.99,Bikes,Germany
+363,5/11/2015,1144.98,Bikes,France
+757,5/11/2015,1306.4,Bikes,Canada
+2695.75,5/11/2015,3548.15,Components,Germany
+424.25,5/11/2015,3288.66,Clothing,Australia
+512.75,5/11/2015,1502.04,Clothing,United Kingdom
+2836.25,5/11/2015,2495.54,Clothing,United States
+604.5,5/11/2015,2.29,Clothing,Germany
+740.75,5/11/2015,46.27,Clothing,France
+469.25,5/11/2015,61.96,Clothing,Canada
+342,5/11/2015,2356.26,Accessories,Australia
+98,5/11/2015,2445.64,Accessories,United Kingdom
+2539.5,5/11/2015,2329.98,Accessories,United States
+371.75,5/11/2015,794.48,Accessories,Germany
+356.25,5/11/2015,1122.78,Accessories,France
+320.75,5/11/2015,59.57,Accessories,Canada
+584,5/12/2015,880.96,Bikes,Germany
+757,5/12/2015,4.99,Bikes,Canada
+363,5/12/2015,96.95,Bikes,France
+675.75,5/12/2015,995.76,Bikes,Australia
+3069.75,5/12/2015,5626.11,Bikes,United States
+312,5/12/2015,46.93,Bikes,United Kingdom
+487.25,5/12/2015,10338.64,Components,Australia
+604.5,5/12/2015,2384.07,Clothing,Germany
+469.25,5/12/2015,2453.93,Clothing,Canada
+740.75,5/12/2015,28.99,Clothing,France
+424.25,5/12/2015,5593.41,Clothing,Australia
+2836.25,5/12/2015,325.85,Clothing,United States
+512.75,5/12/2015,2332.28,Clothing,United Kingdom
+371.75,5/12/2015,69.98,Accessories,Germany
+320.75,5/12/2015,0,Accessories,Canada
+356.25,5/12/2015,0,Accessories,France
+342,5/12/2015,2506.85,Accessories,Australia
+2539.5,5/12/2015,2578.95,Accessories,United States
+98,5/12/2015,56.49,Accessories,United Kingdom
+675.75,5/13/2015,187.96,Bikes,Australia
+3069.75,5/13/2015,1307.87,Bikes,United States
+584,5/13/2015,43.96,Bikes,Germany
+312,5/13/2015,67.93,Bikes,United Kingdom
+363,5/13/2015,742.35,Bikes,France
+757,5/13/2015,2516.46,Bikes,Canada
+424.25,5/13/2015,133.45,Clothing,Australia
+2836.25,5/13/2015,2476.54,Clothing,United States
+604.5,5/13/2015,51.97,Clothing,Germany
+512.75,5/13/2015,3.99,Clothing,United Kingdom
+740.75,5/13/2015,1749.96,Clothing,France
+469.25,5/13/2015,9.57,Clothing,Canada
+342,5/13/2015,3558.55,Accessories,Australia
+2539.5,5/13/2015,1848.71,Accessories,United States
+371.75,5/13/2015,34.99,Accessories,Germany
+98,5/13/2015,1155.48,Accessories,United Kingdom
+356.25,5/13/2015,44.98,Accessories,France
+320.75,5/13/2015,70.96,Accessories,Canada
+363,5/14/2015,194.96,Bikes,France
+3069.75,5/14/2015,7191.38,Bikes,United States
+312,5/14/2015,2274.96,Bikes,United Kingdom
+584,5/14/2015,856.32,Bikes,Germany
+675.75,5/14/2015,3485.01,Bikes,Australia
+757,5/14/2015,2359.56,Bikes,Canada
+740.75,5/14/2015,1744.98,Clothing,France
+2836.25,5/14/2015,2771.47,Clothing,United States
+512.75,5/14/2015,39.98,Clothing,United Kingdom
+604.5,5/14/2015,1125.48,Clothing,Germany
+424.25,5/14/2015,7.95,Clothing,Australia
+469.25,5/14/2015,2888.61,Clothing,Canada
+356.25,5/14/2015,2443.05,Accessories,France
+2539.5,5/14/2015,1876.91,Accessories,United States
+98,5/14/2015,0,Accessories,United Kingdom
+371.75,5/14/2015,640.26,Accessories,Germany
+342,5/14/2015,1326.32,Accessories,Australia
+320.75,5/14/2015,156.95,Accessories,Canada
+757,5/15/2015,72.97,Bikes,Canada
+3069.75,5/15/2015,2622.38,Bikes,United States
+312,5/15/2015,2294.99,Bikes,United Kingdom
+363,5/15/2015,24.49,Bikes,France
+584,5/15/2015,1297.44,Bikes,Germany
+675.75,5/15/2015,3475.47,Bikes,Australia
+1631.25,5/15/2015,1297.76,Components,United Kingdom
+1588.5,5/15/2015,5463.39,Components,France
+469.25,5/15/2015,2463.95,Clothing,Canada
+2836.25,5/15/2015,3557.87,Clothing,United States
+512.75,5/15/2015,1197.46,Clothing,United Kingdom
+740.75,5/15/2015,539.99,Clothing,France
+604.5,5/15/2015,61.95,Clothing,Germany
+424.25,5/15/2015,4196.02,Clothing,Australia
+320.75,5/15/2015,39.98,Accessories,Canada
+2539.5,5/15/2015,9432.01,Accessories,United States
+98,5/15/2015,0,Accessories,United Kingdom
+356.25,5/15/2015,53.99,Accessories,France
+371.75,5/15/2015,71.48,Accessories,Germany
+342,5/15/2015,139.97,Accessories,Australia
+2512.25,5/16/2015,5564.92,Bikes,United States
+801.25,5/16/2015,1120.49,Bikes,France
+268.75,5/16/2015,3415.48,Bikes,Germany
+584.25,5/16/2015,3005.33,Bikes,Australia
+426.5,5/16/2015,2298.98,Bikes,United Kingdom
+364.75,5/16/2015,2479.05,Bikes,Canada
+1497.5,5/16/2015,1489.24,Components,United Kingdom
+682.5,5/16/2015,213.77,Components,Canada
+2341.25,5/16/2015,5975.69,Clothing,United States
+267.5,5/16/2015,1543.68,Clothing,France
+795.75,5/16/2015,539.99,Clothing,Germany
+689,5/16/2015,4843.01,Clothing,Australia
+364.5,5/16/2015,2462.55,Clothing,United Kingdom
+671.25,5/16/2015,174.96,Clothing,Canada
+2945.75,5/16/2015,783.93,Accessories,United States
+646.25,5/16/2015,4.99,Accessories,France
+441.5,5/16/2015,21.98,Accessories,Germany
+648.75,5/16/2015,130.26,Accessories,Australia
+1373,5/16/2015,4.99,Accessories,United Kingdom
+404,5/16/2015,69.98,Accessories,Canada
+364.75,5/17/2015,1155.47,Bikes,Canada
+801.25,5/17/2015,3480.46,Bikes,France
+584.25,5/17/2015,2956.34,Bikes,Australia
+2512.25,5/17/2015,783.96,Bikes,United States
+426.5,5/17/2015,34.99,Bikes,United Kingdom
+268.75,5/17/2015,15.23,Bikes,Germany
+328.25,5/17/2015,13465.63,Components,Australia
+671.25,5/17/2015,115.44,Clothing,Canada
+267.5,5/17/2015,639.94,Clothing,France
+689,5/17/2015,97.95,Clothing,Australia
+2341.25,5/17/2015,4152.67,Clothing,United States
+364.5,5/17/2015,249.24,Clothing,United Kingdom
+795.75,5/17/2015,2478.24,Clothing,Germany
+404,5/17/2015,2384.07,Accessories,Canada
+646.25,5/17/2015,2.29,Accessories,France
+648.75,5/17/2015,771.61,Accessories,Australia
+2945.75,5/17/2015,37.28,Accessories,United States
+1373,5/17/2015,24.99,Accessories,United Kingdom
+441.5,5/17/2015,2.29,Accessories,Germany
+584.25,5/18/2015,33.97,Bikes,Australia
+2512.25,5/18/2015,169.9,Bikes,United States
+426.5,5/18/2015,1700.99,Bikes,United Kingdom
+268.75,5/18/2015,37.28,Bikes,Germany
+364.75,5/18/2015,539.99,Bikes,Canada
+801.25,5/18/2015,2405.56,Bikes,France
+689,5/18/2015,51.26,Clothing,Australia
+2341.25,5/18/2015,6991.95,Clothing,United States
+364.5,5/18/2015,98.49,Clothing,United Kingdom
+795.75,5/18/2015,583.96,Clothing,Germany
+671.25,5/18/2015,84.98,Clothing,Canada
+267.5,5/18/2015,2477.33,Clothing,France
+648.75,5/18/2015,782.33,Accessories,Australia
+2945.75,5/18/2015,932.41,Accessories,United States
+1373,5/18/2015,0,Accessories,United Kingdom
+441.5,5/18/2015,33.77,Accessories,Germany
+404,5/18/2015,0,Accessories,Canada
+646.25,5/18/2015,1244.83,Accessories,France
+642.25,5/19/2015,44.98,Bikes,Germany
+701,5/19/2015,6889.89,Bikes,United Kingdom
+431.75,5/19/2015,52.97,Bikes,Canada
+744.25,5/19/2015,0,Bikes,France
+599,5/19/2015,53.97,Bikes,Australia
+2324.25,5/19/2015,4230.29,Bikes,United States
+1566,5/19/2015,5247.71,Components,France
+1413.25,5/19/2015,10757.38,Components,Australia
+540.5,5/19/2015,4.99,Clothing,Germany
+727.25,5/19/2015,2451.22,Clothing,United Kingdom
+325.75,5/19/2015,1787.94,Clothing,Canada
+726.5,5/19/2015,18.97,Clothing,France
+302,5/19/2015,566.55,Clothing,Australia
+3515.25,5/19/2015,907.94,Clothing,United States
+774.5,5/19/2015,14.98,Accessories,Germany
+25.75,5/19/2015,2456.78,Accessories,United Kingdom
+481.75,5/19/2015,4826.43,Accessories,Canada
+583.75,5/19/2015,0,Accessories,France
+602.25,5/19/2015,626.58,Accessories,Australia
+2657.5,5/19/2015,2438.22,Accessories,United States
+2324.25,5/20/2015,8261.37,Bikes,United States
+744.25,5/20/2015,1855.98,Bikes,France
+701,5/20/2015,2419.05,Bikes,United Kingdom
+642.25,5/20/2015,1079.98,Bikes,Germany
+599,5/20/2015,30.47,Bikes,Australia
+431.75,5/20/2015,153.48,Bikes,Canada
+1930,5/20/2015,19979.57,Components,United States
+2566,5/20/2015,7380.45,Components,France
+639.5,5/20/2015,5277.88,Components,United Kingdom
+3515.25,5/20/2015,4693.87,Clothing,United States
+726.5,5/20/2015,4.99,Clothing,France
+727.25,5/20/2015,64.96,Clothing,United Kingdom
+540.5,5/20/2015,2460.02,Clothing,Germany
+302,5/20/2015,4876.98,Clothing,Australia
+325.75,5/20/2015,2351.96,Clothing,Canada
+2657.5,5/20/2015,2493.95,Accessories,United States
+583.75,5/20/2015,63.47,Accessories,France
+25.75,5/20/2015,133.97,Accessories,United Kingdom
+774.5,5/20/2015,573.97,Accessories,Germany
+602.25,5/20/2015,2499.32,Accessories,Australia
+481.75,5/20/2015,4.99,Accessories,Canada
+2324.25,5/21/2015,9512.49,Bikes,United States
+744.25,5/21/2015,67.97,Bikes,France
+701,5/21/2015,2461.33,Bikes,United Kingdom
+642.25,5/21/2015,56.48,Bikes,Germany
+599,5/21/2015,2452.92,Bikes,Australia
+431.75,5/21/2015,1120.49,Bikes,Canada
+1522,5/21/2015,3003.51,Components,Canada
+3515.25,5/21/2015,5675.18,Clothing,United States
+726.5,5/21/2015,1735.98,Clothing,France
+727.25,5/21/2015,2260.46,Clothing,United Kingdom
+540.5,5/21/2015,4173.79,Clothing,Germany
+302,5/21/2015,42.27,Clothing,Australia
+325.75,5/21/2015,74.97,Clothing,Canada
+2657.5,5/21/2015,120.9,Accessories,United States
+583.75,5/21/2015,574.98,Accessories,France
+25.75,5/21/2015,24.22,Accessories,United Kingdom
+774.5,5/21/2015,1138.46,Accessories,Germany
+602.25,5/21/2015,21.98,Accessories,Australia
+481.75,5/21/2015,0,Accessories,Canada
+431.75,5/22/2015,59.25,Bikes,Canada
+2324.25,5/22/2015,7365.56,Bikes,United States
+744.25,5/22/2015,2434.06,Bikes,France
+642.25,5/22/2015,2869.97,Bikes,Germany
+701,5/22/2015,2452.04,Bikes,United Kingdom
+599,5/22/2015,3673.5,Bikes,Australia
+325.75,5/22/2015,1835.95,Clothing,Canada
+3515.25,5/22/2015,2634.12,Clothing,United States
+726.5,5/22/2015,120,Clothing,France
+540.5,5/22/2015,2.29,Clothing,Germany
+727.25,5/22/2015,24.99,Clothing,United Kingdom
+302,5/22/2015,4956.1,Clothing,Australia
+481.75,5/22/2015,2329.98,Accessories,Canada
+2657.5,5/22/2015,169.53,Accessories,United States
+583.75,5/22/2015,539.99,Accessories,France
+774.5,5/22/2015,2.29,Accessories,Germany
+25.75,5/22/2015,34.99,Accessories,United Kingdom
+602.25,5/22/2015,872.75,Accessories,Australia
+2324.25,5/23/2015,1581.04,Bikes,United States
+701,5/23/2015,2515.32,Bikes,United Kingdom
+642.25,5/23/2015,37.28,Bikes,Germany
+599,5/23/2015,3627,Bikes,Australia
+431.75,5/23/2015,4.99,Bikes,Canada
+744.25,5/23/2015,2454.05,Bikes,France
+1413.25,5/23/2015,6919.67,Components,Australia
+1522,5/23/2015,157.44,Components,Canada
+3515.25,5/23/2015,2496.92,Clothing,United States
+727.25,5/23/2015,49.99,Clothing,United Kingdom
+540.5,5/23/2015,0,Clothing,Germany
+302,5/23/2015,639.45,Clothing,Australia
+325.75,5/23/2015,1578.45,Clothing,Canada
+726.5,5/23/2015,0,Clothing,France
+2657.5,5/23/2015,6133.94,Accessories,United States
+25.75,5/23/2015,21.49,Accessories,United Kingdom
+774.5,5/23/2015,34.99,Accessories,Germany
+602.25,5/23/2015,5380.29,Accessories,Australia
+481.75,5/23/2015,61.95,Accessories,Canada
+583.75,5/23/2015,742.35,Accessories,France
+744.25,5/24/2015,804.48,Bikes,France
+431.75,5/24/2015,2452.9,Bikes,Canada
+599,5/24/2015,69.23,Bikes,Australia
+2324.25,5/24/2015,4731.91,Bikes,United States
+701,5/24/2015,0,Bikes,United Kingdom
+642.25,5/24/2015,2389.96,Bikes,Germany
+726.5,5/24/2015,7.28,Clothing,France
+325.75,5/24/2015,165.43,Clothing,Canada
+302,5/24/2015,3098.49,Clothing,Australia
+3515.25,5/24/2015,1303.67,Clothing,United States
+727.25,5/24/2015,2384.07,Clothing,United Kingdom
+540.5,5/24/2015,836.92,Clothing,Germany
+583.75,5/24/2015,4773.13,Accessories,France
+481.75,5/24/2015,2335.94,Accessories,Canada
+602.25,5/24/2015,4688.94,Accessories,Australia
+2657.5,5/24/2015,2912.95,Accessories,United States
+25.75,5/24/2015,0,Accessories,United Kingdom
+774.5,5/24/2015,2378.46,Accessories,Germany
+599,5/25/2015,4105.87,Bikes,Australia
+701,5/25/2015,13.98,Bikes,United Kingdom
+2324.25,5/25/2015,4150.24,Bikes,United States
+642.25,5/25/2015,32.6,Bikes,Germany
+431.75,5/25/2015,2385.93,Bikes,Canada
+744.25,5/25/2015,539.99,Bikes,France
+2626.75,5/25/2015,5412.55,Components,Germany
+302,5/25/2015,8499.91,Clothing,Australia
+727.25,5/25/2015,2416.03,Clothing,United Kingdom
+3515.25,5/25/2015,9430.5,Clothing,United States
+540.5,5/25/2015,47.97,Clothing,Germany
+325.75,5/25/2015,118.96,Clothing,Canada
+726.5,5/25/2015,38.97,Clothing,France
+602.25,5/25/2015,44.97,Accessories,Australia
+25.75,5/25/2015,2439.06,Accessories,United Kingdom
+2657.5,5/25/2015,2357.91,Accessories,United States
+774.5,5/25/2015,9.99,Accessories,Germany
+481.75,5/25/2015,29.93,Accessories,Canada
+583.75,5/25/2015,0,Accessories,France
+744.25,5/26/2015,2409.96,Bikes,France
+642.25,5/26/2015,13.98,Bikes,Germany
+701,5/26/2015,118.96,Bikes,United Kingdom
+431.75,5/26/2015,49.96,Bikes,Canada
+599,5/26/2015,2509.97,Bikes,Australia
+2324.25,5/26/2015,244.67,Bikes,United States
+413.25,5/26/2015,6065.9,Components,Australia
+726.5,5/26/2015,130.45,Clothing,France
+540.5,5/26/2015,57.94,Clothing,Germany
+727.25,5/26/2015,1206.45,Clothing,United Kingdom
+325.75,5/26/2015,128.72,Clothing,Canada
+302,5/26/2015,1459.44,Clothing,Australia
+3515.25,5/26/2015,7204.12,Clothing,United States
+583.75,5/26/2015,0,Accessories,France
+774.5,5/26/2015,2299.98,Accessories,Germany
+25.75,5/26/2015,54.98,Accessories,United Kingdom
+481.75,5/26/2015,564.99,Accessories,Canada
+602.25,5/26/2015,5356.1,Accessories,Australia
+2657.5,5/26/2015,2504.45,Accessories,United States
+431.75,5/27/2015,1745.98,Bikes,Canada
+2324.25,5/27/2015,84.92,Bikes,United States
+744.25,5/27/2015,4664.47,Bikes,France
+701,5/27/2015,21.98,Bikes,United Kingdom
+642.25,5/27/2015,4.99,Bikes,Germany
+599,5/27/2015,5307.28,Bikes,Australia
+1639.5,5/27/2015,104.46,Components,United Kingdom
+1626.75,5/27/2015,936.75,Components,Germany
+325.75,5/27/2015,24.27,Clothing,Canada
+3515.25,5/27/2015,3618.71,Clothing,United States
+726.5,5/27/2015,1210.06,Clothing,France
+727.25,5/27/2015,34.99,Clothing,United Kingdom
+540.5,5/27/2015,2528.6,Clothing,Germany
+302,5/27/2015,5254.03,Clothing,Australia
+481.75,5/27/2015,168.98,Accessories,Canada
+2657.5,5/27/2015,6794.65,Accessories,United States
+583.75,5/27/2015,33.98,Accessories,France
+25.75,5/27/2015,1700.99,Accessories,United Kingdom
+774.5,5/27/2015,2397.05,Accessories,Germany
+602.25,5/27/2015,2353.97,Accessories,Australia
+280.5,5/28/2015,2480.29,Bikes,United Kingdom
+2836.5,5/28/2015,4118.9,Bikes,United States
+647.5,5/28/2015,633.96,Bikes,France
+327,5/28/2015,4787.31,Bikes,Germany
+507.5,5/28/2015,564.48,Bikes,Australia
+574.5,5/28/2015,102.59,Bikes,Canada
+579.25,5/28/2015,129.43,Clothing,United Kingdom
+1950.5,5/28/2015,128.67,Clothing,United States
+788,5/28/2015,756.53,Clothing,France
+731.75,5/28/2015,606.04,Clothing,Germany
+566.75,5/28/2015,1690.46,Clothing,Australia
+527.75,5/28/2015,3.99,Clothing,Canada
+231,5/28/2015,56.97,Accessories,United Kingdom
+3598.5,5/28/2015,3415.48,Accessories,United States
+338.5,5/28/2015,24.49,Accessories,France
+309.25,5/28/2015,2333.97,Accessories,Germany
+374.25,5/28/2015,828.47,Accessories,Australia
+564.75,5/28/2015,34.99,Accessories,Canada
+574.5,5/29/2015,0,Bikes,Canada
+647.5,5/29/2015,1214.85,Bikes,France
+2836.5,5/29/2015,11784.05,Bikes,United States
+327,5/29/2015,69.98,Bikes,Germany
+507.5,5/29/2015,711.41,Bikes,Australia
+280.5,5/29/2015,93.98,Bikes,United Kingdom
+744.5,5/29/2015,858.46,Components,France
+527.75,5/29/2015,542.28,Clothing,Canada
+788,5/29/2015,49.99,Clothing,France
+1950.5,5/29/2015,6017.08,Clothing,United States
+731.75,5/29/2015,75.97,Clothing,Germany
+566.75,5/29/2015,2543.3,Clothing,Australia
+579.25,5/29/2015,220.25,Clothing,United Kingdom
+564.75,5/29/2015,36.59,Accessories,Canada
+338.5,5/29/2015,36.59,Accessories,France
+3598.5,5/29/2015,124.74,Accessories,United States
+309.25,5/29/2015,561.97,Accessories,Germany
+374.25,5/29/2015,4109.44,Accessories,Australia
+231,5/29/2015,56.97,Accessories,United Kingdom
+507.5,5/30/2015,5269.21,Bikes,Australia
+2836.5,5/30/2015,869.18,Bikes,United States
+280.5,5/30/2015,39.98,Bikes,United Kingdom
+327,5/30/2015,64.47,Bikes,Germany
+574.5,5/30/2015,4.99,Bikes,Canada
+647.5,5/30/2015,56.48,Bikes,France
+566.75,5/30/2015,2346.22,Clothing,Australia
+1950.5,5/30/2015,4831.81,Clothing,United States
+579.25,5/30/2015,564.98,Clothing,United Kingdom
+731.75,5/30/2015,579.21,Clothing,Germany
+527.75,5/30/2015,14.98,Clothing,Canada
+788,5/30/2015,629.56,Clothing,France
+374.25,5/30/2015,59.98,Accessories,Australia
+3598.5,5/30/2015,4871.07,Accessories,United States
+231,5/30/2015,72.28,Accessories,United Kingdom
+309.25,5/30/2015,0,Accessories,Germany
+564.75,5/30/2015,8.98,Accessories,Canada
+338.5,5/30/2015,4.99,Accessories,France
+327,5/31/2015,56.93,Bikes,Germany
+574.5,5/31/2015,119.46,Bikes,Canada
+647.5,5/31/2015,742.35,Bikes,France
+507.5,5/31/2015,631.57,Bikes,Australia
+280.5,5/31/2015,4.99,Bikes,United Kingdom
+2836.5,5/31/2015,5940.86,Bikes,United States
+731.75,5/31/2015,0,Clothing,Germany
+527.75,5/31/2015,4769.9,Clothing,Canada
+788,5/31/2015,0,Clothing,France
+566.75,5/31/2015,4121.39,Clothing,Australia
+579.25,5/31/2015,69.98,Clothing,United Kingdom
+1950.5,5/31/2015,1419.35,Clothing,United States
+309.25,5/31/2015,2389.06,Accessories,Germany
+564.75,5/31/2015,140.73,Accessories,Canada
+338.5,5/31/2015,51.97,Accessories,France
+374.25,5/31/2015,217.98,Accessories,Australia
+231,5/31/2015,4.99,Accessories,United Kingdom
+3598.5,5/31/2015,1277.29,Accessories,United States
+507.5,6/1/2015,596.47,Bikes,Australia
+2836.5,6/1/2015,132.92,Bikes,United States
+280.5,6/1/2015,44.98,Bikes,United Kingdom
+327,6/1/2015,4058.96,Bikes,Germany
+574.5,6/1/2015,167.24,Bikes,Canada
+647.5,6/1/2015,4.99,Bikes,France
+566.75,6/1/2015,2400.53,Clothing,Australia
+1950.5,6/1/2015,2375.95,Clothing,United States
+579.25,6/1/2015,2472.34,Clothing,United Kingdom
+731.75,6/1/2015,2304.97,Clothing,Germany
+527.75,6/1/2015,43.98,Clothing,Canada
+788,6/1/2015,2384.07,Clothing,France
+374.25,6/1/2015,0,Accessories,Australia
+3598.5,6/1/2015,119.97,Accessories,United States
+231,6/1/2015,2839.97,Accessories,United Kingdom
+309.25,6/1/2015,0,Accessories,Germany
+564.75,6/1/2015,84.98,Accessories,Canada
+338.5,6/1/2015,0,Accessories,France
+327,6/2/2015,549.98,Bikes,Germany
+280.5,6/2/2015,23.78,Bikes,United Kingdom
+574.5,6/2/2015,66.27,Bikes,Canada
+647.5,6/2/2015,34.99,Bikes,France
+507.5,6/2/2015,46.58,Bikes,Australia
+2836.5,6/2/2015,1974.7,Bikes,United States
+1789.25,6/2/2015,8062.35,Components,Australia
+731.75,6/2/2015,21.98,Clothing,Germany
+579.25,6/2/2015,2319.99,Clothing,United Kingdom
+527.75,6/2/2015,35,Clothing,Canada
+788,6/2/2015,76.46,Clothing,France
+566.75,6/2/2015,552.97,Clothing,Australia
+1950.5,6/2/2015,6805.74,Clothing,United States
+309.25,6/2/2015,4.99,Accessories,Germany
+231,6/2/2015,35,Accessories,United Kingdom
+564.75,6/2/2015,1738.42,Accessories,Canada
+338.5,6/2/2015,21.98,Accessories,France
+374.25,6/2/2015,146.96,Accessories,Australia
+3598.5,6/2/2015,8.99,Accessories,United States
+574.5,6/3/2015,598.97,Bikes,Canada
+647.5,6/3/2015,140.46,Bikes,France
+280.5,6/3/2015,2359.97,Bikes,United Kingdom
+2836.5,6/3/2015,2694.51,Bikes,United States
+327,6/3/2015,59.98,Bikes,Germany
+507.5,6/3/2015,4201.14,Bikes,Australia
+12453.75,6/3/2015,7338.01,Components,United States
+539.25,6/3/2015,2340.5,Components,Germany
+527.75,6/3/2015,71.51,Clothing,Canada
+788,6/3/2015,21.49,Clothing,France
+579.25,6/3/2015,2349.47,Clothing,United Kingdom
+1950.5,6/3/2015,3542.87,Clothing,United States
+731.75,6/3/2015,2398.96,Clothing,Germany
+566.75,6/3/2015,4245.26,Clothing,Australia
+564.75,6/3/2015,28.98,Accessories,Canada
+338.5,6/3/2015,8.99,Accessories,France
+231,6/3/2015,2369.98,Accessories,United Kingdom
+3598.5,6/3/2015,2009.96,Accessories,United States
+309.25,6/3/2015,49.97,Accessories,Germany
+374.25,6/3/2015,1760.45,Accessories,Australia
+2648.5,6/4/2015,211.93,Bikes,United States
+555,6/4/2015,4.99,Bikes,United Kingdom
+590.5,6/4/2015,826.41,Bikes,France
+700.25,6/4/2015,4789.02,Bikes,Germany
+522,6/4/2015,2395.93,Bikes,Australia
+641.5,6/4/2015,28.98,Bikes,Canada
+1476,6/4/2015,2047.88,Components,Canada
+2589.5,6/4/2015,3076.88,Clothing,United States
+406.75,6/4/2015,44.56,Clothing,United Kingdom
+712,6/4/2015,1708.94,Clothing,France
+476.25,6/4/2015,39.98,Clothing,Germany
+714.75,6/4/2015,197.92,Clothing,Australia
+717.25,6/4/2015,882.32,Clothing,Canada
+2775.75,6/4/2015,64.25,Accessories,United States
+489.5,6/4/2015,0,Accessories,United Kingdom
+276,6/4/2015,42.96,Accessories,France
+642.25,6/4/2015,3062.34,Accessories,Germany
+327.5,6/4/2015,1203.46,Accessories,Australia
+642.75,6/4/2015,1799.97,Accessories,Canada
+641.5,6/5/2015,2408.56,Bikes,Canada
+2648.5,6/5/2015,2631.64,Bikes,United States
+590.5,6/5/2015,2857.93,Bikes,France
+700.25,6/5/2015,1215.46,Bikes,Germany
+522,6/5/2015,88.95,Bikes,Australia
+555,6/5/2015,2676.02,Bikes,United Kingdom
+717.25,6/5/2015,163.94,Clothing,Canada
+2589.5,6/5/2015,3219.28,Clothing,United States
+712,6/5/2015,836.09,Clothing,France
+476.25,6/5/2015,1798.93,Clothing,Germany
+714.75,6/5/2015,7069.99,Clothing,Australia
+406.75,6/5/2015,4653.95,Clothing,United Kingdom
+642.75,6/5/2015,0,Accessories,Canada
+2775.75,6/5/2015,2415.93,Accessories,United States
+276,6/5/2015,77.96,Accessories,France
+642.25,6/5/2015,0,Accessories,Germany
+327.5,6/5/2015,44.97,Accessories,Australia
+489.5,6/5/2015,782.33,Accessories,United Kingdom
+522,6/6/2015,2207.25,Bikes,Australia
+2648.5,6/6/2015,3617,Bikes,United States
+555,6/6/2015,37.28,Bikes,United Kingdom
+700.25,6/6/2015,2308.97,Bikes,Germany
+641.5,6/6/2015,2459.05,Bikes,Canada
+590.5,6/6/2015,49.99,Bikes,France
+1476,6/6/2015,3741.48,Components,Canada
+714.75,6/6/2015,1792.68,Clothing,Australia
+2589.5,6/6/2015,1395.89,Clothing,United States
+406.75,6/6/2015,267.44,Clothing,United Kingdom
+476.25,6/6/2015,1313.62,Clothing,Germany
+717.25,6/6/2015,96.96,Clothing,Canada
+712,6/6/2015,1789.95,Clothing,France
+327.5,6/6/2015,6183.63,Accessories,Australia
+2775.75,6/6/2015,7439.37,Accessories,United States
+489.5,6/6/2015,8.98,Accessories,United Kingdom
+642.25,6/6/2015,1779.47,Accessories,Germany
+642.75,6/6/2015,564.48,Accessories,Canada
+276,6/6/2015,178.98,Accessories,France
+700.25,6/7/2015,49.99,Bikes,Germany
+641.5,6/7/2015,2423.49,Bikes,Canada
+590.5,6/7/2015,2351.47,Bikes,France
+522,6/7/2015,4206.23,Bikes,Australia
+2648.5,6/7/2015,5557.84,Bikes,United States
+555,6/7/2015,3534.84,Bikes,United Kingdom
+476.25,6/7/2015,31.47,Clothing,Germany
+717.25,6/7/2015,2289.95,Clothing,Canada
+712,6/7/2015,89.45,Clothing,France
+714.75,6/7/2015,112.26,Clothing,Australia
+2589.5,6/7/2015,9652.64,Clothing,United States
+406.75,6/7/2015,68.97,Clothing,United Kingdom
+642.25,6/7/2015,539.99,Accessories,Germany
+642.75,6/7/2015,49.99,Accessories,Canada
+276,6/7/2015,4.99,Accessories,France
+327.5,6/7/2015,2447.54,Accessories,Australia
+2775.75,6/7/2015,6177.79,Accessories,United States
+489.5,6/7/2015,4156.32,Accessories,United Kingdom
+430.5,6/8/2015,4096.95,Bikes,Australia
+2625.75,6/8/2015,5011.75,Bikes,United States
+385,6/8/2015,73.97,Bikes,Germany
+669.5,6/8/2015,4072.25,Bikes,United Kingdom
+493.75,6/8/2015,0,Bikes,France
+784.25,6/8/2015,64.47,Bikes,Canada
+1470,6/8/2015,5343.96,Components,Germany
+1513.75,6/8/2015,1825.87,Components,United Kingdom
+444.5,6/8/2015,3434.63,Clothing,Australia
+3164.5,6/8/2015,6175.64,Clothing,United States
+667.5,6/8/2015,539.99,Clothing,Germany
+793.75,6/8/2015,12.27,Clothing,United Kingdom
+773.75,6/8/2015,53.99,Clothing,France
+384.5,6/8/2015,9.98,Clothing,Canada
+0,6/8/2015,4106.91,Accessories,Australia
+2646.75,6/8/2015,5961.89,Accessories,United States
+0,6/8/2015,0,Accessories,Germany
+0,6/8/2015,34.99,Accessories,United Kingdom
+466.75,6/8/2015,0,Accessories,France
+725.75,6/8/2015,0,Accessories,Canada
+493.75,6/9/2015,1735.97,Bikes,France
+2625.75,6/9/2015,9461.95,Bikes,United States
+385,6/9/2015,29.48,Bikes,Germany
+669.5,6/9/2015,50.97,Bikes,United Kingdom
+430.5,6/9/2015,2350.76,Bikes,Australia
+784.25,6/9/2015,4774.03,Bikes,Canada
+773.75,6/9/2015,544.98,Clothing,France
+3164.5,6/9/2015,4724.95,Clothing,United States
+667.5,6/9/2015,0,Clothing,Germany
+793.75,6/9/2015,78.98,Clothing,United Kingdom
+444.5,6/9/2015,1831.91,Clothing,Australia
+384.5,6/9/2015,38.98,Clothing,Canada
+466.75,6/9/2015,0,Accessories,France
+2646.75,6/9/2015,2481.03,Accessories,United States
+0,6/9/2015,1738.58,Accessories,Germany
+0,6/9/2015,2403.04,Accessories,United Kingdom
+0,6/9/2015,3437.72,Accessories,Australia
+725.75,6/9/2015,26.97,Accessories,Canada
+784.25,6/10/2015,2454.06,Bikes,Canada
+2625.75,6/10/2015,1819.02,Bikes,United States
+669.5,6/10/2015,2497.88,Bikes,United Kingdom
+385,6/10/2015,97.97,Bikes,Germany
+493.75,6/10/2015,2453.97,Bikes,France
+430.5,6/10/2015,1221.13,Bikes,Australia
+1513.75,6/10/2015,102.96,Components,United Kingdom
+1470,6/10/2015,7808.76,Components,Germany
+722,6/10/2015,5236.54,Components,France
+384.5,6/10/2015,81.45,Clothing,Canada
+3164.5,6/10/2015,5329.86,Clothing,United States
+793.75,6/10/2015,2.29,Clothing,United Kingdom
+667.5,6/10/2015,35.96,Clothing,Germany
+773.75,6/10/2015,77.94,Clothing,France
+444.5,6/10/2015,219.93,Clothing,Australia
+725.75,6/10/2015,48.98,Accessories,Canada
+2646.75,6/10/2015,2843.93,Accessories,United States
+0,6/10/2015,2389.06,Accessories,United Kingdom
+0,6/10/2015,0,Accessories,Germany
+466.75,6/10/2015,2322.28,Accessories,France
+0,6/10/2015,2398.46,Accessories,Australia
+493.75,6/11/2015,3499.44,Bikes,France
+2625.75,6/11/2015,1254.89,Bikes,United States
+385,6/11/2015,127.96,Bikes,Germany
+669.5,6/11/2015,4641.95,Bikes,United Kingdom
+430.5,6/11/2015,4736.44,Bikes,Australia
+784.25,6/11/2015,935.03,Bikes,Canada
+1590.5,6/11/2015,645.43,Components,Canada
+773.75,6/11/2015,567.95,Clothing,France
+3164.5,6/11/2015,4771.22,Clothing,United States
+667.5,6/11/2015,5435.44,Clothing,Germany
+793.75,6/11/2015,116.93,Clothing,United Kingdom
+444.5,6/11/2015,6004.52,Clothing,Australia
+384.5,6/11/2015,295.42,Clothing,Canada
+466.75,6/11/2015,3522.44,Accessories,France
+2646.75,6/11/2015,2430.2,Accessories,United States
+0,6/11/2015,0,Accessories,Germany
+0,6/11/2015,769.49,Accessories,United Kingdom
+0,6/11/2015,4292.9,Accessories,Australia
+725.75,6/11/2015,133.98,Accessories,Canada
+784.25,6/12/2015,53.48,Bikes,Canada
+493.75,6/12/2015,11.28,Bikes,France
+430.5,6/12/2015,5289.04,Bikes,Australia
+2625.75,6/12/2015,7125.47,Bikes,United States
+385,6/12/2015,2319.99,Bikes,Germany
+669.5,6/12/2015,1660.48,Bikes,United Kingdom
+1715.25,6/12/2015,12623.17,Components,Australia
+12934.75,6/12/2015,9727.34,Components,United States
+384.5,6/12/2015,2424.06,Clothing,Canada
+773.75,6/12/2015,37.97,Clothing,France
+444.5,6/12/2015,206.88,Clothing,Australia
+3164.5,6/12/2015,1419.72,Clothing,United States
+667.5,6/12/2015,0,Clothing,Germany
+793.75,6/12/2015,115.01,Clothing,United Kingdom
+725.75,6/12/2015,31.97,Accessories,Canada
+466.75,6/12/2015,2429.61,Accessories,France
+0,6/12/2015,804.22,Accessories,Australia
+2646.75,6/12/2015,93.94,Accessories,United States
+0,6/12/2015,0,Accessories,Germany
+0,6/12/2015,35.96,Accessories,United Kingdom
+430.5,6/13/2015,2423.05,Bikes,Australia
+2625.75,6/13/2015,2457.04,Bikes,United States
+669.5,6/13/2015,1748.47,Bikes,United Kingdom
+385,6/13/2015,2333.97,Bikes,Germany
+784.25,6/13/2015,123.47,Bikes,Canada
+493.75,6/13/2015,0,Bikes,France
+444.5,6/13/2015,4097.59,Clothing,Australia
+3164.5,6/13/2015,4284.97,Clothing,United States
+793.75,6/13/2015,778.31,Clothing,United Kingdom
+667.5,6/13/2015,1129.48,Clothing,Germany
+384.5,6/13/2015,2349.43,Clothing,Canada
+773.75,6/13/2015,0,Clothing,France
+0,6/13/2015,592.96,Accessories,Australia
+2646.75,6/13/2015,562.25,Accessories,United States
+0,6/13/2015,88.98,Accessories,United Kingdom
+0,6/13/2015,2436.35,Accessories,Germany
+725.75,6/13/2015,3608.9,Accessories,Canada
+466.75,6/13/2015,0,Accessories,France
+385,6/14/2015,34.99,Bikes,Germany
+669.5,6/14/2015,143.43,Bikes,United Kingdom
+784.25,6/14/2015,114.45,Bikes,Canada
+493.75,6/14/2015,2585.94,Bikes,France
+430.5,6/14/2015,6206.12,Bikes,Australia
+2625.75,6/14/2015,9613.44,Bikes,United States
+667.5,6/14/2015,976.41,Clothing,Germany
+793.75,6/14/2015,5349.67,Clothing,United Kingdom
+384.5,6/14/2015,2354.98,Clothing,Canada
+773.75,6/14/2015,1774.95,Clothing,France
+444.5,6/14/2015,2089.16,Clothing,Australia
+3164.5,6/14/2015,5652.75,Clothing,United States
+0,6/14/2015,34.98,Accessories,Germany
+0,6/14/2015,1347.42,Accessories,United Kingdom
+725.75,6/14/2015,1705.98,Accessories,Canada
+466.75,6/14/2015,1727.47,Accessories,France
+0,6/14/2015,216.44,Accessories,Australia
+2646.75,6/14/2015,1380.4,Accessories,United States
+430.5,6/15/2015,1963.02,Bikes,Australia
+2625.75,6/15/2015,2420.2,Bikes,United States
+493.75,6/15/2015,678.47,Bikes,France
+385,6/15/2015,29.98,Bikes,Germany
+669.5,6/15/2015,3534.54,Bikes,United Kingdom
+784.25,6/15/2015,687.24,Bikes,Canada
+470,6/15/2015,8384.36,Components,Germany
+444.5,6/15/2015,1592.02,Clothing,Australia
+3164.5,6/15/2015,646.93,Clothing,United States
+773.75,6/15/2015,2416.58,Clothing,France
+667.5,6/15/2015,4770.02,Clothing,Germany
+793.75,6/15/2015,727.45,Clothing,United Kingdom
+384.5,6/15/2015,24.99,Clothing,Canada
+0,6/15/2015,754.62,Accessories,Australia
+2646.75,6/15/2015,2431,Accessories,United States
+466.75,6/15/2015,771.34,Accessories,France
+0,6/15/2015,544.98,Accessories,Germany
+0,6/15/2015,838.96,Accessories,United Kingdom
+725.75,6/15/2015,74.98,Accessories,Canada
+669.5,6/16/2015,53.96,Bikes,United Kingdom
+2625.75,6/16/2015,2452.01,Bikes,United States
+493.75,6/16/2015,4.99,Bikes,France
+385,6/16/2015,1120.49,Bikes,Germany
+430.5,6/16/2015,3814.68,Bikes,Australia
+784.25,6/16/2015,1263.82,Bikes,Canada
+793.75,6/16/2015,42.43,Clothing,United Kingdom
+3164.5,6/16/2015,2978.14,Clothing,United States
+773.75,6/16/2015,2294.99,Clothing,France
+667.5,6/16/2015,1823.28,Clothing,Germany
+444.5,6/16/2015,2372.26,Clothing,Australia
+384.5,6/16/2015,38.98,Clothing,Canada
+0,6/16/2015,39.98,Accessories,United Kingdom
+2646.75,6/16/2015,4735.54,Accessories,United States
+466.75,6/16/2015,1120.49,Accessories,France
+0,6/16/2015,0,Accessories,Germany
+0,6/16/2015,0,Accessories,Australia
+725.75,6/16/2015,0,Accessories,Canada
+392,6/17/2015,102.47,Bikes,Canada
+784,6/17/2015,178.21,Bikes,United Kingdom
+397,6/17/2015,4704.06,Bikes,France
+2603.5,6/17/2015,241.79,Bikes,United States
+605,6/17/2015,38.98,Bikes,Germany
+339,6/17/2015,876.07,Bikes,Australia
+1365.25,6/17/2015,1394.59,Components,France
+586.5,6/17/2015,48.97,Clothing,Canada
+645.5,6/17/2015,7044.95,Clothing,United Kingdom
+300.25,6/17/2015,58.97,Clothing,France
+2669.25,6/17/2015,1253.15,Clothing,United States
+324,6/17/2015,1717.45,Clothing,Germany
+709.25,6/17/2015,169.41,Clothing,Australia
+273.75,6/17/2015,539.99,Accessories,Canada
+1434,6/17/2015,21.98,Accessories,United Kingdom
+321,6/17/2015,53.99,Accessories,France
+2517.75,6/17/2015,837.56,Accessories,United States
+781.75,6/17/2015,78.97,Accessories,Germany
+406.5,6/17/2015,2384.07,Accessories,Australia
+2603.5,6/18/2015,6213.33,Bikes,United States
+605,6/18/2015,34.99,Bikes,Germany
+784,6/18/2015,639.95,Bikes,United Kingdom
+339,6/18/2015,4147.31,Bikes,Australia
+392,6/18/2015,211.58,Bikes,Canada
+397,6/18/2015,2388.96,Bikes,France
+2669.25,6/18/2015,1342.39,Clothing,United States
+324,6/18/2015,2518.94,Clothing,Germany
+645.5,6/18/2015,2482.28,Clothing,United Kingdom
+709.25,6/18/2015,1120.49,Clothing,Australia
+586.5,6/18/2015,1384.01,Clothing,Canada
+300.25,6/18/2015,34.99,Clothing,France
+2517.75,6/18/2015,948.03,Accessories,United States
+781.75,6/18/2015,0,Accessories,Germany
+1434,6/18/2015,1700.99,Accessories,United Kingdom
+406.5,6/18/2015,0,Accessories,Australia
+273.75,6/18/2015,24.49,Accessories,Canada
+321,6/18/2015,0,Accessories,France
+392,6/19/2015,203.48,Bikes,Canada
+397,6/19/2015,2327.59,Bikes,France
+339,6/19/2015,2087.16,Bikes,Australia
+784,6/19/2015,5334.3,Bikes,United Kingdom
+2603.5,6/19/2015,8188.87,Bikes,United States
+605,6/19/2015,539.99,Bikes,Germany
+586.5,6/19/2015,64.98,Clothing,Canada
+300.25,6/19/2015,0,Clothing,France
+709.25,6/19/2015,34.99,Clothing,Australia
+645.5,6/19/2015,178.96,Clothing,United Kingdom
+2669.25,6/19/2015,3834.98,Clothing,United States
+324,6/19/2015,574.98,Clothing,Germany
+273.75,6/19/2015,4.99,Accessories,Canada
+321,6/19/2015,9.99,Accessories,France
+406.5,6/19/2015,8331.66,Accessories,Australia
+1434,6/19/2015,24.49,Accessories,United Kingdom
+2517.75,6/19/2015,3658.73,Accessories,United States
+781.75,6/19/2015,0,Accessories,Germany
+339,6/20/2015,6049.14,Bikes,Australia
+784,6/20/2015,12.98,Bikes,United Kingdom
+2603.5,6/20/2015,5716.23,Bikes,United States
+605,6/20/2015,63.95,Bikes,Germany
+392,6/20/2015,37.28,Bikes,Canada
+397,6/20/2015,27.92,Bikes,France
+1382.5,6/20/2015,849.31,Components,Germany
+709.25,6/20/2015,4892.05,Clothing,Australia
+645.5,6/20/2015,67.93,Clothing,United Kingdom
+2669.25,6/20/2015,203.21,Clothing,United States
+324,6/20/2015,2319.99,Clothing,Germany
+586.5,6/20/2015,37.29,Clothing,Canada
+300.25,6/20/2015,31.28,Clothing,France
+406.5,6/20/2015,1216.74,Accessories,Australia
+1434,6/20/2015,792.34,Accessories,United Kingdom
+2517.75,6/20/2015,4159.42,Accessories,United States
+781.75,6/20/2015,24.49,Accessories,Germany
+273.75,6/20/2015,12.94,Accessories,Canada
+321,6/20/2015,2294.99,Accessories,France
+605,6/21/2015,4042.94,Bikes,Germany
+784,6/21/2015,251.43,Bikes,United Kingdom
+397,6/21/2015,142.97,Bikes,France
+392,6/21/2015,600.94,Bikes,Canada
+339,6/21/2015,1854.2,Bikes,Australia
+2603.5,6/21/2015,6729.1,Bikes,United States
+1556.25,6/21/2015,13223.66,Components,Australia
+324,6/21/2015,905.95,Clothing,Germany
+645.5,6/21/2015,5987.92,Clothing,United Kingdom
+300.25,6/21/2015,712.44,Clothing,France
+586.5,6/21/2015,1145.45,Clothing,Canada
+709.25,6/21/2015,158.93,Clothing,Australia
+2669.25,6/21/2015,3623.46,Clothing,United States
+781.75,6/21/2015,4.99,Accessories,Germany
+1434,6/21/2015,2399.05,Accessories,United Kingdom
+321,6/21/2015,1214.45,Accessories,France
+273.75,6/21/2015,2593.51,Accessories,Canada
+406.5,6/21/2015,3566.12,Accessories,Australia
+2517.75,6/21/2015,3759.53,Accessories,United States
+784,6/22/2015,28.99,Bikes,United Kingdom
+2603.5,6/22/2015,4875.68,Bikes,United States
+397,6/22/2015,0,Bikes,France
+605,6/22/2015,81.26,Bikes,Germany
+339,6/22/2015,4757,Bikes,Australia
+392,6/22/2015,88.98,Bikes,Canada
+1380,6/22/2015,4671.23,Components,United Kingdom
+12924,6/22/2015,16007.31,Components,United States
+1365.25,6/22/2015,2561.8,Components,France
+1382.5,6/22/2015,7318.45,Components,Germany
+645.5,6/22/2015,2.29,Clothing,United Kingdom
+2669.25,6/22/2015,8433.75,Clothing,United States
+300.25,6/22/2015,3153.45,Clothing,France
+324,6/22/2015,70,Clothing,Germany
+709.25,6/22/2015,3514.54,Clothing,Australia
+586.5,6/22/2015,18.98,Clothing,Canada
+1434,6/22/2015,69.98,Accessories,United Kingdom
+2517.75,6/22/2015,2458.44,Accessories,United States
+321,6/22/2015,29.98,Accessories,France
+781.75,6/22/2015,26.48,Accessories,Germany
+406.5,6/22/2015,56.92,Accessories,Australia
+273.75,6/22/2015,89.99,Accessories,Canada
+523.5,6/23/2015,923.44,Bikes,United Kingdom
+2950.5,6/23/2015,6005.65,Bikes,United States
+340,6/23/2015,1705.98,Bikes,France
+443.25,6/23/2015,0,Bikes,Germany
+353.75,6/23/2015,110.46,Bikes,Australia
+459,6/23/2015,143.48,Bikes,Canada
+641.25,6/23/2015,6818.14,Components,Australia
+473.25,6/23/2015,2482.03,Clothing,United Kingdom
+2773.5,6/23/2015,977.06,Clothing,United States
+759.25,6/23/2015,35,Clothing,France
+603.5,6/23/2015,2843.97,Clothing,Germany
+322.25,6/23/2015,659.18,Clothing,Australia
+776,6/23/2015,104.46,Clothing,Canada
+622.5,6/23/2015,71.26,Accessories,United Kingdom
+2229.75,6/23/2015,113.97,Accessories,United States
+793.5,6/23/2015,0,Accessories,France
+579.5,6/23/2015,29.99,Accessories,Germany
+359.75,6/23/2015,2928.05,Accessories,Australia
+351.75,6/23/2015,34.99,Accessories,Canada
+459,6/24/2015,634.47,Bikes,Canada
+2950.5,6/24/2015,1862.89,Bikes,United States
+340,6/24/2015,106.27,Bikes,France
+443.25,6/24/2015,84.99,Bikes,Germany
+353.75,6/24/2015,5229.95,Bikes,Australia
+523.5,6/24/2015,4654.95,Bikes,United Kingdom
+12880.25,6/24/2015,11911.13,Components,United States
+776,6/24/2015,13.98,Clothing,Canada
+2773.5,6/24/2015,5346.28,Clothing,United States
+759.25,6/24/2015,2319.48,Clothing,France
+603.5,6/24/2015,2324.98,Clothing,Germany
+322.25,6/24/2015,1912.5,Clothing,Australia
+473.25,6/24/2015,3623.31,Clothing,United Kingdom
+351.75,6/24/2015,0,Accessories,Canada
+2229.75,6/24/2015,247.95,Accessories,United States
+793.5,6/24/2015,4.99,Accessories,France
+579.5,6/24/2015,28.99,Accessories,Germany
+359.75,6/24/2015,3101.31,Accessories,Australia
+622.5,6/24/2015,788.47,Accessories,United Kingdom
+353.75,6/25/2015,7395.21,Bikes,Australia
+2950.5,6/25/2015,6076.19,Bikes,United States
+523.5,6/25/2015,49.99,Bikes,United Kingdom
+443.25,6/25/2015,39.98,Bikes,Germany
+459,6/25/2015,28.97,Bikes,Canada
+340,6/25/2015,1217.43,Bikes,France
+400.75,6/25/2015,5554.36,Components,Germany
+544.5,6/25/2015,427.88,Components,Canada
+322.25,6/25/2015,1208.7,Clothing,Australia
+2773.5,6/25/2015,2432.46,Clothing,United States
+473.25,6/25/2015,2285.96,Clothing,United Kingdom
+603.5,6/25/2015,8.98,Clothing,Germany
+776,6/25/2015,16.27,Clothing,Canada
+759.25,6/25/2015,4222.3,Clothing,France
+359.75,6/25/2015,157.74,Accessories,Australia
+2229.75,6/25/2015,2441.43,Accessories,United States
+622.5,6/25/2015,0,Accessories,United Kingdom
+579.5,6/25/2015,64.98,Accessories,Germany
+351.75,6/25/2015,0,Accessories,Canada
+793.5,6/25/2015,104.08,Accessories,France
+443.25,6/26/2015,583.97,Bikes,Germany
+459,6/26/2015,26.97,Bikes,Canada
+340,6/26/2015,2468.34,Bikes,France
+353.75,6/26/2015,3665.5,Bikes,Australia
+523.5,6/26/2015,203.98,Bikes,United Kingdom
+2950.5,6/26/2015,3606.01,Bikes,United States
+603.5,6/26/2015,4145.02,Clothing,Germany
+776,6/26/2015,679.75,Clothing,Canada
+759.25,6/26/2015,2336.42,Clothing,France
+322.25,6/26/2015,43.25,Clothing,Australia
+473.25,6/26/2015,39.98,Clothing,United Kingdom
+2773.5,6/26/2015,873.41,Clothing,United States
+579.5,6/26/2015,1730.97,Accessories,Germany
+351.75,6/26/2015,2324.98,Accessories,Canada
+793.5,6/26/2015,12.98,Accessories,France
+359.75,6/26/2015,652.95,Accessories,Australia
+622.5,6/26/2015,132.96,Accessories,United Kingdom
+2229.75,6/26/2015,3236.98,Accessories,United States
+353.75,6/27/2015,4857.31,Bikes,Australia
+2950.5,6/27/2015,2473.93,Bikes,United States
+443.25,6/27/2015,764.32,Bikes,Germany
+523.5,6/27/2015,777.35,Bikes,United Kingdom
+340,6/27/2015,564.99,Bikes,France
+459,6/27/2015,103.44,Bikes,Canada
+322.25,6/27/2015,4784.9,Clothing,Australia
+2773.5,6/27/2015,1462.66,Clothing,United States
+603.5,6/27/2015,584.96,Clothing,Germany
+473.25,6/27/2015,2354.98,Clothing,United Kingdom
+759.25,6/27/2015,24.99,Clothing,France
+776,6/27/2015,584.97,Clothing,Canada
+359.75,6/27/2015,207.95,Accessories,Australia
+2229.75,6/27/2015,2550.56,Accessories,United States
+579.5,6/27/2015,11.28,Accessories,Germany
+622.5,6/27/2015,90.45,Accessories,United Kingdom
+793.5,6/27/2015,539.99,Accessories,France
+351.75,6/27/2015,35.96,Accessories,Canada
+778.25,6/28/2015,4176.3,Bikes,France
+638,6/28/2015,1154.47,Bikes,United Kingdom
+663,6/28/2015,1183.47,Bikes,Germany
+797.25,6/28/2015,102.25,Bikes,Australia
+601.75,6/28/2015,109.98,Bikes,Canada
+2393,6/28/2015,3254.71,Bikes,United States
+286,6/28/2015,2334.97,Clothing,France
+325.25,6/28/2015,2454.96,Clothing,United Kingdom
+794.75,6/28/2015,1175.47,Clothing,Germany
+587,6/28/2015,119.74,Clothing,Australia
+443,6/28/2015,2418.48,Clothing,Canada
+2278.75,6/28/2015,3816.9,Clothing,United States
+548.5,6/28/2015,0,Accessories,France
+827,6/28/2015,0,Accessories,United Kingdom
+649.25,6/28/2015,38.98,Accessories,Germany
+666.75,6/28/2015,81.48,Accessories,Australia
+434.75,6/28/2015,8.99,Accessories,Canada
+2635.75,6/28/2015,7762.36,Accessories,United States
+601.75,6/29/2015,0,Bikes,Canada
+778.25,6/29/2015,0,Bikes,France
+638,6/29/2015,4695.33,Bikes,United Kingdom
+2393,6/29/2015,7262.18,Bikes,United States
+663,6/29/2015,2868.96,Bikes,Germany
+797.25,6/29/2015,1785.97,Bikes,Australia
+12869.25,6/29/2015,11486.95,Components,United States
+313.5,6/29/2015,3354.47,Components,Germany
+443,6/29/2015,2.29,Clothing,Canada
+286,6/29/2015,2351.25,Clothing,France
+325.25,6/29/2015,4112.81,Clothing,United Kingdom
+2278.75,6/29/2015,1482.65,Clothing,United States
+794.75,6/29/2015,12.98,Clothing,Germany
+587,6/29/2015,3013.94,Clothing,Australia
+434.75,6/29/2015,34.99,Accessories,Canada
+548.5,6/29/2015,0,Accessories,France
+827,6/29/2015,64.98,Accessories,United Kingdom
+2635.75,6/29/2015,1705.79,Accessories,United States
+649.25,6/29/2015,1760.97,Accessories,Germany
+666.75,6/29/2015,1214.85,Accessories,Australia
+2393,6/30/2015,2983.93,Bikes,United States
+778.25,6/30/2015,21.49,Bikes,France
+663,6/30/2015,34.99,Bikes,Germany
+797.25,6/30/2015,2475.07,Bikes,Australia
+638,6/30/2015,76.96,Bikes,United Kingdom
+601.75,6/30/2015,9.98,Bikes,Canada
+1388.25,6/30/2015,8469.33,Components,United Kingdom
+2278.75,6/30/2015,2399.86,Clothing,United States
+286,6/30/2015,3.99,Clothing,France
+794.75,6/30/2015,14.98,Clothing,Germany
+587,6/30/2015,142.41,Clothing,Australia
+325.25,6/30/2015,2294.99,Clothing,United Kingdom
+443,6/30/2015,2321.96,Clothing,Canada
+2635.75,6/30/2015,93.98,Accessories,United States
+548.5,6/30/2015,742.35,Accessories,France
+649.25,6/30/2015,3598.92,Accessories,Germany
+666.75,6/30/2015,2500.32,Accessories,Australia
+827,6/30/2015,569.47,Accessories,United Kingdom
+434.75,6/30/2015,212.99,Accessories,Canada
+797.25,7/1/2015,4.99,Bikes,Australia
+2393,7/1/2015,46.97,Bikes,United States
+663,7/1/2015,0,Bikes,Germany
+638,7/1/2015,24.49,Bikes,United Kingdom
+601.75,7/1/2015,70,Bikes,Canada
+778.25,7/1/2015,84.99,Bikes,France
+388.25,7/1/2015,21.98,Components,United Kingdom
+587,7/1/2015,61.46,Clothing,Australia
+2278.75,7/1/2015,222.55,Clothing,United States
+794.75,7/1/2015,21.49,Clothing,Germany
+325.25,7/1/2015,4.99,Clothing,United Kingdom
+443,7/1/2015,64.92,Clothing,Canada
+286,7/1/2015,54.99,Clothing,France
+666.75,7/1/2015,53.98,Accessories,Australia
+2635.75,7/1/2015,0,Accessories,United States
+649.25,7/1/2015,2.29,Accessories,Germany
+827,7/1/2015,0,Accessories,United Kingdom
+434.75,7/1/2015,71.48,Accessories,Canada
+548.5,7/1/2015,4.99,Accessories,France
+601.75,7/2/2015,73.95,Bikes,Canada
+778.25,7/2/2015,28.99,Bikes,France
+797.25,7/2/2015,0,Bikes,Australia
+638,7/2/2015,0,Bikes,United Kingdom
+2393,7/2/2015,73.9,Bikes,United States
+663,7/2/2015,37.28,Bikes,Germany
+443,7/2/2015,39.97,Clothing,Canada
+286,7/2/2015,0,Clothing,France
+587,7/2/2015,94.98,Clothing,Australia
+325.25,7/2/2015,39.98,Clothing,United Kingdom
+2278.75,7/2/2015,124.92,Clothing,United States
+794.75,7/2/2015,4.99,Clothing,Germany
+434.75,7/2/2015,33.98,Accessories,Canada
+548.5,7/2/2015,8.99,Accessories,France
+666.75,7/2/2015,83.76,Accessories,Australia
+827,7/2/2015,0,Accessories,United Kingdom
+2635.75,7/2/2015,34.99,Accessories,United States
+649.25,7/2/2015,0,Accessories,Germany
+797.25,7/3/2015,47.94,Bikes,Australia
+2393,7/3/2015,74.99,Bikes,United States
+663,7/3/2015,0,Bikes,Germany
+638,7/3/2015,34.99,Bikes,United Kingdom
+601.75,7/3/2015,14.98,Bikes,Canada
+778.25,7/3/2015,0,Bikes,France
+1313.5,7/3/2015,50.26,Components,Germany
+388.25,7/3/2015,152.24,Components,United Kingdom
+587,7/3/2015,2.29,Clothing,Australia
+2278.75,7/3/2015,209.96,Clothing,United States
+794.75,7/3/2015,37.27,Clothing,Germany
+325.25,7/3/2015,88.97,Clothing,United Kingdom
+443,7/3/2015,100.96,Clothing,Canada
+286,7/3/2015,0,Clothing,France
+666.75,7/3/2015,59.49,Accessories,Australia
+2635.75,7/3/2015,34.99,Accessories,United States
+649.25,7/3/2015,0,Accessories,Germany
+827,7/3/2015,16.27,Accessories,United Kingdom
+434.75,7/3/2015,4.99,Accessories,Canada
+548.5,7/3/2015,0,Accessories,France
+778.25,7/4/2015,13.97,Bikes,France
+663,7/4/2015,0,Bikes,Germany
+638,7/4/2015,4.99,Bikes,United Kingdom
+797.25,7/4/2015,24.99,Bikes,Australia
+601.75,7/4/2015,61.96,Bikes,Canada
+2393,7/4/2015,4.99,Bikes,United States
+658.75,7/4/2015,37.28,Components,Canada
+286,7/4/2015,48.98,Clothing,France
+794.75,7/4/2015,0,Clothing,Germany
+325.25,7/4/2015,69.99,Clothing,United Kingdom
+587,7/4/2015,98.98,Clothing,Australia
+443,7/4/2015,4.99,Clothing,Canada
+2278.75,7/4/2015,62.59,Clothing,United States
+548.5,7/4/2015,43.98,Accessories,France
+649.25,7/4/2015,0,Accessories,Germany
+827,7/4/2015,0,Accessories,United Kingdom
+666.75,7/4/2015,7.28,Accessories,Australia
+434.75,7/4/2015,0,Accessories,Canada
+2635.75,7/4/2015,47.93,Accessories,United States
+601.75,7/5/2015,49.99,Bikes,Canada
+638,7/5/2015,12.27,Bikes,United Kingdom
+2393,7/5/2015,43.97,Bikes,United States
+778.25,7/5/2015,23.78,Bikes,France
+663,7/5/2015,4.99,Bikes,Germany
+797.25,7/5/2015,77.94,Bikes,Australia
+12869.25,7/5/2015,281.41,Components,United States
+1342.75,7/5/2015,39.46,Components,France
+443,7/5/2015,124.97,Clothing,Canada
+325.25,7/5/2015,35,Clothing,United Kingdom
+2278.75,7/5/2015,32.27,Clothing,United States
+286,7/5/2015,0,Clothing,France
+794.75,7/5/2015,34.99,Clothing,Germany
+587,7/5/2015,3.99,Clothing,Australia
+434.75,7/5/2015,2.29,Accessories,Canada
+827,7/5/2015,35,Accessories,United Kingdom
+2635.75,7/5/2015,4.99,Accessories,United States
+548.5,7/5/2015,28.99,Accessories,France
+649.25,7/5/2015,21.98,Accessories,Germany
+666.75,7/5/2015,4.99,Accessories,Australia
+721,7/6/2015,29.99,Bikes,France
+2739.75,7/6/2015,147.97,Bikes,United States
+501.25,7/6/2015,3.99,Bikes,Germany
+276.75,7/6/2015,234.97,Bikes,Australia
+377.5,7/6/2015,0,Bikes,United Kingdom
+668.75,7/6/2015,43.97,Bikes,Canada
+745,7/6/2015,2.29,Clothing,France
+2918,7/6/2015,133.96,Clothing,United States
+539.5,7/6/2015,2.29,Clothing,Germany
+735,7/6/2015,0,Clothing,Australia
+688,7/6/2015,0,Clothing,United Kingdom
+632.5,7/6/2015,228.94,Clothing,Canada
+486,7/6/2015,0,Accessories,France
+2882.75,7/6/2015,0,Accessories,United States
+447.25,7/6/2015,39.98,Accessories,Germany
+100,7/6/2015,0,Accessories,Australia
+0,7/6/2015,0,Accessories,United Kingdom
+512.75,7/6/2015,59.98,Accessories,Canada
+668.75,7/7/2015,54.25,Bikes,Canada
+721,7/7/2015,7.28,Bikes,France
+2739.75,7/7/2015,44.46,Bikes,United States
+501.25,7/7/2015,8.99,Bikes,Germany
+276.75,7/7/2015,96.1,Bikes,Australia
+377.5,7/7/2015,27.28,Bikes,United Kingdom
+2826,7/7/2015,360.95,Components,United States
+632.5,7/7/2015,24.99,Clothing,Canada
+745,7/7/2015,13.98,Clothing,France
+2918,7/7/2015,21.98,Clothing,United States
+539.5,7/7/2015,64.97,Clothing,Germany
+735,7/7/2015,78.98,Clothing,Australia
+688,7/7/2015,0,Clothing,United Kingdom
+512.75,7/7/2015,34.99,Accessories,Canada
+486,7/7/2015,0,Accessories,France
+2882.75,7/7/2015,58.98,Accessories,United States
+447.25,7/7/2015,0,Accessories,Germany
+100,7/7/2015,2.29,Accessories,Australia
+0,7/7/2015,0,Accessories,United Kingdom
+276.75,7/8/2015,33.98,Bikes,Australia
+377.5,7/8/2015,67.49,Bikes,United Kingdom
+2739.75,7/8/2015,121.71,Bikes,United States
+501.25,7/8/2015,0,Bikes,Germany
+721,7/8/2015,122.57,Bikes,France
+668.75,7/8/2015,112.56,Bikes,Canada
+2331.75,7/8/2015,12.98,Components,Germany
+735,7/8/2015,34.99,Clothing,Australia
+688,7/8/2015,71.57,Clothing,United Kingdom
+2918,7/8/2015,156.25,Clothing,United States
+539.5,7/8/2015,0,Clothing,Germany
+745,7/8/2015,3.99,Clothing,France
+632.5,7/8/2015,122.55,Clothing,Canada
+100,7/8/2015,24.99,Accessories,Australia
+0,7/8/2015,0,Accessories,United Kingdom
+2882.75,7/8/2015,101.23,Accessories,United States
+447.25,7/8/2015,0,Accessories,Germany
+486,7/8/2015,0,Accessories,France
+512.75,7/8/2015,38.47,Accessories,Canada
+501.25,7/9/2015,4.99,Bikes,Germany
+668.75,7/9/2015,37.59,Bikes,Canada
+721,7/9/2015,69.98,Bikes,France
+276.75,7/9/2015,7.28,Bikes,Australia
+377.5,7/9/2015,0,Bikes,United Kingdom
+2739.75,7/9/2015,59.95,Bikes,United States
+539.5,7/9/2015,0,Clothing,Germany
+632.5,7/9/2015,24.49,Clothing,Canada
+745,7/9/2015,24.49,Clothing,France
+735,7/9/2015,33.98,Clothing,Australia
+688,7/9/2015,7.95,Clothing,United Kingdom
+2918,7/9/2015,42.97,Clothing,United States
+447.25,7/9/2015,34.99,Accessories,Germany
+512.75,7/9/2015,0,Accessories,Canada
+486,7/9/2015,35,Accessories,France
+100,7/9/2015,9.99,Accessories,Australia
+0,7/9/2015,0,Accessories,United Kingdom
+2882.75,7/9/2015,0,Accessories,United States
+276.75,7/10/2015,34.99,Bikes,Australia
+2739.75,7/10/2015,18.55,Bikes,United States
+501.25,7/10/2015,2.29,Bikes,Germany
+721,7/10/2015,4.99,Bikes,France
+377.5,7/10/2015,24.49,Bikes,United Kingdom
+668.75,7/10/2015,59.48,Bikes,Canada
+2677.25,7/10/2015,97.96,Components,France
+735,7/10/2015,3.99,Clothing,Australia
+2918,7/10/2015,2.29,Clothing,United States
+539.5,7/10/2015,0,Clothing,Germany
+745,7/10/2015,2.29,Clothing,France
+688,7/10/2015,61.97,Clothing,United Kingdom
+632.5,7/10/2015,13.98,Clothing,Canada
+100,7/10/2015,8.99,Accessories,Australia
+2882.75,7/10/2015,37.27,Accessories,United States
+447.25,7/10/2015,0,Accessories,Germany
+486,7/10/2015,0,Accessories,France
+0,7/10/2015,0,Accessories,United Kingdom
+512.75,7/10/2015,39.88,Accessories,Canada
+624.5,7/11/2015,0,Bikes,France
+492,7/11/2015,49.99,Bikes,United Kingdom
+2717,7/11/2015,122.29,Bikes,United States
+721.25,7/11/2015,37.28,Bikes,Germany
+720.25,7/11/2015,24.99,Bikes,Australia
+276.5,7/11/2015,102.57,Bikes,Canada
+271.75,7/11/2015,2.29,Clothing,France
+539.75,7/11/2015,34.99,Clothing,United Kingdom
+2957.75,7/11/2015,32.6,Clothing,United States
+730.75,7/11/2015,39.99,Clothing,Germany
+464.75,7/11/2015,4.99,Clothing,Australia
+299.75,7/11/2015,74.94,Clothing,Canada
+776,7/11/2015,104.98,Accessories,France
+220,7/11/2015,29.99,Accessories,United Kingdom
+2754,7/11/2015,39.98,Accessories,United States
+517,7/11/2015,0,Accessories,Germany
+392,7/11/2015,32.98,Accessories,Australia
+595.75,7/11/2015,24.99,Accessories,Canada
+276.5,7/12/2015,2.29,Bikes,Canada
+2717,7/12/2015,103.45,Bikes,United States
+492,7/12/2015,82.59,Bikes,United Kingdom
+624.5,7/12/2015,39.98,Bikes,France
+721.25,7/12/2015,39.98,Bikes,Germany
+720.25,7/12/2015,58.98,Bikes,Australia
+1396.25,7/12/2015,162.99,Components,United Kingdom
+1320.5,7/12/2015,29.99,Components,France
+299.75,7/12/2015,0,Clothing,Canada
+2957.75,7/12/2015,144.97,Clothing,United States
+539.75,7/12/2015,13.98,Clothing,United Kingdom
+271.75,7/12/2015,0,Clothing,France
+730.75,7/12/2015,0,Clothing,Germany
+464.75,7/12/2015,0,Clothing,Australia
+595.75,7/12/2015,58.97,Accessories,Canada
+2754,7/12/2015,8.98,Accessories,United States
+220,7/12/2015,0,Accessories,United Kingdom
+776,7/12/2015,0,Accessories,France
+517,7/12/2015,0,Accessories,Germany
+392,7/12/2015,0,Accessories,Australia
+2717,7/13/2015,56.97,Bikes,United States
+624.5,7/13/2015,34.99,Bikes,France
+721.25,7/13/2015,0,Bikes,Germany
+720.25,7/13/2015,21.98,Bikes,Australia
+492,7/13/2015,0,Bikes,United Kingdom
+276.5,7/13/2015,37.59,Bikes,Canada
+2396.25,7/13/2015,49.99,Components,United Kingdom
+612.75,7/13/2015,66.26,Components,Canada
+2957.75,7/13/2015,4.99,Clothing,United States
+271.75,7/13/2015,49.99,Clothing,France
+730.75,7/13/2015,24.49,Clothing,Germany
+464.75,7/13/2015,0,Clothing,Australia
+539.75,7/13/2015,8.99,Clothing,United Kingdom
+299.75,7/13/2015,0,Clothing,Canada
+2754,7/13/2015,0,Accessories,United States
+776,7/13/2015,21.49,Accessories,France
+517,7/13/2015,24.99,Accessories,Germany
+392,7/13/2015,2.29,Accessories,Australia
+220,7/13/2015,0,Accessories,United Kingdom
+595.75,7/13/2015,0,Accessories,Canada
+276.5,7/14/2015,0,Bikes,Canada
+624.5,7/14/2015,0,Bikes,France
+720.25,7/14/2015,34.06,Bikes,Australia
+492,7/14/2015,0,Bikes,United Kingdom
+2717,7/14/2015,119.95,Bikes,United States
+721.25,7/14/2015,0,Bikes,Germany
+1408.25,7/14/2015,462.92,Components,Australia
+299.75,7/14/2015,61.58,Clothing,Canada
+271.75,7/14/2015,34.99,Clothing,France
+464.75,7/14/2015,70.92,Clothing,Australia
+539.75,7/14/2015,0,Clothing,United Kingdom
+2957.75,7/14/2015,89.95,Clothing,United States
+730.75,7/14/2015,0,Clothing,Germany
+595.75,7/14/2015,4.99,Accessories,Canada
+776,7/14/2015,0,Accessories,France
+392,7/14/2015,9.99,Accessories,Australia
+220,7/14/2015,21.49,Accessories,United Kingdom
+2754,7/14/2015,163.99,Accessories,United States
+517,7/14/2015,0,Accessories,Germany
+720.25,7/15/2015,60.46,Bikes,Australia
+2717,7/15/2015,69.99,Bikes,United States
+492,7/15/2015,34.99,Bikes,United Kingdom
+721.25,7/15/2015,4.99,Bikes,Germany
+276.5,7/15/2015,0,Bikes,Canada
+624.5,7/15/2015,0,Bikes,France
+464.75,7/15/2015,12.98,Clothing,Australia
+2957.75,7/15/2015,134.68,Clothing,United States
+539.75,7/15/2015,7.98,Clothing,United Kingdom
+730.75,7/15/2015,4.99,Clothing,Germany
+299.75,7/15/2015,4.99,Clothing,Canada
+271.75,7/15/2015,2.29,Clothing,France
+392,7/15/2015,56.48,Accessories,Australia
+2754,7/15/2015,172.41,Accessories,United States
+220,7/15/2015,32.6,Accessories,United Kingdom
+517,7/15/2015,4.99,Accessories,Germany
+595.75,7/15/2015,0,Accessories,Canada
+776,7/15/2015,0,Accessories,France
+721.25,7/16/2015,75.48,Bikes,Germany
+492,7/16/2015,0,Bikes,United Kingdom
+276.5,7/16/2015,0,Bikes,Canada
+624.5,7/16/2015,3.99,Bikes,France
+720.25,7/16/2015,4.99,Bikes,Australia
+2717,7/16/2015,122.44,Bikes,United States
+320.5,7/16/2015,0,Components,France
+1408.25,7/16/2015,162.96,Components,Australia
+730.75,7/16/2015,0,Clothing,Germany
+539.75,7/16/2015,28.99,Clothing,United Kingdom
+299.75,7/16/2015,43.97,Clothing,Canada
+271.75,7/16/2015,2.29,Clothing,France
+464.75,7/16/2015,79.98,Clothing,Australia
+2957.75,7/16/2015,129.43,Clothing,United States
+517,7/16/2015,0,Accessories,Germany
+220,7/16/2015,0,Accessories,United Kingdom
+595.75,7/16/2015,7.28,Accessories,Canada
+776,7/16/2015,0,Accessories,France
+392,7/16/2015,0,Accessories,Australia
+2754,7/16/2015,185.07,Accessories,United States
+527.75,7/17/2015,0,Bikes,France
+2695,7/17/2015,193.94,Bikes,United States
+606.5,7/17/2015,98.45,Bikes,United Kingdom
+406,7/17/2015,50.96,Bikes,Germany
+629,7/17/2015,64.97,Bikes,Australia
+419.25,7/17/2015,48.97,Bikes,Canada
+12804.5,7/17/2015,408.37,Components,United States
+797.5,7/17/2015,251.9,Components,United Kingdom
+333.25,7/17/2015,0,Clothing,France
+2462.75,7/17/2015,98.49,Clothing,United States
+391.75,7/17/2015,3.99,Clothing,United Kingdom
+387,7/17/2015,76.48,Clothing,Germany
+729.5,7/17/2015,100.96,Clothing,Australia
+501.75,7/17/2015,3.99,Clothing,Canada
+531,7/17/2015,0,Accessories,France
+3160,7/17/2015,89.98,Accessories,United States
+0,7/17/2015,7.28,Accessories,United Kingdom
+586.75,7/17/2015,0,Accessories,Germany
+52.75,7/17/2015,63.98,Accessories,Australia
+678.75,7/17/2015,0,Accessories,Canada
+2695,7/18/2015,26.78,Bikes,United States
+606.5,7/18/2015,0,Bikes,United Kingdom
+527.75,7/18/2015,81.47,Bikes,France
+629,7/18/2015,8.99,Bikes,Australia
+406,7/18/2015,0,Bikes,Germany
+419.25,7/18/2015,72.58,Bikes,Canada
+1727.25,7/18/2015,219.11,Components,Canada
+2462.75,7/18/2015,119.21,Clothing,United States
+391.75,7/18/2015,2.29,Clothing,United Kingdom
+333.25,7/18/2015,61.95,Clothing,France
+729.5,7/18/2015,4.99,Clothing,Australia
+387,7/18/2015,0,Clothing,Germany
+501.75,7/18/2015,20.89,Clothing,Canada
+3160,7/18/2015,35,Accessories,United States
+0,7/18/2015,4.99,Accessories,United Kingdom
+531,7/18/2015,74.48,Accessories,France
+52.75,7/18/2015,24.99,Accessories,Australia
+586.75,7/18/2015,0,Accessories,Germany
+678.75,7/18/2015,57.28,Accessories,Canada
+419.25,7/19/2015,2.29,Bikes,Canada
+2695,7/19/2015,64.48,Bikes,United States
+527.75,7/19/2015,34.99,Bikes,France
+406,7/19/2015,54.98,Bikes,Germany
+606.5,7/19/2015,28.99,Bikes,United Kingdom
+629,7/19/2015,54.99,Bikes,Australia
+501.75,7/19/2015,12.53,Clothing,Canada
+2462.75,7/19/2015,177.21,Clothing,United States
+333.25,7/19/2015,8.99,Clothing,France
+387,7/19/2015,28.99,Clothing,Germany
+391.75,7/19/2015,111.46,Clothing,United Kingdom
+729.5,7/19/2015,8.98,Clothing,Australia
+678.75,7/19/2015,21.98,Accessories,Canada
+3160,7/19/2015,99.96,Accessories,United States
+531,7/19/2015,74.98,Accessories,France
+586.75,7/19/2015,53.99,Accessories,Germany
+0,7/19/2015,34.99,Accessories,United Kingdom
+52.75,7/19/2015,4.99,Accessories,Australia
+629,7/20/2015,4.99,Bikes,Australia
+2695,7/20/2015,59.2,Bikes,United States
+606.5,7/20/2015,24.49,Bikes,United Kingdom
+406,7/20/2015,24.99,Bikes,Germany
+419.25,7/20/2015,86.35,Bikes,Canada
+527.75,7/20/2015,24.99,Bikes,France
+1727.25,7/20/2015,43.97,Components,Canada
+729.5,7/20/2015,49.48,Clothing,Australia
+2462.75,7/20/2015,94.97,Clothing,United States
+391.75,7/20/2015,34.98,Clothing,United Kingdom
+387,7/20/2015,49.99,Clothing,Germany
+501.75,7/20/2015,12.28,Clothing,Canada
+333.25,7/20/2015,39.98,Clothing,France
+52.75,7/20/2015,53.99,Accessories,Australia
+3160,7/20/2015,56.97,Accessories,United States
+0,7/20/2015,0,Accessories,United Kingdom
+586.75,7/20/2015,0,Accessories,Germany
+678.75,7/20/2015,0,Accessories,Canada
+531,7/20/2015,33.98,Accessories,France
+527.75,7/21/2015,0,Bikes,France
+419.25,7/21/2015,137.27,Bikes,Canada
+629,7/21/2015,97.97,Bikes,Australia
+2695,7/21/2015,150.15,Bikes,United States
+606.5,7/21/2015,0,Bikes,United Kingdom
+406,7/21/2015,0,Bikes,Germany
+333.25,7/21/2015,0,Clothing,France
+501.75,7/21/2015,0,Clothing,Canada
+729.5,7/21/2015,11.28,Clothing,Australia
+2462.75,7/21/2015,79.98,Clothing,United States
+391.75,7/21/2015,49.99,Clothing,United Kingdom
+387,7/21/2015,0,Clothing,Germany
+531,7/21/2015,0,Accessories,France
+678.75,7/21/2015,47.93,Accessories,Canada
+52.75,7/21/2015,38.97,Accessories,Australia
+3160,7/21/2015,3.99,Accessories,United States
+0,7/21/2015,0,Accessories,United Kingdom
+586.75,7/21/2015,0,Accessories,Germany
+629,7/22/2015,0,Bikes,Australia
+2695,7/22/2015,38.47,Bikes,United States
+406,7/22/2015,21.49,Bikes,Germany
+606.5,7/22/2015,0,Bikes,United Kingdom
+419.25,7/22/2015,91.48,Bikes,Canada
+527.75,7/22/2015,38.98,Bikes,France
+1691.75,7/22/2015,139.93,Components,Germany
+1797.5,7/22/2015,128.47,Components,United Kingdom
+729.5,7/22/2015,4.99,Clothing,Australia
+2462.75,7/22/2015,75.36,Clothing,United States
+387,7/22/2015,187.46,Clothing,Germany
+391.75,7/22/2015,9.99,Clothing,United Kingdom
+501.75,7/22/2015,49.99,Clothing,Canada
+333.25,7/22/2015,21.97,Clothing,France
+52.75,7/22/2015,0,Accessories,Australia
+3160,7/22/2015,207.45,Accessories,United States
+586.75,7/22/2015,0,Accessories,Germany
+0,7/22/2015,0,Accessories,United Kingdom
+678.75,7/22/2015,112.26,Accessories,Canada
+531,7/22/2015,0,Accessories,France
+527.75,7/23/2015,0,Bikes,France
+606.5,7/23/2015,8.99,Bikes,United Kingdom
+406,7/23/2015,13.98,Bikes,Germany
+629,7/23/2015,102.59,Bikes,Australia
+419.25,7/23/2015,2.29,Bikes,Canada
+2695,7/23/2015,13.98,Bikes,United States
+333.25,7/23/2015,21.49,Clothing,France
+391.75,7/23/2015,0,Clothing,United Kingdom
+387,7/23/2015,24.99,Clothing,Germany
+729.5,7/23/2015,46.26,Clothing,Australia
+501.75,7/23/2015,4.99,Clothing,Canada
+2462.75,7/23/2015,69.99,Clothing,United States
+531,7/23/2015,3.99,Accessories,France
+0,7/23/2015,0,Accessories,United Kingdom
+586.75,7/23/2015,31.96,Accessories,Germany
+52.75,7/23/2015,31.28,Accessories,Australia
+678.75,7/23/2015,29.99,Accessories,Canada
+3160,7/23/2015,51.95,Accessories,United States
+419.25,7/24/2015,44.99,Bikes,Canada
+2695,7/24/2015,124.97,Bikes,United States
+527.75,7/24/2015,0,Bikes,France
+606.5,7/24/2015,32.6,Bikes,United Kingdom
+406,7/24/2015,0,Bikes,Germany
+629,7/24/2015,144.45,Bikes,Australia
+1797.5,7/24/2015,127.47,Components,United Kingdom
+1691.75,7/24/2015,0,Components,Germany
+501.75,7/24/2015,38.25,Clothing,Canada
+2462.75,7/24/2015,165.4,Clothing,United States
+333.25,7/24/2015,34.99,Clothing,France
+391.75,7/24/2015,12.98,Clothing,United Kingdom
+387,7/24/2015,4.99,Clothing,Germany
+729.5,7/24/2015,75.97,Clothing,Australia
+678.75,7/24/2015,4.99,Accessories,Canada
+3160,7/24/2015,71.57,Accessories,United States
+531,7/24/2015,51.48,Accessories,France
+0,7/24/2015,0,Accessories,United Kingdom
+586.75,7/24/2015,0,Accessories,Germany
+52.75,7/24/2015,4.99,Accessories,Australia
+1971.25,7/25/2015,153.48,Bikes,United States
+470.5,7/25/2015,0,Bikes,France
+779.25,7/25/2015,0,Bikes,Germany
+346,7/25/2015,0,Bikes,United Kingdom
+643.5,7/25/2015,110.97,Bikes,Australia
+486.25,7/25/2015,78.98,Bikes,Canada
+2566.75,7/25/2015,91.92,Clothing,United States
+792.25,7/25/2015,4.99,Clothing,France
+666.5,7/25/2015,0,Clothing,Germany
+754.25,7/25/2015,0,Clothing,United Kingdom
+342.5,7/25/2015,4.99,Clothing,Australia
+691.25,7/25/2015,98.96,Clothing,Canada
+2337,7/25/2015,29.99,Accessories,United States
+468.5,7/25/2015,21.98,Accessories,France
+384.5,7/25/2015,0,Accessories,Germany
+1219.25,7/25/2015,0,Accessories,United Kingdom
+652.25,7/25/2015,34.99,Accessories,Australia
+756.75,7/25/2015,4.99,Accessories,Canada
+486.25,7/26/2015,39.98,Bikes,Canada
+470.5,7/26/2015,0,Bikes,France
+1971.25,7/26/2015,317.53,Bikes,United States
+779.25,7/26/2015,2.29,Bikes,Germany
+346,7/26/2015,0,Bikes,United Kingdom
+643.5,7/26/2015,25.97,Bikes,Australia
+691.25,7/26/2015,4.99,Clothing,Canada
+792.25,7/26/2015,21.98,Clothing,France
+2566.75,7/26/2015,189.22,Clothing,United States
+666.5,7/26/2015,50.47,Clothing,Germany
+754.25,7/26/2015,0,Clothing,United Kingdom
+342.5,7/26/2015,53.99,Clothing,Australia
+756.75,7/26/2015,54.98,Accessories,Canada
+468.5,7/26/2015,0,Accessories,France
+2337,7/26/2015,33.98,Accessories,United States
+384.5,7/26/2015,0,Accessories,Germany
+1219.25,7/26/2015,26.97,Accessories,United Kingdom
+652.25,7/26/2015,0,Accessories,Australia
+643.5,7/27/2015,4.99,Bikes,Australia
+1971.25,7/27/2015,28.77,Bikes,United States
+346,7/27/2015,0,Bikes,United Kingdom
+779.25,7/27/2015,0,Bikes,Germany
+470.5,7/27/2015,32.6,Bikes,France
+486.25,7/27/2015,24.49,Bikes,Canada
+342.5,7/27/2015,134.97,Clothing,Australia
+2566.75,7/27/2015,117.25,Clothing,United States
+754.25,7/27/2015,0,Clothing,United Kingdom
+666.5,7/27/2015,53.48,Clothing,Germany
+792.25,7/27/2015,28.99,Clothing,France
+691.25,7/27/2015,103.95,Clothing,Canada
+652.25,7/27/2015,34.99,Accessories,Australia
+2337,7/27/2015,0,Accessories,United States
+1219.25,7/27/2015,21.98,Accessories,United Kingdom
+384.5,7/27/2015,3.99,Accessories,Germany
+468.5,7/27/2015,84.99,Accessories,France
+756.75,7/27/2015,21.49,Accessories,Canada
+779.25,7/28/2015,0,Bikes,Germany
+486.25,7/28/2015,113.94,Bikes,Canada
+470.5,7/28/2015,0,Bikes,France
+643.5,7/28/2015,31.47,Bikes,Australia
+346,7/28/2015,34.56,Bikes,United Kingdom
+1971.25,7/28/2015,193.94,Bikes,United States
+666.5,7/28/2015,29.99,Clothing,Germany
+691.25,7/28/2015,8.98,Clothing,Canada
+792.25,7/28/2015,29.48,Clothing,France
+342.5,7/28/2015,2.29,Clothing,Australia
+754.25,7/28/2015,69.98,Clothing,United Kingdom
+2566.75,7/28/2015,118.97,Clothing,United States
+384.5,7/28/2015,0,Accessories,Germany
+756.75,7/28/2015,8.99,Accessories,Canada
+468.5,7/28/2015,129.98,Accessories,France
+652.25,7/28/2015,98.97,Accessories,Australia
+1219.25,7/28/2015,0,Accessories,United Kingdom
+2337,7/28/2015,2.29,Accessories,United States
+552,7/29/2015,0,Bikes,Australia
+2484,7/29/2015,144.97,Bikes,United States
+374,7/29/2015,0,Bikes,France
+464,7/29/2015,57.98,Bikes,Germany
+460.5,7/29/2015,0,Bikes,United Kingdom
+629,7/29/2015,0,Bikes,Canada
+270.75,7/29/2015,28.98,Components,United Kingdom
+607.25,7/29/2015,27.28,Clothing,Australia
+2607,7/29/2015,96.26,Clothing,United States
+319,7/29/2015,0,Clothing,France
+322.75,7/29/2015,110.95,Clothing,Germany
+606.25,7/29/2015,120,Clothing,United Kingdom
+358.25,7/29/2015,134.22,Clothing,Canada
+424.25,7/29/2015,3.99,Accessories,Australia
+2743,7/29/2015,23.97,Accessories,United States
+758.5,7/29/2015,0,Accessories,France
+454.25,7/29/2015,120,Accessories,Germany
+1423,7/29/2015,0,Accessories,United Kingdom
+304.75,7/29/2015,6.87,Accessories,Canada
+2484,7/30/2015,39.47,Bikes,United States
+374,7/30/2015,0,Bikes,France
+460.5,7/30/2015,3.99,Bikes,United Kingdom
+464,7/30/2015,0,Bikes,Germany
+552,7/30/2015,28.98,Bikes,Australia
+629,7/30/2015,10.24,Bikes,Canada
+1681.25,7/30/2015,333.4,Components,Canada
+2607,7/30/2015,161.83,Clothing,United States
+319,7/30/2015,0,Clothing,France
+606.25,7/30/2015,0,Clothing,United Kingdom
+322.75,7/30/2015,0,Clothing,Germany
+607.25,7/30/2015,32.6,Clothing,Australia
+358.25,7/30/2015,38.97,Clothing,Canada
+2743,7/30/2015,3.99,Accessories,United States
+758.5,7/30/2015,0,Accessories,France
+1423,7/30/2015,0,Accessories,United Kingdom
+454.25,7/30/2015,0,Accessories,Germany
+424.25,7/30/2015,38.98,Accessories,Australia
+304.75,7/30/2015,74.98,Accessories,Canada

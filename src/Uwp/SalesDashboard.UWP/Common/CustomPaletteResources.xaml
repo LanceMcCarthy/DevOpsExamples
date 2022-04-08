@@ -1,0 +1,59 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerikUniversalChart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:local="using:Sales_Dashboard">
+
+    <telerikUniversalChart:ChartPalette x:Key="CustomPalette">
+        <telerikUniversalChart:ChartPalette.FillEntries>
+            <telerikUniversalChart:PaletteEntryCollection>
+                <SolidColorBrush Color="#FF68d5e6"></SolidColorBrush>
+                <SolidColorBrush Color="#FFec9e90"></SolidColorBrush>
+                <SolidColorBrush Color="#FFffbf4d"></SolidColorBrush>
+                <SolidColorBrush Color="#FF695e62"></SolidColorBrush>
+            </telerikUniversalChart:PaletteEntryCollection>
+        </telerikUniversalChart:ChartPalette.FillEntries>
+        <telerikUniversalChart:ChartPalette.StrokeEntries>
+            <telerikUniversalChart:PaletteEntryCollection>
+                <SolidColorBrush Color="#00c1c1"></SolidColorBrush>
+                <SolidColorBrush Color="#c04d4d"></SolidColorBrush>
+                <SolidColorBrush Color="#FFffa008"></SolidColorBrush>
+                <SolidColorBrush Color="#303030"></SolidColorBrush>
+            </telerikUniversalChart:PaletteEntryCollection>
+        </telerikUniversalChart:ChartPalette.StrokeEntries>
+    </telerikUniversalChart:ChartPalette>
+    <telerikUniversalChart:ChartPalette x:Key="CustomSelectionPalette">
+        <telerikUniversalChart:ChartPalette.FillEntries>
+            <telerikUniversalChart:PaletteEntryCollection>
+                <SolidColorBrush Color="#00c1c1"></SolidColorBrush>
+                <SolidColorBrush Color="#c04d4d"></SolidColorBrush>
+                <SolidColorBrush Color="#FFffa008"></SolidColorBrush>
+                <SolidColorBrush Color="#303030"></SolidColorBrush>
+            </telerikUniversalChart:PaletteEntryCollection>
+        </telerikUniversalChart:ChartPalette.FillEntries>
+        <telerikUniversalChart:ChartPalette.StrokeEntries>
+            <telerikUniversalChart:PaletteEntryCollection>
+                <SolidColorBrush Color="#00c1c1"></SolidColorBrush>
+                <SolidColorBrush Color="#c04d4d"></SolidColorBrush>
+                <SolidColorBrush Color="#FFffa008"></SolidColorBrush>
+                <SolidColorBrush Color="#303030"></SolidColorBrush>
+            </telerikUniversalChart:PaletteEntryCollection>
+        </telerikUniversalChart:ChartPalette.StrokeEntries>
+    </telerikUniversalChart:ChartPalette>
+    <telerikUniversalChart:ChartPalette x:Key="CustomPaletteTrend">
+        <telerikUniversalChart:ChartPalette.FillEntries>
+            <telerikUniversalChart:PaletteEntryCollection>
+                <SolidColorBrush Color="#FF68d5e6"></SolidColorBrush>
+                <SolidColorBrush Color="#FFffa008"></SolidColorBrush>
+            </telerikUniversalChart:PaletteEntryCollection>
+        </telerikUniversalChart:ChartPalette.FillEntries>
+        <telerikUniversalChart:ChartPalette.StrokeEntries>
+            <telerikUniversalChart:PaletteEntryCollection>
+                <SolidColorBrush Color="#FF68d5e6"></SolidColorBrush>
+                <SolidColorBrush Color="#FFffa008"></SolidColorBrush>
+            </telerikUniversalChart:PaletteEntryCollection>
+        </telerikUniversalChart:ChartPalette.StrokeEntries>
+    </telerikUniversalChart:ChartPalette>
+    <SolidColorBrush Color="#444444" x:Key="BarSeriesBackground" />
+
+</ResourceDictionary>
