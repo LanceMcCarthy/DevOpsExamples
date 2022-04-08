@@ -1,4 +1,4 @@
-name: Build Xamarin.Forms Applications
+name: Build UWP Application
 
 on:
   push:
@@ -35,7 +35,9 @@ jobs:
 
     # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.2
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        msbuild-architecture: x64
       
     - name: NuGet Restore - Class Library Project
       run: nuget restore src\Uwp\SalesDashboard.UWP.sln -ConfigFile src\nuget.config
