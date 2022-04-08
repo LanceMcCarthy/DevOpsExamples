@@ -1,0 +1,62 @@
+name: Build Xamarin.Forms Applications
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Uwp/**/*'
+      - '.github/workflows/main_build-uwp.yml' 
+
+jobs:
+  windows-build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    # Create my own version number with a specific format using date. ex: 2022.408.1.0
+    - name: Generate version number
+      shell: pwsh
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        echo "APP_VERSION=$ver" >> $GITHUB_ENV
+    
+    # Update the appxmanifest's app version number
+    - name: Update manifest version
+      run: |
+        [xml]$manifest = get-content "src\Uwp\SalesDashboard.UWP\Package.appxmanifest"
+        $manifest.Package.Identity.Version = "$env:APP_VERSION"
+        $manifest.save("src\Uwp\SalesDashboard.UWP\Package.appxmanifest")
+
+    # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.2
+      
+    - name: NuGet Restore - Class Library Project
+      run: nuget restore src\Uwp\SalesDashboard.UWP.sln -ConfigFile src\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+
+    - name: NuGet Restore - Platform Project
+      run: nuget restore src\Uwp\SalesDashboard.UWP.sln -ConfigFile src\nuget.config
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
+    
+    - name: Build UWP Project
+      run: msbuild src\Uwp\SalesDashboard.UWP.sln /p:Platform=x64 /p:Configuration=Debug /p:AppxPackageSigningEnabled=false
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: UWP Artifacts
+        path: src\Uwp\SalesDashboard.UWP\bin

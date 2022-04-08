@@ -1,0 +1,37 @@
+﻿<UserControl
+    x:Class="Sales_Dashboard.TotalSalesTrendChart"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sales_Dashboard" 
+    xmlns:telerikUniversalChart="using:Telerik.UI.Xaml.Controls.Chart">
+    <Grid>
+        <telerikUniversalChart:RadCartesianChart Palette="{StaticResource CustomPaletteTrend}"  ClipToBounds="False">
+            <telerikUniversalChart:RadCartesianChart.Grid>
+                <telerikUniversalChart:CartesianChartGrid MajorLinesVisibility="Y"/>
+            </telerikUniversalChart:RadCartesianChart.Grid>
+            <telerikUniversalChart:RadCartesianChart.HorizontalAxis>
+                <!--<telerikUniversalChart:DateTimeCategoricalAxis/>-->
+                <telerikUniversalChart:DateTimeContinuousAxis LabelFitMode="MultiLine" LabelInterval="2" LabelFormat="{}{0:dd-MM}" VerticalAlignment="Top"/>
+            </telerikUniversalChart:RadCartesianChart.HorizontalAxis>
+            <telerikUniversalChart:RadCartesianChart.VerticalAxis>
+                <telerikUniversalChart:LinearAxis HorizontalAlignment="Right"/>
+            </telerikUniversalChart:RadCartesianChart.VerticalAxis>
+            <telerikUniversalChart:AreaSeries ItemsSource="{Binding ActualTrendData}">
+                <telerikUniversalChart:AreaSeries.ValueBinding>
+                    <telerikUniversalChart:PropertyNameDataPointBinding PropertyName="ActualAmount"/>
+                </telerikUniversalChart:AreaSeries.ValueBinding>
+                <telerikUniversalChart:AreaSeries.CategoryBinding>
+                    <telerikUniversalChart:PropertyNameDataPointBinding PropertyName="OrderDate"/>
+                </telerikUniversalChart:AreaSeries.CategoryBinding>
+            </telerikUniversalChart:AreaSeries>
+            <telerikUniversalChart:LineSeries ItemsSource="{Binding TargetTrendData}">
+                <telerikUniversalChart:LineSeries.ValueBinding>
+                    <telerikUniversalChart:PropertyNameDataPointBinding PropertyName="TargetAmount"/>
+                </telerikUniversalChart:LineSeries.ValueBinding>
+                <telerikUniversalChart:LineSeries.CategoryBinding>
+                    <telerikUniversalChart:PropertyNameDataPointBinding PropertyName="OrderDate"/>
+                </telerikUniversalChart:LineSeries.CategoryBinding>
+            </telerikUniversalChart:LineSeries>
+        </telerikUniversalChart:RadCartesianChart>
+    </Grid>
+</UserControl>

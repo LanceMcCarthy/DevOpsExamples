@@ -1,0 +1,465 @@
+﻿<UserControl x:Class="SalesDashboard.UWP.SmallView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:Sales_Dashboard"
+             xmlns:localModels="using:Sales_Dashboard.ViewModels"
+             xmlns:telerikUniversalChart="using:Telerik.UI.Xaml.Controls.Chart"
+             xmlns:telerikUniversalPrimitives="using:Telerik.UI.Xaml.Controls.Primitives"
+             xmlns:telerikUniversalInput="using:Telerik.UI.Xaml.Controls.Input"
+             xmlns:telerikDataControls="using:Telerik.UI.Xaml.Controls.Data"
+             xmlns:data="using:Telerik.Data.Core"
+             xmlns:vm="using:Sales_Dashboard.ViewModels"
+             xmlns:converters="using:SalesDashboard.UWP.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <localModels:MainViewModel x:Key="model" />
+
+        <DataTemplate x:Name="ListBoxItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding SalesOrderNumber,Source={StaticResource model}}"
+                           FontFamily="Segoe WP Semibold"
+                           FontSize="16"
+                           Margin="0, 0, 30, 0" />
+                <TextBlock Text="{Binding SalesAmount,Source={StaticResource model}}"
+                           FontFamily="Segoe WP Semibold"
+                           FontSize="16"
+                           Margin="0, 0, 30, 0" />
+                <TextBlock Text="{Binding Country,Source={StaticResource model}}"
+                           FontFamily="Segoe WP Semibold"
+                           FontSize="16"
+                           Margin="0, 0, 30, 0" />
+            </StackPanel>
+        </DataTemplate>
+        <converters:StringAppendConverter x:Key="stringAppendConverter" />
+        <converters:StringFormatConverter x:Key="StringFormatConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="45" />
+        </Grid.RowDefinitions>
+        <Pivot x:Name="pivot"
+               CommonNavigationTransitionInfo.IsStaggerElement="True">
+            <Pivot.Background>
+                <ImageBrush ImageSource="Assets/BackgroundWP.png"
+                            Stretch="None"
+                            AlignmentY="Top" />
+            </Pivot.Background>
+            <Pivot.Title>
+                <Border Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                        Width="400"
+                        Margin="-20 0 0 10">
+                    <TextBlock Margin="20 10"
+                               Foreground="#998e94"
+                               FontSize="22"
+                               FontFamily="Segoe WP"
+                               Text="SALES DASHBOARD" />
+                </Border>
+            </Pivot.Title>
+
+            <!--Pivot item one-->
+            <PivotItem Margin="19, 0,0,0"
+                       DataContext="{Binding FirstGroup}"
+                       CommonNavigationTransitionInfo.IsStaggerElement="True">
+                <PivotItem.Header>
+                    <TextBlock Text="sales trends"
+                               FontSize="42.6" />
+                </PivotItem.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="BY PRODUCT"
+                               Foreground="#998e94"
+                               FontSize="22"
+                               FontFamily="Segoe WP"
+                               FontWeight="SemiBold" />
+                    <local:SalesTrendsChart DataContext="{Binding TotalTrendSalesByProducts, Source={StaticResource model}}"
+                                            Grid.Row="2" />
+                </Grid>
+            </PivotItem>
+
+            <!--Pivot item two-->
+            <PivotItem x:Uid="PivotItem2"
+                       Margin="19, 0,0,0">
+                <PivotItem.Header>
+                    <TextBlock Text="total sales"
+                               FontSize="42.6" />
+                </PivotItem.Header>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="BY PRODUCT"
+                                   Foreground="#998e94"
+                                   FontSize="22"
+                                   FontFamily="Segoe WP"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding TotalSalesActualAmount, Source={StaticResource model}}"
+                                   Grid.Row="2"
+                                   FontSize="34"
+                                   FontWeight="Light" />
+                        <local:TotalSalesPieChart DataContext="{Binding TotalSalesByProducts, Source={StaticResource model}}"
+                                                  Grid.Row="3" />
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row="4">
+                            <Border BorderThickness="0 0 0 4"
+                                    VerticalAlignment="Bottom"
+                                    Margin="5 0 5 7"
+                                    BorderBrush="{StaticResource ActualFill}">
+                                <TextBlock Style="{StaticResource TextStyleColorProduct}"
+                                           Text="actual" />
+                            </Border>
+                            <TextBlock Style="{StaticResource TextStyleColorProduct}"
+                                       VerticalAlignment="Bottom"
+                                       Margin="0 0 0 11"
+                                       Text="vs" />
+                            <Border BorderThickness="0 0 0 4"
+                                    VerticalAlignment="Bottom"
+                                    Margin="5 0 5 7"
+                                    BorderBrush="#FF444444">
+                                <TextBlock Style="{StaticResource TextStyleColorProduct}"
+                                           Text="target" />
+                            </Border>
+                        </StackPanel>
+                        <local:TotalSalesChart Height="400"
+                                               DataContext="{Binding TotalSalesByProducts, Source={StaticResource model}}"
+                                               Grid.Row="5"
+                                               Margin="0 20 0 0" />
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+
+            <PivotItem x:Uid="PivotItem3"
+                       Margin="19, 0,0,0">
+                <PivotItem.Header>
+                    <TextBlock Text="total sales"
+                               FontSize="42.6" />
+                </PivotItem.Header>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="Auto" />
+
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="BY COUNTRY"
+                                   Foreground="#998e94"
+                                   FontSize="22"
+                                   FontFamily="Segoe WP"
+                                   FontWeight="SemiBold" />
+                        <ListBox Grid.Row="2"
+                                 ItemContainerStyle="{StaticResource ListBoxItemStyle1}"
+                                 ItemsSource="{Binding TotalSalesByCountries, Source={StaticResource model}}"
+                                 Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <local:TotalSalesChartByCountry />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+
+            <PivotItem x:Uid="PivotItem4"
+                       Margin="19, 0,0,0">
+                <PivotItem.Header>
+                    <TextBlock Text="order details"
+                               FontSize="42.6" />
+                </PivotItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Style="{StaticResource TitleProduct}"
+                               Grid.Row="0"
+                               Margin="0 0 0 25"
+                               Text="Order details" />
+                    <Grid Margin="0 8 0 0"
+                          Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="24" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Margin="12 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="3*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="ORDER"
+                                       FontFamily="Segoe WP Semibold"
+                                       FontSize="16"
+                                       MinWidth="80" />
+                            <TextBlock Grid.Column="1"
+                                       Text="AMOUNT"
+                                       FontFamily="Segoe WP Semibold"
+                                       FontSize="16" />
+                            <TextBlock Grid.Column="2"
+                                       Text="COUNTRY"
+                                       FontFamily="Segoe WP Semibold"
+                                       FontSize="16" />
+                        </Grid>
+                        <telerikDataControls:RadListView Grid.Row="1"
+                                                         ItemsSource="{Binding OrderDetails}">
+                            <telerikDataControls:RadListView.GroupDescriptors>
+                                <data:PropertyGroupDescriptor PropertyName="Products" />
+                            </telerikDataControls:RadListView.GroupDescriptors>
+                            <telerikDataControls:RadListView.GroupHeaderTemplate>
+                                <DataTemplate>
+                                    <Grid Background="{Binding Path=Group.Key, Converter={StaticResource BrushConverter}}"
+                                          Margin="-30 0 -10 0">
+                                        <TextBlock Text="{Binding Group.Key}"
+                                                   Margin="30 10 10 10" />
+                                    </Grid>
+                                </DataTemplate>
+                            </telerikDataControls:RadListView.GroupHeaderTemplate>
+                            <telerikDataControls:RadListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="2 0 2 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"
+                                                              MinWidth="80" />
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding SalesOrderNumber}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Margin="0 0 5 0" />
+                                        <TextBlock Grid.Row="1"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Text="{Binding OrderDate, Converter={StaticResource StringFormatConverter}, ConverterParameter='dd-MM-yyyy'}"
+                                                   Foreground="Gray"
+                                                   FontSize="16" />
+                                        <TextBlock Grid.Column="1"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Text="{Binding SalesAmount, Converter={StaticResource StringFormatConverter}, ConverterParameter=C}"
+                                                   FontSize="20" />
+                                        <TextBlock Grid.Row="1"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Grid.Column="1"
+                                                   Text="{Binding ItemsSold, Converter={StaticResource stringAppendConverter}, ConverterParameter=item}"
+                                                   Foreground="Gray"
+                                                   FontSize="16" />
+                                        <TextBlock Grid.Column="2"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   TextWrapping="Wrap"
+                                                   Text="{Binding Country}"
+                                                   FontSize="20" />
+                                    </Grid>
+                                </DataTemplate>
+                            </telerikDataControls:RadListView.ItemTemplate>
+                        </telerikDataControls:RadListView>
+                    </Grid >
+                </Grid>
+            </PivotItem>
+        </Pivot>
+
+        <Button MinHeight="0"
+                Tapped="MessageBox_Tapped"
+                Grid.Row="1"
+                x:Name="MessageBox"
+                Margin="0 20 20 20">
+            <Button.Template>
+                <ControlTemplate>
+                    <Border Background="{ThemeResource AppBarItemPointerOverForegroundThemeBrush}"
+                            BorderBrush="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            BorderThickness="0 0 0 4">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="15 10 10 5">
+                                <Path Data="M3,9.375 L3,27.375 L15,27.375 L15,9.375 z M2,6.375 L16,6.375 C17.1,6.375 18,7.275 18,8.375 L18,28.375 C18,29.475 17.1,30.375 16,30.375 L2,30.375 C0.9,30.375 0,29.475 0,28.375 L0,8.375 C0,7.275 0.9,6.375 2,6.375 z M13.25,0 L13.25,2 L18.375,2 C20.575,2 22.375,3.8 22.375,6 L22.375,11.125 L24.375,11.125 L22.125,14.125 L19.375,11.125 L21.375,11.125 L21.375,6 C21.375,4.34315 20.025,3 18.375,3 L13.25,3 L13.25,5 L10.25,2.75 z"
+                                      Fill="{ThemeResource AppBarItemPressedForegroundThemeBrush}"
+                                      Height="30.375"
+                                      Margin="0"
+                                      Stretch="Fill"
+                                      VerticalAlignment="Top"
+                                      Width="24.375" />
+                                <StackPanel Orientation="Vertical"
+                                            Margin="7 5">
+                                    <TextBlock Text="Rotate to view total sales trendline"
+                                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}"
+                                               FontSize="23" />
+                                    <TextBlock Text="X Tap to dismiss"
+                                               FontWeight="Light"
+                                               Foreground="#929191"
+                                               FontSize="18" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Border Padding="20 10"
+                Background="{ThemeResource AppBarBackgroundThemeBrush}"
+                VerticalAlignment="Bottom"
+                Grid.RowSpan="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ToggleButton x:Name="ToogleButton"
+                              HorizontalAlignment="Stretch"
+                              MinWidth="0"
+                              MinHeight="0"
+                              Width="Auto">
+                    <ToggleButton.Template>
+                        <ControlTemplate>
+                            <Grid Background="Transparent">
+                                <TextBlock FontSize="20"
+                                           FontWeight="SemiBold"
+                                           Foreground="Black">
+                                    <Run Text="{Binding StartDate, Source={StaticResource model}, Mode=TwoWay , Converter={StaticResource StringFormatConverter}, ConverterParameter='#dd MMMM'}" />
+                                    <Run Text="-" />
+                                    <Run Text="{Binding EffectiveEndDate, Source={StaticResource model}, Mode=TwoWay , Converter={StaticResource StringFormatConverter}, ConverterParameter='dd MMMM yyyy'}" />
+                                </TextBlock>
+                                <Path Data="M23,0 C24.66,0 26,1.34315 26,3 C26,4.66 24.66,6 23,6 C21.3431,6 20,4.66 20,3 C20,1.34 21.34,0 23,0 z M13,0 C14.66,0 16,1.34 16,3 C16,4.66 14.66,6 13,6 C11.34,6 10,4.66 10,3 C10,1.34 11.34,0 13,0 z M3,0 C4.66,0 6,1.34 6,3 C6,4.66 4.66,6 3,6 C1.34,6 0,4.66 0,3 C0,1.34 1.34,0 3,0 z"
+                                      Margin="0 10"
+                                      Height="6"
+                                      Width="26"
+                                      Stretch="Fill"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Top" />
+                            </Grid>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+                <StackPanel Grid.Row="1"
+                            Visibility="{Binding IsChecked, ElementName=ToogleButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Foreground="Black"
+                                     Content="1 week"
+                                     Style="{StaticResource RadioButtonStyleSmall}"
+                                     IsChecked="{Binding IsWeekPresetSelected, Source={StaticResource model}, Mode=TwoWay}"
+                                     Margin="-3 0 -3 0" />
+                        <RadioButton Foreground="Black"
+                                     Content="1 month"
+                                     Style="{StaticResource RadioButtonStyleSmall}"
+                                     IsChecked="{Binding IsMonthPresetSelected, Source={StaticResource model}, Mode=TwoWay}"
+                                     Margin="0 0 -3 0" />
+                        <RadioButton Foreground="Black"
+                                     Content="3 months"
+                                     Style="{StaticResource RadioButtonStyleSmall}"
+                                     IsChecked="{Binding IsThreeMonthsSelected, Source={StaticResource model}, Mode=TwoWay}"
+                                     Margin="0 0 -3 0" />
+                        <!--<RadioButton Content="6 months" Style="{StaticResource RadioButtonStyleSmall}" IsChecked="{Binding IsSixMonthsSelected, Source={StaticResource model}, Mode=TwoWay}"/>-->
+                    </StackPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="From"
+                                       FontSize="19"
+                                       FontWeight="SemiBold"
+                                       Margin="0 0 0 5"
+                                       Foreground="Black" />
+                            <telerikUniversalInput:RadDatePicker Value="{Binding StartDate, Source={StaticResource model}, Mode=TwoWay}"
+                                                                 MinValue="{Binding MinDate, Source={StaticResource model}}"
+                                                                 MaxValue="{Binding MaxDate, Source={StaticResource model}}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="To"
+                                       FontSize="19"
+                                       FontWeight="SemiBold"
+                                       Margin="0 0 0 5"
+                                       Foreground="Black" />
+                            <telerikUniversalInput:RadDatePicker Value="{Binding EndDate, Source={StaticResource model}, Mode=TwoWay}"
+                                                                 MinValue="{Binding MinDate, Source={StaticResource model}}"
+                                                                 MaxValue="{Binding MaxDate, Source={StaticResource model}}" />
+                        </StackPanel>
+                    </Grid>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid x:Name="TotalSalesTrendChart"
+              Grid.RowSpan="3"
+              Visibility="Collapsed"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="20 15 0 5">
+                <TextBlock Style="{StaticResource TitleProduct}"
+                           Margin="0"
+                           Foreground="{ThemeResource AppBarItemPointerOverForegroundThemeBrush}"
+                           Text="Total sales trend" />
+            </StackPanel>
+            <TextBlock HorizontalAlignment="Right"
+                       Opacity="0.8"
+                       FontSize="19"
+                       FontWeight="SemiLight"
+                       Margin="0 22 20 0">
+                <Run Text="{Binding StartDate, Source={StaticResource model}, Mode=TwoWay , Converter={StaticResource StringFormatConverter}, ConverterParameter='#dd MMMM'}" />
+                <Run Text="-" />
+                <Run Text="{Binding EffectiveEndDate, Source={StaticResource model}, Mode=TwoWay , Converter={StaticResource StringFormatConverter}, ConverterParameter='dd MMMM yyyy'}" />
+            </TextBlock>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Margin="0 0 20 0"
+                        HorizontalAlignment="Right">
+                <Border BorderThickness="0 0 0 4"
+                        VerticalAlignment="Bottom"
+                        Margin="5 0 5 7"
+                        BorderBrush="#68d5e6">
+                    <TextBlock Style="{StaticResource TextStyleColorProduct}"
+                               Foreground="{ThemeResource ApplicationPointerOverForegroundThemeBrush}"
+                               Text="actual" />
+                </Border>
+                <TextBlock Style="{StaticResource TextStyleColorProduct}"
+                           VerticalAlignment="Bottom"
+                           Foreground="{ThemeResource ApplicationPointerOverForegroundThemeBrush}"
+                           Margin="0 0 0 11"
+                           Text="vs" />
+                <Border BorderThickness="0 0 0 4"
+                        VerticalAlignment="Bottom"
+                        Margin="5 0 5 7"
+                        BorderBrush="#f39a0b">
+                    <TextBlock Style="{StaticResource TextStyleColorProduct}"
+                               Text="target"
+                               Foreground="{ThemeResource ApplicationPointerOverForegroundThemeBrush}" />
+                </Border>
+            </StackPanel>
+            <local:TotalSalesTrendChart Grid.Row="2"
+                                        DataContext="{StaticResource model}"
+                                        VerticalAlignment="Bottom" />
+        </Grid>
+    </Grid>
+</UserControl>
