@@ -18,22 +18,6 @@ jobs:
       with:
         fetch-depth: 0
     
-    # Create my own version number with a specific format using date. ex: 2022.408.1.0
-    - name: Generate version number
-      shell: pwsh
-      run: |
-        $buildDay = Get-Date -Format "yyyy.Mdd"
-        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_ENV
-    
-    # Update the appxmanifest's app version number
-    - name: Update manifest version
-      run: |
-        [xml]$manifest = get-content "src\Uwp\SalesDashboard.UWP\Package.appxmanifest"
-        $manifest.Package.Identity.Version = "$env:APP_VERSION"
-        $manifest.save("src\Uwp\SalesDashboard.UWP\Package.appxmanifest")
-
-    # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.1
       with:
