@@ -88,11 +88,11 @@ jobs:
 
     - name: Install MAUI workloads (currently required for hosted runners)
       shell: pwsh
-      run: dotnet workload install maui --ignore-failed-sources
+      run: dotnet workload install maui --ignore-failed-sources t
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
+      run: dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime win10-x64
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
@@ -101,7 +101,7 @@ jobs:
       shell: pwsh
       run: |
         # On Windows, we use msbuild instead of dotnet build
-        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041
+        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041 /p:RuntimeIdentifier="win10-x64"
     
     # - name: Upload build artifacts
     #   uses: actions/upload-artifact@v2
@@ -126,7 +126,7 @@ jobs:
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '^13.3'
+        xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1
@@ -182,7 +182,7 @@ jobs:
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '^13.3'
+        xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1
@@ -211,7 +211,7 @@ jobs:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
-    - name: Build MAUI MAcCatalyst project
+    - name: Build MAUI MacCatalyst project
       shell: bash
       run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-maccatalyst --no-restore
     
