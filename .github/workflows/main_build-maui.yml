@@ -101,7 +101,7 @@ jobs:
       shell: pwsh
       run: |
         # On Windows, we use msbuild instead of dotnet build
-        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041
+        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041 -p:RestorePackages=false
     
     # - name: Upload build artifacts
     #   uses: actions/upload-artifact@v2
