@@ -8,8 +8,6 @@
 		<SingleProject>true</SingleProject>
 		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 		<ImplicitUsings>enable</ImplicitUsings>
-        
-        <PublishTrimmed>false</PublishTrimmed>
 
 		<!-- Display name -->
 		<ApplicationTitle>MauiDemo</ApplicationTitle>
