@@ -12,7 +12,7 @@ This repository contains a rich set of CI-CD demos that show you how to use Azur
 These examples show you how to:
 
 - Authenticate and restore NuGet packages from the Telerik NuGet server.
-- Activate your Kendo UI Angular/React/Vue license in your CI workflow.
+- Activate your Kendo UI license in your CI workflow.
 
 ## Build Statuses
 
@@ -27,9 +27,7 @@ The following tables list the status badges for the various pipelines and workfl
 | Console (.NET 6) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | yaml |
 | MAUI (.NET 6) | [![Build MAUI](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20MAUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=72) | classic |
 | Xamarin.Forms | [![Build Xamarin.Forms](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Xamarin.Forms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=68) | classic |
-| Angular | [![Build Angular](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) | classic |
-| React | [![Build Kendo React](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20React)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=66) | classic |
-| Vue | [![Build Kendo Vue](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Vue)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=67) | classic |
+| Angular (React/Vue) | [![Build Angular](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) | classic |
 
 ### GitHub Actions
 
@@ -42,9 +40,7 @@ The following tables list the status badges for the various pipelines and workfl
 | UWP | [![Build UWP Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-uwp.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-uwp.yml) |
 | MAUI (.NET 6) | [![MAUI main](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml/badge.svg?branch=main)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml) |
 | Xamarin.Forms | [![Build Xamarin.Forms Applications](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml) |
-| Angular | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) |
-| React | [![Build React](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-react.yml) |
-| Vue | [![Build Vue Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-vue.yml) |
+| Angular (React/Vue) | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) |
 
 ### GitLab CI-CD
 
@@ -53,9 +49,7 @@ The following tables list the status badges for the various pipelines and workfl
 | ASP.NET Blazor (.NET 5) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | WPF (.NET Framework) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | Console (.NET 5) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
-| Angular | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
-| React | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
-| Vue | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| Angular (React/Vue) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 
 ### Microsoft AppCenter
 
