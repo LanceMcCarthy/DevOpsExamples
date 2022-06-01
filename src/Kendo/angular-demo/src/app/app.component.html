@@ -1,0 +1,59 @@
+<div class="toolbar" role="banner">
+  <img
+    width="40"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+</div>
+
+<div class="content" role="main">
+  <h1>Hello Kendo UI for Angular!</h1>
+
+  <p>
+      <kendo-dropdownlist
+          [data]="dropDownItems"
+          textField="text"
+          valueField="value"
+          [defaultItem]="defaultItem"
+          (valueChange)="handleFilterChange($event)"
+      [style.width.px]="170"
+      >
+      </kendo-dropdownlist>
+  </p>
+  
+  <kendo-grid
+      [data]="(gridItems | async)!"
+      [pageSize]="pageSize"
+      [skip]="skip"
+      [pageable]="true"
+      (pageChange)="pageChange($event)"
+      [sortable]="true"
+      [sort]="sortDescriptor"
+      (sortChange)="handleSortChange($event)"
+      [height]="400"
+  >
+      <kendo-grid-column field="ProductID" title="ID" [width]="50"> </kendo-grid-column>
+      <kendo-grid-column field="ProductName" title="Product Name"> </kendo-grid-column>
+      <kendo-grid-column field="Category.CategoryName" title="Category"> </kendo-grid-column>
+      <kendo-grid-column field="UnitPrice" title="Unit Price" [width]="140" format="{0:c}"> </kendo-grid-column>
+      <kendo-grid-column field="Discontinued" [width]="140" filter="boolean">
+          <ng-template kendoGridCellTemplate let-dataItem>
+              <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
+          </ng-template>
+      </kendo-grid-column>
+  </kendo-grid>
+  
+  <h2>Resources</h2>
+  
+  <ul>
+      <li>
+          <a href="https://www.telerik.com/kendo-angular-ui/components/getting-started/"
+              >Kendo UI for Angular - Getting Started Documentation</a
+          >
+      </li>
+      <li><a href="https://github.com/telerik/kendo-angular-quickstart-cli">GitHub repo for this app</a></li>
+      <li><a href="https://www.telerik.com/kendo-angular-ui/components/">Kendo UI for Angular Components</a></li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>
