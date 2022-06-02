@@ -1,4 +1,4 @@
-name: Build WPF Application
+name: Build AJAX Application
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   # A job that builds a .NET Framework ASP.NET AJAX (aka WebForms) application using Telerik UI for ASP.NET AJAX
-  build_desktop:
+  build_web_app:
     runs-on: windows-latest # .NET Framework projects need to be built on Windows machines
     
     steps:
