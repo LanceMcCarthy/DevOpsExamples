@@ -1,0 +1,33 @@
+name: Build Angular Application
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Kendo/angular-demo/**/*' 
+      - '.github/workflows/main_build-angular.yml'
+
+jobs:
+  build_angular:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Install NPM modules
+      working-directory: src/Kendo/angular-demo
+      run: npm install
+    
+    # The value of KENDO_LICENSE_KEY is stored as a GitHub repo secret (Settings -> Secrets -> Actions)
+    # Get your key here https://www.telerik.com/kendo-angular-ui/components/my-license/#toc-download-your-license-key
+    - name: Activate Kendo UI License
+      working-directory: src/Kendo/angular-demo
+      run: npx kendo-ui-license activate
+      env:
+        KENDO_UI_LICENSE: ${{ secrets.KENDO_LICENSE_KEY }}
+
+    - name: Build
+      working-directory: src/Kendo/angular-demo
+      run: npm run build --prod
