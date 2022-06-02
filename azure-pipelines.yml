@@ -9,8 +9,8 @@ trigger:
   paths:
    include:
      - 'src/Console/**/*'
+     - 'src/Ajax/**/*'
      - 'src/Web/**/*'
-    
 
 jobs:
 
