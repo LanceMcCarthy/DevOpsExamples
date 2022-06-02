@@ -1,0 +1,38 @@
+﻿#wrapper .header {
+    background-color: #2a2d33;
+    padding: 10px 0;
+    margin-bottom: 40px;
+}
+
+#wrapper .header .RadMenu {
+    margin: 10px 0;
+    float: none;
+}
+
+#wrapper .logo {
+    margin: 10px 0;
+    width: 100%;
+    display: inline-block;
+}
+
+#wrapper .logo img {
+    max-width: 100%;
+}
+
+#wrapper .jumbotron {
+    padding: 1.875em;
+    padding-top: 1em;
+    background-color: #e9eaea;
+}
+
+#wrapper .jumbotron .RadButton {
+    float: right;
+    margin-top: .667em;
+    font-size: .5em;
+}
+
+#wrapper .footer {
+    width:100%;
+    padding: 30px 15px;
+    line-height: 30px;
+}

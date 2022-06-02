@@ -1,0 +1,54 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPageSingleMenu.master.cs" Inherits="MySite.Web.MasterPageSingleMenu" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <link href="styles/base.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <telerik:RadScriptManager runat="server"></telerik:RadScriptManager>
+        <div id="wrapper">
+            <a href="#" class="logo">
+                <img src="images/logo.png" alt="site logo" />
+            </a>
+            <div class="header">
+                <telerik:RadMenu ID="RadMenu1" CssClass="mainMenu" runat="server" RenderMode="Auto">
+                    <Items>
+                        <telerik:RadMenuItem Text="Home" NavigateUrl="Default.aspx" />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="Grid Page" NavigateUrl="Grid.aspx" />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="ListView Page" NavigateUrl="ListView.aspx" />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="About" />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="Projects" />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="Dashboard" />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="..." />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="..." />
+                        <telerik:RadMenuItem IsSeparator="true" />
+                        <telerik:RadMenuItem Text="Contacts" />
+                    </Items>
+                </telerik:RadMenu>
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr style="margin-top: 40px" />
+            <div class="footer">
+               Footer: © 2002-2015 Company Inc, 201 Jones Rd, Waltham, MA 03451
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿#wrapper .header {
+    background-color: #2a2d33;
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+}
+
+@media only screen and (max-width: 720px) {
+    #wrapper .header {
+        text-align: left;
+        padding: 10px 2em;
+    }
+}
+#wrapper .header .RadMenu {
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#wrapper .logo {
+    padding: 10px 0;
+    display: block;
+    text-align: center;
+}
+
+#wrapper .jumbotron {
+    margin-bottom: 20px;
+    padding: 0 1.875em 1.875em 1.875em;
+    border: 1px solid transparent;
+    background-color: #e9eaea;
+    overflow: hidden;
+}
+
+#wrapper .jumbotron img {
+ 
+    margin: 20px 0 0 0;
+    max-width: 100%;
+}
+
+#wrapper .jumbotron h1 {
+    border-bottom: 1px solid #767676;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+#wrapper .grid_wrapper {
+    margin: 0 40px;
+}
+
+.listView1,
+.listView2 {
+    padding: 0 20px;
+    overflow: hidden;
+    text-align: center;
+}
+
+#wrapper .listViewItem {
+    display:inline-block;
+    vertical-align: top;
+}
+
+#wrapper .listView1 .listViewItem {
+    max-width: 440px;
+    width: auto;
+}
+
+#wrapper .listView2 .listViewItem {
+    max-width: 340px;
+}
+
+* + html #wrapper .listViewItem {
+    display: inline;
+    zoom: 1;
+}
+
+#wrapper .footer {
+    padding: 20px 15px;
+    line-height: 30px;
+}
+.listViewItem img {
+    cursor: pointer;
+}
+div .RadMenu {
+    z-index: 700;
+}

@@ -14,7 +14,9 @@ trigger:
 
 jobs:
 
-# ************************** Job 1 - DOCUMENT PROCESSING CONSOLE APP ************************** #
+# *************************************************************** #
+# ******** EXAMPLE 1 - CONSOLE (.NET 6 - Doc Processing) ******** #
+# *************************************************************** #
 
 - job: BuildConsoleApp
   pool:
@@ -53,8 +55,36 @@ jobs:
       projects: $(consoleProjectPath)
       configuration: $(buildConfiguration)
 
+# *************************************************************** #
+# ******* EXAMPLE 2 - ASP.NET AJAX (.NET Framework) ************* #
+# *************************************************************** #
 
-# ************************** Job 2 - ASP.NET CORE BLAZOR ************************** #
+- job: BuildWebformsApp
+  pool:
+    vmImage: 'windows-2022'
+
+  steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'Use NuGet '
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore'
+    inputs:
+      restoreSolution: 'src\Ajax\MySite.sln'
+      feedsToUse: config
+      nugetConfigPath: src/nuget.config
+      externalFeedCredentials: TelerikFeed
+
+  - task: MSBuild@1
+    displayName: 'Build solution src\Ajax\MySite.sln'
+    inputs:
+      solution: 'src\Ajax\MySite.sln'
+      platform: any
+      configuration: Release
+
+# *************************************************************** #
+# ************* EXAMPLE 3 - ASP.NET BLAZOR (.NET 6) ************* #
+# *************************************************************** #
 
 - job: BuildBlazorApp
   pool:
@@ -79,7 +109,8 @@ jobs:
   
   # ***** Step 1. Restore NuGet packages ***** #
 
-  # [Option 1] - dotnet nuget update source & dotnet restore, with env variables
+  # [Option 1] 
+  # Use 'dotnet nuget update source' & 'dotnet restore' with Azure KeyVault secrets
   # This example uses Azure KeyVault secrets via the linked variable group 'KeyVaultVariables'.
   
   - task: PowerShell@2
@@ -92,7 +123,8 @@ jobs:
         dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
 
-  # [Option 2] - dotnet restore, with env variables
+  # [Option 2]
+  # Use 'dotnet restore' with env variables
 
   # - task: PowerShell@2
   #   displayName: 'Restore NuGet Packages'
@@ -107,7 +139,8 @@ jobs:
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
 
-  # [Option 3]: Service connection
+  # [Option 3]
+  # Use a Service connection
   # Important: make sure the pipeline has permission to use the Service connection, otherwise it will fail with a 401 Unauthorized
 
   # - task: DotNetCoreCLI@2
