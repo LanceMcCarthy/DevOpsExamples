@@ -79,7 +79,7 @@ jobs:
     displayName: 'Build solution src\Ajax\MySite.sln'
     inputs:
       solution: 'src\Ajax\MySite.sln'
-      platform: any
+      platform: Any CPU
       configuration: Release
 
 # *************************************************************** #
