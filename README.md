@@ -4,10 +4,10 @@ This repository contains a rich set of CI-CD demos that show you how to use Azur
 
 | System        | CI/CD file(s) | Status | 
 |---------------|------------------|--------|
-| Azure DevOps  | [azure-pipelines.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/azure-pipelines.yml) | [Azure badges](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops) |
-| GitHub Actions | [.github/workflows](https://github.com/LanceMcCarthy/DevOpsExamples/tree/main/.github/workflows) | [Actions badges](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions) |
-| GitLab CI/CD   | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) | [GitLab badges](https://github.com/LanceMcCarthy/DevOpsExamples#gitlab-ci-cd) |
-| AppCenter | n/a | [AppCenter badges](https://github.com/LanceMcCarthy/DevOpsExamples#microsoft-appcenter) |
+| Azure DevOps  | [azure-pipelines.yml](/blob/main/azure-pipelines.yml) | [Azure badges](/#azure-devops) |
+| GitHub Actions | [.github/workflows](/.github/workflows) | [Actions badges](/#github-actions) |
+| GitLab CI/CD   | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) | [GitLab badges](/#gitlab-ci-cd) |
+| AppCenter | n/a | [AppCenter badges](/#microsoft-appcenter) |
 
 These examples show you how to:
 
