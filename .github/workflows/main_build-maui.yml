@@ -7,7 +7,10 @@ on:
     paths:
       - 'src/MAUI/**/*'
       - '.github/workflows/main_build-maui.yml' 
-
+env:
+  PROJECT_PATH: "src/MAUI/MauiDemo/MauiDemo.csproj"
+  NUGETCONFIG_PATH: "src/NuGet.Config"
+  
 jobs:
 
 # ***************************** #
@@ -25,6 +28,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
+
+    - uses: actions/setup-java@v2
+      with:
+        distribution: 'microsoft'
+        java-version: '11'
 
     - name: Generate version number using date and run number
       shell: pwsh
@@ -34,26 +43,20 @@ jobs:
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "::set-output name=APP_VERSION::$ver"
 
-    - name: Install MAUI workloads (currently required for hosted runners)
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
-      run: dotnet workload install maui --ignore-failed-sources
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}  
 
     - name: Build Maui Android project
       shell: pwsh
-      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-android --no-restore
-    
-    # - name: Upload build artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: android-v${{ steps.version-creator.outputs.APP_VERSION }}-artifacts
-    #     path: '*Android\**\*-Signed.apk'
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net6.0-android --no-restore
 
 
 # ***************************** #
@@ -71,12 +74,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
 
-    # Needed for Windows build
-    - name: Setup MSBuild.exe
+    # For WinUI builds
+    - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
-      with:
-        vs-prerelease: true
 
     - name: Generate version number using date and run number
       shell: pwsh
@@ -86,13 +88,13 @@ jobs:
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "::set-output name=APP_VERSION::$ver"
 
-    - name: Install MAUI workloads (currently required for hosted runners)
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
-      run: dotnet workload install maui --ignore-failed-sources
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config --runtime win10-x64
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
@@ -100,14 +102,7 @@ jobs:
     - name: Build Maui WinUI project
       shell: pwsh
       run: |
-        # On Windows, we use msbuild instead of dotnet build
-        msbuild src/MAUI/MauiDemo/MauiDemo.csproj -r -p:Configuration=Debug -p:TargetFramework=net6.0-windows10.0.19041 /p:RuntimeIdentifier="win10-x64"
-    
-    # - name: Upload build artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: windows-v${{ steps.version-creator.outputs.APP_VERSION }}-artifacts
-    #     path: '*Windows\**\*.msix'
+        dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net6.0-windows10.0.19041.0
 
 
 # ************************* #
@@ -124,14 +119,15 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: latest
+    #- uses: maxim-lobanov/setup-xcode@v1
+    #  with:
+    #    xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
 
     - name: Generate version number using date and run number
       id: version-creator
@@ -144,26 +140,20 @@ jobs:
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    - name: Install MAUI workloads
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
-      run: dotnet workload install maui --ignore-failed-sources
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
       shell: bash
-      run: dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
     - name: Build MAUI iOS project
       shell: bash
-      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-ios --no-restore
-    
-    # - name: Upload iOS build artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: ios-v${{ steps.version-creator.outputs.APP_VERSION }}-artifacts
-    #     path: '*iOS/**/*.app/**'
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net6.0-ios --no-restore
 
 
 # ********************************* #
@@ -180,14 +170,15 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: latest
+    #- uses: maxim-lobanov/setup-xcode@v1
+    #  with:
+    #    xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
 
     - name: Generate version number using date and run number
       id: version-creator
@@ -200,23 +191,17 @@ jobs:
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
-    - name: Install MAUI workloads
+    - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
-      run: dotnet workload install maui --ignore-failed-sources
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
       shell: bash
-      run: dotnet restore src/MAUI/MauiDemo/MauiDemo.csproj --configfile src/MAUI/NuGet.Config
+      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
     
     - name: Build MAUI MacCatalyst project
       shell: bash
-      run: dotnet build src/MAUI/MauiDemo/MauiDemo.csproj -c Debug -f net6.0-maccatalyst --no-restore
-    
-    # - name: Upload iOS build artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: maccatalyst-v${{ steps.version-creator.outputs.APP_VERSION }}-artifacts
-    #     path: '*maccatalyst/**/*.app/**'
+      run: dotnet build ${{ env.PROJECT_PATH }} -f net6.0-maccatalyst -c Debug --no-restore
