@@ -1,8 +1,12 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Hosting;
-using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.Controls.Hosting;
-using Telerik.Maui.Controls.Compatibility;
+﻿using Telerik.Maui.Controls.Compatibility;
+
+// This is needed for the builder.ConfigureLifecycleEvents extensions method
+using Microsoft.Maui.LifecycleEvents;
+
+#if WINDOWS
+// This is needed for the window.CenterOnScreen extensions method
+using WinUIEx;
+#endif
 
 namespace MauiDemo
 {
@@ -20,7 +24,21 @@ namespace MauiDemo
                     fonts.AddFont("telerikfontexamples.ttf", "telerikfontexamples");
 				});
 
-			return builder.Build();
+#if WINDOWS
+            builder.ConfigureLifecycleEvents(events =>
+            {
+                events.AddWindows(wndLifeCycleBuilder =>
+                {
+                    wndLifeCycleBuilder.OnWindowCreated(window =>
+                    {
+                        //Set size and center on screen using WinUIEx extension method
+                        window.CenterOnScreen(1024,768); 
+                    });
+                });
+            });
+#endif
+
+            return builder.Build();
 		}
 	}
 }
