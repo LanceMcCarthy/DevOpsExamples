@@ -4,34 +4,25 @@ using Telerik.Windows.Documents.Spreadsheet.FormatProviders;
 using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
 using Telerik.Windows.Documents.Spreadsheet.Model;
 
-namespace MyDocProcApp
+Console.WriteLine("Hello, would you like to create a workbook? [Y/y][N/n]:");
+
+var result = Console.ReadLine();
+
+if (result?.ToLower() == "y")
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, would you like to create a workbook? [Y/y][N/n]:");
+    Workbook workbook = new Workbook();
+    Worksheet worksheet = workbook.Worksheets.Add();
 
-            var result = Console.ReadLine();
+    CellSelection selection = worksheet.Cells[1, 1]; //B2 cell 
+    selection.SetValue("Hello RadSpreadProcessing");
 
-            if (result?.ToLower() == "y")
-            {
-                Workbook workbook = new Workbook();
-                Worksheet worksheet = workbook.Worksheets.Add();
+    string fileName = "SampleFile.xlsx";
 
-                CellSelection selection = worksheet.Cells[1, 1]; //B2 cell 
-                selection.SetValue("Hello RadSpreadProcessing");
+    IWorkbookFormatProvider formatProvider = new XlsxFormatProvider();
 
-                string fileName = "SampleFile.xlsx";
+    using Stream output = new FileStream(fileName, FileMode.Create);
 
-                IWorkbookFormatProvider formatProvider = new XlsxFormatProvider();
+    formatProvider.Export(workbook, output);
 
-                using Stream output = new FileStream(fileName, FileMode.Create);
-
-                formatProvider.Export(workbook, output);
-
-                Console.WriteLine("Done!");
-            }
-        }
-    }
+    Console.WriteLine("Done!");
 }
