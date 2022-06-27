@@ -47,20 +47,20 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.WinControls, Version=2022.2.510.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.510\lib\net40\Telerik.WinControls.dll</HintPath>
+    <Reference Include="Telerik.WinControls, Version=2022.2.622.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.622\lib\net40\Telerik.WinControls.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.WinControls.SyntaxEditor, Version=2022.2.510.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\packages\UI.for.WinForms.SyntaxEditor.2022.2.510\lib\net40\Telerik.WinControls.SyntaxEditor.dll</HintPath>
+    <Reference Include="Telerik.WinControls.SyntaxEditor, Version=2022.2.622.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <HintPath>..\packages\UI.for.WinForms.SyntaxEditor.2022.2.622\lib\net40\Telerik.WinControls.SyntaxEditor.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.WinControls.UI, Version=2022.2.510.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.510\lib\net40\Telerik.WinControls.UI.dll</HintPath>
+    <Reference Include="Telerik.WinControls.UI, Version=2022.2.622.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.622\lib\net40\Telerik.WinControls.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.WinControls.UI.Design, Version=2022.2.510.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.510\lib\net40\Telerik.WinControls.UI.Design.dll</HintPath>
+    <Reference Include="Telerik.WinControls.UI.Design, Version=2022.2.622.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.622\lib\net40\Telerik.WinControls.UI.Design.dll</HintPath>
     </Reference>
-    <Reference Include="TelerikCommon, Version=2022.2.510.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
-      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.510\lib\net40\TelerikCommon.dll</HintPath>
+    <Reference Include="TelerikCommon, Version=2022.2.622.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e, processorArchitecture=MSIL">
+      <HintPath>..\packages\UI.for.WinForms.Common.2022.2.622\lib\net40\TelerikCommon.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
