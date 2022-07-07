@@ -29,8 +29,10 @@ jobs:
     - name: NuGet.exe Restore
       run: nuget restore src\Ajax\MySite.sln -ConfigFile src\NuGet.Config
       env:
-        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }} 
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+        # The above Environment Variables (on the left) are expected by the nuget.config file
+        # The values (on the right) are stored as GtiHub Actions Secrets, see https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables for how to set them.
 
     # Use msbuild to compile the .NET Framework project
     - name: Build the AJAX application
