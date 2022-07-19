@@ -10,8 +10,32 @@ on:
 
 jobs:
   # A job that builds a .NET 6.0 web application using Telerik UI for Blazor. 
-  build_web:
+  build_blazor:
     runs-on: windows-2022
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v2.1.0
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore NuGet Packages
+      run: dotnet restore src\Web\MyBlazorApp\MyBlazorApp.csproj --configfile src\NuGet.Config --runtime any
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+
+    - name: Build Solution
+      run: dotnet build src\Web\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release
+
+  # A job that builds a .NET 7.0 web application using Telerik UI for ASP.NET Core
+  build_aspnetcore:
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout
@@ -19,16 +43,18 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v2.1.0
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: 7.0.x
+        include-prerelease: true
 
     - name: Restore NuGet Packages
-      run: dotnet restore src\Web\Web.sln --configfile src\NuGet.Config --runtime any
+      run: dotnet restore src\Web\MyAspNetCoreApp\MyAspNetCoreApp.csproj --configfile src\NuGet.Config --runtime any
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
-      run: dotnet build src\Web\Web.sln --no-restore --configuration Release
+      run: dotnet build src\Web\MyAspNetCoreApp\MyAspNetCoreApp.csproj --no-restore --configuration Release
