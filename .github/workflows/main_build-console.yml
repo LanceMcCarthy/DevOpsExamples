@@ -53,7 +53,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: 
-        asset_name: src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/manifest.spdx.json
+        asset_path: src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/manifest.spdx.jso
+        asset_name: manifest.spdx.json
         asset_content_type: application/json
