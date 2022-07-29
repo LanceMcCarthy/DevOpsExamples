@@ -48,11 +48,8 @@ jobs:
         cat src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/manifest.spdx.json
         
     - name: Upload SBOM Artifact
-      id: upload-sideload-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: actions/upload-artifact@v3.1.0
       with:
-        asset_path: src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/manifest.spdx.jso
-        asset_name: manifest.spdx.json
-        asset_content_type: application/json
+        path: src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/
+        name: 'SBOM Artifact'
+        
