@@ -43,7 +43,7 @@ jobs:
       run: |
         curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
         chmod +x $RUNNER_TEMP/sbom-tool
-        $RUNNER_TEMP/sbom-tool generate -b src/Console/MyDocProcApp//buildOutput -bc src/Console/MyDocProcApp/ -pn MyDocProcApp -pv 1.0.0 -nsb https://sbom.dvlup.com -V Verbose
+        $RUNNER_TEMP/sbom-tool generate -b src/Console/MyDocProcApp/bin/Release/net6.0/ -bc src/Console/MyDocProcApp/ -pn MyDocProcApp -pv 1.0.0 -nsb https://sbom.dvlup.com -V Verbose
         ls ./buildOutput/_manifest/spdx_2.2/
         cat ./buildOutput/_manifest/spdx_2.2/manifest.spdx.json
         
@@ -55,5 +55,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: 
-        asset_name: ./buildOutput/_manifest/spdx_2.2/manifest.spdx.json
+        asset_name: src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/manifest.spdx.json
         asset_content_type: application/json
