@@ -12,7 +12,12 @@ jobs:
   # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
   # It uses a Windows runner and builds for Any CPU
   build_console:
-    runs-on: windows-2022
+    runs-on: ubuntu-latest
+    env:
+      RID: win-x64
+      CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
+      NUGETCONFIG_PATH: src/NuGet.Config
+      BUILD_CONFIGURATION: Release
 
     steps:
     - name: Checkout
@@ -26,10 +31,29 @@ jobs:
         dotnet-version: '6.0.x'
     
     - name: Restore NuGet Packages
-      run: dotnet restore src\Console\MyDocProcApp\MyDocProcApp.csproj --configfile src\NuGet.Config --runtime win-x86
+      run: dotnet restore ${{ env.CSPROJ_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }} --runtime ${{ env.RID }}
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
-      run: dotnet build src\Console\MyDocProcApp\MyDocProcApp.csproj --no-restore --configuration Release --runtime win-x86
+      run: dotnet build ${{ env.CSPROJ_PATH }} --configuration ${{ env.BUILD_CONFIGURATION }} --runtime ${{ env.RID }} --no-restore
+
+    - name: Generate SBOM
+      run: |
+        curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+        chmod +x $RUNNER_TEMP/sbom-tool
+        $RUNNER_TEMP/sbom-tool generate -b src/Console/MyDocProcApp//buildOutput -bc src/Console/MyDocProcApp/ -pn MyDocProcApp -pv 1.0.0 -nsb https://sbom.dvlup.com -V Verbose
+        ls ./buildOutput/_manifest/spdx_2.2/
+        cat ./buildOutput/_manifest/spdx_2.2/manifest.spdx.json
+        
+    - name: Upload SBOM Artifact
+      id: upload-sideload-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: 
+        asset_name: ./buildOutput/_manifest/spdx_2.2/manifest.spdx.json
+        asset_content_type: application/json
