@@ -15,7 +15,7 @@
     <PackageReference Include="SkiaSharp.Views" Version="2.88.0" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.0" />
     <PackageReference Include="Telerik.UI.for.Xamarin" Version="2022.2.621.1" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2478" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Telerik.XamarinForms.Chart">
