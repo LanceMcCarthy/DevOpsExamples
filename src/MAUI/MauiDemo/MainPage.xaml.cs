@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Maui.Controls;
+﻿namespace MauiDemo;
 
-namespace MauiDemo
+public partial class MainPage : ContentPage
 {
-	public partial class MainPage : ContentPage
-    {
-        private readonly List<Person> people;
-        private readonly Random rand;
-		
-		public MainPage()
-		{
-			InitializeComponent();
-            rand = new Random(DateTime.Now.DayOfYear);
-			people = Enumerable.Range(1, 20).Select(i => new Person($"Person {i}", i)).ToList();
-		}
+	int count = 0;
 
-		private void OnCounterClicked(object sender, EventArgs e)
-		{
-			CounterLabel.Text = $"you selected {people[rand.Next(0, 20)].FirstName}";
-		}
+	public MainPage()
+	{
+		InitializeComponent();
 	}
 
-    public record Person(string FirstName, int Age);
+	private void OnCounterClicked(object sender, EventArgs e)
+	{
+		count++;
+
+		CounterBtn.Text = count == 1 
+            ? $"Clicked {count} time" 
+            : $"Clicked {count} times";
+
+		SemanticScreenReader.Announce(CounterBtn.Text);
+	}
 }
+

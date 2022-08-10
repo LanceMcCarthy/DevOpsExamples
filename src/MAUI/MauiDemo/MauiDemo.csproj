@@ -1,27 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>MauiDemo</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
-		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
 
 		<!-- Display name -->
 		<ApplicationTitle>MauiDemo</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.LancelotSoftware.MauiDemo</ApplicationId>
-		<ApplicationIdGuid>25F59AFB-067A-4E61-A123-46DD4E0E5EAA</ApplicationIdGuid>
+		<ApplicationId>com.LancelotSoftware.mauidemo</ApplicationId>
+		<ApplicationIdGuid>C3D88449-48E7-45F6-9026-0766A05CC4DD</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
-
-		<!-- Required for C# Hot Reload -->
-		<UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
@@ -31,27 +31,12 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="$(TargetFramework.Contains('-windows')) and '$(Configuration)' == 'Release'">
-		<GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
-		<AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Release'">
-		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-		<CodesignEntitlement>Entitlements.plist</CodesignEntitlement>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Debug'">
-		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-		<RuntimeIdentifier>iossimulator-x64</RuntimeIdentifier>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -65,7 +50,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Telerik.UI.for.Maui" Version="2.1.0" />
-		<PackageReference Include="WinUIEx" Version="1.5.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+		<PackageReference Include="Telerik.UI.for.Maui" Version="2.3.0" />
 	</ItemGroup>
+    
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<PackageReference Include="WinUIEx" Version="1.8.0"  />
+	</ItemGroup>
+
 </Project>
