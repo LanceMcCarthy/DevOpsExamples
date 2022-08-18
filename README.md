@@ -14,6 +14,11 @@ These examples show you how to:
 - Authenticate and restore NuGet packages from the Telerik NuGet server.
 - Activate your Kendo UI license in your CI workflow.
 
+Related Blog Posts
+
+- [DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
+- [Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
+
 ## Build Statuses
 
 The following tables list the status badges for the various pipelines and workflows. To keep things organized, each CI system has its own table.
