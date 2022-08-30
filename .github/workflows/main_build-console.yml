@@ -13,6 +13,10 @@ jobs:
   # It uses a Windows runner and builds for Any CPU
   build_console:
     runs-on: ubuntu-latest
+    # REQUIRED for 'fetch-secrets' job
+    permissions:
+      id-token: write
+      contents: read
     env:
       RID: win-x64
       CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
