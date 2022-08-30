@@ -32,12 +32,12 @@ jobs:
 
     - name: Fetch secrets from AKeyless
       id: fetch-secrets
-       uses: cmancone/akeyless-action@v1
-       with:
-         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
-         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"MY_TELERIK_NUGET_KEY"}'
-         export-secrets-to-outputs: true
-         export-secrets-to-environment: true
+      uses: cmancone/akeyless-action@v1
+      with:
+        access-id: ${{ secrets.AKEYLESS_JWT_ID }}
+        static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"MY_TELERIK_NUGET_KEY"}'
+        export-secrets-to-outputs: true
+        export-secrets-to-environment: true
 
     - name: Update NuGet Package Sources
       run: |
