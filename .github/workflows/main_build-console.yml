@@ -41,38 +41,20 @@ jobs:
         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY"}'
         export-secrets-to-outputs: true
-        export-secrets-to-environment: true 
+        export-secrets-to-environment: false 
 
     - name: Update NuGet Package Sources
       run: |
         # This example uses our NuGet Key approach instead of username and password, 
         # see my blog post for more information https://www.telerik.com/blogs/announcing-nuget-keys
-        # Note: On a Linux machine, file paths/names are case sensitive. Take care when populating command parameters
-        
-        # dotnet nuget remove source 'Telerik' --configfile 'src/NuGet.Config'
-        
+        # Note: On a Linux machine, file paths/names are case sensitive. Take care when populating command parameters!
+    
         # STEP 1 - The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
-        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{ env.TELERIK_NUGET_KEY }}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
+        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "::add-mask::${{ steps.fetch-akeyless-secrets.outputs.TELERIK_NUGET_KEY }}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
 
         # STEP 2 - now we can use the 'restore' command
         dotnet restore ${{ env.CSPROJ_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }} --runtime ${{ env.RID }}
     
     - name: Build Solution
       run: dotnet build ${{ env.CSPROJ_PATH }} --configuration ${{ env.BUILD_CONFIGURATION }} --runtime ${{ env.RID }} --no-restore
-
-
-    #-----  SBOM generation (Software Bill of Materials) -----#
-    - name: Generate SBOM
-      run: |
-        curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
-        chmod +x $RUNNER_TEMP/sbom-tool
-        $RUNNER_TEMP/sbom-tool generate -b src/Console/MyDocProcApp/bin/Release/net6.0/ -bc src/Console/MyDocProcApp/ -pn MyDocProcApp -pv 1.0.0 -nsb https://sbom.dvlup.com -V Verbose
-        ls src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/
-        cat src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/manifest.spdx.json
-        
-    - name: Upload SBOM Artifact
-      uses: actions/upload-artifact@v3.1.0
-      with:
-        path: src/Console/MyDocProcApp/bin/Release/net6.0/_manifest/spdx_2.2/
-        name: 'SBOM Artifact'
         
