@@ -40,15 +40,15 @@ jobs:
       with:
         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY"}'
-        export-secrets-to-outputs: true
-        export-secrets-to-environment: false 
+        export-secrets-to-outputs: false
+        export-secrets-to-environment: true 
 
     - name: Update NuGet Package Sources
       run: |
         # This example uses our NuGet Key approach instead of username and password, see my blog post for more information https://www.telerik.com/blogs/announcing-nuget-keys
         # Note: Don't forget on a Linux machine file paths/names are case sensitive. Take care when defining paths like the NuGet config file.
         
-        maskedkey = "::add-mask::${{ steps.fetch-akeyless-secrets.outputs.TELERIK_NUGET_KEY }}"
+        maskedkey = "::add-mask::${{ env.TELERIK_NUGET_KEY }}"
     
         # STEP 1 - The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
         dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p $maskedkey --configfile 'src/NuGet.Config' --store-password-in-clear-text
