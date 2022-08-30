@@ -49,7 +49,7 @@ jobs:
         # see my blog post for more information https://www.telerik.com/blogs/announcing-nuget-keys
         
         # STEP 1 - The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
-        dotnet nuget update source 'Telerikv3' -s 'https://nuget.telerik.com/v3/index.json' -u "api-key" -p "${{ env.TELERIK_NUGET_KEY }}" --configfile 'src/nuget.config' --valid-authentication-types 'basic' --store-password-in-clear-text
+        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u "api-key" -p "${{ env.TELERIK_NUGET_KEY }}" --configfile 'src/nuget.config' --valid-authentication-types 'basic' --store-password-in-clear-text
 
         # STEP 2 - now we can use the 'restore' command
         dotnet restore ${{ env.CSPROJ_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }} --runtime ${{ env.RID }}
