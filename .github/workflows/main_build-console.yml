@@ -47,9 +47,9 @@ jobs:
       run: |
         # This example uses our NuGet Key approach instead of username and password, 
         # see my blog post for more information https://www.telerik.com/blogs/announcing-nuget-keys
-
+        
         # STEP 1 - The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
-        dotnet nuget update source 'Telerik' --source 'https://nuget.telerik.com/v3/index.json' --username  --password "${{ steps.fetch-akeyless-secrets.outputs.TELERIK_NUGET_KEY }}" --configfile 'src/nuget.config'  --store-password-in-clear-text
+        dotnet nuget update source 'Telerikv3' --source 'https://nuget.telerik.com/v3/index.json' --configfile 'src/nuget.config' --username "api-key" --password "${{ steps.fetch-akeyless-secrets.outputs.TELERIK_NUGET_KEY }}" --valid-authentication-types 'basic' --store-password-in-clear-text
 
         # STEP 2 - now we can use the 'restore' command
         dotnet restore ${{ env.CSPROJ_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }} --runtime ${{ env.RID }}
