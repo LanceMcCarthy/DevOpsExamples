@@ -13,16 +13,14 @@ jobs:
   # It uses a Windows runner and builds for Any CPU
   build_console:
     runs-on: ubuntu-latest
-    # REQUIRED for 'fetch-secrets' job
     permissions:
-      id-token: write
-      contents: read
+      id-token: write # REQUIRED for 'fetch-secrets' job
+      contents: read  # REQUIRED for 'fetch-secrets' job
     env:
       RID: win-x64
       CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
       NUGETCONFIG_PATH: src/NuGet.Config
       BUILD_CONFIGURATION: Release
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -35,19 +33,21 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Fetch secrets from AKeyless
-      id: fetch-secrets
+      id: fetch-static-secrets
       uses: cmancone/akeyless-action@v2
       with:
         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY"}'
-
+        export-secrets-to-outputs: true
+        export-secrets-to-environment: false
+          
     - name: Update NuGet Package Sources
       run: |
         # This example uses our NuGet Key approach instead of username and password, see my blog post for more information https://www.telerik.com/blogs/announcing-nuget-keys
         # Note: Don't forget on a Linux machine file paths/names are case sensitive. Take care when defining paths like the NuGet config file.
     
         # STEP 1 - The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
-        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{ steps.fetch-secrets.outputs.TELERIK_NUGET_KEY }}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
+        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{ steps.fetch-static-secrets.outputs.my_first_secret }}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
 
         # STEP 2 - now we can use the 'restore' command
         dotnet restore ${{ env.CSPROJ_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }} --runtime ${{ env.RID }}
