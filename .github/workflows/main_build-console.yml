@@ -34,7 +34,7 @@ jobs:
 
     - name: Fetch secrets from AKeyless
       id: fetch-static-secrets
-      uses: LanceMcCarthy/akeyless-action@v2.1
+      uses: LanceMcCarthy/akeyless-action@v2
       with:
         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY"}'
