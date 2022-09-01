@@ -39,8 +39,13 @@ jobs:
         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY"}'
         export-secrets-to-outputs: true
-        export-secrets-to-environment: false
-          
+        export-secrets-to-environment: true
+    
+    - name: Confirm secrets are available and are masked
+      run: |
+        echo "Your output secret is ${{ steps.fetch-static-secrets.outputs.TELERIK_NUGET_KEY }}"
+        echo "Your environment secret is ${{ env.TELERIK_NUGET_KEY }}"
+        
     - name: Update NuGet Package Sources
       run: |
         # This example uses our NuGet Key approach instead of username and password, see my blog post for more information https://www.telerik.com/blogs/announcing-nuget-keys
