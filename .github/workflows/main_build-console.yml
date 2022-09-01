@@ -33,7 +33,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Fetch secrets from AKeyless
-      id: fetch-static-secrets
+      id: fetch-akeyless-secrets
       uses: LanceMcCarthy/akeyless-action@v2
       with:
         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
@@ -52,7 +52,7 @@ jobs:
         # Note: Don't forget on a Linux machine file paths/names are case sensitive. Take care when defining paths like the NuGet config file.
     
         # STEP 1 - The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
-        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{ steps.fetch-static-secrets.outputs.my_first_secret }}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
+        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{ steps.akeyless.outputs.TELERIK_NUGET_KEY }}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
 
         # STEP 2 - now we can use the 'restore' command
         dotnet restore ${{ env.CSPROJ_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }} --runtime ${{ env.RID }}
