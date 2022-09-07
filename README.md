@@ -37,7 +37,7 @@ The following tables list the status badges for the various pipelines and workfl
 
 ### GitHub Actions
 
-| Project | Branch: main |
+| Project | Main Branch |
 |---------|------------|
 | ASP.NET AJAX (.NET Framework) | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) |
 | ASP.NET Blazor (.NET 6) | ![Build Web](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Web%20Application/badge.svg?branch=main) |
@@ -96,26 +96,6 @@ That mean you must also have the secrets in your **Settings** > **Secrets** list
 
 ![image](https://user-images.githubusercontent.com/3520532/104634438-9cae6c00-566e-11eb-9a78-79d955247867.png)
 
-### Powershell: Restore Packages
-
-If your nuget.config has a `packageSourceCredentials` section that uses environment variables for the values, you can also use Powershell to set those env variables using the pipeline secrets variables, than manually invoke the package restore.
-
-```ps
-# 1. Set the Env Variables being used in the nuget.config credentials using pipeline secrets (e.g., $(MyTelerikEmail) is a secret)
-$env:TELERIK_USERNAME = '$(MyTelerikEmail)'
-$env:TELERIK_PASSWORD ='$(MyTelerikPassword)'
-
-# 2. Set the project file path and nuget.config file path
-$myBlazorProjectFilePath = 'src/Web/MyBlazorApp/MyBlazorApp.csproj'
-$myNugetConfigFilePath = 'src/nuget.config'
-
-# 3. Restore the Telerik and nuget.org packages using the nuget.config file
-dotnet restore $myBlazorProjectFilePath --configfile $myNugetConfigFilePath --runtime win-x86
-
-# 4. Clear those variables when done (not required, but good practice)
-$env:TELERIK_USERNAME = ''
-$env:TELERIK_PASSWORD =''
-```
 
 ### Powershell: Update Package Source Dynamically
 
@@ -123,10 +103,22 @@ You could also dynamically update the credentials of a Package Source defined in
 
 ```powershell
 # Updates a source named 'Telerik' in the nuget.config
-dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --configfile src/nuget.config --username '$(MyTelerikEmail)' --password '$(MyTelerikPassword)' --store-password-in-clear-text
+dotnet nuget update source "Telerik" --source "https://nuget.telerik.com/v3/index.json" --configfile "src/nuget.config" --username '${{ secrets.MyTelerikEmail }}' --password '${{ secrets.MyTelerikPassword }}' --store-password-in-clear-text
 ```
  That command will look through the nuget.config for a package source with the key `Telerik` and then add/update the credentials for that source.
 
 > The `--store-password-in-clear-text` switch is important. It does *not* mean the password is visible, rather it means that you're using the password text and not a custom encrypted variant. For more information, please visit https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file#packagesourcecredentials
+
+### Using Telerik NuGet Keys
+
+You can use the same approach in the previous section. Everything is exactly the same, except you use `api-key` for the username and the NuGet key for the password.
+
+Please visit the [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys) blog post for more details how ot create the key and how to use it.
+
+```powershell
+dotnet nuget update source "Telerik" --source "https://nuget.telerik.com/v3/index.json" --configfile "src/nuget.config" --username 'api-key' --password '${{ secrets.MyNuGetKey }}' --store-password-in-clear-text
+```
+
+> IMPORTANT: Protect your key by storing it in a GitHub Secret, then use the secret's varible name in the command
 
 
