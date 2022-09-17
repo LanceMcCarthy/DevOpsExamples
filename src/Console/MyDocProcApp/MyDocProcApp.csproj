@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2022.2.613" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2022.2.613" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2022.2.613" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2022.2.613" />
-    <PackageReference Include="Telerik.Zip" Version="2022.2.613" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2022.3.906" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2022.3.906" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2022.3.906" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2022.3.906" />
+    <PackageReference Include="Telerik.Zip" Version="2022.3.906" />
   </ItemGroup>
 
 </Project>
