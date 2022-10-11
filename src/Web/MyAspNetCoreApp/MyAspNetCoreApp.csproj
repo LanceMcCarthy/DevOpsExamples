@@ -1,27 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>6ca2a36f-6cc7-4d98-9cd4-724a3953a16b</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2022.3.913" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.9" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2022.3.913" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.9" />
+	</ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-  </PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Templates\**" />
-    <Content Remove="Templates\**" />
-    <EmbeddedResource Remove="Templates\**" />
-    <None Remove="Templates\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Templates\**" />
+		<Content Remove="Templates\**" />
+		<EmbeddedResource Remove="Templates\**" />
+		<None Remove="Templates\**" />
+	</ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties UseCdnSupport="" /></VisualStudio></ProjectExtensions>
+	<ProjectExtensions>
+		<VisualStudio>
+			<UserProperties UseCdnSupport="" />
+		</VisualStudio>
+	</ProjectExtensions>
 
 </Project>
