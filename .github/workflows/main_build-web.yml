@@ -59,6 +59,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
+        build-context: src/Web/MyAspNetCoreApp
         context: src/Web/
         push: true
         tags: "latest"
