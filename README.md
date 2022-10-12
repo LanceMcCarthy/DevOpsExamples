@@ -1,6 +1,9 @@
 # DevOps - Pipeline and Workflow Examples
 
-This repository contains a rich set of CI-CD demos that show you how to use Azure DevOps and GitHub Actions to build your Telerik and Kendo powered applications in the following systems.
+This repository contains a rich set of CI-CD demos that show you how to:
+
+- Authenticate and restore NuGet packages from the Telerik NuGet server.
+- Activate your Kendo UI license in your CI workflow.
 
 | System        | CI/CD file(s) | Status | 
 |---------------|------------------|--------|
@@ -11,21 +14,29 @@ This repository contains a rich set of CI-CD demos that show you how to use Azur
 
 These examples show you how to:
 
-- Authenticate and restore NuGet packages from the Telerik NuGet server.
-- Activate your Kendo UI license in your CI workflow.
 
+Table of Contents
+- [Status Badges]
+  - []()
+  - []()
+  - []()
+- [Video Tutorial](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
+  - [4 different approached in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops-with-private-nuget-server)
+- [Tips and Troubleshooting](https://github.com/LanceMcCarthy/DevOpsExamples#tips-and-troubleshooting)
+  - [Walkthrough: Use GitHub Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables)
+  - [Example: Update package source dynamically](https://github.com/LanceMcCarthy/DevOpsExamples#powershell-update-package-source-dynamically)
+  - [Example Using Telerik NuGet Keys](https://github.com/LanceMcCarthy/DevOpsExamples#using-telerik-nuget-keys)
 Related Blog Posts
-
-- [DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
-- [Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
+- [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
+- [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
 
 ## Build Statuses
 
-The following tables list the status badges for the various pipelines and workflows. To keep things organized, each CI system has its own table.
+The following tables list the status badges for the various pipelines and workflows. 
 
 ### Azure DevOps
 
-| Project | Azure DevOps (classic) | GitHub Actions | GitLab CI |
+| Project | Azure DevOps | GitHub Actions | GitLab CI |
 |---------|--------------|----------------|-----------|
 | ASP.NET AJAX | [![Build CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AJAX%20App)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=78) | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) |  |
 | ASP.NET Core | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AspNetCore)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=80) | [![Build ASP.NET Core Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml) | n/a | 
@@ -33,7 +44,7 @@ The following tables list the status badges for the various pipelines and workfl
 | WPF (net48) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WPF%20and%20WinForms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | ![Build WPF](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg?branch=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | WinForms (net48) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WinForms?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=79&branchName=main) | ![Build WinForms](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WinForms%20Application/badge.svg?branch=main) |  |
 | Console | [![Build - YAML](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | ![Build Console](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg?branch=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
-| UWP |  | [![Build - CLASSIC](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-uwp.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-uwp.yml) |  |
+| UWP | [![Build - YAML](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build - CLASSIC](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-uwp.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-uwp.yml) |  |
 | .NET MAUI | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20MAUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=72) | [![MAUI main](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml/badge.svg?branch=main)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml) |  |
 | Xamarin.Forms | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Xamarin.Forms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=68) | [![Build Xamarin.Forms Applications](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml) |  |
 | Kendo Angular | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
