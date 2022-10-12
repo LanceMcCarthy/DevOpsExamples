@@ -14,7 +14,7 @@ trigger:
 jobs:
 
 # *************************************************************** #
-# ******** EXAMPLE 1 - CONSOLE (.NET 6 - Doc Processing) ******** #
+# ******** EXAMPLE 1 - CONSOLE (.NET 6) ******** #
 # *************************************************************** #
 
 - job: BuildConsoleApp
@@ -36,7 +36,7 @@ jobs:
       packageType: 'sdk'
       version: '6.0.x'
 
-  # Step 1. Restore the NuGet packges using Service connection for credentials
+  # Restore the NuGet packges using Service connection for credentials
   - task: DotNetCoreCLI@2
     displayName: 'NuGet restore MyDocProcApp'
     inputs:
@@ -46,7 +46,7 @@ jobs:
       nugetConfigPath: $(consoleNugetConfigPath)
       externalFeedCredentials: 'TelerikFeed'
 
-  # Step 2. Build the project
+  # Build the project
   - task: DotNetCoreCLI@2
     displayName: 'Build MyDocProcApp'
     inputs:
@@ -57,7 +57,6 @@ jobs:
 # *************************************************************** #
 # ******* EXAMPLE 2 - ASP.NET AJAX (.NET Framework) ************* #
 # *************************************************************** #
-
 - job: BuildWebformsApp
   pool:
     vmImage: 'windows-2022'
@@ -81,10 +80,9 @@ jobs:
       platform: Any CPU
       configuration: Release
 
-# *************************************************************** #
-# ************* EXAMPLE 3 - ASP.NET BLAZOR (.NET 6) ************* #
-# *************************************************************** #
-
+# ******************************************************* #
+# ************* EXAMPLE 3 - BLAZOR (.NET 6) ************* #
+# ******************************************************* #
 - job: BuildBlazorApp
   pool:
     vmImage: 'windows-2022'
@@ -96,7 +94,7 @@ jobs:
   - name: nugetConfigPath
     value: 'src/nuget.config'
   - name: blazorProjectPath
-    value: 'src/Web/MyBlazorApp/MyBlazorApp.csproj'
+    value: 'src/Blazor/MyBlazorApp.csproj'
   - name: buildConfiguration
     value: 'Debug'
   - name: rid
@@ -110,9 +108,8 @@ jobs:
   
   # ***** Step 1. Restore NuGet packages ***** #
 
-  # [Option 1] 
-  # ----------
-  # Use 'dotnet nuget update source' & 'dotnet restore' with Azure KeyVault secrets
+  # [Option 1 - Use 'dotnet nuget update source'] 
+  # ---------------------------------------------
   # This example uses Azure KeyVault secrets via the linked variable group 'KeyVaultVariables'.
   - task: PowerShell@2
     inputs:
@@ -124,9 +121,8 @@ jobs:
         dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
 
-  # [Option 2]
-  # ----------
-  # Use 'dotnet restore' with env variables
+  # [Option 2 - Use 'dotnet restore' with env variables ]
+  # -----------------------------------------------------
   # - task: PowerShell@2
   #   displayName: 'Restore NuGet Packages'
   #   inputs:
@@ -138,18 +134,6 @@ jobs:
 
   #       # Use the nuget.config to restore the packages.
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
-  
-  # [Option 3]
-  # ----------
-  # Use a Service connection (allow this pipeline to access that Service connection, otherwise it will fail with a 401 Unauthorized)
-  # - task: DotNetCoreCLI@2
-  #   displayName: 'NuGet restore MyDocProcApp'
-  #   inputs:
-  #     command: 'restore'
-  #     projects: $(consoleProjectPath)
-  #     feedsToUse: 'config'
-  #     nugetConfigPath: $(consoleNugetConfigPath)
-  #     externalFeedCredentials: 'TelerikFeed' 
 
 
   # ***** Step 2. Build the project ***** #
