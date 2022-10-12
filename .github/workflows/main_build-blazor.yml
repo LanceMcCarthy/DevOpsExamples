@@ -1,0 +1,33 @@
+name: Build Blazor Application
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Blazor/**/*'
+      - '.github/workflows/main_build-blazor.yml' 
+
+jobs:
+  build_blazor:
+    runs-on: windows-2022
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v2.1.0
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore NuGet Packages
+      run: dotnet restore src\Web\MyBlazorApp\MyBlazorApp.csproj --configfile src\NuGet.Config --runtime any
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+
+    - name: Build Solution
+      run: dotnet build src\Web\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release
