@@ -4,13 +4,12 @@ trigger:
   branches:
     include:
     - main
-    exclude:
-    - dev
   paths:
    include:
-     - 'src/Console/**/*'
+     - 'azure-pipelines.yml'
      - 'src/Ajax/**/*'
      - 'src/Blazor/**/*'
+     - 'src/Console/**/*'
 
 jobs:
 
