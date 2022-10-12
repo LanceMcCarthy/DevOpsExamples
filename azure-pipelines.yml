@@ -10,7 +10,7 @@ trigger:
    include:
      - 'src/Console/**/*'
      - 'src/Ajax/**/*'
-     - 'src/Web/**/*'
+     - 'src/Blazor/**/*'
 
 jobs:
 
@@ -91,15 +91,17 @@ jobs:
     vmImage: 'windows-2022'
 
   variables:
-  - group: KeyVaultVariables
+# secrets from AzureKeyValue
+  - group: KeyVaultVariables 
+# local vars
   - name: nugetConfigPath
     value: 'src/nuget.config'
   - name: blazorProjectPath
-    value: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+    value: 'src/Web/MyBlazorApp/MyBlazorApp.csproj'
   - name: buildConfiguration
     value: 'Debug'
   - name: rid
-    value: win-x86
+    value: any
   
   steps:
   - task: UseDotNet@2
@@ -110,9 +112,9 @@ jobs:
   # ***** Step 1. Restore NuGet packages ***** #
 
   # [Option 1] 
+  # ----------
   # Use 'dotnet nuget update source' & 'dotnet restore' with Azure KeyVault secrets
   # This example uses Azure KeyVault secrets via the linked variable group 'KeyVaultVariables'.
-  
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
@@ -124,8 +126,8 @@ jobs:
 
 
   # [Option 2]
+  # ----------
   # Use 'dotnet restore' with env variables
-
   # - task: PowerShell@2
   #   displayName: 'Restore NuGet Packages'
   #   inputs:
@@ -137,12 +139,10 @@ jobs:
 
   #       # Use the nuget.config to restore the packages.
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
-
-
+  
   # [Option 3]
-  # Use a Service connection
-  # Important: make sure the pipeline has permission to use the Service connection, otherwise it will fail with a 401 Unauthorized
-
+  # ----------
+  # Use a Service connection (allow this pipeline to access that Service connection, otherwise it will fail with a 401 Unauthorized)
   # - task: DotNetCoreCLI@2
   #   displayName: 'NuGet restore MyDocProcApp'
   #   inputs:
@@ -151,6 +151,7 @@ jobs:
   #     feedsToUse: 'config'
   #     nugetConfigPath: $(consoleNugetConfigPath)
   #     externalFeedCredentials: 'TelerikFeed' 
+
 
   # ***** Step 2. Build the project ***** #
 
