@@ -1,4 +1,3 @@
-# Triggers are used to determine when this pipeline is run
 trigger:
   batch: true
   branches:
@@ -10,11 +9,12 @@ trigger:
      - 'src/Ajax/**/*'
      - 'src/Blazor/**/*'
      - 'src/Console/**/*'
+     - 'src/Uwp/**/*'
 
 jobs:
 
 # *************************************************************** #
-# ******** EXAMPLE 1 - CONSOLE (.NET 6) ******** #
+# *                EXAMPLE 1 - CONSOLE (.NET 6)                 * #
 # *************************************************************** #
 
 - job: BuildConsoleApp
@@ -54,8 +54,9 @@ jobs:
       projects: $(consoleProjectPath)
       configuration: $(buildConfiguration)
 
+
 # *************************************************************** #
-# ******* EXAMPLE 2 - ASP.NET AJAX (.NET Framework) ************* #
+# *         EXAMPLE 2 - ASP.NET AJAX (.NET Framework)           * #
 # *************************************************************** #
 - job: BuildWebformsApp
   pool:
@@ -80,8 +81,9 @@ jobs:
       platform: Any CPU
       configuration: Release
 
+
 # ******************************************************* #
-# ************* EXAMPLE 3 - BLAZOR (.NET 6) ************* #
+# *             EXAMPLE 3 - BLAZOR (.NET 6)             * #
 # ******************************************************* #
 - job: BuildBlazorApp
   pool:
@@ -94,7 +96,7 @@ jobs:
   - name: nugetConfigPath
     value: 'src/nuget.config'
   - name: blazorProjectPath
-    value: 'src/Blazor/MyBlazorApp.csproj'
+    value: 'src/Blazor/MyBlazorApp.sln'
   - name: buildConfiguration
     value: 'Debug'
   - name: rid
@@ -106,10 +108,9 @@ jobs:
       packageType: 'sdk'
       version: '6.0.x'
   
-  # ***** Step 1. Restore NuGet packages ***** #
+  # Step 1. Restore NuGet packages: Below are two different ways to do a restore using Telerik NuGet feed
 
-  # [Option 1 - Use 'dotnet nuget update source'] 
-  # ---------------------------------------------
+  # Option 1 - Use 'dotnet nuget update source'
   # This example uses Azure KeyVault secrets via the linked variable group 'KeyVaultVariables'.
   - task: PowerShell@2
     inputs:
@@ -121,8 +122,7 @@ jobs:
         dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
 
-  # [Option 2 - Use 'dotnet restore' with env variables ]
-  # -----------------------------------------------------
+  # Option 2 - Use 'dotnet restore' with env variables
   # - task: PowerShell@2
   #   displayName: 'Restore NuGet Packages'
   #   inputs:
@@ -136,11 +136,46 @@ jobs:
   #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
 
-  # ***** Step 2. Build the project ***** #
-
+  # Step 2. Build the project
   - task: DotNetCoreCLI@2
     displayName: 'Build Blazor Project'
     inputs:
       command: 'build'
       projects: $(blazorProjectPath)
       configuration: $(buildConfiguration)
+
+
+# ******************************************************* #
+# *               EXAMPLE 4 - UWP (WinRT)               * #
+# ******************************************************* #
+- job: BuildUwpApp
+  pool:
+    vmImage: 'windows-2022'
+  
+  variables:
+    solution: 'src/Uwp/SalesDashboard.UWP.sln'
+    buildPlatform: 'x64'
+    buildConfiguration: 'Debug'
+    appxBundle: 'Never'
+    appxBuildMode: 'CI'
+    appxSigningEnabled: false
+  
+  steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'Use NuGet '
+
+# Restore the NuGet packges using Service connection for credentials
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore'
+    inputs:
+      restoreSolution: $(solution)
+      feedsToUse: config
+      nugetConfigPath: src/nuget.config
+      externalFeedCredentials: TelerikFeed
+
+  - task: VSBuild@1
+    inputs:
+      platform: $(buildPlatform)
+      solution: $(solution)
+      configuration: $(buildConfiguration)
+      msbuildArgs: '/p:Configuration=$(buildConfiguration /p:Platform=$(buildPlatform) /p:UapAppxPackageBuildMode=$(appxBuildMode) /p:AppxPackageSigningEnabled=$(appxSigningEnabled) /p:AppxBundle=$(appxBundle)'
