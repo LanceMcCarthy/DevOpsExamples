@@ -29,7 +29,7 @@ Related Blog Posts
 | Project | Azure DevOps | GitHub Actions | GitLab CI |
 |---------|--------------|----------------|-----------|
 | ASP.NET AJAX | [![Build CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AJAX%20App)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=78) | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) |  |
-| ASP.NET Core | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AspNetCore)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=80) | [![Build ASP.NET Core Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml) ➡️ DockerHub | n/a | 
+| ASP.NET Core | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AspNetCore)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=80) | [![Build ASP.NET Core Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml) | n/a | 
 | ASP.NET Blazor | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Blazor%20App)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47)| [![Build Blazor Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-blazor.yml) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | WPF (net48) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WPF%20and%20WinForms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | ![Build WPF](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg?branch=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | WinForms (net48) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WinForms?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=79&branchName=main) | ![Build WinForms](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WinForms%20Application/badge.svg?branch=main) |  |
@@ -46,8 +46,8 @@ Related Blog Posts
 
 #### Cool Notes
 
-- The `workflows/main_build-aspnetcore.yml` uses a Dockerfile to build and publish a Linux image to DockerHub => [lancemccarthy/myaspnetcoreapp](https://hub.docker.com/r/lancemccarthy/myaspnetcoreapp)
-- The Console, AJAX, Blazor and UWP projects are built using both AzDO Classic and YAML pipelines.
+- `workflows/main_build-aspnetcore.yml` uses a Dockerfile to build and publish a Linux image to DockerHub => [lancemccarthy/myaspnetcoreapp](https://hub.docker.com/r/lancemccarthy/myaspnetcoreapp)
+- The `Console`, `AJAX`, `Blazor` and `UWP` projects are built using both AzDO Classic and YAML pipelines.
 
 ## Videos
 
