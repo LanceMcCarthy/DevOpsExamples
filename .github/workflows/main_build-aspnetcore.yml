@@ -41,5 +41,5 @@ jobs:
       with:
         context: src/AspNetCore/MyAspNetCoreApp
         push: true
-        tags: "latest"
-        build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
+        tags: "lancemccarthy/myaspnetcoreapp:latest"
+       # build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
