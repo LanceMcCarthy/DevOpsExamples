@@ -11,7 +11,7 @@ ARG TELERIK_PASSWORD=%TELERIK_PASSWORD%
 # Change work directory to the subfolder with this project
 WORKDIR /src/MyAspNetCoreApp
 COPY . .
-RUN dotnet restore "MyAspNetCoreApp.csproj" --configfile "nuget.config"
+RUN dotnet restore "MyAspNetCoreApp.csproj" --configfile "MyAspNetCoreApp/nuget.config"
 RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
