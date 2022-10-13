@@ -12,16 +12,10 @@ This repository contains a rich set of CI-CD demos that show you how to:
 | GitLab CI/CD   | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) | [GitLab badges](/#gitlab-ci-cd) |
 | AppCenter | n/a | [AppCenter badges](/#microsoft-appcenter) |
 
-These examples show you how to:
-
-
 Table of Contents
-- [Status Badges]
-  - []()
-  - []()
-  - []()
+- [Build Badges](https://github.com/LanceMcCarthy/DevOpsExamples#badges)
 - [Video Tutorial](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
-  - [4 different approached in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops-with-private-nuget-server)
+  - [4 different approached in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops-with-telerik-nuget-server)
 - [Tips and Troubleshooting](https://github.com/LanceMcCarthy/DevOpsExamples#tips-and-troubleshooting)
   - [Walkthrough: Use GitHub Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables)
   - [Example: Update package source dynamically](https://github.com/LanceMcCarthy/DevOpsExamples#powershell-update-package-source-dynamically)
@@ -30,11 +24,7 @@ Related Blog Posts
 - [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
 - [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
 
-## Build Statuses
-
-The following tables list the status badges for the various pipelines and workflows. 
-
-### Azure DevOps
+## Badges
 
 | Project | Azure DevOps | GitHub Actions | GitLab CI |
 |---------|--------------|----------------|-----------|
@@ -49,20 +39,16 @@ The following tables list the status badges for the various pipelines and workfl
 | Xamarin.Forms | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Xamarin.Forms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=68) | [![Build Xamarin.Forms Applications](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml) |  |
 | Kendo Angular | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 
-> The Console, AJAX, and Blazor projects are built using both Azure Classic and YAML pipelines.
+> YAML pipelines only build; Console, AJAX, Blazor, and UWP projects.
 
-### Microsoft AppCenter
-
-| Project | Main Branch |
+| AppCenter Project | Main Branch |
 |---------|-------------|
 | Xamarin.Forms iOS | [![iOS](https://build.appcenter.ms/v0.1/apps/fb6ee8ef-11ce-43d8-8e55-cba537388483/branches/main/badge)](https://appcenter.ms) |
 | Xamarin.Forms Android | [![Android](https://build.appcenter.ms/v0.1/apps/51ebbd36-58fe-4ebc-accd-0af37cbf6758/branches/main/badge)](https://appcenter.ms) |
 
-> In AppCenter build settings, you set the environment variables defined in the nuget.config, `TELERIK_USERNAME` and `TELERIK_PASSWORD`. If the build is for Kendo, then you set the `KENDO_UI_LICENSE` environment variable.
-
 ## Videos
 
-### Azure DevOps with Private NuGet Server
+### Azure DevOps with Telerik NuGet Server
 
 The following **4 minute** video takes you though all the steps on adding a private NuGet feed as a Service Connection and consuming that service in three different pipeline setups.
 
