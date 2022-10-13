@@ -1,21 +1,12 @@
 # DevOps - Pipeline and Workflow Examples
 
-This repository contains a rich set of CI-CD demos that show you how to:
-
-- Authenticate and restore NuGet packages from the Telerik NuGet server.
-- Activate your Kendo UI license in your CI workflow.
-
-| System        | CI/CD file(s) | Status | 
-|---------------|------------------|--------|
-| Azure DevOps  | [azure-pipelines.yml](/blob/main/azure-pipelines.yml) | [Azure badges](/#azure-devops) |
-| GitHub Actions | [.github/workflows](/.github/workflows) | [Actions badges](/#github-actions) |
-| GitLab CI/CD   | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) | [GitLab badges](/#gitlab-ci-cd) |
-| AppCenter | n/a | [AppCenter badges](/#microsoft-appcenter) |
+This repository contains a rich set of CI-CD demos that show you how to; restore NuGet packages from the Telerik NuGet server, and activate your Kendo UI license in a CI workflow.
 
 Table of Contents
+- [CI Systems](https://github.com/LanceMcCarthy/DevOpsExamples#ci-systems)
 - [Build Badges](https://github.com/LanceMcCarthy/DevOpsExamples#badges)
-- [Video Tutorial](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
-  - [4 different approached in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops-with-telerik-nuget-server)
+- [Videos](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
+  - [Authenticating in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops-with-telerik-nuget-server)
 - [Tips and Troubleshooting](https://github.com/LanceMcCarthy/DevOpsExamples#tips-and-troubleshooting)
   - [Walkthrough: Use GitHub Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables)
   - [Example: Update package source dynamically](https://github.com/LanceMcCarthy/DevOpsExamples#powershell-update-package-source-dynamically)
@@ -23,6 +14,15 @@ Table of Contents
 Related Blog Posts
 - [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
 - [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
+
+## CI Systems
+
+| System        | CI/CD file(s) |
+|---------------|------------------|
+| GitHub Actions | [.github/workflows](/.github/workflows) |
+| GitLab CI/CD  | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) ↗|
+| Azure DevOps - Classic | click a build badge |
+| Azure DevOps - YAML | [azure-pipelines.yml](/blob/main/azure-pipelines.yml) |
 
 ## Badges
 
