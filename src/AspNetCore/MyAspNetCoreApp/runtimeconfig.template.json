@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=tcp:reportingdataserver.database.windows.net,1433;Initial Catalog=samples;Persist Security Info=False;User ID=readonlylogin;Password=!progress#2023#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
+  "configProperties": {
+    "System.Drawing.EnableUnixSupport": true
+  }
+}
