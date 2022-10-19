@@ -20,4 +20,11 @@ RUN dotnet publish "MyAspNetCoreApp.csproj" -c Release -o /app/publish /p:UseApp
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# this is to support Reporting on Linux
+RUN apt-get update \
+    && apt-get install -y --allow-unauthenticated \
+        libc6-dev \
+        libgdiplus \
+        libx11-dev \
+     && rm -rf /var/lib/apt/lists/*
 ENTRYPOINT ["dotnet", "MyAspNetCoreApp.dll"]
