@@ -18,7 +18,7 @@ namespace MyAspNetCoreApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult ReportViewer()
         {
             return View();
         }

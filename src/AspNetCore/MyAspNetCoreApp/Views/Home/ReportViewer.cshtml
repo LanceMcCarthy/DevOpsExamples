@@ -1,0 +1,31 @@
+﻿<style type="text/css">
+    #reportViewer1 {
+        position: absolute;
+        left: 5px;
+        right: 5px;
+        top: 50px;
+        bottom: 5px;
+        overflow: hidden;
+        font-family: Verdana, Arial;
+    }
+</style>
+
+<div id="reportViewer1">
+    loading report viewer...
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#reportViewer1").telerik_ReportViewer({
+            serviceUrl: "/api/reports/",
+            reportSource: {
+                report: "Barcodes Report.trdp"
+            },
+            viewMode: telerikReportViewer.ViewModes.INTERACTIVE,
+            scaleMode: telerikReportViewer.ScaleModes.SPECIFIC,
+            scale: 1.0,
+            enableAccessibility: false,
+            sendEmail: { enabled: false }
+        });
+    });
+</script>
