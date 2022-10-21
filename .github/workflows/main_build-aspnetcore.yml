@@ -27,8 +27,8 @@ jobs:
     - name: Generate tag version
       id: tag-creator
       run: |
-        $buildDay = `date +%Y.%m.%d`
-        $tags = "lancemccarthy/myaspnetcoreapp:" + $buildDay + "." + "$env:GITHUB_RUN_NUMBER"
+        buildDay=`date +%Y.%m.%d`
+        tags="lancemccarthy/myaspnetcoreapp:$buildDay.${{ env.GITHUB_RUN_NUMBER }}"
         echo "::set-output name=DOCKER_HUB_TAG::$ver"
       
     - name: Verify tag output
