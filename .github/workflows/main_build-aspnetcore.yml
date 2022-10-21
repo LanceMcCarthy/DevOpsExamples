@@ -24,22 +24,33 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Get Docker metadata from Docker Hub
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: lancemccarthy/myaspnetcoreapp
+    - name: Generate tag version
+      id: tag-creator
+      run: |
+        $buildDay = `date +%Y.%m.%d`
+        $tags = "lancemccarthy/myaspnetcoreapp:" + $buildDay + "." + "$env:GITHUB_RUN_NUMBER"
+        echo "::set-output name=DOCKER_HUB_TAG::$ver"
       
-    - name: Login to DockerHub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PAT }}
-    
-    - name: Build and push to Docker Hub
-      uses: docker/build-push-action@v3
-      with:
-        context: src/AspNetCore/MyAspNetCoreApp
-        push: true
-        tags: "lancemccarthy/myaspnetcoreapp:latest"
-       # build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
+    - name: Verify tag output
+      run: echo ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
+      
+#    - name: Get Docker metadata from Docker Hub
+#      id: meta
+#      uses: docker/metadata-action@v4
+#      with:
+#        images: lancemccarthy/myaspnetcoreapp
+#      
+#    - name: Login to DockerHub
+#      uses: docker/login-action@v2
+#      with:
+#        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#        password: ${{ secrets.DOCKER_HUB_PAT }}
+#    
+#    - name: Build and push to Docker Hub
+#      uses: docker/build-push-action@v3
+#      with:
+#        context: src/AspNetCore/MyAspNetCoreApp
+#        push: true
+#        tags: ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
+      # tags: "lancemccarthy/myaspnetcoreapp:latest"
+      # build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
