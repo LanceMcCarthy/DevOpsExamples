@@ -23,20 +23,7 @@ jobs:
       id: tag-creator
       run: |
         buildDay=`date +%y.%m%d`
-        
-        echo "${{ env.GITHUB_RUN_NUMBER }} one"
-        runNum="${{ env.GITHUB_RUN_NUMBER }}"
-        echo $runNum
-        
-        echo "$env.GITHUB_RUN_NUMBER two"
-        runNum2="$env.GITHUB_RUN_NUMBER"
-        echo $runNum2
-        
-        echo "$GITHUB_RUN_NUMBER three"
-        runNum3="$GITHUB_RUN_NUMBER"
-        echo $runNum3
-        
-        tags="lancemccarthy/myaspnetcoreapp:$buildDay.$runNum2"
+        tags="lancemccarthy/myaspnetcoreapp:$buildDay.$GITHUB_RUN_NUMBER"
         echo "DOCKER_HUB_TAG=$tags" >> $GITHUB_OUTPUT
       
     - name: Verify tag output
