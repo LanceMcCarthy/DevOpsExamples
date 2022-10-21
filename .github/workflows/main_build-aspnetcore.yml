@@ -7,12 +7,7 @@ on:
     paths:
       - 'src/AspNetCore/**/*'
       - '.github/workflows/main_build-aspnetcore.yml' 
-
-# Set some host env varibles that are expected by the Dockerfile
-env:
-  TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-  TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
-
+      
 jobs:
   # A job that packages a .NET 6.0 web application to Docker Hub using Telerik UI for ASP.NET Core on Linux
   build_aspnetcore:
@@ -28,10 +23,16 @@ jobs:
       id: tag-creator
       run: |
         buildDay=`date +%y.%m%d`
-        runNum="${{ env.GITHUB_RUN_NUMBER }}"
+        
         echo "${{ env.GITHUB_RUN_NUMBER }}"
-        echo $GITHUB_RUN_NUMBER
-        tags="lancemccarthy/myaspnetcoreapp:$buildDay.$runNum"
+        runNum="${{ env.GITHUB_RUN_NUMBER }}"
+        echo $runNum
+        
+        echo $env:GITHUB_RUN_NUMBER
+        runNum2=$env:GITHUB_RUN_NUMBER
+        echo $runNum2
+        
+        tags="lancemccarthy/myaspnetcoreapp:$buildDay.$runNum2"
         echo "DOCKER_HUB_TAG=$tags" >> $GITHUB_OUTPUT
       
     - name: Verify tag output
@@ -57,3 +58,6 @@ jobs:
 #        tags: ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
       # tags: "lancemccarthy/myaspnetcoreapp:latest"
       # build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
+#      env:
+#        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+#        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
