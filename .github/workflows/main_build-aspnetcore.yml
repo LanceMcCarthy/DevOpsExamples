@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - "investigation/*"
     paths:
       - 'src/AspNetCore/**/*'
       - '.github/workflows/main_build-aspnetcore.yml' 
@@ -22,33 +23,34 @@ jobs:
     - name: Generate tag version
       id: tag-creator
       run: |
-        buildDay=`date +%y.%m%d`
+        buildDay=`date +%Y.%m.%d`
         tags="lancemccarthy/myaspnetcoreapp:$buildDay.$GITHUB_RUN_NUMBER"
         echo "DOCKER_HUB_TAG=$tags" >> $GITHUB_OUTPUT
       
     - name: Verify tag output
       run: echo ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
       
-#    - name: Get Docker metadata from Docker Hub
-#      id: meta
-#      uses: docker/metadata-action@v4
-#      with:
-#        images: lancemccarthy/myaspnetcoreapp
-#      
-#    - name: Login to DockerHub
-#      uses: docker/login-action@v2
-#      with:
-#        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-#        password: ${{ secrets.DOCKER_HUB_PAT }}
-#    
-#    - name: Build and push to Docker Hub
-#      uses: docker/build-push-action@v3
-#      with:
-#        context: src/AspNetCore/MyAspNetCoreApp
-#        push: true
-#        tags: ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
-      # tags: "lancemccarthy/myaspnetcoreapp:latest"
-      # build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
-#      env:
-#        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-#        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+    - name: Get Docker metadata from Docker Hub
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: lancemccarthy/myaspnetcoreapp
+      
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PAT }}
+    
+    - name: Build and push to Docker Hub
+      uses: docker/build-push-action@v3
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+      with:
+        context: src/AspNetCore/MyAspNetCoreApp
+        build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
+        push: true
+        tags: |
+          ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
+          lancemccarthy/myaspnetcoreapp:latest
