@@ -24,10 +24,10 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore NuGet Packages
-      run: dotnet restore src\Web\MyBlazorApp\MyBlazorApp.csproj --configfile src\NuGet.Config --runtime any
+      run: dotnet restore src\Blazor\MyBlazorApp\MyBlazorApp.csproj --configfile src\NuGet.Config --runtime any
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Solution
-      run: dotnet build src\Web\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release
+      run: dotnet build src\Blazor\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release
