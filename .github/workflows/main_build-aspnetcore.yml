@@ -44,12 +44,9 @@ jobs:
     
     - name: Build and push to Docker Hub
       uses: docker/build-push-action@v3
-      env:
-        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
       with:
         context: src/AspNetCore/MyAspNetCoreApp
-        build-args: "TELERIK_USERNAME=${{ secrets.MyTelerikAccountUsername }},TELERIK_USERNAME=${{ secrets.MyTelerikAccountPassword }}"
+        build-args: "TELERIK_USERNAME='api-key',TELERIK_USERNAME=${{ secrets.TELERIK_NUGET_KEY }}"
         push: true
         tags: |
           ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
