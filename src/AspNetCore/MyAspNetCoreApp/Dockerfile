@@ -19,7 +19,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src/MyAspNetCoreApp
 COPY . .
 # You can also directly update the package source
-RUN dotnet nuget update source "Telerik_Feed" --source "https://nuget.telerik.com/v3/index.json" --configfile "./NuGet.Config" --username "api-key" --password "${TELERIK_NUGET_KEY}" --store-password-in-clear-text
+RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p "${TELERIK_NUGET_KEY}" --configfile "./NuGet.Config" --store-password-in-clear-text
 RUN dotnet restore "MyAspNetCoreApp.csproj" --configfile "./NuGet.Config"
 RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
 
