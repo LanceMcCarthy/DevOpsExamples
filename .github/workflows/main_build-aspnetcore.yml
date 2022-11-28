@@ -46,11 +46,11 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: src/AspNetCore/MyAspNetCoreApp
-        #build-args: "TELERIK_USERNAME='api-key',TELERIK_USERNAME=${{ secrets.TELERIK_NUGET_KEY }}"
         push: true
-      env:
-        TELERIK_USERNAME: api-key
-        TELERIK_PASSWORD: ${{ secrets.TELERIK_NUGET_KEY }}
         tags: |
           ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
           lancemccarthy/myaspnetcoreapp:latest
+        #build-args: "TELERIK_USERNAME='api-key',TELERIK_USERNAME=${{ secrets.TELERIK_NUGET_KEY }}"
+      env:
+        TELERIK_USERNAME: api-key
+        TELERIK_PASSWORD: ${{ secrets.TELERIK_NUGET_KEY }}
