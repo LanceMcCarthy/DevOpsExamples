@@ -1,42 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:telerik="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              x:Class="MauiDemo.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <Grid>
+        <telerik:RadListView ItemsSource="{Binding Books}">
+            <telerik:RadListView.ItemTemplate>
+                <DataTemplate>
+                    <telerik:ListViewTemplateCell>
+                        <telerik:ListViewTemplateCell.View>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+                                <Label Text="{Binding Title}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="Black"
+                                       Margin="5" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+                                <Label Text="{Binding Description}"
+                                       FontSize="12"
+                                       LineBreakMode="WordWrap"
+                                       TextColor="Gray"
+                                       Margin="5"
+                                       Grid.Row="1" />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <telerik:RadButton
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
-        </VerticalStackLayout>
-    </ScrollView>
-
+                            </Grid>
+                        </telerik:ListViewTemplateCell.View>
+                    </telerik:ListViewTemplateCell>
+                </DataTemplate>
+            </telerik:RadListView.ItemTemplate>
+        </telerik:RadListView>
+    </Grid>
 </ContentPage>
