@@ -52,4 +52,6 @@ jobs:
           lancemccarthy/myaspnetcoreapp:latest
         #build-args: "TELERIK_NUGET_KEY=${{ secrets.TELERIK_NUGET_KEY }}"
       env:
+        TELERIK_USERNAME: ${{ secrets.TELERIK_USERNAME }}
+        TELERIK_PASSWORD: ${{ secrets.TELERIK_PASSWORD }}
         TELERIK_NUGET_KEY: ${{ secrets.TELERIK_NUGET_KEY }}
