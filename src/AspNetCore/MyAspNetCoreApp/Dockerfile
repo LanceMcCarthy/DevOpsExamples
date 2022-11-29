@@ -15,13 +15,12 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src/MyAspNetCoreApp
 # Copy over the code files
 COPY . .
-# Here we use a docker secret to update the 'Telerik_Feed' package source
+# Here we use a docker secret to update the 'Telerik_Feed' package source, then restore then build
 RUN --mount=type=secret,id=telerik_key \
   echo $(cat /run/secrets/telerik_key) \
   && dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --configfile "./NuGet.Config" --store-password-in-clear-text \
-  
-RUN dotnet restore "MyAspNetCoreApp.csproj" --configfile "./NuGet.Config" \
-RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
+  && dotnet restore "MyAspNetCoreApp.csproj" --configfile "./NuGet.Config" \
+  && dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "MyAspNetCoreApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
