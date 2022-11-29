@@ -48,7 +48,7 @@ jobs:
         context: src/AspNetCore/MyAspNetCoreApp
         push: false
         secrets: |
-          "telerik_key=${{ secrets.TELERIK_NUGET_KEY }}"
+          telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
         tags: |
           ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
           lancemccarthy/myaspnetcoreapp:latest
