@@ -46,7 +46,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: src/AspNetCore/MyAspNetCoreApp
-        push: false
+        push: true
         secrets: |
           telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
         tags: |
