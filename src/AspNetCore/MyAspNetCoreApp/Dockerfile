@@ -11,14 +11,15 @@ RUN apt-get update \
      && rm -rf /var/lib/apt/lists/*
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-ARG TELERIK_USERNAME=%TELERIK_USERNAME%
-ARG TELERIK_PASSWORD=%TELERIK_PASSWORD%
-ARG TELERIK_KEY=%TELERIK_NUGET_KEY%
 # Change work directory to the subfolder with this project
 WORKDIR /src/MyAspNetCoreApp
+# Copy over the code files
 COPY . .
-# You can also directly update the package source
-RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "${TELERIK_USERNAME}" -p "${TELERIK_PASSWORD}" --configfile "./NuGet.Config" --store-password-in-clear-text
+# We're using Docker secrets to get Telerik credentials safely https://docs.docker.com/build/ci/github-actions/examples/#secrets
+# Update the NuGet Package Source using the secrets
+RUN --mount=type=secret,id=TELERIK_PASSWORD \
+    --mount=type=secret,id=TELERIK_USERNAME \
+    dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "$(cat /run/secrets/TELERIK_PASSWORD)" -p "$(cat /run/secrets/TELERIK_USERNAME)" --configfile "./NuGet.Config" --store-password-in-clear-text
 RUN dotnet restore "MyAspNetCoreApp.csproj" --configfile "./NuGet.Config"
 RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
 
