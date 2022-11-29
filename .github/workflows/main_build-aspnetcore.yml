@@ -50,6 +50,6 @@ jobs:
         tags: |
           ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
           lancemccarthy/myaspnetcoreapp:latest
-        build-args: "TELERIK_NUGET_KEY=${{ secrets.TELERIK_NUGET_KEY }}"
-      #env:
-        #TELERIK_API_KEY: ${{ secrets.TELERIK_NUGET_KEY }}
+        #build-args: "TELERIK_NUGET_KEY=${{ secrets.TELERIK_NUGET_KEY }}"
+      env:
+        TELERIK_NUGET_KEY: ${{ secrets.TELERIK_NUGET_KEY }}
