@@ -14,12 +14,14 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 # This sets the container's variable "TELERIK_USERNAME" using the value of the host's variable "%TELERIK_USERNAME%"
 #ARG TELERIK_USERNAME=%TELERIK_USERNAME%
 # This sets the container's variable "TELERIK_PASSWORD" using the value of the host's variable "%TELERIK_PASSWORD%"
-#ARG TELERIK_PASSWORD=%TELERIK_NUGET_KEY%
+#ARG TELERIK_PASSWORD=%TELERIK_PASSWORD%
+
+ARG TELERIK_KEY=%TELERIK_NUGET_KEY%
 # Change work directory to the subfolder with this project
 WORKDIR /src/MyAspNetCoreApp
 COPY . .
 # You can also directly update the package source
-RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p "${TELERIK_NUGET_KEY}" --configfile "./NuGet.Config" --store-password-in-clear-text
+RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p "${TELERIK_KEY}" --configfile "./NuGet.Config" --store-password-in-clear-text
 RUN dotnet restore "MyAspNetCoreApp.csproj" --configfile "./NuGet.Config"
 RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
 
