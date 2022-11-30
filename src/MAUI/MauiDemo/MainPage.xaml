@@ -5,35 +5,6 @@
              x:Class="MauiDemo.MainPage">
 
     <Grid>
-        <telerik:RadListView ItemsSource="{Binding Books}">
-            <telerik:RadListView.ItemTemplate>
-                <DataTemplate>
-                    <telerik:ListViewTemplateCell>
-                        <telerik:ListViewTemplateCell.View>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-
-                                <Label Text="{Binding Title}"
-                                       FontSize="16"
-                                       FontAttributes="Bold"
-                                       TextColor="Black"
-                                       Margin="5" />
-
-                                <Label Text="{Binding Description}"
-                                       FontSize="12"
-                                       LineBreakMode="WordWrap"
-                                       TextColor="Gray"
-                                       Margin="5"
-                                       Grid.Row="1" />
-
-                            </Grid>
-                        </telerik:ListViewTemplateCell.View>
-                    </telerik:ListViewTemplateCell>
-                </DataTemplate>
-            </telerik:RadListView.ItemTemplate>
-        </telerik:RadListView>
+        <WebView x:Name="PdfView"/>
     </Grid>
 </ContentPage>

@@ -50,6 +50,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Raw\msix_packaging_fundamentals_ebook.pdf" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Telerik.UI.for.Maui" Version="4.0.0" />
 	</ItemGroup>
     
