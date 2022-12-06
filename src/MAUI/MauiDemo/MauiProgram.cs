@@ -15,35 +15,35 @@ using UIKit;
 #endif
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)] // For XamlC
-namespace MauiDemo
-{
-    public static class MauiProgram
-    {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .UseTelerik()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("telerikfontexamples.ttf", "telerikfontexamples");
-                });
+namespace MauiDemo;
 
-            // Needs using Microsoft.Maui.LifecycleEvents for this extension method
-            builder.ConfigureLifecycleEvents(events =>
+public static class MauiProgram
+{
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .UseTelerik()
+            .ConfigureFonts(fonts =>
             {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("telerikfontexamples.ttf", "telerikfontexamples");
+            });
+
+        // Needs using Microsoft.Maui.LifecycleEvents for this extension method
+        builder.ConfigureLifecycleEvents(events =>
+        {
 #if WINDOWS
-                // using WinUIEx
-                events.AddWindows(wndLifeCycleBuilder =>
+            // using WinUIEx
+            events.AddWindows(wndLifeCycleBuilder =>
+            {
+                wndLifeCycleBuilder.OnWindowCreated(window =>
                 {
-                    wndLifeCycleBuilder.OnWindowCreated(window =>
-                    {
-                        window.CenterOnScreen(1024,768); //uses WinUIEx
-                    });
+                    window.CenterOnScreen(1024,768); //uses WinUIEx
                 });
+            });
 
 #elif MACCATALYST
 
@@ -61,9 +61,8 @@ namespace MauiDemo
 
                 });
 #endif
-            });
+        });
 
-            return builder.Build();
-        }
+        return builder.Build();
     }
 }
