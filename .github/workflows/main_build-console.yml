@@ -12,7 +12,7 @@ jobs:
   # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
   # It uses a Windows runner and builds for Any CPU (remember: Linux file paths are case-sensitive!)
   build_console:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     # REQUIRED - For 'akeyless' step
     permissions:
@@ -27,25 +27,23 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '6.0.x'
 
     # This example uses a NuGet Key instead of username and password, visit https://www.telerik.com/blogs/announcing-nuget-keys.
-    # You can use GitHub secret to store the key's value, here I am getting the secret from AKeyless 
+    # You can use GitHub secret to store the key's value, here I am getting the secret from AKeyless using https://github.com/marketplace/actions/akeyless-integrations 
     - name: Fetch secrets from AKeyless
       id: akeyless
-      uses: LanceMcCarthy/akeyless-action@v2
+      uses: LanceMcCarthy/akeyless-action@v3
       with:
         access-id: ${{ secrets.AKEYLESS_JWT_ID }}
         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY"}'
-        export-secrets-to-outputs: true
-        export-secrets-to-environment: true
         
     - name: Update NuGet Package Sources
       run: |
