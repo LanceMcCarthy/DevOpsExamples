@@ -36,6 +36,8 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
+    # This example uses a NuGet Key instead of username and password, visit https://www.telerik.com/blogs/announcing-nuget-keys.
+    # You can use GitHub secret to store the key's value, here I am getting the secret from AKeyless 
     - name: Fetch secrets from AKeyless
       id: akeyless
       uses: LanceMcCarthy/akeyless-action@v2
@@ -47,12 +49,9 @@ jobs:
         
     - name: Update NuGet Package Sources
       run: |
-        # This example uses a NuGet Key instead of username and password, visit https://www.telerik.com/blogs/announcing-nuget-keys.
-        #_____STEP 1_____#
-        #The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
+        #_____STEP 1_____# The 'update source' command will look in the nuget.config file for the 'Telerik' source and update its credentials using the 'api-key'
         dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{ env.TELERIK_NUGET_KEY }}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
-        #_____STEP 2_____#
-        # Now we can use the 'restore' command
+        #_____STEP 2_____#  Now we can use the 'restore' command
         dotnet restore ${{ env.CSPROJ_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }} --runtime ${{ env.RID }}
     
     - name: Build Solution
