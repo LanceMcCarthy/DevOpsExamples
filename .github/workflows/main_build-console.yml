@@ -8,22 +8,22 @@ on:
       - 'src/Console/**/*'
       - '.github/workflows/main_build-console.yml' 
 
+
+
 jobs:
   # A job that builds a .NET Core console application using Telerik Document Processing Libraries 
   # It uses a Windows runner and builds for Any CPU (remember: Linux file paths are case-sensitive!)
   build_console:
     runs-on: ubuntu-22.04
-
-    # REQUIRED - For 'akeyless' step
-    permissions:
-      id-token: write
-      contents: read
-
     env:
       RID: win-x64
       CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
       NUGETCONFIG_PATH: src/NuGet.Config
       BUILD_CONFIGURATION: Release
+    # IMPORTANT - REQUIRED For 'akeyless' step
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
     - name: Checkout
@@ -34,7 +34,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '7.0.x'
 
     # This example uses a NuGet Key instead of username and password, visit https://www.telerik.com/blogs/announcing-nuget-keys.
     # You can use GitHub secret to store the key's value, here I am getting the secret from AKeyless using https://github.com/marketplace/actions/akeyless-integrations 
@@ -54,4 +54,3 @@ jobs:
     
     - name: Build Solution
       run: dotnet build ${{ env.CSPROJ_PATH }} --configuration ${{ env.BUILD_CONFIGURATION }} --runtime ${{ env.RID }} --no-self-contained --no-restore
-        
