@@ -1,4 +1,4 @@
-name: Build ASP.NET Core Application
+name: Containerize ASP.NET Core with Reporting REST Service
 
 on:
   push:
@@ -12,7 +12,11 @@ on:
 jobs:
   # A job that containerizes an ASP.NET Core web app with Relerik Reporting REST service and publish to Docker Hub
   build_aspnetcore:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    # REQUIRED For 'akeyless' step
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -35,7 +39,7 @@ jobs:
       with:
         images: lancemccarthy/myaspnetcoreapp
 
-    # I am getting my secrets from AKeyless (you can just use lcoal GitHub Actions secrets instead)
+    # I am getting my secrets from AKeyless (you can just use GitHub Actions secrets instead)
     - name: Fetch secrets from AKeyless
       id: akeyless
       uses: LanceMcCarthy/akeyless-action@v3
