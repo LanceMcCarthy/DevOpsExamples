@@ -10,10 +10,9 @@ on:
       - '.github/workflows/main_build-aspnetcore.yml' 
 
 jobs:
-  # A job that packages a .NET 6.0 web application to Docker Hub using Telerik UI for ASP.NET Core on Linux
+  # A job that containerizes an ASP.NET Core web app with Relerik Reporting REST service and publish to Docker Hub
   build_aspnetcore:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -36,11 +35,21 @@ jobs:
       with:
         images: lancemccarthy/myaspnetcoreapp
 
+    # I am getting my secrets from AKeyless (you can just use lcoal GitHub Actions secrets instead)
+    - name: Fetch secrets from AKeyless
+      id: akeyless
+      uses: LanceMcCarthy/akeyless-action@v3
+      with:
+        access-id: ${{ secrets.AKEYLESS_JWT_ID }}
+        static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY", "/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"}'
+        export-secrets-to-outputs: true
+        export-secrets-to-environment: false
+
     - name: Login to DockerHub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PAT }}
+        username: ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }}
+        password: ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
 
     - name: Build and push to Docker Hub
       uses: docker/build-push-action@v3
@@ -48,7 +57,7 @@ jobs:
         context: src/AspNetCore/MyAspNetCoreApp
         push: true
         secrets: |
-          telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
+          telerik_key=${{ steps.akeyless.outputs.TELERIK_NUGET_KEY }}
         tags: |
           ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
           lancemccarthy/myaspnetcoreapp:latest
