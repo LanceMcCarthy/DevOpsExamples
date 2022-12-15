@@ -1,4 +1,4 @@
-name: Containerize ASP.NET Core with Reporting REST Service
+name: Build ASP.NET Core and Reporting REST Service
 
 on:
   push:
