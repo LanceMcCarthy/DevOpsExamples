@@ -9,9 +9,8 @@ on:
       - '.github/workflows/main_build-blazor.yml' 
 
 jobs:
-  build_blazor:
+  build_blazor_windows:
     runs-on: windows-2022
-    
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -31,3 +30,22 @@ jobs:
 
     - name: Build Solution
       run: dotnet build src\Blazor\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release
+
+  build_blazor_docker:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to the build process
+    - name: Build Docker
+      uses: docker/build-push-action@v3
+      with:
+        context: src/Blazor/MyBlazorApp
+        push: false
+        secrets: |
+          telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
+        tags: |
+          lancemccarthy/myblazorapp:latest
