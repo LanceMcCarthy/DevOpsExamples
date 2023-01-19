@@ -54,6 +54,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommonHelpers" Version="1.2.0" />
 		<PackageReference Include="Telerik.UI.for.Maui" Version="4.0.0" />
 	</ItemGroup>
     
