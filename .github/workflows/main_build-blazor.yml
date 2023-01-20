@@ -23,7 +23,9 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore NuGet Packages
-      run: dotnet restore src\Blazor\MyBlazorApp\MyBlazorApp.csproj --configfile src\NuGet.Config --runtime any
+      run: |
+        # In this special case, we're using the nested nuget.config file (instead of src.nuget.config)
+        dotnet restore src\Blazor\MyBlazorApp\MyBlazorApp.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime any
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
