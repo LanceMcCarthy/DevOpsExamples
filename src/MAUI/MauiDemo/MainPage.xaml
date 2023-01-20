@@ -4,20 +4,27 @@
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              x:Class="MauiDemo.MainPage">
 
-    <Grid RowDefinitions="*, Auto">
-        <telerik:RadBorder x:Name="Border1"
-                           BorderColor="Blue"
-                           BorderThickness="2"
-                           CornerRadius="15"
-                           Margin="100">
-            <Image Source="dotnet_bot.svg" 
-                   Margin="5"/>
-        </telerik:RadBorder>
+    <Grid RowDefinitions="*,Auto">
+        <telerik:RadDataGrid x:Name="grid"
+                             ItemsSource="{Binding Employees}"
+                             AutoGenerateColumns="False">
+            <telerik:RadDataGrid.Columns>
+                <telerik:DataGridTextColumn PropertyName="Name"
+                                            HeaderText="Name" />
+                <telerik:DataGridNumericalColumn PropertyName="Position"
+                                                 HeaderText="Position" />
+            </telerik:RadDataGrid.Columns>
+        </telerik:RadDataGrid>
 
-
-        <Label Text="Hello World"
-               HorizontalOptions="Center"
-               Margin="50"
-               Grid.Row="1" />
+        <HorizontalStackLayout Spacing="10"
+                               Padding="10"
+                               Grid.Row="1">
+            <Button Text="Start Over"
+                    Command="{Binding StartOverCommand}" />
+            <Button Text="Add Range (5)"
+                    Command="{Binding AddRangeCommand}" />
+            <Button Text="Clear"
+                    Command="{Binding ClearItemsCommand}" />
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>

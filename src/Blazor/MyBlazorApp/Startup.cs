@@ -23,7 +23,7 @@ public class Startup
         services.AddRazorPages();
         services.AddServerSideBlazor(o => o.DetailedErrors = true);
         services.AddTelerikBlazor();
-        services.AddSingleton<IDashboardDataService, DashboardDataService>();
+        services.AddSingleton<DashboardDataService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
