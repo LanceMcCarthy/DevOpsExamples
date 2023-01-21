@@ -94,7 +94,7 @@ jobs:
   - group: KeyVaultVariables 
 # local vars
   - name: nugetConfigPath
-    value: 'src/nuget.config'
+    value: 'src/Blazor/MyBlazorApp/NuGet.Config'
   - name: blazorProjectPath
     value: 'src/Blazor/MyBlazorApp.sln'
   - name: buildConfiguration
@@ -110,7 +110,9 @@ jobs:
   
   # Step 1. Restore NuGet packages: Below are two different ways to do a restore using Telerik NuGet feed
 
+  # --------------------------------------------------
   # Option 1 - Use 'dotnet nuget update source'
+  # --------------------------------------------------
   # This example uses Azure KeyVault secrets via the linked variable group 'KeyVaultVariables'.
   - task: PowerShell@2
     inputs:
@@ -121,8 +123,9 @@ jobs:
         # Restore packages
         dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
 
-
+  # --------------------------------------------------
   # Option 2 - Use 'dotnet restore' with env variables
+  # --------------------------------------------------
   # - task: PowerShell@2
   #   displayName: 'Restore NuGet Packages'
   #   inputs:
