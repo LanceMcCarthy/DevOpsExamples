@@ -91,16 +91,7 @@ jobs:
 
   variables:
 # secrets from AzureKeyValue
-  - group: KeyVaultVariables 
-# local vars
-  - name: nugetConfigPath
-    value: 'src/Blazor/MyBlazorApp/NuGet.Config'
-  - name: blazorProjectPath
-    value: 'src/Blazor/MyBlazorApp.sln'
-  - name: buildConfiguration
-    value: 'Debug'
-  - name: rid
-    value: any
+  - group: KeyVaultVariables
   
   steps:
   - task: UseDotNet@2
@@ -119,9 +110,9 @@ jobs:
       targetType: 'inline'
       script: |
         # Update a package source in the nuget.config with the update source command (these variables are linked Azure KeyVault secrets)
-        dotnet nuget update source Telerik --source https://nuget.telerik.com/v3/index.json --username '$(MYTELERIKACCOUNTUSERNAME)' --password '$(MYTELERIKACCOUNTPASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+        dotnet nuget update source 'Telerik_Feed' --source 'https://nuget.telerik.com/v3/index.json' --username '$(MYTELERIKACCOUNTUSERNAME)' --password '$(MYTELERIKACCOUNTPASSWORD)' --store-password-in-clear-text --configfile 'src\Blazor\MyBlazorApp\NuGet.Config'
         # Restore packages
-        dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
+        dotnet restore 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj' --configfile 'src\Blazor\MyBlazorApp\NuGet.Config' --runtime win-x64 --no-self-contained
 
   # --------------------------------------------------
   # Option 2 - Use 'dotnet restore' with env variables
@@ -136,7 +127,7 @@ jobs:
   #       $env:TELERIK_PASSWORD ='$(MY_TELERIK_PASSWORD)'
 
   #       # Use the nuget.config to restore the packages.
-  #       dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath) --runtime $(rid)
+  #       dotnet restore 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj' --configfile 'src\Blazor\MyBlazorApp\NuGet.Config' --runtime win-x64 --no-self-contained
 
 
   # Step 2. Build the project
@@ -144,8 +135,8 @@ jobs:
     displayName: 'Build Blazor Project'
     inputs:
       command: 'build'
-      projects: $(blazorProjectPath)
-      configuration: $(buildConfiguration)
+      projects: src\Blazor\MyBlazorApp\MyBlazorApp.csproj
+      configuration: Debug
 
 
 # ******************************************************* #
