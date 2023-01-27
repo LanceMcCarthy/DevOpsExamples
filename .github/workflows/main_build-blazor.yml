@@ -55,11 +55,13 @@ jobs:
         fetch-depth: 0
 
     # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to be mounted in the Dockerfile's commands
+    # NOTE: this demo does not push to Dockerhub. 
+    # For a real world exapmple, see the ASP.NET Core Workflow at ~/.github/workflows/main_build-aspnetcore.yml
     - name: Build Docker
       uses: docker/build-push-action@v3
       with:
         context: src/Blazor/MyBlazorApp
-        push: true
+        push: false
         secrets: |
           telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
         tags: |
