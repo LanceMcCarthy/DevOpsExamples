@@ -14,7 +14,7 @@ trigger:
 jobs:
 
 # *************************************************************** #
-# *                EXAMPLE 1 - CONSOLE (.NET 6)                 * #
+# *                EXAMPLE 1 - CONSOLE (.NET)                 * #
 # *************************************************************** #
 
 - job: BuildConsoleApp
@@ -34,7 +34,7 @@ jobs:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
-      version: '6.0.x'
+      version: '7.0.x'
 
   # Restore the NuGet packges using Service connection for credentials
   - task: DotNetCoreCLI@2
@@ -83,7 +83,7 @@ jobs:
 
 
 # ******************************************************* #
-# *             EXAMPLE 3 - BLAZOR (.NET 6)             * #
+# *             EXAMPLE 3 - BLAZOR (.NET 7)             * #
 # ******************************************************* #
 - job: BuildBlazorApp
   pool:
@@ -106,7 +106,7 @@ jobs:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
-      version: '6.0.x'
+      version: '7.0.x'
   
   # Step 1. Restore NuGet packages: Below are two different ways to do a restore using Telerik NuGet feed
 
