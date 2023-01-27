@@ -9,6 +9,9 @@ on:
       - '.github/workflows/main_build-blazor.yml' 
 
 jobs:
+##############################
+####### WINDOWS BUILD ########
+##############################
   build_blazor_windows:
     runs-on: windows-2022
     steps:
@@ -24,15 +27,25 @@ jobs:
 
     - name: Restore NuGet Packages
       run: |
-        # In this special case, we're using the nested nuget.config file (instead of src.nuget.config)
-        dotnet restore src\Blazor\MyBlazorApp\MyBlazorApp.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime any
+        # In this special case, we're using the nested nuget.config file (instead of src/nuget.config)
+        dotnet restore src\Blazor\MyBlazorApp\MyBlazorApp.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime win-x64
+        dotnet restore src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime win-x64
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
-    - name: Build Solution
-      run: dotnet build src\Blazor\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release
+    - name: Build Blazor Project
+      run: dotnet build src\Blazor\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release --runtime win-x64
 
+    - name: Build Test Project
+      run: dotnet build src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --no-restore --configuration Release --runtime win-x64
+
+    - name: Run Tests
+      run: dotnet test src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --runtime win-x64
+
+##############################
+####### DOCKER BUILD #########
+##############################
   build_blazor_docker:
     runs-on: ubuntu-22.04
     steps:
@@ -41,12 +54,12 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to the build process
+    # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to be mounted in the Dockerfile's commands
     - name: Build Docker
       uses: docker/build-push-action@v3
       with:
         context: src/Blazor/MyBlazorApp
-        push: false
+        push: true
         secrets: |
           telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
         tags: |
