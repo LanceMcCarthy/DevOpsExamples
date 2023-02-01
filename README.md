@@ -11,9 +11,10 @@ Table of Contents
   - [Walkthrough: Use GitHub Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables)
   - [Example: Update package source dynamically](https://github.com/LanceMcCarthy/DevOpsExamples#powershell-update-package-source-dynamically)
   - [Example Using Telerik NuGet Keys](https://github.com/LanceMcCarthy/DevOpsExamples#using-telerik-nuget-keys)
-Related Blog Posts
-- [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
-- [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
+  - [Dockerfile: Using Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#dockerfile-using-secrets)
+- Related Blog Posts
+  - [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
+  - [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
 
 ## CI Systems
 
@@ -39,15 +40,10 @@ Related Blog Posts
 | Xamarin.Forms | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Xamarin.Forms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=68) | [![Build Xamarin.Forms Applications](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-xamarin.yml) |  |
 | Kendo Angular | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 
-| AppCenter Project | Main Branch |
-|---------|-------------|
-| Xamarin.Forms iOS | [![iOS](https://build.appcenter.ms/v0.1/apps/fb6ee8ef-11ce-43d8-8e55-cba537388483/branches/main/badge)](https://appcenter.ms) |
-| Xamarin.Forms Android | [![Android](https://build.appcenter.ms/v0.1/apps/51ebbd36-58fe-4ebc-accd-0af37cbf6758/branches/main/badge)](https://appcenter.ms) |
+### Bonus Notes
 
-#### Cool Notes
-
-- `workflows/main_build-aspnetcore.yml` uses a Dockerfile to build and publish a Linux image to DockerHub => [lancemccarthy/myaspnetcoreapp](https://hub.docker.com/r/lancemccarthy/myaspnetcoreapp)
-- The `Console`, `AJAX`, `Blazor` and `UWP` projects are built using both AzDO Classic and YAML pipelines.
+- Docker and DockerHub integration: `workflows/main_build-aspnetcore.yml` uses a Dockerfile to build and publish a Linux image to DockerHub => [lancemccarthy/myaspnetcoreapp](https://hub.docker.com/r/lancemccarthy/myaspnetcoreapp)
+- Azure DevOps: The `Console`, `AJAX`, `Blazor` and `UWP` projects are built using both Azure DevOps YAML and Classic pipelines.
 
 ## Videos
 
@@ -103,4 +99,31 @@ dotnet nuget update source "Telerik" --source "https://nuget.telerik.com/v3/inde
 
 > IMPORTANT: Protect your key by storing it in a GitHub Secret, then use the secret's varible name in the command
 
+### Dockerfile: Using Secrets
+When using a Dockerfile to build a .NET project that uses the Telerik NuGet server, you'll need a safe and secure way to handle your crednetials. This can be done my mounting a Docker secret, which is a 1-liner in theDockerfile. Let's walkthrough through the highlights.
 
+In your GitHub Actions workflow, you can set a secret in the same step that you build/publish the container. In the following YAML, notice we're using a GitHub Actions Secret to set a Docker secret: `telerik_key=${{ secrets.TELERIK_NUGET_KEY }}`
+
+```yaml
+    - uses: docker/build-push-action@v3
+      with:
+        secrets: |
+          telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
+     ...
+```
+
+Now, insdie the Dockerfie itself, we can mount that secret:
+
+```shell
+# Here we use a docker secret to update the 'Telerik_Feed' package source, then restore then build
+RUN --mount=type=secret,id=telerik_key \
+  echo $(cat /run/secrets/telerik_key)
+```
+
+Now that the secret's value is available (`/run/secrets/telerik_key` in this case), it can be used in subsequent dotnet commands. For example here, I update the Telerik package source's credentials.
+
+```shell
+dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --configfile "./NuGet.Config" --store-password-in-clear-text \
+```
+
+For a complete demo, [see the complete Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile) and [the complete workflow](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml).
