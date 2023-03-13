@@ -17,10 +17,10 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src/MyBlazorApp
 # Copy over the code files
 COPY . .
-RUN echo "VERSION_BUILDNUMBER=$VERSION_BUILDNUMBER"
+RUN echo "TEST ARG $TEST_ARG"
+RUN echo "Throwaway Key (valid for 15 minutes): $TELERIK_KEY"
 # Here we use a docker secret to update the 'Telerik_Feed' package source, then restore then build. You can set the secret from a variety of sources, including a file, environment variable, or Azure Key Vault
-RUN echo "TELERIK_KEY build-arg: $TELERIK_KEY" \
-  && dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $TELERIK_KEY --configfile "./NuGet.Config" --store-password-in-clear-text \
+RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p "XXo4M+gNjEOzj+N/MIyw+w==.jIe5u+diHxOjuELuPTR4t73mkHcJZj3troOeBDE5HMoF49cB8hAVkjP2RlT+8G6FD/Yge4IUrm2a+2G6KJKwAQ==" --configfile "./NuGet.Config" --store-password-in-clear-text \
   && dotnet restore "MyBlazorApp.csproj" --configfile "./NuGet.Config" \
   && dotnet build "MyBlazorApp.csproj" -c Release -o /app/build
 
