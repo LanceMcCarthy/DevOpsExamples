@@ -1,12 +1,26 @@
+# Migrating this workflow to Azure DevOps example. 
+# For Docker guidance, see a more robust example that builds AND publishes an image to Dockerhub:
+# https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml
 name: Build Blazor Application
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/Blazor/**/*'
-      - '.github/workflows/main_build-blazor.yml' 
+  workflow_dispatch:
+    inputs:
+    logLevel:
+      description: 'Log level'
+      required: true
+      default: 'warning'
+      type: choice
+      options:
+      - info
+      - warning
+      - debug
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - 'src/Blazor/**/*'
+  #     - '.github/workflows/main_build-blazor.yml' 
 
 jobs:
 ##############################
