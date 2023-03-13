@@ -3,8 +3,8 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 # Dependencies for Telerik Reporting on Linux
-RUN apt-get update \
-    && apt-get install -y --allow-unauthenticated \
+RUN apt update \
+    && apt install -y --allow-unauthenticated \
         libc6-dev \
         libgdiplus \
         libx11-dev \
