@@ -14,7 +14,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src/MyBlazorApp
 COPY . .
 RUN --mount=type=secret,id=TELERIK_KEY,dst=/TELERIK_KEY \
-  echo $(cat /TELERIK_KEY) \
+  echo Saved key $(cat /TELERIK_KEY) \
   && dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /TELERIK_KEY) --configfile "./NuGet.Config" --store-password-in-clear-text \
   && dotnet restore "MyBlazorApp.csproj" --configfile "./NuGet.Config" \
   && dotnet build "MyBlazorApp.csproj" -c Release -o /app/build
