@@ -11,12 +11,14 @@ RUN apt-get update \
      && rm -rf /var/lib/apt/lists/*
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+# Temporary argument for build phase. This is passed in via '--build-arg' argument when building the image.
+ARG TELERIK_KEY=temp_telerik_key
 # Change work directory to the subfolder with this project
 WORKDIR /src/MyBlazorApp
 # Copy over the code files
 COPY . .
 # Here we use a docker secret to update the 'Telerik_Feed' package source, then restore then build. You can set the secret from a variety of sources, including a file, environment variable, or Azure Key Vault
-RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $telerik_nuget_key --configfile "./NuGet.Config" --store-password-in-clear-text \
+RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $TELERIK_KEY --configfile "./NuGet.Config" --store-password-in-clear-text \
   && dotnet restore "MyBlazorApp.csproj" --configfile "./NuGet.Config" \
   && dotnet build "MyBlazorApp.csproj" -c Release -o /app/build
 
