@@ -18,7 +18,8 @@ WORKDIR /src/MyBlazorApp
 # Copy over the code files
 COPY . .
 # Here we use a docker secret to update the 'Telerik_Feed' package source, then restore then build. You can set the secret from a variety of sources, including a file, environment variable, or Azure Key Vault
-RUN dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $TELERIK_KEY --configfile "./NuGet.Config" --store-password-in-clear-text \
+RUN echo "The ARG variable value is $TELERIK_KEY" \
+  && dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $TELERIK_KEY --configfile "./NuGet.Config" --store-password-in-clear-text \
   && dotnet restore "MyBlazorApp.csproj" --configfile "./NuGet.Config" \
   && dotnet build "MyBlazorApp.csproj" -c Release -o /app/build
 
