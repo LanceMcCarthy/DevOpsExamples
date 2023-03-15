@@ -105,19 +105,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.Windows.Controls.for.Wpf">
-      <Version>2023.1.117</Version>
+      <Version>2023.1.315</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf">
-      <Version>2023.1.117</Version>
+      <Version>2023.1.315</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.Input.for.Wpf">
-      <Version>2023.1.117</Version>
+      <Version>2023.1.315</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Data.for.Wpf">
-      <Version>2023.1.117</Version>
+      <Version>2023.1.315</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Themes.VisualStudio2019.for.Wpf">
-      <Version>2023.1.117</Version>
+      <Version>2023.1.315</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
