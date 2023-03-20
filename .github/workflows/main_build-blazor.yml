@@ -1,6 +1,5 @@
-# Migrating this workflow to Azure DevOps example. 
-# For Docker guidance, see a more robust example that builds AND publishes an image to Dockerhub:
-# https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml
+# For build guidance only, this workflow does not publish to Dockerhub.
+# See workflows/main_build-aspnetcore.yml for an example that builds and publishes an image to Docker Hub
 name: Build Blazor Application
 
 on:
@@ -15,12 +14,12 @@ on:
       - info
       - warning
       - debug
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - 'src/Blazor/**/*'
-  #     - '.github/workflows/main_build-blazor.yml' 
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Blazor/**/*'
+      - '.github/workflows/main_build-blazor.yml' 
 
 jobs:
 ##############################
@@ -77,6 +76,7 @@ jobs:
         context: src/Blazor/MyBlazorApp
         push: false
         secrets: |
-          telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
+          telerik_username=${{ secrets.MyTelerikAccountUsername }}
+          telerik_password=${{ secrets.MyTelerikAccountPassword }}
         tags: |
           lancemccarthy/myblazorapp:latest
