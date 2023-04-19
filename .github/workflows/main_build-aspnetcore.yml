@@ -1,6 +1,7 @@
 name: Build ASP.NET Core and Reporting REST Service
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

@@ -1,6 +1,7 @@
 name: Build MAUI Project
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
