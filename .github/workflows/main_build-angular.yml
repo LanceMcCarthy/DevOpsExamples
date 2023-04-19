@@ -1,6 +1,7 @@
 name: Build Angular Application
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

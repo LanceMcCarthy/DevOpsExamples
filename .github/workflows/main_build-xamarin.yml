@@ -1,6 +1,7 @@
 name: Build Xamarin.Forms Applications
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

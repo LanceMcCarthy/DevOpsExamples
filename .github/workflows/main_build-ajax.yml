@@ -1,6 +1,7 @@
 name: Build AJAX Application
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

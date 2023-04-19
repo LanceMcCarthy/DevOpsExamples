@@ -1,6 +1,7 @@
 name: Build WinForms Application
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
