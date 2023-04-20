@@ -28,13 +28,6 @@ jobs:
       with:
         dotnet-version: '7.0.x'
 
-    - name: Generate tag version
-      id: tag-creator
-      run: |
-        buildDay=`date +%Y.%m.%d`
-        tags="lancemccarthy/myblazorapp:$buildDay.$GITHUB_RUN_NUMBER"
-        echo "DOCKER_HUB_TAG=$tags" >> $GITHUB_OUTPUT
-
     - name: Restore NuGet Packages
       run: |
         # In this special case, we're using the nested nuget.config file (instead of src/nuget.config)
@@ -71,13 +64,6 @@ jobs:
       with:
         dotnet-version: '7.0.x'
 
-    - name: Generate tag version
-      id: tag-creator
-      run: |
-        buildDay=`date +%Y.%m.%d`
-        tags="lancemccarthy/myblazorapp:$buildDay.$GITHUB_RUN_NUMBER"
-        echo "DOCKER_HUB_TAG=$tags" >> $GITHUB_OUTPUT
-
     - name: Restore NuGet Packages
       run: |
         # In this special case, we're using the nested nuget.config file (instead of src/nuget.config)
@@ -103,7 +89,7 @@ jobs:
       run: docker login registry.hub.docker.com -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
 
     - name: Publish Blazor Project
-      run: dotnet publish src\Blazor\MyBlazorApp\MyBlazorApp.csproj -c Release --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=registry.hub.docker.com -p ContainerImageName="lancemccarthy/myblazorapp:${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}"" --no-build
+      run: dotnet publish src\Blazor\MyBlazorApp\MyBlazorApp.csproj -c Release --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=registry.hub.docker.com -p ContainerImageName="lancemccarthy/myblazorapp" --no-build
 
 ###################################
 ####### DOCKER FILE BUILD #########
