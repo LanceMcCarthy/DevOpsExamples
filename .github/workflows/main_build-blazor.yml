@@ -61,20 +61,13 @@ jobs:
       IMAGE_NAME: "lancemccarthy/myblazorapp"
       IMAGE_BASE: "mcr.microsoft.com/dotnet/aspnet:7.0"
       IMAGE_REGISTRY: "registry.hub.docker.com"
+      IMAGE_TAG: "latest"
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
-    - name: Generate version number with date and workflow Run Number
-      id: version-creator
-      run: |
-        $buildDay = Get-Date -Format "yyyy.Mdd"
-        $runNumber = "$env:GITHUB_RUN_NUMBER"
-        $ver = $buildDay + "." + $runNumber + ".0"
-        echo "::set-output name=APP_VERSION::$ver"
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
@@ -107,7 +100,7 @@ jobs:
 
     # Nice new feature of .NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
-      run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=${{ env.IMAGE_REGISTRY }} -p ContainerImageName=${{ env.IMAGE_NAME }} -p ContainerImageTags="latest;v${{ steps.version-creator.outputs.APP_VERSION }}" -p ContainerBaseImage=${{ env.IMAGE_BASE }} --no-build
+      run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=${{ env.IMAGE_REGISTRY }} -p ContainerImageName=${{ env.IMAGE_NAME }} -p ContainerImageTag=${{ env.IMAGE_BASE }} -p ContainerBaseImage=${{ env.IMAGE_BASE }} --no-build
 
 
 ###################################
