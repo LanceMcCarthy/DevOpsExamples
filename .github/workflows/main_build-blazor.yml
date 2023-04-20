@@ -15,7 +15,7 @@ jobs:
 ##############################
 ####### WINDOWS BUILD ########
 ##############################
-  build_blazor_windows:
+  build_windows:
     runs-on: windows-2022
     steps:
     - name: Checkout
@@ -26,7 +26,14 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '7.0.x'
+
+    - name: Generate tag version
+      id: tag-creator
+      run: |
+        buildDay=`date +%Y.%m.%d`
+        tags="lancemccarthy/myblazorapp:$buildDay.$GITHUB_RUN_NUMBER"
+        echo "DOCKER_HUB_TAG=$tags" >> $GITHUB_OUTPUT
 
     - name: Restore NuGet Packages
       run: |
@@ -37,19 +44,71 @@ jobs:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
-    - name: Build Blazor Project
-      run: dotnet build src\Blazor\MyBlazorApp\MyBlazorApp.csproj --no-restore --configuration Release --runtime win-x64
-
     - name: Build Test Project
       run: dotnet build src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --no-restore --configuration Release --runtime win-x64
 
     - name: Run Tests
       run: dotnet test src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --runtime win-x64
 
-##############################
-####### DOCKER BUILD #########
-##############################
-  build_blazor_docker:
+#########################################
+####### .NET CONTAINER SDK BUILD ########
+#########################################
+  build_dotnet_container:
+    runs-on: windows-2022    
+    # For 'akeyless' step
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Generate tag version
+      id: tag-creator
+      run: |
+        buildDay=`date +%Y.%m.%d`
+        tags="lancemccarthy/myblazorapp:$buildDay.$GITHUB_RUN_NUMBER"
+        echo "DOCKER_HUB_TAG=$tags" >> $GITHUB_OUTPUT
+
+    - name: Restore NuGet Packages
+      run: |
+        # In this special case, we're using the nested nuget.config file (instead of src/nuget.config)
+        dotnet restore src\Blazor\MyBlazorApp\MyBlazorApp.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime linux-x64
+        dotnet restore src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime linux-x64
+      env:
+        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+
+    - name: Build Test Project
+      run: dotnet build src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --no-restore --configuration Release --runtime linux-x64
+
+    - name: Fetch secrets from AKeyless
+      id: akeyless
+      uses: LanceMcCarthy/akeyless-action@v3
+      with:
+        access-id: ${{ secrets.AKEYLESS_JWT_ID }}
+        static-secrets: '{"/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"}'
+        export-secrets-to-outputs: true
+        export-secrets-to-environment: false
+
+    - name: Login to Docker Hub
+      run: docker login registry.hub.docker.com -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
+
+    - name: Publish Blazor Project
+      run: dotnet publish src\Blazor\MyBlazorApp\MyBlazorApp.csproj -c Release --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=registry.hub.docker.com -p ContainerImageName="lancemccarthy/myblazorapp:${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}"" --no-build
+
+###################################
+####### DOCKER FILE BUILD #########
+###################################
+  build_docker_file:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
