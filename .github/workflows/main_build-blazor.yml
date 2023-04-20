@@ -52,12 +52,30 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    env:
+      RID: linux-x64
+      CONFIGURATION: Release
+      BLAZOR_PROJ_PATH: src\Blazor\MyBlazorApp\MyBlazorApp.csproj
+      TEST_PROJ_PATH: src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj
+      NUGET_CONFIG_PATH: src\Blazor\MyBlazorApp\NuGet.Config
+      IMAGE_NAME: "lancemccarthy/myblazorapp"
+      IMAGE_TAG: "latest;v${{ steps.version-creator.outputs.APP_VERSION }}"
+      IMAGE_BASE: "mcr.microsoft.com/dotnet/aspnet:7.0"
+      IMAGE_REGISTRY: "registry.hub.docker.com"
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+
+    - name: Generate version number with date and workflow Run Number
+      id: version-creator
+      run: |
+        $buildDay = Get-Date -Format "yyyy.Mdd"
+        $runNumber = "$env:GITHUB_RUN_NUMBER"
+        $ver = $buildDay + "." + $runNumber + ".0"
+        echo "::set-output name=APP_VERSION::$ver"
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v3
@@ -67,14 +85,14 @@ jobs:
     - name: Restore NuGet Packages
       run: |
         # In this special case, we're using the nested nuget.config file (instead of src/nuget.config)
-        dotnet restore src\Blazor\MyBlazorApp\MyBlazorApp.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime linux-x64
-        dotnet restore src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --configfile src\Blazor\MyBlazorApp\NuGet.Config --runtime linux-x64
+        dotnet restore ${{ env.BLAZOR_PROJ_PATH }}-configfile ${{ env.NUGET_CONFIG_PATH }} --runtime ${{ env.RID }}
+        dotnet restore ${{ env.TEST_PROJ_PATH }} --configfile ${{ env.NUGET_CONFIG_PATH }} --runtime ${{ env.RID }}
       env:
         TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
         TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
 
     - name: Build Test Project
-      run: dotnet build src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --no-restore --configuration Release --runtime linux-x64
+      run: dotnet build ${{ env.TEST_PROJ_PATH }} --no-restore --configuration ${{ env.CONFIGURATION }} --runtime ${{ env.RID }}
 
     - name: Fetch secrets from AKeyless
       id: akeyless
@@ -86,10 +104,12 @@ jobs:
         export-secrets-to-environment: false
 
     - name: Login to Docker Hub
-      run: docker login registry.hub.docker.com -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
+      run: docker login ${{ env.IMAGE_REGISTRY }} -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }} --password-stdin
 
-    - name: Publish Blazor Project
-      run: dotnet publish src\Blazor\MyBlazorApp\MyBlazorApp.csproj -c Release --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=registry.hub.docker.com -p ContainerImageName="lancemccarthy/myblazorapp" --no-build
+    # Nice new feature of .NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
+    - name: Publish Blazor Project to Docker Hub
+      run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=${{ env.IMAGE_REGISTRY }} -p ContainerImageName=${{ env.IMAGE_NAME }} -p ContainerImageTag=${{ env.IMAGE_TAG }} -p ContainerBaseImage=${{ env.IMAGE_BASE }} --no-build
+
 
 ###################################
 ####### DOCKER FILE BUILD #########
