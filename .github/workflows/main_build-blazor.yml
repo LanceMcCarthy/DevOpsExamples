@@ -103,7 +103,7 @@ jobs:
         export-secrets-to-environment: false
 
     - name: Login to Docker Hub
-      run: docker login ${{ env.IMAGE_REGISTRY }} -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }} --password-stdin
+      run: docker login ${{ env.IMAGE_REGISTRY }} -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
 
     # Nice new feature of .NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
