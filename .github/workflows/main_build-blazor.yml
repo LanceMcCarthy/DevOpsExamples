@@ -59,7 +59,6 @@ jobs:
       TEST_PROJ_PATH: src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj
       NUGET_CONFIG_PATH: src\Blazor\MyBlazorApp\NuGet.Config
       IMAGE_NAME: "lancemccarthy/myblazorapp"
-      IMAGE_TAG: "latest;v${{ steps.version-creator.outputs.APP_VERSION }}"
       IMAGE_BASE: "mcr.microsoft.com/dotnet/aspnet:7.0"
       IMAGE_REGISTRY: "registry.hub.docker.com"
 
@@ -108,7 +107,7 @@ jobs:
 
     # Nice new feature of .NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
-      run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=${{ env.IMAGE_REGISTRY }} -p ContainerImageName=${{ env.IMAGE_NAME }} -p ContainerImageTag=${{ env.IMAGE_TAG }} -p ContainerBaseImage=${{ env.IMAGE_BASE }} --no-build
+      run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=${{ env.IMAGE_REGISTRY }} -p ContainerImageName=${{ env.IMAGE_NAME }} -p ContainerImageTag="latest;v${{ steps.version-creator.outputs.APP_VERSION }}" -p ContainerBaseImage=${{ env.IMAGE_BASE }} --no-build
 
 
 ###################################
