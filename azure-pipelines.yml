@@ -65,7 +65,7 @@ jobs:
     vmImage: 'windows-2022'
   variables:
     nugetConfigPath: 'src\nuget.config'
-    projectPath: 'src\Ajax\MySite.Web\MySite.Web.csproj'
+    projectPath: 'src\Ajax\MySite.Web\MySite.sln'
 
   steps:
   - task: NuGetToolInstaller@1
