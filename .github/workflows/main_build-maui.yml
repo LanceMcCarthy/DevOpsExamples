@@ -14,6 +14,7 @@ env:
   NUGETCONFIG_PATH: "src/NuGet.Config"
   TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }} # used by the NuGet.Config file
   TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }} # used by the NuGet.Config file
+  PUBLISH_TRIMMED: False
 
 jobs:
 
@@ -56,7 +57,7 @@ jobs:
 
     - name: Build Maui Android project
       shell: pwsh
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net6.0-android --no-restore
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net7.0-android --no-restore -p:PublishTrimmed=${{ env.PUBLISH_TRIMMED }}
 
 
 # ***************************** #
@@ -98,7 +99,7 @@ jobs:
     - name: Build Maui WinUI project
       shell: pwsh
       run: |
-        dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net6.0-windows10.0.19041.0
+        dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net7.0-windows10.0.19041.0 -p:PublishTrimmed=${{ env.PUBLISH_TRIMMED }}
 
 
 # ************************* #
@@ -142,7 +143,7 @@ jobs:
 
     - name: Build MAUI iOS project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net6.0-ios --no-restore
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net7.0-ios --no-restore -p:PublishTrimmed=${{ env.PUBLISH_TRIMMED }}
 
 
 # ********************************* #
@@ -186,4 +187,4 @@ jobs:
     
     - name: Build MAUI MacCatalyst project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -f net6.0-maccatalyst -c Debug --no-restore
+      run: dotnet build ${{ env.PROJECT_PATH }} -f net7.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=${{ env.PUBLISH_TRIMMED }}
