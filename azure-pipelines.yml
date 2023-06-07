@@ -76,7 +76,7 @@ jobs:
     displayName: 'Update Package Source Credentials'
     inputs:
       targetType: 'inline'
-      script: nuget sources update -Name'Telerik_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+      script: nuget sources update -Name 'Telerik_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
   # Step 2. Using nuget.exe, restore the NuGet packages
   - task: PowerShell@2
