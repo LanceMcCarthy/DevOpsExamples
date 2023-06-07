@@ -71,12 +71,12 @@ jobs:
   - task: NuGetToolInstaller@1
     displayName: 'Use NuGet '
 
-  # Step 1. Using nuget.exe, set the credentials of the 'Telerik_Feed' using pipeline secrets
+  # Step 1. Using nuget.exe, set the credentials of the 'Telerik' source in the nuget.config (using pipeline secrets)
   - task: PowerShell@2
     displayName: 'Update Package Source Credentials'
     inputs:
       targetType: 'inline'
-      script: nuget sources update -Name 'Telerik_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+      script: nuget sources update -Name 'Telerik' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
   # Step 2. Using nuget.exe, restore the NuGet packages
   - task: PowerShell@2
@@ -114,7 +114,7 @@ jobs:
       packageType: 'sdk'
       version: '7.0.x'
   
-  # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed' using Azure KeyVault-linked secrets
+  # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed' in the nuget.config (using Azure KeyVault-linked secrets)
   - task: PowerShell@2
     displayName: 'Update Package Source Credentials'
     inputs:
