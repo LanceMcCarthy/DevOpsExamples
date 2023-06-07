@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class='row my-4'>
+        <div class='col-12 col-lg-9 border-right'>
+            <kendo-grid
+              [kendoGridBinding]="gridData"
+              [kendoGridReactiveEditing]="createFormGroup"
+              [height]="533"
+              [pageSize]="pageSize"
+              [pageable]="true"
+              [navigable]="true">
+                <ng-template kendoGridToolbarTemplate>
+                    <button kendoGridAddCommand>Add new</button>
+                </ng-template>
+                <kendo-grid-column field="ProductName" title="Product Name"></kendo-grid-column>
+                <kendo-grid-column field="UnitPrice" editor="numeric" title="Price"></kendo-grid-column>
+                <kendo-grid-column field="Discontinued" editor="boolean" title="Discontinued"></kendo-grid-column>
+                <kendo-grid-column field="UnitsInStock" editor="numeric" title="Units In Stock"></kendo-grid-column>
+                <kendo-grid-command-column title="command" [width]="220">
+                    <ng-template kendoGridCellTemplate let-isNew="isNew">
+                        <button kendoGridEditCommand [primary]="true">Edit</button>
+                        <button kendoGridRemoveCommand>Remove</button>
+                        <button kendoGridSaveCommand [disabled]="!!formGroup?.invalid">{{ isNew ? 'Add' : 'Update' }}</button>
+                        <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
+                    </ng-template>
+                </kendo-grid-command-column>
+            </kendo-grid>
+        </div>
+        <div class='col-12 col-lg-3 mt-3 mt-lg-0'>
+            <h3>Kendo UI for Angular Grid</h3>
+            <p>The Kendo UI for Angular Data Grid includes a comprehensive set of ready-to-use features covering
+                everything from paging, sorting, filtering, editing, and grouping to row and column virtualization,
+                exporting to PDF and Excel, and accessibility support.</p>
+
+            <p>The Kendo UI for Angular Grid is built on Angular from the ground up, by a company with a long history
+                of making enterprise-ready Grids. This results in an Angular data grid that delivers lighting fast
+                performance and is highly customizable.</p>
+        </div>
+    </div>
+</div>
