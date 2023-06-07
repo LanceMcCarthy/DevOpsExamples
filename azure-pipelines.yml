@@ -58,36 +58,47 @@ jobs:
 # *************************************************************** #
 # *         EXAMPLE 2 - ASP.NET AJAX (.NET Framework)           * #
 # *                                                             * #
-# *         -Uses Service Principal for credentials-            * #
+# *       -Update package source with pipeline secrets-         * #
 # *************************************************************** #
 - job: BuildWebformsApp
   pool:
     vmImage: 'windows-2022'
+  variables:
+    nugetConfigPath: 'src\nuget.config'
+    projectPath: 'src\Ajax\MySite.Web\MySite.Web.csproj'
 
   steps:
   - task: NuGetToolInstaller@1
     displayName: 'Use NuGet '
 
-  - task: NuGetCommand@2
-    displayName: 'NuGet restore'
+  # Step 1. Using nuget.exe, set the credentials of the 'Telerik_Feed' using pipeline secrets
+  - task: PowerShell@2
+    displayName: 'Update Package Source Credentials'
     inputs:
-      restoreSolution: 'src\Ajax\MySite.sln'
-      feedsToUse: config
-      nugetConfigPath: src/nuget.config
-      externalFeedCredentials: TelerikFeed
+      targetType: 'inline'
+      script: nuget sources update -Name'Telerik_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
-  - task: MSBuild@1
-    displayName: 'Build solution src\Ajax\MySite.sln'
+  # Step 2. Using nuget.exe, restore the NuGet packages
+  - task: PowerShell@2
+    displayName: 'Restore NuGet Packages'
     inputs:
-      solution: 'src\Ajax\MySite.sln'
+      targetType: 'inline'
+      script: nuget restore '$(projectPath)' -ConfigFile '$(nugetConfigPath)'
+
+  # Step 3. Build the project without restoring packages automatically
+  - task: MSBuild@1
+    displayName: 'Build AJAX Project'
+    inputs:
+      solution: '$(projectPath)'
       platform: Any CPU
       configuration: Release
+      msbuildArguments: '/p:RestorePackages=false'
 
 
 # ************************************************************* #
 # *                 EXAMPLE 3 - BLAZOR (.NET 7)               * #
 # *                                                           * #
-# *            -Update package source using secrets-          * #
+# *        -Update package source with KeyVault secrets-      * #
 # ************************************************************* #
 - job: BuildBlazorApp
   pool:
@@ -103,14 +114,16 @@ jobs:
       packageType: 'sdk'
       version: '7.0.x'
   
-  # Step 1. Set the credentials of the 'Telerik_Feed' using Azure KeyVault-linked secrets
+  # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed' using Azure KeyVault-linked secrets
   - task: PowerShell@2
+    displayName: 'Update Package Source Credentials'
     inputs:
       targetType: 'inline'
       script: dotnet nuget update source 'Telerik_Feed' --source 'https://nuget.telerik.com/v3/index.json' --username '$(MYTELERIKACCOUNTUSERNAME)' --password '$(MYTELERIKACCOUNTPASSWORD)' --store-password-in-clear-text --configfile 'src\Blazor\MyBlazorApp\NuGet.Config'
 
-  # Step 2. Restore NuGet packages using dotnet restore
+  # Step 2. Using dotnet CLI, restore NuGet packages
   - task: PowerShell@2
+    displayName: 'Restore NuGet Packages'
     inputs:
       targetType: 'inline'
       script: dotnet restore 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj' --configfile 'src\Blazor\MyBlazorApp\NuGet.Config' --runtime win-x64
