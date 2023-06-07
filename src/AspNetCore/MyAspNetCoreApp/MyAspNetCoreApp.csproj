@@ -9,10 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="17.0.23.315" />
-		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="17.0.23.315" />
-		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2023.1.314" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="17.1.23.606" />
+		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="17.1.23.606" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2023.2.606" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
 	</ItemGroup>
 
