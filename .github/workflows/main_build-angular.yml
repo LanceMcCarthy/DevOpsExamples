@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/Kendo/angular-demo/**/*' 
+      - 'src/Kendo/angular_demo/**/*' 
       - '.github/workflows/main_build-angular.yml'
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Install NPM modules
-      working-directory: src/Kendo/angular-demo
+      working-directory: src/Kendo/angular_demo
       run: npm install
     
     # The value of KENDO_LICENSE_KEY is stored as a GitHub repo secret (Settings -> Secrets -> Actions)
