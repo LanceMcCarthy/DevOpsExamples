@@ -42,7 +42,9 @@ Table of Contents
 
 ### Bonus Notes
 
-- Docker and DockerHub integration: `workflows/main_build-aspnetcore.yml` uses a Dockerfile to build and publish a Linux image to DockerHub => [lancemccarthy/myaspnetcoreapp](https://hub.docker.com/r/lancemccarthy/myaspnetcoreapp)
+- Docker and DockerHub integration:
+    - The `workflows/main_build-aspnetcore.yml` uses a Dockerfile to build and publish a Linux image to DockerHub => [lancemccarthy/myaspnetcoreapp](https://hub.docker.com/r/lancemccarthy/myaspnetcoreapp)
+    - For a real-world example, visit [Akeyless Web Target's docker-publish.yml](https://github.com/LanceMcCarthy/akeyless-web-target/blob/main/.github/workflows/docker-publish.yml), which builds and publishes the [lancemccarthy/secretsmocker](https://hub.docker.com/r/lancemccarthy/secretsmocker) container image to Docker Hub.
 - Azure DevOps: All statuses are for classic pipelines, except the `Console` project, which uses Azure DevOps YAML pipelines.
 
 ## Videos
