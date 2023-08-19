@@ -52,7 +52,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommonHelpers" Version="1.2.0" />
-		<PackageReference Include="Telerik.UI.for.Maui" Version="6.2.0" />
+		<PackageReference Include="Telerik.UI.for.Maui" Version="6.1.0" />
 	</ItemGroup>
     
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
