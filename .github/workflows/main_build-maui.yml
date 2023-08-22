@@ -56,7 +56,7 @@ jobs:
 
     - name: Build Maui Android project
       shell: pwsh
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net7.0-android --no-restore -p:PublishTrimmed=False
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-android --no-restore -p:PublishTrimmed=False
 
 
 # ***************************** #
@@ -97,7 +97,7 @@ jobs:
 
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net7.0-windows10.0.19041.0 -p:PublishTrimmed=False
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-windows10.0.19041.0 -p:PublishTrimmed=False
 
 
 # ************************* #
@@ -141,7 +141,7 @@ jobs:
 
     - name: Build MAUI iOS project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net7.0-ios --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-ios --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
 
 # ********************************* #
@@ -185,4 +185,4 @@ jobs:
     
     - name: Build MAUI MacCatalyst project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -f net7.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{ env.PROJECT_PATH }} -f net8.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
