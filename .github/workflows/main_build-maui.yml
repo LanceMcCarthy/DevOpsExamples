@@ -44,7 +44,7 @@ jobs:
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "::set-output name=APP_VERSION::$ver"
+        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
 
     - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
@@ -85,7 +85,7 @@ jobs:
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
         $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "::set-output name=APP_VERSION::$ver"
+        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
 
     - name: Install MAUI workloads (required for GitHub-hosted runners)
       shell: pwsh
@@ -126,8 +126,7 @@ jobs:
       run: |
         buildDay=`date +%Y.%m%d`
         echo $buildDay
-        runNum=${{ env.GITHUB_RUN_NUMBER }}
-        ver="${buildDay}.${runNum}.0"
+        ver="${buildDay}.${GITHUB_RUN_NUMBER}.0"
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
@@ -170,8 +169,7 @@ jobs:
       run: |
         buildDay=`date +%Y.%m%d`
         echo $buildDay
-        runNum=${{ env.GITHUB_RUN_NUMBER }}
-        ver="${buildDay}.${runNum}.0"
+        ver="${buildDay}.${GITHUB_RUN_NUMBER}.0"
         echo $ver
         echo "APP_VERSION=$ver" >> $GITHUB_ENV
 
