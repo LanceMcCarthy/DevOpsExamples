@@ -1,3 +1,6 @@
 {
-    "dotnet.defaultSolution": "MauiDemo.sln"
+    "dotnet.defaultSolution": "MauiDemo.sln",
+    "dotnet.preferRuntimeFromSDK": true,
+    "dotnet.server.trace": "Debug",
+    "dotnetAcquisitionExtension.installTimeoutValue": 240
 }
