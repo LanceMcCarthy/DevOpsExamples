@@ -1,0 +1,22 @@
+FROM centos:latest AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum update -y
+
+# IMPORTANT - Enable EPEL repostiory
+# RUN rpm -ihv --nodeps https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+# or
+RUN yum install epel-release -y
+
+# See https://docs.telerik.com/reporting/knowledge-base/how-to-install-libgdiplus-centos-amazon-linux
+# install System.Drawing native dependencies (for Telerik report rendering)
+RUN yum install libgdiplus -y
+
+# Install aspnetcore runtime (if your base image does not have it already)
+RUN rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+RUN yum install aspnetcore-runtime-6.0 -y
