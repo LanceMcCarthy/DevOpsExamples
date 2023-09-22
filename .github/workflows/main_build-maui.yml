@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "maui/*"
     paths:
       - 'src/MAUI/**/*'
       - '.github/workflows/main_build-maui.yml' 

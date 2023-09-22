@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "winui/*"
     paths:
       - 'src/WinUI/**/*'
       - '.github/workflows/main_build-winui.yml' 

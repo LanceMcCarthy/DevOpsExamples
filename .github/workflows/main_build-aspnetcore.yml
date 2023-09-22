@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - "investigation/*"
+      - "aspnetcore/*"
     paths:
       - 'src/AspNetCore/**/*'
       - '.github/workflows/main_build-aspnetcore.yml' 

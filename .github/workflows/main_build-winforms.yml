@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "winforms/*"
     paths:
       - 'src/WinForms/**/*'
       - '.github/workflows/main_build-winforms.yml' 

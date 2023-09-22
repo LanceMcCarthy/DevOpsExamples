@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "uwp/*"
     paths:
       - 'src/Uwp/**/*'
       - '.github/workflows/main_build-uwp.yml' 

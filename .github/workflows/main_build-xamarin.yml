@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "xamarin/*"
     paths:
       - 'src/Xamarin/**/*'
       - '.github/workflows/main_build-xamarin.yml' 

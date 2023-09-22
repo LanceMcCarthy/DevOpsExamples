@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "console/*"
     paths:
       - 'src/Console/**/*'
       - '.github/workflows/main_build-console.yml' 

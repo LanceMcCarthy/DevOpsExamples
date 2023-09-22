@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "angular/*"
     paths:
       - 'src/Kendo/angular_demo/**/*' 
       - '.github/workflows/main_build-angular.yml'

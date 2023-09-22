@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - "ajax/*"
     paths:
       - 'src/Ajax/**/*'
       - '.github/workflows/main_build-ajax.yml' 
