@@ -46,7 +46,7 @@
 	<ItemGroup>
 	    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0-rc.1.9171" />
 		<PackageReference Include="CommonHelpers" Version="1.2.1" />
-		<PackageReference Include="Telerik.UI.for.Maui" Version="6.2.0" />
+		<PackageReference Include="Telerik.UI.for.Maui" Version="6.3.0" />
 	</ItemGroup>
     
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
