@@ -23,7 +23,7 @@ Table of Contents
 | GitHub Actions | [.github/workflows](/.github/workflows) |
 | GitLab CI/CD  | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) ↗|
 | Azure DevOps - Classic | click a build badge |
-| Azure DevOps - YAML | [azure-pipelines.yml](/blob/main/azure-pipelines.yml) |
+| Azure DevOps - YAML | [azure-pipelines.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/azure-pipelines.yml) |
 
 ## Badges
 

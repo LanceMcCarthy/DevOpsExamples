@@ -163,9 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.UI.for.Xamarin">
-      <Version>2023.2.719</Version>
+      <Version>2023.3.1010</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2578" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />
     <PackageReference Include="SkiaSharp" Version="2.88.6" />
     <PackageReference Include="SkiaSharp.Views" Version="2.88.6" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.6" />
