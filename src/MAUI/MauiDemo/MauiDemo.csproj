@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-android;net8.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>MauiDemo</RootNamespace>
@@ -44,7 +44,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <!--<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0" />-->
 		<PackageReference Include="CommonHelpers" Version="1.2.1" />
 		<PackageReference Include="Telerik.UI.for.Maui" Version="6.4.0" />
 	</ItemGroup>
