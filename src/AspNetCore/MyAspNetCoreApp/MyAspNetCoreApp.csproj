@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>6ca2a36f-6cc7-4d98-9cd4-724a3953a16b</UserSecretsId>
@@ -10,10 +10,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+		<PackageReference Include="Telerik.Drawing.Skia" Version="17.2.23.1114" />
 		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="17.2.23.1010" />
-		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="17.2.23.1010" />
-		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2023.3.1010" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.20" />
+		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="17.2.23.1114" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2023.3.1114" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
