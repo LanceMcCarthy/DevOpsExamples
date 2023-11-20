@@ -11,7 +11,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
 		<PackageReference Include="Telerik.Drawing.Skia" Version="17.2.23.1114" />
-		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="17.2.23.1010" />
+		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="17.2.23.1114" />
 		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="17.2.23.1114" />
 		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2023.3.1114" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
