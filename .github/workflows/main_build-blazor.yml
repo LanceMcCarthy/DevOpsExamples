@@ -13,9 +13,11 @@ on:
       - '.github/workflows/main_build-blazor.yml' 
 
 jobs:
+
 ##############################
 ####### WINDOWS BUILD ########
 ##############################
+
   build_windows:
     runs-on: windows-2022
     steps:
@@ -44,9 +46,11 @@ jobs:
     - name: Run Tests
       run: dotnet test src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --runtime win-x64
 
+
 #########################################
 ####### .NET CONTAINER SDK BUILD ########
 #########################################
+
   build_dotnet_container:
     runs-on: windows-2022    
     # For 'akeyless' step
@@ -100,16 +104,20 @@ jobs:
         export-secrets-to-environment: false
 
     - name: Login to Docker Hub
-      run: docker login ${{ env.IMAGE_REGISTRY }} -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
+      run: docker login ${{ env.CONTAINER_IMAGE_REGISTRY }} -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
 
-    # Container build and publish with.NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
+    # Build and publish the Container build and publish with.NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
       run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --no-build --os ${{ env.CONTAINER_OS }} --arch ${{ env.CONTAINER_ARCH }} -p PublishProfile=DefaultContainer -p ContainerRuntimeIdentifier=${{ env.CONTAINER_RID }} -p ContainerRegistry=${{ env.CONTAINER_IMAGE_REGISTRY }} -p ContainerRepository=${{ env.CONTAINER_IMAGE_NAME }} -p ContainerImageTag=${{ env.CONTAINER_IMAGE_TAG }} -p ContainerBaseImage=${{ env.CONTAINER_BASE_IMAGE }}
+      # env:
+      #   SDK_CONTAINER_REGISTRY_UNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+      #   SDK_CONTAINER_REGISTRY_PWORD: ${{ secrets.DOCKER_HUB_PAT }}
 
 
 ###################################
 ####### DOCKER FILE BUILD #########
 ###################################
+
   build_docker_file:
     runs-on: ubuntu-22.04
     steps:
@@ -119,8 +127,7 @@ jobs:
         fetch-depth: 0
 
     # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to be mounted in the Dockerfile's commands
-    # NOTE: this demo does not push to Dockerhub. 
-    # For a real world exapmple, see the ASP.NET Core Workflow at ~/.github/workflows/main_build-aspnetcore.yml
+    # NOTE: this job does NOT push to Dockerhub because the previous job above already does that
     - name: Build Docker
       uses: docker/build-push-action@v3
       with:
