@@ -19,4 +19,4 @@ RUN yum install libgdiplus -y
 
 # Install aspnetcore runtime (if your base image does not have it already)
 RUN rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
-RUN yum install aspnetcore-runtime-6.0 -y
+RUN yum install aspnetcore-runtime-8.0 -y
