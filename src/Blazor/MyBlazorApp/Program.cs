@@ -1,20 +1,31 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyBlazorApp.Services;
 
-namespace MyBlazorApp;
+var builder = WebApplication.CreateBuilder(args);
 
-public class Program
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor(o => o.DetailedErrors = true);
+builder.Services.AddTelerikBlazor();
+builder.Services.AddSingleton<DashboardDataService>();
+
+
+var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
 {
-    public static void Main(string[] args)
-    {
-        CreateHostBuilder(args).Build().Run();
-    }
-
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStaticWebAssets();
-                webBuilder.UseStartup<Startup>();
-            });
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.MapControllers();
+app.MapDefaultControllerRoute();
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
+app.Run();

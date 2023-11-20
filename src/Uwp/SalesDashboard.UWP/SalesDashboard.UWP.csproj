@@ -235,7 +235,7 @@
       <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
-      <Version>2023.1.313.1</Version>
+      <Version>2023.3.1012</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

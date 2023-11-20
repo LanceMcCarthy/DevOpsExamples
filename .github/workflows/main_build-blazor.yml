@@ -59,9 +59,13 @@ jobs:
       BLAZOR_PROJ_PATH: src\Blazor\MyBlazorApp\MyBlazorApp.csproj
       TEST_PROJ_PATH: src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj
       NUGET_CONFIG_PATH: src\Blazor\MyBlazorApp\NuGet.Config
-      IMAGE_NAME: "lancemccarthy/myblazorapp"
-      IMAGE_REGISTRY: "registry.hub.docker.com"
-      IMAGE_TAG: "latest"
+      CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:8.0"
+      CONTAINER_IMAGE_NAME: "lancemccarthy/myblazorapp"
+      CONTAINER_IMAGE_TAG: "latest"
+      CONTAINER_IMAGE_REGISTRY: "registry.hub.docker.com"
+      CONTAINER_RID: "linux-x64"
+      CONTAINER_ARCH: "x64"
+      CONTAINER_OS: "linux"
 
     steps:
     - name: Checkout
@@ -98,9 +102,9 @@ jobs:
     - name: Login to Docker Hub
       run: docker login ${{ env.IMAGE_REGISTRY }} -u ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }} -p ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
 
-    # Nice new feature of .NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
+    # Container build and publish with.NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
-      run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --os linux --arch x64 -p PublishProfile=DefaultContainer -p ContainerRegistry=${{ env.IMAGE_REGISTRY }} -p ContainerImageName=${{ env.IMAGE_NAME }} -p ContainerImageTag=${{ env.IMAGE_BASE }} --no-build
+      run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --no-build --os ${{ env.CONTAINER_OS }} --arch ${{ env.CONTAINER_ARCH }} -p PublishProfile=DefaultContainer -p ContainerRuntimeIdentifier=${{ env.CONTAINER_RID }} -p ContainerRegistry=${{ env.CONTAINER_IMAGE_REGISTRY }} -p ContainerRepository=${{ env.CONTAINER_IMAGE_NAME }} -p ContainerImageTag=${{ env.CONTAINER_IMAGE_TAG }} -p ContainerBaseImage=${{ env.CONTAINER_BASE_IMAGE }}
 
 
 ###################################

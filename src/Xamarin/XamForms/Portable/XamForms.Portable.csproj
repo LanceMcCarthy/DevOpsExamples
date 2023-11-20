@@ -15,69 +15,7 @@
     <PackageReference Include="SkiaSharp.Views" Version="2.88.6" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.6" />
     <PackageReference Include="Telerik.UI.for.Xamarin" Version="2023.3.1010" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Telerik.XamarinForms.Chart">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.Chart.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.Common">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.DataControls">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.DataControls.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.DataGrid">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.DataGrid.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.Barcode">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.Barcode.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.ConversationalUI">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.ConversationalUI.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.DataVisualization">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.DataVisualization.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.Input">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.Input.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.PdfViewer">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.PdfViewer.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.ImageEditor">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.ImageEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.Map">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.Map.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.RichTextEditor">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.RichTextEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.Primitives">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.XamarinForms.SkiaSharp">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.XamarinForms.SkiaSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Documents.SpreadsheetStreaming">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.Documents.SpreadsheetStreaming.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Zip">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.Zip.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Documents.Flow">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.Documents.Flow.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Documents.Flow.FormatProviders.Pdf">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.Documents.Flow.FormatProviders.Pdf.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Documents.Core">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.Documents.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Documents.Fixed">
-      <HintPath>C:\Program Files (x86)\Progress\Telerik UI for Xamarin R1 2021\Binaries\Portable\Telerik.Documents.Fixed.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2622" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
