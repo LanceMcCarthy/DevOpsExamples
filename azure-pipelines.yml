@@ -34,7 +34,7 @@ jobs:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
-      version: '7.0.x'
+      version: '8.0.x'
 
   # Restore the NuGet packges using Service connection for credentials
   - task: DotNetCoreCLI@2
@@ -96,7 +96,7 @@ jobs:
 
 
 # ************************************************************* #
-# *                 EXAMPLE 3 - BLAZOR (.NET 7)               * #
+# *                 EXAMPLE 3 - BLAZOR                        * #
 # *                                                           * #
 # *        -Update package source with KeyVault secrets-      * #
 # ************************************************************* #
@@ -112,7 +112,7 @@ jobs:
 #   - task: UseDotNet@2
 #     inputs:
 #       packageType: 'sdk'
-#       version: '7.0.x'
+#       version: '8.0.x'
   
 #   # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed' in the nuget.config (using Azure KeyVault-linked secrets)
 #   - task: PowerShell@2
