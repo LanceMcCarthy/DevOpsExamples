@@ -37,6 +37,6 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: "Kendo UI Test"
-        path: 'src/Kendo/angular_demo/src'
+        path: 'src/Kendo/angular_demo/dist'
         if-no-files-found: error
         retention-days: 1
