@@ -59,7 +59,7 @@ jobs:
     - name: Build and push to Docker Hub
       uses: docker/build-push-action@v3
       with:
-        context: src/AspNetCore/MyAspNetCoreApp
+        context: src/
         push: true
         secrets: |
           telerik_key=${{ steps.akeyless.outputs.TELERIK_NUGET_KEY }}
