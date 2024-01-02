@@ -13,10 +13,14 @@ RUN yum update -y
 # or
 RUN yum install epel-release -y
 
+# REPORTING DEPENDENCIES
 # See https://docs.telerik.com/reporting/knowledge-base/how-to-install-libgdiplus-centos-amazon-linux
-# install System.Drawing native dependencies (for Telerik report rendering)
-RUN yum install libgdiplus -y
+# - OPTION 1 (old) - install Telerik report old rendering with old GDI+ (System.Drawing native dependencies)
+# RUN yum install libgdiplus -y
+# - Option 2 (new, Skia) - install Skia dependencies for new Telerik report rendering with Skia
+RUN yum install libfreetype6 libfontconfig1 -y
 
+# DOTNET
 # Install aspnetcore runtime (if your base image does not have it already)
 RUN rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
 RUN yum install aspnetcore-runtime-8.0 -y
