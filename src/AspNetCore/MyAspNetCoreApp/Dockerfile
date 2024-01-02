@@ -9,12 +9,12 @@ RUN apt-get install libfreetype6 libfontconfig1 -y
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 COPY . .
-# Here we use a docker secret to update the 'Telerik' package source in the nuget.config
+# Use a docker secret to add the 'Telerik' package source to the default (usually at ~/.nuget/NuGet/NuGet.Config)
 RUN --mount=type=secret,id=telerik_key \
   echo $(cat /run/secrets/telerik_key) \
-  && dotnet nuget update source "Telerik" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --configfile "./NuGet.Config" --store-password-in-clear-text \
-  && dotnet restore "MyAspNetCoreApp.csproj" --configfile "./NuGet.Config" \
-  && dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
+  && dotnet nuget add source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --store-password-in-clear-text
+RUN dotnet restore "MyAspNetCoreApp.csproj" \
+RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build --no-restore
 
 
 FROM build AS publish
