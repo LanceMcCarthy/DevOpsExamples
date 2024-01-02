@@ -11,10 +11,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 COPY . .
 # Use a docker secret to add the 'Telerik' package source to the default (usually at ~/.nuget/NuGet/NuGet.Config)
 RUN --mount=type=secret,id=telerik_key \
-  echo $(cat /run/secrets/telerik_key) \
-  && dotnet nuget add source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --store-password-in-clear-text
-RUN dotnet restore "MyAspNetCoreApp.csproj" \
-RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build --no-restore
+  dotnet nuget add source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --store-password-in-clear-text \
+  && dotnet restore "MyAspNetCoreApp.csproj" \
+  && dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build --no-restore
 
 
 FROM build AS publish
