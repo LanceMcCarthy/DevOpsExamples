@@ -34,6 +34,11 @@ jobs:
         export-secrets-to-outputs: true
         export-secrets-to-environment: false
 
+    - name: Create Kendo license file in the appropriate project directory
+      run: |
+        cd src/AspNetCore/MyAspNetCoreApp/wwwroot/js
+        echo ${{ steps.akeyless.outputs.KENDO_LICENSE_FILE }} > kendo-ui-license.js
+
     - name: Generate a version number for new tag
       id: tag-creator
       run: |
@@ -43,7 +48,7 @@ jobs:
 
     - name: Verify tag output
       run: echo ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
-      
+
     - name: Get package metadata from Docker Hub
       id: meta
       uses: docker/metadata-action@v4
