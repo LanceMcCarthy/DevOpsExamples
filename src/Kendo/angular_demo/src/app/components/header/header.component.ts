@@ -8,6 +8,7 @@ export class HeaderComponent {
     public projectName = 'Kendo UI for Angular';
     public items: any[] = [
       { text: 'Home' },
+      { text: 'form' },
       { text: 'chart' },
       { text: 'grid' },
     ];
