@@ -60,12 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.UI.for.Xamarin">
-      <Version>2023.3.1010</Version>
+      <Version>2024.1.130</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2622" />
-    <PackageReference Include="SkiaSharp" Version="2.88.6" />
-    <PackageReference Include="SkiaSharp.Views" Version="2.88.6" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.6" />
+    <PackageReference Include="SkiaSharp" Version="2.88.7" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.88.7" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
