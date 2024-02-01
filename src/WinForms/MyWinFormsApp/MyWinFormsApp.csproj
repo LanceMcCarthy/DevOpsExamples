@@ -107,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="UI.for.WinForms.SyntaxEditor">
-      <Version>2023.3.1114</Version>
+      <Version>2024.1.130</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
