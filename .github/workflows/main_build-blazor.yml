@@ -22,12 +22,12 @@ jobs:
     runs-on: windows-2022
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
@@ -73,12 +73,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
@@ -122,14 +122,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to be mounted in the Dockerfile's commands
     # NOTE: this job does NOT push to Dockerhub because the previous job above already does that
     - name: Build Docker
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
         context: src/Blazor/MyBlazorApp
         push: false
