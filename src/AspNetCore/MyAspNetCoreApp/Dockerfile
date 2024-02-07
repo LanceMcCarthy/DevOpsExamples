@@ -18,7 +18,7 @@ RUN dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
 
 
 FROM build AS publish
-RUN dotnet publish "MyAspNetCoreApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MyAspNetCoreApp.csproj" -c Release -o /app/publish /p:UseAppHost=false --self-contained false
 
 
 FROM base AS final
