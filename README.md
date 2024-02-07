@@ -1,8 +1,13 @@
 # DevOps - Pipeline and Workflow Examples
 
-This repository contains a rich set of CI-CD demos that show you how to; restore NuGet packages from the Telerik NuGet server, and activate your Kendo UI license in a CI workflow.
+This repository contains a rich set of CI-CD demos where I show you how to:
 
-Table of Contents
+- Connect to private nuget feeds; Azure, GitHub packages, and custom (eg Telerik).
+- Build .NET apps and publish to a container registry; Docker, Azure, GitHub, etc.
+
+Although I use Telerik's NuGet server because I have a license, these demos are good for any private feed type; just use your source URL and credentials instead!
+
+## Table of Contents
 - [CI Systems](https://github.com/LanceMcCarthy/DevOpsExamples#ci-systems)
 - [Build Badges](https://github.com/LanceMcCarthy/DevOpsExamples#badges)
 - [Videos](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
