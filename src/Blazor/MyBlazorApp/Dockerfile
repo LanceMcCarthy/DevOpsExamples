@@ -14,7 +14,7 @@ RUN dotnet restore "MyBlazorApp.csproj" --configfile "./NuGet.Config"
 RUN dotnet build "MyBlazorApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MyBlazorApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MyBlazorApp.csproj" -c Release -o /app/publish /p:UseAppHost=false --self-contained false
 
 FROM base AS final
 WORKDIR /app
