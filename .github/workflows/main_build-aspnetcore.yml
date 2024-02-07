@@ -24,7 +24,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    # I am getting all my secrets from AKeyless (you can use GitHub Actions secrets)
+    # Getting all my secrets from AKeyless is a personal choice, you can use GitHub Actions secrets instead.
     - name: Fetch secrets from AKeyless
       id: akeyless
       uses: LanceMcCarthy/akeyless-action@v3
@@ -39,6 +39,7 @@ jobs:
         cd src/AspNetCore/MyAspNetCoreApp/wwwroot/js
         echo ${{ steps.akeyless.outputs.KENDO_LICENSE_FILE }} > kendo-ui-license.js
 
+    # Preparing for docker build
     - name: Generate a version number for new tag
       id: tag-creator
       run: |
@@ -49,22 +50,33 @@ jobs:
     - name: Verify tag output
       run: echo ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
 
+    # Since I want to build for multiple platforms, QEMU sets up emulation for those OS build
+    - name: Set up QEMU (for multiarch build help)
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx (for multiarch build help)
+      uses: docker/setup-buildx-action@v3
+
+    # Get the existing metadata to save some work
     - name: Get package metadata from Docker Hub
       id: meta
       uses: docker/metadata-action@v5
       with:
         images: lancemccarthy/myaspnetcoreapp
 
+    # Authenticate with Docker Hub
     - name: Login to DockerHub
       uses: docker/login-action@v3
       with:
         username: ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }}
         password: ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
 
+    # Build the multi-arch images images and publish with the same tag
     - name: Build and push to Docker Hub
       uses: docker/build-push-action@v5
       with:
         context: src/AspNetCore/MyAspNetCoreApp
+        platforms: linux/arm64, linux/amd64
         push: true
         secrets: |
           telerik_key=${{ steps.akeyless.outputs.TELERIK_NUGET_KEY }}
