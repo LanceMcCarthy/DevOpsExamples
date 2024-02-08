@@ -76,7 +76,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: src/AspNetCore/MyAspNetCoreApp
-        platforms: linux/arm64, linux/amd64
+        platforms: 'linux/arm64,linux/amd64'
         push: true
         secrets: |
           telerik_key=${{ steps.akeyless.outputs.TELERIK_NUGET_KEY }}
