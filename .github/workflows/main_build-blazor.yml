@@ -126,12 +126,19 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
     # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to be mounted in the Dockerfile's commands
-    # NOTE: this job does NOT push to Dockerhub because the previous job above already does that
+    # NOTE: this job does NOT push to Dockerhub (because the previous job did it already)
     - name: Build Docker
       uses: docker/build-push-action@v5
       with:
         context: src/Blazor/MyBlazorApp
+        platforms: linux/arm64,linux/amd64
         push: false
         secrets: |
           telerik_username=${{ secrets.MyTelerikAccountUsername }}
