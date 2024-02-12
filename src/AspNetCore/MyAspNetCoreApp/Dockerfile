@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get install libfreetype6 libfontconfig1 -y
 
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
 # Use a docker secret to add the 'Telerik' package source to the system's default nuget.config (usually at ~/.nuget/NuGet/NuGet.Config)
