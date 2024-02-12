@@ -50,7 +50,13 @@ jobs:
 
     - name: Verify tag output
       run: echo ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
+      
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
     - name: Get package metadata from Docker Hub
       id: meta
       uses: docker/metadata-action@v5
@@ -67,6 +73,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: src/AspNetCore/MyAspNetCoreApp
+        platforms: linux/arm64,linux/amd64
         push: true
         secrets: |
           telerik_key=${{ steps.akeyless.outputs.TELERIK_NUGET_KEY }}
