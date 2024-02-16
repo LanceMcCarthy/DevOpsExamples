@@ -47,13 +47,14 @@ jobs:
       run: dotnet test src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj --runtime win-x64
 
 
-#########################################
-####### .NET CONTAINER SDK BUILD ########
-#########################################
+#############################################
+######## .NET CONTAINER SDK BUILD ###########
+#############################################
 
-  build_dotnet_container:
+# => Publishes to registry.hub.docker.com <= #
+
+  build_container_with_dotnet:
     runs-on: windows-2022    
-    # For 'akeyless' step
     permissions:
       id-token: write
       contents: read
@@ -109,18 +110,32 @@ jobs:
     # Build and publish the Container build and publish with.NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
       run: dotnet publish ${{ env.BLAZOR_PROJ_PATH }} -c ${{ env.CONFIGURATION }} --no-build --os ${{ env.CONTAINER_OS }} --arch ${{ env.CONTAINER_ARCH }} -p PublishProfile=DefaultContainer -p ContainerRuntimeIdentifier=${{ env.CONTAINER_RID }} -p ContainerRegistry=${{ env.CONTAINER_IMAGE_REGISTRY }} -p ContainerRepository=${{ env.CONTAINER_IMAGE_NAME }} -p ContainerImageTag=${{ env.CONTAINER_IMAGE_TAG }} -p ContainerBaseImage=${{ env.CONTAINER_BASE_IMAGE }}
-      # env:
-      #   SDK_CONTAINER_REGISTRY_UNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #   SDK_CONTAINER_REGISTRY_PWORD: ${{ secrets.DOCKER_HUB_PAT }}
 
 
-###################################
-####### DOCKER FILE BUILD #########
-###################################
+##############################################
+############ DOCKER FILE BUILD ###############
+##############################################
 
-  build_docker_file:
+# => Publishes to ghcr.io (GitHub container registry) <= #
+
+  build_container_with_dockerfile:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    env:
+      container_registry: ghcr.io
+      container_name: "myblazorapp"
+      container_tag: "latest"
+      container_platforms: "linux/arm64,linux/amd64,linux/arm"
     steps:
+    - name: Login to ghcr.io
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.container_registry }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
@@ -132,16 +147,23 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    # Using GitHub Actions secrets, we can pass in the Telerik NuGet key to be mounted in the Dockerfile's commands
-    # NOTE: this job does NOT push to Dockerhub (because the previous job did it already)
-    - name: Build Docker
+    - name: Generate container name
+      id: name-generator
+      run: |
+        # need to make this username all lowercase
+        owner=${{github.repository_owner}}
+        owner_lowercase=${OWNER,,}
+        full_path="${{env.container_registry}}/$owner_lowercase/${{env.container_name}}:${{env.container_tag}}"
+        echo "generated_path=$full_path" >> $GITHUB_OUTPUT
+
+    - name: Build and Publish Container Images 
       uses: docker/build-push-action@v5
       with:
         context: src/Blazor/MyBlazorApp
-        platforms: linux/arm64,linux/amd64
+        platforms: ${{ env.container_platforms }}
         push: false
         secrets: |
           telerik_username=${{ secrets.MyTelerikAccountUsername }}
           telerik_password=${{ secrets.MyTelerikAccountPassword }}
         tags: |
-          lancemccarthy/myblazorapp:latest
+          ${{ steps.name-generator.outputs.generated_path }}
