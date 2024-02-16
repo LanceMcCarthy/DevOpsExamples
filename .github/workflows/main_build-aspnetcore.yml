@@ -106,7 +106,7 @@ jobs:
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
     - name: Restore NuGet Packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.RID}}"
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.target_arch}}"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
@@ -142,7 +142,7 @@ jobs:
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
     - name: Restore NuGet Packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.RID}}"
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.target_arch}}"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
