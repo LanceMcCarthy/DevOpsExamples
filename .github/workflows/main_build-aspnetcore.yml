@@ -12,7 +12,6 @@ on:
 env:
   CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:8.0"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
-  NUGET_CONFIG_PATH: "src/NuGet.Config"
 
 jobs:
 
@@ -106,7 +105,7 @@ jobs:
 
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../${{env.NUGET_CONFIG_PATH}}"
+      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../../NuGet.Config"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
@@ -143,7 +142,7 @@ jobs:
 
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../${{env.NUGET_CONFIG_PATH}}"
+      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../../NuGet.Config"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
