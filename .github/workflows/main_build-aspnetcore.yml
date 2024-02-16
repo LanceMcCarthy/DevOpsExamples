@@ -12,15 +12,14 @@ on:
 env:
   CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:8.0"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
-  PROJECT_PATH: "src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj"
   NUGET_CONFIG_PATH: "src/NuGet.Config"
 
 jobs:
 
 ##############################################
-############ DOCKER FILE BUILD ###############
-# => Publishes to registry.hub.docker.com <= #
+######## [Option A] DOCKER FILE BUILD ########
 ##############################################
+# => Publishes to registry.hub.docker.com <= #
 
   # A job that containerizes an ASP.NET Core web app with Relerik Reporting REST service and publish to Docker Hub
   build_aspnetcore:
@@ -83,9 +82,9 @@ jobs:
 
 
 ##########################################################
-############### .NET CONTAINER SDK BUILD #################
-# => Publishes to ghcr.io (GitHub container registry) <= #
+######### [Option B] .NET SDK CONTAINER BUILD ############
 ##########################################################
+# => Publishes to ghcr.io (GitHub container registry) <= #
 
   build_x64:
     runs-on: ubuntu-22.04
@@ -106,7 +105,8 @@ jobs:
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
     - name: Restore NuGet Packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.target_arch}}"
+      working-directory: ${{env.WORKING_DIRECTORY}}
+      run: dotnet restore --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.target_arch}}"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
@@ -118,7 +118,7 @@ jobs:
         TAG="latest-${{env.target_arch}}"
 
         # Build and publish arch-specific container
-        dotnet publish ${{env.PROJECT_PATH}} -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
@@ -142,7 +142,8 @@ jobs:
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
     - name: Restore NuGet Packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.target_arch}}"
+      working-directory: ${{env.WORKING_DIRECTORY}}
+      run: dotnet restore --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.target_arch}}"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
@@ -154,7 +155,7 @@ jobs:
         TAG="latest-${{env.target_arch}}"
 
         # Build and publish arch-specific container
-        dotnet publish ${{env.PROJECT_PATH}} -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
