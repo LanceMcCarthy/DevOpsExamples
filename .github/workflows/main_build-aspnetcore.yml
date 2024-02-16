@@ -106,7 +106,7 @@ jobs:
 
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore-r "linux-${{env.target_arch}}" --configfile "${{env.GITHUB_WORKSPACE}}/src/NuGet.Config"
+      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../${{env.NUGET_CONFIG_PATH}}"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
@@ -143,7 +143,7 @@ jobs:
 
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "${{env.GITHUB_WORKSPACE}}/src/NuGet.Config"
+      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../${{env.NUGET_CONFIG_PATH}}"
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
