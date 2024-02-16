@@ -9,17 +9,23 @@ on:
     paths:
       - 'src/AspNetCore/**/*'
       - '.github/workflows/main_build-aspnetcore.yml' 
+env:
+  CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:8.0"
+  WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
 
 jobs:
+
+##############################################
+############ DOCKER FILE BUILD ###############
+# => Publishes to registry.hub.docker.com <= #
+##############################################
+
   # A job that containerizes an ASP.NET Core web app with Relerik Reporting REST service and publish to Docker Hub
   build_aspnetcore:
     runs-on: ubuntu-22.04
-    
-    # REQUIRED For 'akeyless' step
     permissions:
       id-token: write
       contents: read
-      
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -72,7 +78,7 @@ jobs:
     - name: Build and push to Docker Hub
       uses: docker/build-push-action@v5
       with:
-        context: src/AspNetCore/MyAspNetCoreApp
+        context: ${{env.WORKING_DIRECTORY}}
         platforms: linux/arm64,linux/amd64
         push: true
         secrets: |
@@ -80,3 +86,102 @@ jobs:
         tags: |
           ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
           lancemccarthy/myaspnetcoreapp:latest
+
+
+##########################################################
+############### .NET CONTAINER SDK BUILD #################
+# => Publishes to ghcr.io (GitHub container registry) <= #
+##########################################################
+
+  build_x64:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      build_tag: ${{ steps.build.outputs.build_tag }}
+    env:
+      target_arch: "x64"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Generate tag version
+      id: tag-creator
+      run: |
+        buildDay=`date +%Y.%m.%d`
+        tags="$buildDay.$GITHUB_RUN_NUMBER"
+        echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
+
+    - name: Login to GitHub Container Registry
+      run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+
+    - name: build the x64 image
+      id: build
+      working-directory: ${{env.WORKING_DIRECTORY}}
+      run: |
+        # Build and publish arch-specific container
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
+
+        # Job output the arch-specific container name so we can publish a multi-arch image later
+        echo "build_tag=${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" >> $GITHUB_OUTPUT
+
+  build_arm64:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      build_tag: ${{ steps.build.outputs.build_tag }}
+    env:
+      target_arch: "arm64"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Generate tag version
+      id: tag-creator
+      run: |
+        buildDay=`date +%Y.%m.%d`
+        tags="$buildDay.$GITHUB_RUN_NUMBER"
+        echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
+
+    - name: Login to GitHub Container Registry
+      run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+
+    - name: build the arm64 image
+      id: build
+      working-directory: ${{env.WORKING_DIRECTORY}}
+      run: |
+        # Build and publish arch-specific container
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
+
+        # Job output the arch-specific container name so we can publish a multi-arch image later
+        echo "build_tag=${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" >> $GITHUB_OUTPUT
+
+  publish_combined_manifest:
+    runs-on: ubuntu-22.04
+    needs: [build_x64, build_arm64]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Login to GitHub Container Registry
+      run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+
+    - name: create the multi-image manifest
+      run: |
+        docker manifest create "ghcr.io/lancemccarthy/myaspnetcoreapp:latest" \
+          "ghcr.io/lancemccarthy/myaspnetcoreapp:$X86_TAG" \
+          "ghcr.io/lancemccarthy/myaspnetcoreapp:$ARM64_TAG"
+        
+        docker manifest push "ghcr.io/lancemccarthy/myaspnetcoreapp:latest"
+      env:
+        X86_TAG: ${{needs.build_x64.outputs.build_tag}}
+        ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
