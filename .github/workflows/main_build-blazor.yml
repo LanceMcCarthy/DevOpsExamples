@@ -13,9 +13,9 @@ on:
       - '.github/workflows/main_build-blazor.yml' 
 env:
   CONFIGURATION: Release
-  BLAZOR_PROJ_PATH: src\Blazor\MyBlazorApp\MyBlazorApp.csproj
-  TEST_PROJ_PATH: src\Blazor\MyBlazorApp.Tests\MyBlazorApp.Tests.csproj
-  NUGET_CONFIG_PATH: src\Blazor\MyBlazorApp\NuGet.Config
+  BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
+  TEST_PROJ_PATH: src/Blazor/MyBlazorApp.Tests/MyBlazorApp.Tests.csproj
+  NUGET_CONFIG_PATH: src/Blazor/MyBlazorApp/NuGet.Config
 
 jobs:
 
