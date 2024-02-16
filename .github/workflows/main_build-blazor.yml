@@ -68,7 +68,6 @@ jobs:
       RID: linux-x64
       CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:8.0"
       CONTAINER_IMAGE_NAME: "lancemccarthy/myblazorapp"
-      CONTAINER_IMAGE_TAG: "latest"
       CONTAINER_IMAGE_REGISTRY: "registry.hub.docker.com"
       CONTAINER_RID: "linux-x64"
       CONTAINER_ARCH: "x64"
@@ -84,13 +83,6 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
-
-    - name: Generate tag version
-      id: tag-creator
-      run: |
-        buildDay=`date +%Y.%m.%d`
-        tags="$buildDay.$GITHUB_RUN_NUMBER"
-        echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
 
     - name: Restore NuGet Packages
       run: |
@@ -118,7 +110,7 @@ jobs:
 
     # Build and publish the Container build and publish with.NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
-      run: dotnet publish ${{env.BLAZOR_PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-build --os ${{env.CONTAINER_OS}} --arch ${{env.CONTAINER_ARCH}} -p PublishProfile=DefaultContainer -p ContainerRuntimeIdentifier=${{env.CONTAINER_RID}} -p ContainerRegistry=${{env.CONTAINER_IMAGE_REGISTRY}} -p ContainerRepository=${{env.CONTAINER_IMAGE_NAME}} -p ContainerImageTags="${{env.CONTAINER_IMAGE_TAG}};${{steps.tag-creator.outputs.VERSION_TAG}}" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
+      run: dotnet publish ${{env.BLAZOR_PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-build --os ${{env.CONTAINER_OS}} --arch ${{env.CONTAINER_ARCH}} -p PublishProfile=DefaultContainer -p ContainerRuntimeIdentifier=${{env.CONTAINER_RID}} -p ContainerRegistry=${{env.CONTAINER_IMAGE_REGISTRY}} -p ContainerRepository=${{env.CONTAINER_IMAGE_NAME}} -p ContainerImageTag="latest" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
 
 
 ##############################################
