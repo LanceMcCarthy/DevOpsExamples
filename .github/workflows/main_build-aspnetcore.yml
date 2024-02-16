@@ -12,6 +12,8 @@ on:
 env:
   CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:8.0"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
+  PROJECT_PATH: "src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj"
+  NUGET_CONFIG_PATH: "src/NuGet.Config"
 
 jobs:
 
@@ -118,12 +120,18 @@ jobs:
     - name: Login to GitHub Container Registry
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
+    - name: Restore NuGet Packages
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.RID}}""
+      env:
+        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+
     - name: build the x64 image
       id: build
       working-directory: ${{env.WORKING_DIRECTORY}}
       run: |
         # Build and publish arch-specific container
-        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
+        dotnet publish ${{env.PROJECT_PATH}} -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" >> $GITHUB_OUTPUT
@@ -153,12 +161,18 @@ jobs:
     - name: Login to GitHub Container Registry
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
+    - name: Restore NuGet Packages
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "linux-${{env.RID}}""
+      env:
+        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+
     - name: build the arm64 image
       id: build
       working-directory: ${{env.WORKING_DIRECTORY}}
       run: |
         # Build and publish arch-specific container
-        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
+        dotnet publish ${{env.PROJECT_PATH}} -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=${{steps.tag-creator.outputs.VERSION_TAG}}-${{env.target_arch}}" >> $GITHUB_OUTPUT
