@@ -1,10 +1,4 @@
-﻿using System.Collections.Specialized;
-using CommonHelpers.Collections;
-using CommonHelpers.Common;
-using CommonHelpers.Models;
-using CommonHelpers.Services;
-
-namespace MauiDemo;
+﻿namespace MauiDemo;
 
 public partial class MainPage : ContentPage
 {
