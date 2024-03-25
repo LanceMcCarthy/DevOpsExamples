@@ -14,8 +14,8 @@
 		<PackageReference Include="Telerik.Drawing.Skia" Version="18.0.24.305" />
 		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="18.0.24.305" />
 		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="18.0.24.305" />
-		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2024.1.130" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.2" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2024.1.319" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.3" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
