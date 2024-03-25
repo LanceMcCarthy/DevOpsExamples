@@ -2,29 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             x:Class="MauiDemo.MainPage">
+             xmlns:mauiDemo="using:MauiDemo"
+             x:Class="MauiDemo.MainPage"
+             x:DataType="mauiDemo:MainViewModel">
+    <ContentPage.Behaviors>
+        <telerik:RadEventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing"/>
+    </ContentPage.Behaviors>
 
     <Grid RowDefinitions="*,Auto">
-        <telerik:RadDataGrid x:Name="grid"
-                             ItemsSource="{Binding Employees}"
-                             AutoGenerateColumns="False">
+        <telerik:RadDataGrid x:Name="grid" ItemsSource="{Binding Employees}" AutoGenerateColumns="False">
             <telerik:RadDataGrid.Columns>
-                <telerik:DataGridTextColumn PropertyName="Name"
-                                            HeaderText="Name" />
-                <telerik:DataGridNumericalColumn PropertyName="Position"
-                                                 HeaderText="Position" />
+                <telerik:DataGridTextColumn PropertyName="Name" HeaderText="Name" />
+                <telerik:DataGridNumericalColumn PropertyName="Position" HeaderText="Position" />
             </telerik:RadDataGrid.Columns>
         </telerik:RadDataGrid>
 
-        <HorizontalStackLayout Spacing="10"
-                               Padding="10"
-                               Grid.Row="1">
-            <Button Text="Start Over"
-                    Command="{Binding StartOverCommand}" />
-            <Button Text="Add Range (5)"
-                    Command="{Binding AddRangeCommand}" />
-            <Button Text="Clear"
-                    Command="{Binding ClearItemsCommand}" />
+        <HorizontalStackLayout Spacing="10" Padding="10" Grid.Row="1">
+            <Button Text="Start Over" Command="{Binding StartOverCommand}" />
+            <Button Text="Add Range (5)" Command="{Binding AddRangeCommand}" />
+            <Button Text="Clear" Command="{Binding ClearItemsCommand}" />
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>

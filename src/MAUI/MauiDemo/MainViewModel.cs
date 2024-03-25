@@ -1,33 +1,23 @@
-﻿using System.Collections.Specialized;
-using CommonHelpers.Collections;
+﻿using CommonHelpers.Collections;
 using CommonHelpers.Common;
 using CommonHelpers.Models;
 using CommonHelpers.Services;
+using System.Collections.Specialized;
 
 namespace MauiDemo;
 
 public class MainViewModel : ViewModelBase
 {
+    private readonly IEnumerable<Employee> data;
     private ObservableRangeCollection<Employee> employees;
 
     public MainViewModel()
     {
-        var data = SampleDataService.Current.GenerateEmployeeData();
-        
-        StartOverCommand = new Command(() =>
-        {
-            Employees = new ObservableRangeCollection<Employee>();
-        });
-
-        AddRangeCommand = new Command(() =>
-        {
-            Employees.AddRange(data.Skip(Employees.Count).Take(5), NotifyCollectionChangedAction.Reset);
-        });
-
-        ClearItemsCommand = new Command(() =>
-        {
-            Employees.Clear();
-        });
+        data = SampleDataService.Current.GenerateEmployeeData();
+        AppearingCommand = new(OnAddRange);
+        StartOverCommand = new(OnStartOver);
+        AddRangeCommand = new(OnAddRange);
+        ClearItemsCommand = new(OnClearItems);
     }
 
     public Command StartOverCommand { get; set; }
@@ -36,9 +26,26 @@ public class MainViewModel : ViewModelBase
 
     public Command ClearItemsCommand { get; set; }
 
+    public Command AppearingCommand { get; set; }
+
     public ObservableRangeCollection<Employee> Employees
     {
-        get => employees ??= new ObservableRangeCollection<Employee>();
+        get => employees ??= new();
         set => SetProperty(ref employees, value);
+    }
+
+    private void OnAddRange()
+    {
+        Employees.AddRange(data.Skip(Employees.Count).Take(5), NotifyCollectionChangedAction.Reset);
+    }
+
+    private void OnStartOver()
+    {
+        Employees = new();
+    }
+
+    private void OnClearItems()
+    {
+        Employees.Clear();
     }
 }
