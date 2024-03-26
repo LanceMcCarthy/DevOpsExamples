@@ -17,11 +17,6 @@
                              AutoGenerateColumns="False">
             <telerik:RadDataGrid.RowDetailsTemplate>
                 <DataTemplate x:DataType="models:Employee">
-                    <telerik:RadBorder CornerRadius="10"
-                                       BackgroundColor="AntiqueWhite"
-                                       Margin="5"
-                                       Padding="10"
-                                       x:Name="LayoutBorder">
                         <VerticalStackLayout Padding="10"
                                              Spacing="5">
                             <Label Text="{Binding Name}" />
@@ -29,7 +24,6 @@
                             <Label Text="{Binding Salary}" />
                             <Label Text="{Binding StartDate}" />
                         </VerticalStackLayout>
-                    </telerik:RadBorder>
                 </DataTemplate>
             </telerik:RadDataGrid.RowDetailsTemplate>
             <telerik:RadDataGrid.Columns>
