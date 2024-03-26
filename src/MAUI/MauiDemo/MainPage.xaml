@@ -32,12 +32,7 @@
                 </DataTemplate>
             </telerik:RadDataGrid.RowDetailsTemplate>
             <telerik:RadDataGrid.Columns>
-                <telerik:DataGridToggleRowDetailsColumn IsFrozen="True">
-                    <telerik:DataGridToggleRowDetailsColumn.CellContentStyle>
-                        <telerik:DataGridToggleRowDetailsCellStyle ExpandButtonText="{x:Static telerik:TelerikFont.IconDownArrow}"
-                                                                   CollapseButtonText="{x:Static telerik:TelerikFont.IconUpArrow}" />
-                    </telerik:DataGridToggleRowDetailsColumn.CellContentStyle>
-                </telerik:DataGridToggleRowDetailsColumn>
+                <telerik:DataGridToggleRowDetailsColumn IsFrozen="True"/>
                 <telerik:DataGridTextColumn PropertyName="Name" HeaderText="Name" />
                 <telerik:DataGridNumericalColumn PropertyName="Position" HeaderText="Position" />
             </telerik:RadDataGrid.Columns>
