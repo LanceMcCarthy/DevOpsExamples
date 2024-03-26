@@ -3,24 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              xmlns:mauiDemo="using:MauiDemo"
+             xmlns:models="clr-namespace:CommonHelpers.Models;assembly=CommonHelpers"
              x:Class="MauiDemo.MainPage"
              x:DataType="mauiDemo:MainViewModel">
     <ContentPage.Behaviors>
-        <telerik:RadEventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing"/>
+        <telerik:RadEventToCommandBehavior Command="{Binding AppearingCommand}"
+                                           EventName="Appearing" />
     </ContentPage.Behaviors>
 
     <Grid RowDefinitions="*,Auto">
-        <telerik:RadDataGrid x:Name="grid" ItemsSource="{Binding Employees}" AutoGenerateColumns="False">
+        <telerik:RadDataGrid x:Name="EmployeesGrid"
+                             ItemsSource="{Binding Employees}"
+                             AutoGenerateColumns="False">
+            <telerik:RadDataGrid.RowDetailsTemplate>
+                <DataTemplate x:DataType="models:Employee">
+                    <telerik:RadBorder CornerRadius="10"
+                                       BackgroundColor="AntiqueWhite"
+                                       Margin="5"
+                                       Padding="10">
+                        <VerticalStackLayout Padding="10"
+                                             Spacing="5">
+                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding Position}" />
+                            <Label Text="{Binding Salary}" />
+                            <Label Text="{Binding StartDate}" />
+                        </VerticalStackLayout>
+                    </telerik:RadBorder>
+                </DataTemplate>
+            </telerik:RadDataGrid.RowDetailsTemplate>
             <telerik:RadDataGrid.Columns>
+                <telerik:DataGridToggleRowDetailsColumn IsFrozen="True">
+                    <telerik:DataGridToggleRowDetailsColumn.CellContentStyle>
+                        <telerik:DataGridToggleRowDetailsCellStyle ExpandButtonText="{x:Static telerik:TelerikFont.IconDownArrow}"
+                                                                   CollapseButtonText="{x:Static telerik:TelerikFont.IconUpArrow}" />
+                    </telerik:DataGridToggleRowDetailsColumn.CellContentStyle>
+                </telerik:DataGridToggleRowDetailsColumn>
                 <telerik:DataGridTextColumn PropertyName="Name" HeaderText="Name" />
                 <telerik:DataGridNumericalColumn PropertyName="Position" HeaderText="Position" />
             </telerik:RadDataGrid.Columns>
         </telerik:RadDataGrid>
 
-        <HorizontalStackLayout Spacing="10" Padding="10" Grid.Row="1">
-            <Button Text="Start Over" Command="{Binding StartOverCommand}" />
-            <Button Text="Add Range (5)" Command="{Binding AddRangeCommand}" />
-            <Button Text="Clear" Command="{Binding ClearItemsCommand}" />
+        <HorizontalStackLayout Spacing="10"
+                               Padding="10"
+                               Grid.Row="1">
+            <Button Text="Start Over"
+                    Command="{Binding StartOverCommand}" />
+            <Button Text="Add Range (5)"
+                    Command="{Binding AddRangeCommand}" />
+            <Button Text="Clear"
+                    Command="{Binding ClearItemsCommand}" />
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>
