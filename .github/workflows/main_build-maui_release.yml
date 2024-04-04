@@ -199,7 +199,7 @@ jobs:
       CODESIGN_KEY: "Apple Distribution: MyCompany (L25222N3C7)"
       CODESIGN_PROV_PROFILE: "mauidemo_maccatalyst_appstore"
       CODESIGN_PROFILE_TYPE: "MAC_APP_STORE"
-      CODESIGN_ENTITLEMENTS: "Platforms\MacCatalyst\Entitlements.plist"
+      CODESIGN_ENTITLEMENTS: "Platforms/MacCatalyst/Entitlements.plist"
       APP_ID: "com.mycompany.mauidemo"
       RID: maccatalyst-x64
       TFM: net8.0-maccatalyst
