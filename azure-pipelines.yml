@@ -17,42 +17,42 @@ jobs:
 # *                                                             * #
 # *         -Uses Service Principal for credentials-            * #
 # *************************************************************** #
-- job: BuildConsoleApp
-  pool:
-    vmImage: 'windows-2022'
+# - job: BuildConsoleApp
+#   pool:
+#     vmImage: 'windows-2022'
 
-  variables:
-  - group: KeyVaultVariables
-  - name: consoleNugetConfigPath
-    value: 'src/nuget.config'
-  - name: consoleProjectPath
-    value: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
-  - name: buildConfiguration
-    value: 'Debug'
+#   variables:
+#   - group: KeyVaultVariables
+#   - name: consoleNugetConfigPath
+#     value: 'src/nuget.config'
+#   - name: consoleProjectPath
+#     value: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+#   - name: buildConfiguration
+#     value: 'Debug'
 
-  steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '8.0.x'
+#   steps:
+#   - task: UseDotNet@2
+#     inputs:
+#       packageType: 'sdk'
+#       version: '8.0.x'
 
-  # Restore the NuGet packges using Service connection for credentials
-  - task: DotNetCoreCLI@2
-    displayName: 'NuGet restore MyDocProcApp'
-    inputs:
-      command: 'restore'
-      projects: $(consoleProjectPath)
-      feedsToUse: 'config'
-      nugetConfigPath: $(consoleNugetConfigPath)
-      externalFeedCredentials: 'TelerikFeed'
+#   # Restore the NuGet packges using Service connection for credentials
+#   - task: DotNetCoreCLI@2
+#     displayName: 'NuGet restore MyDocProcApp'
+#     inputs:
+#       command: 'restore'
+#       projects: $(consoleProjectPath)
+#       feedsToUse: 'config'
+#       nugetConfigPath: $(consoleNugetConfigPath)
+#       externalFeedCredentials: 'TelerikFeed'
 
-  # Build the project
-  - task: DotNetCoreCLI@2
-    displayName: 'Build MyDocProcApp'
-    inputs:
-      command: 'build'
-      projects: $(consoleProjectPath)
-      configuration: $(buildConfiguration)
+#   # Build the project
+#   - task: DotNetCoreCLI@2
+#     displayName: 'Build MyDocProcApp'
+#     inputs:
+#       command: 'build'
+#       projects: $(consoleProjectPath)
+#       configuration: $(buildConfiguration)
 
 
 # *************************************************************** #
@@ -60,39 +60,62 @@ jobs:
 # *                                                             * #
 # *       -Update package source with pipeline secrets-         * #
 # *************************************************************** #
-# - job: BuildWebformsApp
-#   pool:
-#     vmImage: 'windows-2022'
-#   variables:
-#     nugetConfigPath: 'src\nuget.config'
-#     projectPath: 'src\Ajax\MySite.sln'
+- job: BuildWebformsApp
+  pool:
+    vmImage: 'windows-2022'
+  variables:
+    nugetConfigPath: 'src\nuget.config'
+    projectPath: 'src\Ajax\MySite.sln'
 
-#   steps:
-#   - task: NuGetToolInstaller@1
-#     displayName: 'Use NuGet '
+  steps:
+  - task: AzureCLI@2
+    name: 'AzureCLI'
+    displayName: 'Get JWT from Azure Service Principal'
+    inputs:
+      azureSubscription: 'Azure MSA Account'
+      scriptType: ps
+      scriptLocation: inlineScript
+      inlineScript: |
+        # Get a JWT using the CLI.
+        # Important, the service principal must be set as an auth Method in akeyless. see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
+        $JWT=$(az account get-access-token --query accessToken --output tsv)
+        # Do not forget to set isoutput=true and issecret=true !!!
+        echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
+     
+  - task: akeyless-secrets@1
+    name: 'Akeyless1'
+    displayName: 'Get Secrets from Akeyless'
+    inputs:
+      accessid: '$(AKEYLESS_ACCESS_ID)'
+      azureJwt: '$(AzureCLI.azure_jwt)'
+      staticSecrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":NUGET_KEY" }'
 
-#   # Step 1. Using nuget.exe, set the credentials of the 'Telerik' source in the nuget.config (using pipeline secrets)
-#   - task: PowerShell@2
-#     displayName: 'Update Package Source Credentials'
-#     inputs:
-#       targetType: 'inline'
-#       script: nuget sources update -Name 'Telerik' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+# Install nuget.exe tool (this is a .NET Framework project, otherwise we'd use the dotnet CLI)
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet.exe tool'
 
-#   # Step 2. Using nuget.exe, restore the NuGet packages
-#   - task: PowerShell@2
-#     displayName: 'Restore NuGet Packages'
-#     inputs:
-#       targetType: 'inline'
-#       script: nuget restore '$(projectPath)' -ConfigFile '$(nugetConfigPath)'
+  # Step 1. Update the credentials of the 'Telerik' source in the nuget.config
+  - task: PowerShell@2
+    displayName: 'Update Package Source Credentials'
+    inputs:
+      targetType: 'inline'
+      script: nuget sources update -Name 'Telerik' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(Akeyless1.NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
-#   # Step 3. Build the project without restoring packages automatically
-#   - task: MSBuild@1
-#     displayName: 'Build AJAX Project'
-#     inputs:
-#       solution: '$(projectPath)'
-#       platform: Any CPU
-#       configuration: Release
-#       msbuildArguments: '/p:RestorePackages=false'
+  # Step 2. Using nuget.exe, restore the NuGet packages
+  - task: PowerShell@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      targetType: 'inline'
+      script: nuget restore '$(projectPath)' -ConfigFile '$(nugetConfigPath)'
+
+  # Step 3. Build the project without restoring packages automatically
+  - task: MSBuild@1
+    displayName: 'Build AJAX Project'
+    inputs:
+      solution: '$(projectPath)'
+      platform: Any CPU
+      configuration: Release
+      msbuildArguments: '/p:RestorePackages=false'
 
 
 # ************************************************************* #
