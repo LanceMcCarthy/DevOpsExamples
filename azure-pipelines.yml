@@ -54,7 +54,7 @@ jobs:
   - powershell: dotnet restore $(consoleProjectPath) --configfile $(consoleNugetConfigPath)
     displayName: 'restore packages'
   
-  - powershell: dotnet build $(consoleProjectPath) -c 'Release' -r 'win' --no-restore
+  - powershell: dotnet build $(consoleProjectPath) -c 'Release' --no-restore
     displayName: 'Build the project'
   
   - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-build --no-restore
