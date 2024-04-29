@@ -11,9 +11,58 @@ trigger:
 #     - 'src/Uwp/**/*'
 
 jobs:
+# *************************************************************** #
+# *           EXAMPLE - Uses Akeyless for credentials -         * #
+# *************************************************************** #
+- job: BuildConsoleApp
+  pool:
+    vmImage: 'windows-2022'
+  variables:
+    consoleNugetConfigPath: 'src/nuget.config'
+    consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+
+  steps:
+  - task: AzureCLI@2
+    name: 'AzureCLI'
+    displayName: 'Get JWT from Azure Service Principal'
+    inputs:
+      azureSubscription: 'Azure MSA Account'
+      scriptType: ps
+      scriptLocation: inlineScript
+      inlineScript: |
+        # Get a JWT using the CLI (the service principal must be an Auth Method, see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md)
+        $JWT=$(az account get-access-token --query accessToken --output tsv)
+        # Do not forget to set isoutput=true and issecret=true !!!
+        echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
+     
+  - task: akeyless-secrets@1
+    name: 'Akeyless1'
+    displayName: 'Get Secrets from Akeyless'
+    inputs:
+      accessid: '$(AKEYLESS_ACCESS_ID)'
+      azureJwt: '$(AzureCLI.azure_jwt)'
+      staticSecrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"NUGET_KEY"}'
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+
+  - powershell: dotnet nuget update source 'Telerik' --source 'https://nuget.telerik.com/v3/index.json' --username 'api-key' --password '$(Akeyless1.NUGET_KEY)' --configfile $(consoleNugetConfigPath) --store-password-in-clear-text
+    displayName: 'Update package source credentials'
+  
+  - powershell: dotnet restore $(consoleProjectPath) --configfile $(consoleNugetConfigPath)
+    displayName: 'restore packages'
+  
+  - powershell: dotnet build $(consoleProjectPath) --no-restore -c 'Release' --runtime 'any'
+    displayName: 'Build the project'
+  
+  - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-build --no-restore
+    displayName: 'Publish the project'
+
 
 # *************************************************************** #
-# *                EXAMPLE 1 - CONSOLE (.NET)                   * #
+# *                  EXAMPLE - CONSOLE (.NET)                   * #
 # *                                                             * #
 # *         -Uses Service Principal for credentials-            * #
 # *************************************************************** #
@@ -54,68 +103,44 @@ jobs:
 #       projects: $(consoleProjectPath)
 #       configuration: $(buildConfiguration)
 
-
 # *************************************************************** #
-# *         EXAMPLE 2 - ASP.NET AJAX (.NET Framework)           * #
+# *         EXAMPLE   - ASP.NET AJAX (.NET Framework)           * #
 # *                                                             * #
 # *       -Update package source with pipeline secrets-         * #
 # *************************************************************** #
-- job: BuildWebformsApp
-  pool:
-    vmImage: 'windows-2022'
-  variables:
-    nugetConfigPath: 'src\nuget.config'
-    projectPath: 'src\Ajax\MySite.sln'
+# - job: BuildWebformsApp
+#   pool:
+#     vmImage: 'windows-2022'
+#   variables:
+#     nugetConfigPath: 'src\nuget.config'
+#     projectPath: 'src\Ajax\MySite.sln'
 
-  steps:
-  - task: AzureCLI@2
-    name: 'AzureCLI'
-    displayName: 'Get JWT from Azure Service Principal'
-    inputs:
-      azureSubscription: 'Azure MSA Account'
-      scriptType: ps
-      scriptLocation: inlineScript
-      inlineScript: |
-        # Get a JWT using the CLI.
-        # Important, the service principal must be set as an auth Method in akeyless. see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
-        $JWT=$(az account get-access-token --query accessToken --output tsv)
-        # Do not forget to set isoutput=true and issecret=true !!!
-        echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
-     
-  - task: akeyless-secrets@1
-    name: 'Akeyless1'
-    displayName: 'Get Secrets from Akeyless'
-    inputs:
-      accessid: '$(AKEYLESS_ACCESS_ID)'
-      azureJwt: '$(AzureCLI.azure_jwt)'
-      staticSecrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"NUGET_KEY"}'
+#   steps:
+#   - task: NuGetToolInstaller@1
+#     displayName: 'Use NuGet '
 
-# Install nuget.exe tool (this is a .NET Framework project, otherwise we'd use the dotnet CLI)
-  - task: NuGetToolInstaller@1
-    displayName: 'Install NuGet.exe tool'
+#   # Step 1. Using nuget.exe, set the credentials of the 'Telerik' source in the nuget.config (using pipeline secrets)
+#   - task: PowerShell@2
+#     displayName: 'Update Package Source Credentials'
+#     inputs:
+#       targetType: 'inline'
+#       script: nuget sources update -Name 'Telerik' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
-  # Step 1. Update the credentials of the 'Telerik' source in the nuget.config
-  - task: PowerShell@2
-    displayName: 'Update Package Source Credentials'
-    inputs:
-      targetType: 'inline'
-      script: nuget sources update -Name 'Telerik' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(Akeyless1.NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+#   # Step 2. Using nuget.exe, restore the NuGet packages
+#   - task: PowerShell@2
+#     displayName: 'Restore NuGet Packages'
+#     inputs:
+#       targetType: 'inline'
+#       script: nuget restore '$(projectPath)' -ConfigFile '$(nugetConfigPath)'
 
-  # Step 2. Using nuget.exe, restore the NuGet packages
-  - task: PowerShell@2
-    displayName: 'Restore NuGet Packages'
-    inputs:
-      targetType: 'inline'
-      script: nuget restore '$(projectPath)' -ConfigFile '$(nugetConfigPath)'
-
-  # Step 3. Build the project without restoring packages automatically
-  - task: MSBuild@1
-    displayName: 'Build AJAX Project'
-    inputs:
-      solution: '$(projectPath)'
-      platform: Any CPU
-      configuration: Release
-      msbuildArguments: '/p:RestorePackages=false'
+#   # Step 3. Build the project without restoring packages automatically
+#   - task: MSBuild@1
+#     displayName: 'Build AJAX Project'
+#     inputs:
+#       solution: '$(projectPath)'
+#       platform: Any CPU
+#       configuration: Release
+#       msbuildArguments: '/p:RestorePackages=false'
 
 
 # ************************************************************* #
