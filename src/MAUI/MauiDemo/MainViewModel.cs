@@ -21,7 +21,7 @@ public class MainViewModel : ViewModelBase
 
         data = SampleDataService.Current.GenerateEmployeeData();
 
-        Employees = new();
+        Employees = new(data.Skip(Employees.Count).Take(5));
         Employees.CollectionChanged += Employees_CollectionChanged;
     }
 

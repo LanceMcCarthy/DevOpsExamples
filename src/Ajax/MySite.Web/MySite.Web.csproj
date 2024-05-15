@@ -80,20 +80,20 @@
     <Reference Include="Telerik.Web.UI.Skins, Version=2024.1.131.45, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net45.2024.1.131\lib\net45\Telerik.Web.UI.Skins.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Documents.Core, Version=2024.1.305.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Core.2024.1.305\lib\net40\Telerik.Windows.Documents.Core.dll</HintPath>
+    <Reference Include="Telerik.Windows.Documents.Core, Version=2024.2.426.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Core.2024.2.426\lib\net462\Telerik.Windows.Documents.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Documents.Flow, Version=2024.1.305.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Flow.2024.1.305\lib\net40\Telerik.Windows.Documents.Flow.dll</HintPath>
+    <Reference Include="Telerik.Windows.Documents.Flow, Version=2024.2.426.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Flow.2024.2.426\lib\net462\Telerik.Windows.Documents.Flow.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Documents.Spreadsheet, Version=2024.1.305.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.2024.1.305\lib\net40\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
+    <Reference Include="Telerik.Windows.Documents.Spreadsheet, Version=2024.2.426.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.2024.2.426\lib\net462\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml, Version=2024.1.305.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.2024.1.305\lib\net40\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
+    <Reference Include="Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml, Version=2024.2.426.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.2024.2.426\lib\net462\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Windows.Zip, Version=2024.1.305.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Zip.2024.1.305\lib\net40\Telerik.Windows.Zip.dll</HintPath>
+    <Reference Include="Telerik.Windows.Zip, Version=2024.2.426.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Windows.Zip.2024.2.426\lib\net462\Telerik.Windows.Zip.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -201,7 +201,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
