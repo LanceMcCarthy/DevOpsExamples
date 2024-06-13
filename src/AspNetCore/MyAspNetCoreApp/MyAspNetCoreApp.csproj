@@ -15,7 +15,7 @@
 		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="18.1.24.514" />
 		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="18.1.24.514" />
 		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2024.2.514" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.6" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
