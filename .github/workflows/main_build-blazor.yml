@@ -1,5 +1,6 @@
-# For build guidance only, this workflow does not publish to Dockerhub.
-# See workflows/main_build-aspnetcore.yml for an example that builds and publishes an image to Docker Hub
+# This example has two container build & publish examples
+# The ".NET CONTAINER SDK BUILD" job publishes the container to registry.hub.docker.com
+# The "DOCKER FILE BUILD" job publishes the container to ghcr.io (GitHub container registry)
 name: Build Blazor Application
 
 on:
@@ -86,15 +87,18 @@ jobs:
 
     - name: Restore NuGet Packages
       run: |
-        # In this special case, we're using the nested nuget.config file (instead of src/nuget.config)
+        # In this special case, we're using the project's nested nuget.config file (instead of the global src/nuget.config)
         dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
         dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
       env:
         TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
-    - name: Build Test Project
+    - name: Build Unit Test Project
       run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
+
+    - name: Run Unit Tests
+      run: dotnet test ${{env.TEST_PROJ_PATH}} -r ${{env.RID}}
 
     - name: Fetch secrets from AKeyless
       id: akeyless
