@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
 <style>
     .k-footer-template {
         display: none;
@@ -63,8 +64,8 @@
         </series>
     </kendo-chart>
 </script>
-@*to configure the chart theme to match the application theme use the theme setting
-    https://docs.telerik.com/kendo-ui/api/javascript/dataviz/ui/chart/configuration/theme*@
+
+<!-- To configure the chart theme to match the application theme use the theme setting https://docs.telerik.com/kendo-ui/api/javascript/dataviz/ui/chart/configuration/theme -->
 <script id="performance-chart-template" type="text/html">
     <kendo-chart name="performance" datasource-id="dateChartDataSource" is-in-client-template="true" auto-bind="false">
         <chart-legend visible="false"></chart-legend>
@@ -88,6 +89,7 @@
         </series>
     </kendo-chart>
 </script>
+
 <script id="apps-chart-template" type="text/html">
     <kendo-chart name="devices" is-in-client-template="true">
         <series>
@@ -107,6 +109,7 @@
         </datasource>
     </kendo-chart>
 </script>
+
 <script id="platforms-chart-template" type="text/html">
     <kendo-chart name="platforms" is-in-client-template="true">
         <series>
@@ -185,13 +188,8 @@
             </container>
         </containers>
     </kendo-tilelayout>
-    <script>
-        function onTileResize(e) {
-            // for widgets that do not auto resize
-            // https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
-            kendo.resize(e.container, true);
-        }
 
+    <script>
         function populateTotals(e) {
             // we are using the aggregates of the grid to populate our totals
             var aggregates = e.sender.dataSource.aggregates();
@@ -200,6 +198,11 @@
             $("#total-downloads").html(kendo.toString(aggregates.Downloads.sum, "n0"));
             $("#total-reach").html(kendo.toString(aggregates.Reach.sum, "n0"));
             $("#total-revenue").html(kendo.toString(aggregates.Views.sum / 100, "c0"));
+        }
+
+        function onTileResize(e) {
+            // for widgets that do not auto resize https://docs.telerik.com/kendo-ui/styles-and-layout/using-kendo-in-responsive-web-pages
+            kendo.resize(e.container, true);
         }
     </script>
 </div>
