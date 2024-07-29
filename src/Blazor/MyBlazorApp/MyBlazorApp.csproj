@@ -2,6 +2,10 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
   
   <ItemGroup>
