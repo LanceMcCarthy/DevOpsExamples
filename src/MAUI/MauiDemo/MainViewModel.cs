@@ -21,7 +21,8 @@ public class MainViewModel : ViewModelBase
 
         data = SampleDataService.Current.GenerateEmployeeData();
 
-        Employees = new(data.Skip(Employees.Count).Take(5));
+        Employees = new ObservableRangeCollection<Employee>();
+        Employees.AddRange(data.Skip(Employees.Count).Take(5));
         Employees.CollectionChanged += Employees_CollectionChanged;
     }
 

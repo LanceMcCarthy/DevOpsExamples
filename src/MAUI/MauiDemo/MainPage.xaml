@@ -2,30 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             xmlns:mauiDemo="using:MauiDemo"
-             xmlns:models="clr-namespace:CommonHelpers.Models;assembly=CommonHelpers"
+             xmlns:local="using:MauiDemo"
              x:Class="MauiDemo.MainPage"
-             x:DataType="mauiDemo:MainViewModel">
+             x:DataType="local:MainViewModel">
     <ContentPage.Behaviors>
         <telerik:RadEventToCommandBehavior Command="{Binding AppearingCommand}"
                                            EventName="Appearing" />
     </ContentPage.Behaviors>
 
+    <ContentPage.Resources>
+        <DataTemplate x:Key="GridTemplateForRowDetails">
+            <local:RowDetailsView />
+        </DataTemplate>
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="*,Auto">
         <telerik:RadDataGrid x:Name="EmployeesGrid"
                              ItemsSource="{Binding Employees}"
-                             AutoGenerateColumns="False">
-            <telerik:RadDataGrid.RowDetailsTemplate>
-                <DataTemplate x:DataType="models:Employee">
-                        <VerticalStackLayout Padding="10"
-                                             Spacing="5">
-                            <Label Text="{Binding Name}" />
-                            <Label Text="{Binding Position}" />
-                            <Label Text="{Binding Salary}" />
-                            <Label Text="{Binding StartDate}" />
-                        </VerticalStackLayout>
-                </DataTemplate>
-            </telerik:RadDataGrid.RowDetailsTemplate>
+                             AutoGenerateColumns="False"
+                             RowDetailsTemplate="{StaticResource GridTemplateForRowDetails}">
+
             <telerik:RadDataGrid.Columns>
                 <telerik:DataGridToggleRowDetailsColumn IsFrozen="True"/>
                 <telerik:DataGridTextColumn PropertyName="Name" HeaderText="Name" />
