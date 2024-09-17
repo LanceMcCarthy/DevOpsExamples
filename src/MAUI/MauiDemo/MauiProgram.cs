@@ -32,22 +32,17 @@ public static class MauiProgram
                 fonts.AddFont("telerikfontexamples.ttf", "telerikfontexamples");
             });
 
-        // Needs using Microsoft.Maui.LifecycleEvents for this extension method
+        builder.Services.AddSingleton<AppShell>();
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<MainViewModel>();
+
         builder.ConfigureLifecycleEvents(events =>
         {
 #if WINDOWS
-            // using WinUIEx
-            events.AddWindows(wndLifeCycleBuilder =>
-            {
-                wndLifeCycleBuilder.OnWindowCreated(window =>
-                {
-                    window.CenterOnScreen(1024,768); //uses WinUIEx
-                });
-            });
+            events.AddWindows(b => b.OnWindowCreated(window => window.CenterOnScreen(1024,768)));
 
 #elif MACCATALYST
 
-                // Using CoreGraphics and UIKit
                 events.AddiOS(wndLifeCycleBuilder =>
                 {
                     wndLifeCycleBuilder.SceneWillConnect((scene, session, options) =>
