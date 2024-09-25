@@ -148,41 +148,40 @@ jobs:
 # *                                                           * #
 # *        -Update package source with KeyVault secrets-      * #
 # ************************************************************* #
-# - job: BuildBlazorApp
-#   pool:
-#     vmImage: 'windows-2022'
-
-#   variables:
-#   # secrets come from AzureKeyValue (instead of pipeline secrets)
-#   - group: KeyVaultVariables
+- job: BuildBlazorApp
+  pool:
+    vmImage: 'windows-2022'
+  variables:
+    nugetConfigPath: 'src\Blazor\MyBlazorApp\NuGet.Config'
+    projectPath: 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj'
   
-#   steps:
-#   - task: UseDotNet@2
-#     inputs:
-#       packageType: 'sdk'
-#       version: '8.0.x'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
   
-#   # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed' in the nuget.config (using Azure KeyVault-linked secrets)
-#   - task: PowerShell@2
-#     displayName: 'Update Package Source Credentials'
-#     inputs:
-#       targetType: 'inline'
-#       script: dotnet nuget update source 'Telerik_Feed' --source 'https://nuget.telerik.com/v3/index.json' --username '$(MYTELERIKACCOUNTUSERNAME)' --password '$(MYTELERIKACCOUNTPASSWORD)' --store-password-in-clear-text --configfile 'src\Blazor\MyBlazorApp\NuGet.Config'
+  # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed', defined in the nuget.config
+  - task: PowerShell@2
+    displayName: 'Update Package Source Credentials'
+    inputs:
+      targetType: 'inline'
+      script: dotnet nuget update source 'Telerik_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u '$(MY_TELERIK_EMAIL)' -p '$(MY_TELERIK_PASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
 
-#   # Step 2. Using dotnet CLI, restore NuGet packages
-#   - task: PowerShell@2
-#     displayName: 'Restore NuGet Packages'
-#     inputs:
-#       targetType: 'inline'
-#       script: dotnet restore 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj' --configfile 'src\Blazor\MyBlazorApp\NuGet.Config' --runtime win-x64
+  # Step 2. Using dotnet CLI, restore NuGet packages
+  - task: PowerShell@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      targetType: 'inline'
+      script: dotnet restore $(projectPath) --configfile $(nugetConfigPath) --runtime win-x64
 
-#   # Step 3. Build the project
-#   - task: DotNetCoreCLI@2
-#     displayName: 'Build Blazor Project'
-#     inputs:
-#       command: 'build'
-#       projects: src\Blazor\MyBlazorApp\MyBlazorApp.csproj
-#       configuration: Debug
+  # Step 3. Build the project
+  - task: DotNetCoreCLI@2
+    displayName: 'Build Blazor Project'
+    inputs:
+      command: 'build'
+      projects: $(projectPath)
+      configuration: Debug
 
 
 # *************************************************************** #
