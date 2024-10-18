@@ -53,6 +53,11 @@ jobs:
     - name: Store notarization credentials (notarytool)
       run: xcrun notarytool store-credentials ${{env.NOTARYTOOL_CREDENTIAL_NAME}} --apple-id ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}} --team-id ${{env.APPLE_TEAM_ID}} --password ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
 
+    - name: Sign the binary
+      working-directory: filesToSign
+      shell: bash
+      run: /usr/bin/codesign --force -s ${{env.MACOS_CERTIFICATE_NAME}} -v "${{env.PRODUCT_BINARY_NAME}}"
+
     - name: Create, sign and notarize the DMG
       id: create-dmg
       run: |
