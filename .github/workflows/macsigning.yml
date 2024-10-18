@@ -20,7 +20,7 @@ jobs:
       PRODUCT_BINARY_NAME: "chef-node-management-cli"
       MACOS_DMG_FILENAME: "chef-node-management-cli.dmg"
       MACOS_APP_BUNDLE_ID: "com.lancelotsoftware.chefnodemanagementcli"
-      MACOS_CERTIFICATE_NAME: "Developer ID Application: Lancelot Software, LLC (L65255N3F7)"
+      MACOS_CERTIFICATE_NAME: "Lancelot Software, LLC (L65255N3F7)"
       APPLE_TEAM_NAME: "Lancelot Software, LLC"
       APPLE_TEAM_ID: "L65255N3F7"
       NOTARYTOOL_CREDENTIAL_NAME: "notarytool-password"
