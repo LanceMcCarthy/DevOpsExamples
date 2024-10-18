@@ -108,12 +108,12 @@ jobs:
 
         function wait_for_noterize() {
           # wait for status to be not "in progress" any more
-          request_status="In Progress"
-          while [[ "$request_status" == "In Progress" ]]; do
+          status="In Progress"
+          while [[ "$status" == "In Progress" ]]; do
             echo -n "Waiting on ${request_uuid}..."
             sleep 10
-            request_status=$(request_status "$request_uuid")
-            echo "Current status check: $request_status"
+            status=$(request_status)
+            echo "Current status check: $status"
           done
 
           xcrun notarytool info "$request_uuid" \
@@ -123,7 +123,7 @@ jobs:
                                 --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
               | jq '.'
 
-          if [[ $request_status != "Accepted" ]]; then
+          if [[ $status != "Accepted" ]]; then
             error_details=$(xcrun notarytool log "$request_uuid" \
                                   --output-format json \
                                   --team-id "${{env.APPLE_TEAM_ID}}" \
@@ -140,8 +140,9 @@ jobs:
           xcrun stapler staple "${{env.MACOS_DMG_FILENAME}}"
         }
 
-        notarize_file()
-        wait_for_noterize()
+        notarize_file
+
+        wait_for_noterize
 
 
     - name: Confirm DMG exists
