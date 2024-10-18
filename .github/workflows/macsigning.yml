@@ -65,16 +65,84 @@ jobs:
 
     # Default software on the runner here https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
     # all runners listed here https://github.com/actions/runner-images
-    - name: "Notarize and Staple Release Build"
-      uses: GuillaumeFalourd/notary-tools@v1
-      with:
-        product_path: "${{env.MACOS_DMG_FILENAME}}"
-        apple_id: ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}
-        password: ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
-        team_id: "L65255N3F7"
-        staple: true
-        keychain_profile: '${{env.NOTARYTOOL_CREDENTIAL_NAME}}'
-        xcode_path: '/Applications/Xcode_15.4.app'
+    # - name: "Notarize and Staple Release Build"
+    #   uses: GuillaumeFalourd/notary-tools@v1
+    #   with:
+    #     product_path: "${{env.MACOS_DMG_FILENAME}}"
+    #     apple_id: ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}
+    #     password: ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
+    #     team_id: "${{env.APPLE_TEAM_ID}}"
+    #     staple: true
+    #     keychain_profile: '${{env.NOTARYTOOL_CREDENTIAL_NAME}}'
+    #     xcode_path: '/Applications/Xcode_15.4.app'
+
+    - name: Full manual run
+      run: |
+        request_uuid=""
+
+        function notarize_file() {
+          request_uuid=$(xcrun notarytool submit "${{env.MACOS_DMG_FILENAME}}" \
+                                          --output-format json \
+                                          --team-id "${{env.APPLE_TEAM_ID}}" \
+                                          --apple-id "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
+                                          --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
+                          | jq -r '.id')
+
+          echo "${request_uuid}:${{env.MACOS_DMG_FILENAME}}"
+
+          if [[ $request_uuid == "" ]]; then 
+            echo "Could not upload for notarization ${{env.MACOS_DMG_FILENAME}}"
+            exit 1
+          fi
+        }
+
+        function request_status() {
+          req_status=$(xcrun notarytool info "$request_uuid" \
+                                        --output-format json \
+                                        --team-id "${{env.APPLE_TEAM_ID}}" \
+                                        --apple-id  "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
+                                        --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
+                      | jq -r '.status')
+          echo "$req_status"
+        }
+
+        function wait_for_noterize() {
+          # wait for status to be not "in progress" any more
+          request_status="In Progress"
+          while [[ "$request_status" == "In Progress" ]]; do
+            echo -n "Waiting on ${request_uuid}..."
+            sleep 10
+            request_status=$(request_status "$request_uuid")
+            echo "Current status check: $request_status"
+          done
+
+          xcrun notarytool info "$request_uuid" \
+                                --output-format json \
+                                --team-id "${{env.APPLE_TEAM_ID}}" \
+                                --apple-id  "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
+                                --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
+              | jq '.'
+
+          if [[ $request_status != "Accepted" ]]; then
+            error_details=$(xcrun notarytool log "$request_uuid" \
+                                  --output-format json \
+                                  --team-id "${{env.APPLE_TEAM_ID}}" \
+                                  --apple-id  "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
+                                  --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
+                | jq '.')
+
+            echo "::error An error occurred trying to notarize ${{env.MACOS_DMG_FILENAME}}. $error_details"
+                
+            exit 1
+          fi
+
+          echo "Stapling the ${{env.MACOS_DMG_FILENAME}}"
+          xcrun stapler staple "${{env.MACOS_DMG_FILENAME}}"
+        }
+
+        notarize_file()
+        wait_for_noterize()
+
 
     - name: Confirm DMG exists
       run: ls *.dmg -R
