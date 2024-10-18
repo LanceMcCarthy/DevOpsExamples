@@ -68,12 +68,9 @@ jobs:
         "${{env.MACOS_DMG_FILENAME}}" \
         "filesToSign/"
 
-    - name: Confirm DMG exists
-      run: find -maxdepth 2 -type f -name '*.dmg'
-
     - name: Upload Mac signed artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: "${{env.PRODUCT_BINARY_NAME}}_darwin-arm64"
-        path: ${{env.MACOS_DMG_FILENAME}}
+        name: "${{env.PRODUCT_BINARY_NAME}}_darwin-arm64.dmg"
+        path: /**/*.dmg
         overwrite: true
