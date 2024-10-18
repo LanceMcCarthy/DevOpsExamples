@@ -55,7 +55,7 @@ jobs:
 
     - name: Sign the binary before packing DMG
       working-directory: filesToSign
-      run: /usr/bin/codesign --force --verify --deep --verbose --sign "${{env.MACOS_CERTIFICATE_NAME}}" --options runtime -v "filesToSign/${{env.PRODUCT_BINARY_NAME}}"
+      run: /usr/bin/codesign --force --verify --deep --verbose --sign "${{env.MACOS_CERTIFICATE_NAME}}" --options runtime -v "${{env.PRODUCT_BINARY_NAME}}"
 
     - name: Create, sign, notarize, and staple the DMG
       id: create-dmg
