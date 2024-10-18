@@ -53,8 +53,7 @@ jobs:
     - name: Store notarization credentials (notarytool)
       run: xcrun notarytool store-credentials ${{env.NOTARYTOOL_CREDENTIAL_NAME}} --apple-id ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}} --team-id ${{env.APPLE_TEAM_ID}} --password ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
 
-    - name: Sign the binary
-      working-directory: filesToSign
+    - name: Sign the binary before packing DMG
       shell: bash
       run: /usr/bin/codesign --force -s "Lancelot Software, LLC (L65255N3F7)" -v "filesToSign/chef-node-management-cli"
 
