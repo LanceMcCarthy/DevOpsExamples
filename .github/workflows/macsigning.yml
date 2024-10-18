@@ -55,28 +55,22 @@ jobs:
 
     - name: Sign the binary before packing DMG
       shell: bash
-      run: /usr/bin/codesign --force -s "Lancelot Software, LLC (L65255N3F7)" -v "filesToSign/chef-node-management-cli"
+      run: |
+        /usr/bin/codesign --force --verify --deep --verbose -s "Lancelot Software, LLC (L65255N3F7)" -v "filesToSign/chef-node-management-cli"
 
-    - name: Create, sign and notarize the DMG
+    - name: Create, sign the DMG
       id: create-dmg
       run: |
-        create-dmg --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" --background "chef-courier-installer-background.png" --notarize "${{env.NOTARYTOOL_CREDENTIAL_NAME}}" --codesign "${{env.MACOS_CERTIFICATE_NAME}}" "${{env.MACOS_DMG_FILENAME}}" "filesToSign/"
+        create-dmg --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" --background "chef-courier-installer-background.png" --codesign "${{env.MACOS_CERTIFICATE_NAME}}" "${{env.MACOS_DMG_FILENAME}}" "filesToSign/"
 
-    # # Tool docs https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html
-    # - name: Sign binary
-    #   working-directory: filesToSign
-    #   shell: bash
-    #   run: |
-    #     /usr/bin/codesign --force -s ${{env.MACOS_CERTIFICATE_NAME}} -v "${{env.PRODUCT_BINARY_NAME}}"
-
-    # - name: "Notarize and Staple Release Build"
-    #   uses: GuillaumeFalourd/notary-tools@v1
-    #   with:
-    #     product_path: "/filesToSign/${{env.PRODUCT_BINARY_NAME}}"
-    #     apple_id: ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}
-    #     password: ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
-    #     team_id: "L65255N3F7"
-    #     staple: true
+    - name: "Notarize and Staple Release Build"
+      uses: GuillaumeFalourd/notary-tools@v1
+      with:
+        product_path: "${{env.MACOS_DMG_FILENAME}}"
+        apple_id: ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}
+        password: ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
+        team_id: "L65255N3F7"
+        staple: true
 
     - name: Confirm DMG exists
       run: ls *.dmg -R
