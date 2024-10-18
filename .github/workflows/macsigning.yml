@@ -37,12 +37,10 @@ jobs:
         access-id: "p-fq3qbjjxv839" 
         static-secrets: |
           {
-            "/personal-keys/mccarthy/lance-apple-cert-developerid-distribution-base64": "APPLE_DEVELOPER_CERTIFICATE_P12_BASE64",
-            "/personal-keys/mccarthy/lance-apple-certificate-password": "APPLE_DEVELOPER_CERTIFICATE_PASSWORD",
-            "/personal-keys/mccarthy/lance-apple-account-developer-id": "APPLE_ACCOUNT_DEVELOPER_ID",
             "/personal-keys/mccarthy/lance-apple-account-username": "APPLE_ACCOUNT_EMAIL",
             "/personal-keys/mccarthy/lance-apple-account-pat": "APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD",
-            "/personal-keys/mccarthy/lance-random-keychain-pwd-for-ci": "RANDOM_CI_KEYCHAIN_PWD"
+            "/personal-keys/mccarthy/lance-apple-cert-developerid-distribution-base64": "APPLE_DEVELOPER_CERTIFICATE_P12_BASE64",
+            "/personal-keys/mccarthy/lance-apple-certificate-password": "APPLE_DEVELOPER_CERTIFICATE_PASSWORD"
           }
         export-secrets-to-environment: false
 
@@ -58,13 +56,7 @@ jobs:
     - name: Create, sign and notarize the DMG
       id: create-dmg
       run: |
-        create-dmg \
-          --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" \
-          --background "chef-courier-installer-background.png" \
-          --notarize ${{env.NOTARYTOOL_CREDENTIAL_NAME}} \
-          --codesign ${{env.MACOS_CERTIFICATE_NAME}} \
-          "${{env.MACOS_DMG_FILENAME}}" \
-          "filesToSign/"
+        create-dmg --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" --background "chef-courier-installer-background.png" --notarize "${{env.NOTARYTOOL_CREDENTIAL_NAME}}" --codesign "${{env.MACOS_CERTIFICATE_NAME}}" "${{env.MACOS_DMG_FILENAME}}" "filesToSign/"
 
     # # Tool docs https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html
     # - name: Sign binary
@@ -72,7 +64,6 @@ jobs:
     #   shell: bash
     #   run: |
     #     /usr/bin/codesign --force -s ${{env.MACOS_CERTIFICATE_NAME}} -v "${{env.PRODUCT_BINARY_NAME}}"
-
 
     # - name: "Notarize and Staple Release Build"
     #   uses: GuillaumeFalourd/notary-tools@v1
@@ -83,8 +74,8 @@ jobs:
     #     team_id: "L65255N3F7"
     #     staple: true
 
-    - name: Confirm signed files
-      run: ls -R filesToSign/
+    - name: Confirm DMG exists
+      run: ls *.dmg -R
 
     - name: Upload Mac signed artifacts
       uses: actions/upload-artifact@v4
