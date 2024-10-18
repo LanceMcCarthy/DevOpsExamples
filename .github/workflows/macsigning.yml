@@ -56,7 +56,7 @@ jobs:
     - name: Sign the binary
       working-directory: filesToSign
       shell: bash
-      run: /usr/bin/codesign --force -s ${{env.MACOS_CERTIFICATE_NAME}} -v "${{env.PRODUCT_BINARY_NAME}}"
+      run: /usr/bin/codesign --force -s "Lancelot Software, LLC (L65255N3F7)" -v "filesToSign/chef-node-management-cli"
 
     - name: Create, sign and notarize the DMG
       id: create-dmg
