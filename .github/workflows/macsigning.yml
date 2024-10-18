@@ -63,6 +63,8 @@ jobs:
       run: |
         create-dmg --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" --background "chef-courier-installer-background.png" --codesign "${{env.MACOS_CERTIFICATE_NAME}}" "${{env.MACOS_DMG_FILENAME}}" "filesToSign/"
 
+    # Default software on the runner here https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
+    # all runners listed here https://github.com/actions/runner-images
     - name: "Notarize and Staple Release Build"
       uses: GuillaumeFalourd/notary-tools@v1
       with:
@@ -71,6 +73,8 @@ jobs:
         password: ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
         team_id: "L65255N3F7"
         staple: true
+        keychain_profile: '${{env.NOTARYTOOL_CREDENTIAL_NAME}}'
+        xcode_path: '/Applications/Xcode_15.4.app'
 
     - name: Confirm DMG exists
       run: ls *.dmg -R
