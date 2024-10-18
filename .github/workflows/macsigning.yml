@@ -50,7 +50,7 @@ jobs:
         p12-file-base64: "${{steps.akeyless.outputs.APPLE_DEVELOPER_CERTIFICATE_P12_BASE64}}"
         p12-password: "${{steps.akeyless.outputs.APPLE_DEVELOPER_CERTIFICATE_PASSWORD}}"
 
-    - name: Store notarization credentials (notarytool)
+    - name: Store notarytool credentials
       run: xcrun notarytool store-credentials ${{env.NOTARYTOOL_CREDENTIAL_NAME}} --apple-id ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}} --team-id ${{env.APPLE_TEAM_ID}} --password ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
 
     - name: Sign the binary before packing DMG
@@ -61,92 +61,15 @@ jobs:
     - name: Create, sign, notarize, and staple the DMG
       id: create-dmg
       run: |
-        create-dmg --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" --background "chef-courier-installer-background.png" --codesign "${{env.MACOS_CERTIFICATE_NAME}}" --notarize ${{env.NOTARYTOOL_CREDENTIAL_NAME}} "${{env.MACOS_DMG_FILENAME}}" "filesToSign/"
-
-    # Default software on the runner here https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-    # all runners listed here https://github.com/actions/runner-images
-    # - name: "Notarize and Staple Release Build"
-    #   uses: GuillaumeFalourd/notary-tools@v1
-    #   with:
-    #     product_path: "${{env.MACOS_DMG_FILENAME}}"
-    #     apple_id: ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}
-    #     password: ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
-    #     team_id: "${{env.APPLE_TEAM_ID}}"
-    #     staple: true
-    #     keychain_profile: '${{env.NOTARYTOOL_CREDENTIAL_NAME}}'
-    #     xcode_path: '/Applications/Xcode_15.4.app'
-
-    # - name: Full manual run
-    #   run: |
-    #     request_uuid=""
-
-    #     function notarize_file() {
-    #       request_uuid=$(xcrun notarytool submit "${{env.MACOS_DMG_FILENAME}}" \
-    #                                       --output-format json \
-    #                                       --team-id "${{env.APPLE_TEAM_ID}}" \
-    #                                       --apple-id "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
-    #                                       --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
-    #                       | jq -r '.id')
-
-    #       echo "${request_uuid}:${{env.MACOS_DMG_FILENAME}}"
-
-    #       if [[ $request_uuid == "" ]]; then 
-    #         echo "Could not upload for notarization ${{env.MACOS_DMG_FILENAME}}"
-    #         exit 1
-    #       fi
-    #     }
-
-    #     function request_status() {
-    #       req_status=$(xcrun notarytool info "$request_uuid" \
-    #                                     --output-format json \
-    #                                     --team-id "${{env.APPLE_TEAM_ID}}" \
-    #                                     --apple-id  "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
-    #                                     --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
-    #                   | jq -r '.status')
-    #       echo "$req_status"
-    #     }
-
-    #     function wait_for_noterize() {
-    #       # wait for status to be not "in progress" any more
-    #       status="In Progress"
-    #       while [[ "$status" == "In Progress" ]]; do
-    #         echo -n "Waiting on ${request_uuid}..."
-    #         sleep 10
-    #         status=$(request_status)
-    #         echo "Current status check: $status"
-    #       done
-
-    #       xcrun notarytool info "$request_uuid" \
-    #                             --output-format json \
-    #                             --team-id "${{env.APPLE_TEAM_ID}}" \
-    #                             --apple-id  "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
-    #                             --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
-    #           | jq '.'
-
-    #       if [[ $status != "Accepted" ]]; then
-    #         error_details=$(xcrun notarytool log "$request_uuid" \
-    #                               --output-format json \
-    #                               --team-id "${{env.APPLE_TEAM_ID}}" \
-    #                               --apple-id  "${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}" \
-    #                               --password "${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}" 2>&1 \
-    #             | jq '.')
-
-    #         echo "::error An error occurred trying to notarize ${{env.MACOS_DMG_FILENAME}}. $error_details"
-                
-    #         exit 1
-    #       fi
-
-    #       echo "Stapling the ${{env.MACOS_DMG_FILENAME}}"
-    #       xcrun stapler staple "${{env.MACOS_DMG_FILENAME}}"
-    #     }
-
-    #     notarize_file
-
-    #     wait_for_noterize
-
+        create-dmg --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" \
+        --background "chef-courier-installer-background.png" \
+        --codesign "${{env.MACOS_CERTIFICATE_NAME}}" \
+        --notarize ${{env.NOTARYTOOL_CREDENTIAL_NAME}} \
+        "${{env.MACOS_DMG_FILENAME}}" \
+        "filesToSign/"
 
     - name: Confirm DMG exists
-      run: ls *.dmg -R
+      run: find -maxdepth 2 -type f -name '*.dmg'
 
     - name: Upload Mac signed artifacts
       uses: actions/upload-artifact@v4
