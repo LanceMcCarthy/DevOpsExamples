@@ -1,0 +1,94 @@
+name: CLI Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - mac-signing-test
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
+jobs:
+  sign-macos:
+    name: Sign MacOS Release
+    runs-on: macos-latest
+    env:
+      PRODUCT_READABLE_NAME: "Chef Node Management CLI"
+      PRODUCT_BINARY_NAME: "chef-node-management-cli"
+      MACOS_DMG_FILENAME: "chef-node-management-cli.dmg"
+      MACOS_APP_BUNDLE_ID: "com.lancelotsoftware.chefnodemanagementcli"
+      MACOS_CERTIFICATE_NAME: "Developer ID Application: Lancelot Software, LLC (L65255N3F7)"
+      APPLE_TEAM_NAME: "Lancelot Software, LLC"
+      APPLE_TEAM_ID: "L65255N3F7"
+      NOTARYTOOL_CREDENTIAL_NAME: "notarytool-password"
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: install create-dmg
+      run: brew install create-dmg
+
+    - name: Get Static Secrets
+      id: akeyless
+      uses: LanceMcCarthy/akeyless-action@v3
+      with:
+        access-id: "p-fq3qbjjxv839" 
+        static-secrets: |
+          {
+            "/personal-keys/mccarthy/lance-apple-cert-developerid-distribution-base64": "APPLE_DEVELOPER_CERTIFICATE_P12_BASE64",
+            "/personal-keys/mccarthy/lance-apple-certificate-password": "APPLE_DEVELOPER_CERTIFICATE_PASSWORD",
+            "/personal-keys/mccarthy/lance-apple-account-developer-id": "APPLE_ACCOUNT_DEVELOPER_ID",
+            "/personal-keys/mccarthy/lance-apple-account-username": "APPLE_ACCOUNT_EMAIL",
+            "/personal-keys/mccarthy/lance-apple-account-pat": "APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD",
+            "/personal-keys/mccarthy/lance-random-keychain-pwd-for-ci": "RANDOM_CI_KEYCHAIN_PWD"
+          }
+        export-secrets-to-environment: false
+
+    - name: Import Code-Signing Certificates
+      uses: Apple-Actions/import-codesign-certs@v3
+      with:
+        p12-file-base64: "${{steps.akeyless.outputs.APPLE_DEVELOPER_CERTIFICATE_P12_BASE64}}"
+        p12-password: "${{steps.akeyless.outputs.APPLE_DEVELOPER_CERTIFICATE_PASSWORD}}"
+
+    - name: Store notarization credentials (notarytool)
+      run: xcrun notarytool store-credentials ${{env.NOTARYTOOL_CREDENTIAL_NAME}} --apple-id ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}} --team-id ${{env.APPLE_TEAM_ID}} --password ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
+
+    - name: Create, sign and notarize the DMG
+      id: create-dmg
+      run: |
+        create-dmg \
+          --volname "${{env.PRODUCT_READABLE_NAME}} Application Installer" \
+          --background "chef-courier-installer-background.png" \
+          --notarize ${{env.NOTARYTOOL_CREDENTIAL_NAME}} \
+          --codesign ${{env.MACOS_CERTIFICATE_NAME}} \
+          "${{env.MACOS_DMG_FILENAME}}" \
+          "filesToSign/"
+
+    # # Tool docs https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Procedures/Procedures.html
+    # - name: Sign binary
+    #   working-directory: filesToSign
+    #   shell: bash
+    #   run: |
+    #     /usr/bin/codesign --force -s ${{env.MACOS_CERTIFICATE_NAME}} -v "${{env.PRODUCT_BINARY_NAME}}"
+
+
+    # - name: "Notarize and Staple Release Build"
+    #   uses: GuillaumeFalourd/notary-tools@v1
+    #   with:
+    #     product_path: "/filesToSign/${{env.PRODUCT_BINARY_NAME}}"
+    #     apple_id: ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}}
+    #     password: ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
+    #     team_id: "L65255N3F7"
+    #     staple: true
+
+    - name: Confirm signed files
+      run: ls -R filesToSign/
+
+    - name: Upload Mac signed artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: "${{env.PRODUCT_BINARY_NAME}}_darwin-arm64"
+        path: ${{env.MACOS_DMG_FILENAME}}
+        overwrite: true
