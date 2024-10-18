@@ -54,9 +54,8 @@ jobs:
       run: xcrun notarytool store-credentials ${{env.NOTARYTOOL_CREDENTIAL_NAME}} --apple-id ${{steps.akeyless.outputs.APPLE_ACCOUNT_EMAIL}} --team-id ${{env.APPLE_TEAM_ID}} --password ${{steps.akeyless.outputs.APPLE_ACCOUNT_APP_SPECIFIC_PASSWORD}}
 
     - name: Sign the binary before packing DMG
-      shell: bash
-      run: |
-        /usr/bin/codesign --force --verify --deep --verbose --sign "Lancelot Software, LLC (L65255N3F7)" --options runtime -v "filesToSign/chef-node-management-cli"
+      working-directory: filesToSign
+      run: /usr/bin/codesign --force --verify --deep --verbose --sign "${{env.MACOS_CERTIFICATE_NAME}}" --options runtime -v "filesToSign/${{env.PRODUCT_BINARY_NAME}}"
 
     - name: Create, sign, notarize, and staple the DMG
       id: create-dmg
@@ -71,6 +70,6 @@ jobs:
     - name: Upload Mac signed artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: "${{env.PRODUCT_BINARY_NAME}}_darwin-arm64.dmg"
-        path: /**/*.dmg
+        name: "${{env.PRODUCT_BINARY_NAME}}_darwin-arm64"
+        path: ${{env.MACOS_DMG_FILENAME}}
         overwrite: true
