@@ -30,11 +30,13 @@ jobs:
       scriptType: ps
       scriptLocation: inlineScript
       inlineScript: |
-        # Get a JWT using the CLI (the service principal must be an Auth Method, see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md)
+        # Get a JWT using the azure CLI
         $JWT=$(az account get-access-token --query accessToken --output tsv)
-        # Do not forget to set isoutput=true and issecret=true !!!
+
+        # Set an output variable
         echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
-     
+  
+  # Needs JWT, see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
   - task: akeyless-secrets@1
     name: 'Akeyless1'
     displayName: 'Get Secrets from Akeyless'
@@ -54,10 +56,7 @@ jobs:
   - powershell: dotnet restore $(consoleProjectPath) --configfile $(consoleNugetConfigPath)
     displayName: 'restore packages'
   
-  - powershell: dotnet build $(consoleProjectPath) -c 'Release' --no-restore
-    displayName: 'Build the project'
-  
-  - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-build --no-restore
+  - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
     displayName: 'Publish the project'
 
 
@@ -148,40 +147,40 @@ jobs:
 # *                                                           * #
 # *        -Update package source with KeyVault secrets-      * #
 # ************************************************************* #
-- job: BuildBlazorApp
-  pool:
-    vmImage: 'windows-2022'
-  variables:
-    nugetConfigPath: 'src\Blazor\MyBlazorApp\NuGet.Config'
-    projectPath: 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj'
+# - job: BuildBlazorApp
+#   pool:
+#     vmImage: 'windows-2022'
+#   variables:
+#     nugetConfigPath: 'src\Blazor\MyBlazorApp\NuGet.Config'
+#     projectPath: 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj'
   
-  steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '8.0.x'
+#   steps:
+#   - task: UseDotNet@2
+#     inputs:
+#       packageType: 'sdk'
+#       version: '8.0.x'
   
-  # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed', defined in the nuget.config
-  - task: PowerShell@2
-    displayName: 'Update Package Source Credentials'
-    inputs:
-      targetType: 'inline'
-      script: dotnet nuget update source 'Telerik_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u '$(MY_TELERIK_EMAIL)' -p '$(MY_TELERIK_PASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+#   # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed', defined in the nuget.config
+#   - task: PowerShell@2
+#     displayName: 'Update Package Source Credentials'
+#     inputs:
+#       targetType: 'inline'
+#       script: dotnet nuget update source 'Telerik_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u '$(MY_TELERIK_EMAIL)' -p '$(MY_TELERIK_PASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
 
-  # Step 2. Using dotnet CLI, restore NuGet packages
-  - task: PowerShell@2
-    displayName: 'Restore NuGet Packages'
-    inputs:
-      targetType: 'inline'
-      script: dotnet restore $(projectPath) --configfile $(nugetConfigPath) --runtime win-x64
+#   # Step 2. Using dotnet CLI, restore NuGet packages
+#   - task: PowerShell@2
+#     displayName: 'Restore NuGet Packages'
+#     inputs:
+#       targetType: 'inline'
+#       script: dotnet restore $(projectPath) --configfile $(nugetConfigPath) --runtime win-x64
 
-  # Step 3. Build the project
-  - task: DotNetCoreCLI@2
-    displayName: 'Build Blazor Project'
-    inputs:
-      command: 'build'
-      projects: $(projectPath)
-      configuration: Debug
+#   # Step 3. Build the project
+#   - task: DotNetCoreCLI@2
+#     displayName: 'Build Blazor Project'
+#     inputs:
+#       command: 'build'
+#       projects: $(projectPath)
+#       configuration: Debug
 
 
 # *************************************************************** #
