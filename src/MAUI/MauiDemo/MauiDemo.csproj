@@ -60,10 +60,6 @@
 		<PackageReference Include="Telerik.UI.for.Maui" Version="8.0.0" />
 	</ItemGroup>
 
-  <PropertyGroup>
-    <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
-  </PropertyGroup>
-
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<PackageReference Include="WinUIEx" Version="2.4.2" />
 	</ItemGroup>
