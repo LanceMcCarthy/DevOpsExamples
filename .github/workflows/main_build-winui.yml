@@ -1,4 +1,4 @@
-name: Build WinUI3 Project
+name: WinUI3
 
 on:
   workflow_dispatch:
@@ -14,8 +14,8 @@ env:
   SOLUTION_NAME: "src/WinUI/MyDemo.sln"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   PFX_FILENAME: "MyCodeSignCert.pfx"
-  TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }} # used by the NuGet.Config file
-  TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }} # used by the NuGet.Config file
+  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}} # used by the NuGet.Config file
+  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}} # used by the NuGet.Config file
 
 jobs:
   build-windows:
@@ -34,44 +34,44 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
 
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{ env.SOLUTION_NAME }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.SOLUTION_NAME}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore RIDs
-      run: msbuild ${{ env.SOLUTION_NAME }} /t:Restore /p:Configuration=${{ env.CONFIGURATION }}
+      run: msbuild ${{env.SOLUTION_NAME}} /t:Restore /p:Configuration=${{env.CONFIGURATION}}
       env:
-        CONFIGURATION: ${{ matrix.configuration }}
+        CONFIGURATION: ${{matrix.configuration}}
 
     - name: Decode and save the pfx
       run: |
-        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.BASE64_ENCODED_PFX }}")
-        $certificatePath = "${{ env.PFX_FILENAME }}"
+        $pfx_cert_byte = [System.Convert]::FromBase64String("${{secrets.BASE64_ENCODED_PFX}}")
+        $certificatePath = "${{env.PFX_FILENAME}}"
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
 
     - name: Build and Create MSIX
-      run: msbuild ${{ env.SOLUTION_NAME }} /p:Configuration=${{ env.CONFIGURATION }} /p:Platform=${{ env.PLATFORM }} /p:UapAppxPackageBuildMode=${{ env.APPX_PACKAGE_BUILD_MODE }} /p:AppxBundle=${{ env.APPX_BUNDLE }} /p:PackageCertificateKeyFile="${{ env.PFX_FILENAME }}" /p:PackageCertificatePassword=${{ secrets.PFX_PRIVATE_KEY }} /p:AppxPackageDir="${{ env.APPX_PACKAGE_DIR }}" /p:GenerateAppxPackageOnBuild=${{ env.GENERATE_MSIX }}
+      run: msbuild ${{env.SOLUTION_NAME}} /p:Configuration=${{env.CONFIGURATION}} /p:Platform=${{env.PLATFORM}} /p:UapAppxPackageBuildMode=${{env.APPX_PACKAGE_BUILD_MODE}} /p:AppxBundle=${{env.APPX_BUNDLE}} /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" /p:PackageCertificatePassword=${{secrets.PFX_PRIVATE_KEY}} /p:AppxPackageDir="${{env.APPX_PACKAGE_DIR}}" /p:GenerateAppxPackageOnBuild=${{env.GENERATE_MSIX}}
       env:
         GENERATE_MSIX: true
         APPX_BUNDLE: Never
         APPX_PACKAGE_BUILD_MODE: SideloadOnly
         APPX_PACKAGE_DIR: Packages\
-        CONFIGURATION: ${{ matrix.configuration }}
-        PLATFORM: ${{ matrix.platform }}
+        CONFIGURATION: ${{matrix.configuration}}
+        PLATFORM: ${{matrix.platform}}
 
     # Delete the pfx file
     - name: Remove the pfx
-      run: Remove-Item -path ${{ env.PFX_FILENAME }}
+      run: Remove-Item -path ${{env.PFX_FILENAME}}
 
     # Upload the MSIX package
     # - name: Upload MSIX package
     #   uses: actions/upload-artifact@v3
     #   with:
     #     name: MSIX Package
-    #     path: ${{ env.SOLUTION_NAME }}\\Packages
+    #     path: ${{env.SOLUTION_NAME}}\\Packages

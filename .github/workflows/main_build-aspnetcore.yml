@@ -1,4 +1,7 @@
-name: Build ASP.NET Core and Reporting REST Service
+# This example has two container build & publish examples
+# [Option A] DOCKER FILE BUILD - publishes the image to Docker Hub
+# [Option B] .NET SDK CONTAINER BUILD - publishes the image to ghcr.io (GitHub container registry)
+name: ASP.NET Core (with Reporting)
 
 on:
   workflow_dispatch:
@@ -10,7 +13,7 @@ on:
       - 'src/AspNetCore/**/*'
       - '.github/workflows/main_build-aspnetcore.yml' 
 env:
-  CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:8.0"
+  CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:9.0"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
 
 jobs:
@@ -37,7 +40,7 @@ jobs:
       id: akeyless
       uses: LanceMcCarthy/akeyless-action@v3
       with:
-        access-id: ${{ secrets.AKEYLESS_JWT_ID }}
+        access-id: ${{secrets.AKEYLESS_JWT_ID}}
         static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY", "/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"}'
         export-secrets-to-outputs: true
         export-secrets-to-environment: false
@@ -45,10 +48,10 @@ jobs:
     - name: Create Kendo license file in the appropriate project directory
       run: |
         cd src/AspNetCore/MyAspNetCoreApp/wwwroot/js
-        echo ${{ steps.akeyless.outputs.KENDO_LICENSE_FILE }} > kendo-ui-license.js
+        echo ${{steps.akeyless.outputs.KENDO_LICENSE_FILE}} > kendo-ui-license.js
 
     - name: Verify tag output
-      run: echo ${{ steps.tag-creator.outputs.DOCKER_HUB_TAG }}
+      run: echo ${{steps.tag-creator.outputs.DOCKER_HUB_TAG}}
       
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -65,8 +68,8 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v3
       with:
-        username: ${{ steps.akeyless.outputs.DOCKER_HUB_USERNAME }}
-        password: ${{ steps.akeyless.outputs.DOCKER_HUB_PAT }}
+        username: ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}
+        password: ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
 
     - name: Build and push to Docker Hub
       uses: docker/build-push-action@v5
@@ -75,7 +78,7 @@ jobs:
         platforms: linux/arm64,linux/amd64
         push: true
         secrets: |
-          telerik_key=${{ steps.akeyless.outputs.TELERIK_NUGET_KEY }}
+          telerik_key=${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
         tags: |
           lancemccarthy/myaspnetcoreapp:latest
 
@@ -91,7 +94,7 @@ jobs:
       contents: read
       packages: write
     outputs:
-      build_tag: ${{ steps.build.outputs.build_tag }}
+      build_tag: ${{steps.build.outputs.build_tag}}
     env:
       target_arch: "x64"
     steps:
@@ -128,7 +131,7 @@ jobs:
       contents: read
       packages: write
     outputs:
-      build_tag: ${{ steps.build.outputs.build_tag }}
+      build_tag: ${{steps.build.outputs.build_tag}}
     env:
       target_arch: "arm64"
     steps:

@@ -1,4 +1,4 @@
-name: Build WPF Application
+name: WPF (.NET Framework)
 
 on:
   workflow_dispatch:
@@ -24,7 +24,7 @@ jobs:
     - name: Install .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
     
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.3.2
@@ -33,8 +33,8 @@ jobs:
     - name: NuGet Restore
       run: dotnet restore src\Wpf\MyWpfApp\MyWpfApp.csproj --configfile src\NuGet.Config --runtime win-x86
       env:
-        TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }}
-        TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }}
+        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername }}
+        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
     # Use msbuild to compile the .NET Framework WPF project
     - name: Build the WPF application

@@ -1,4 +1,4 @@
-name: Build MAUI (Distribution)
+name: MAUI (Distribution)
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Build MAUI (Development)
+name: MAUI
 
 on:
   workflow_dispatch:
@@ -13,8 +13,8 @@ on:
 env:
   PROJECT_PATH: "src/MAUI/MauiDemo/MauiDemo.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
-  TELERIK_USERNAME: ${{ secrets.MyTelerikAccountUsername }} # used by the NuGet.Config file
-  TELERIK_PASSWORD: ${{ secrets.MyTelerikAccountPassword }} # used by the NuGet.Config file
+  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}} # used by the NuGet.Config file
+  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}} # used by the NuGet.Config file
 
 jobs:
 
@@ -32,7 +32,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
 
     - uses: actions/setup-java@v4
       with:
@@ -53,11 +53,11 @@ jobs:
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
       shell: pwsh
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-android --no-restore -p:PublishTrimmed=False
+      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f net8.0-android --no-restore -p:PublishTrimmed=False
 
 
 # ***************************** #
@@ -74,7 +74,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
 
     # For WinUI builds
     - name: Add msbuild to PATH
@@ -94,11 +94,11 @@ jobs:
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui WinUI project
       shell: pwsh
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-windows10.0.22621.0
+      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f net8.0-windows10.0.22621.0
 
 
 # ************************* #
@@ -119,7 +119,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
 
     - name: Generate version number using date and run number
       id: version-creator
@@ -137,11 +137,11 @@ jobs:
 
     - name: Restore NuGet packages
       shell: bash
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MAUI iOS project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Debug -f net8.0-ios --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f net8.0-ios --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
 
 # ********************************* #
@@ -162,7 +162,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '9.0.x'
 
     - name: Generate version number using date and run number
       id: version-creator
@@ -180,8 +180,8 @@ jobs:
 
     - name: Restore NuGet packages
       shell: bash
-      run: dotnet restore ${{ env.PROJECT_PATH }} --configfile ${{ env.NUGETCONFIG_PATH }}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
     
     - name: Build MAUI MacCatalyst project
       shell: bash
-      run: dotnet build ${{ env.PROJECT_PATH }} -f net8.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -f net8.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly

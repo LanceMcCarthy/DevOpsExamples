@@ -1,4 +1,4 @@
-name: Build Angular Application
+name: Angular
 
 on:
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
       working-directory: src/Kendo/angular_demo
       run: npx kendo-ui-license activate
       env:
-        KENDO_UI_LICENSE: ${{ secrets.KENDO_LICENSE_KEY }}
+        KENDO_UI_LICENSE: ${{secrets.KENDO_LICENSE_KEY}}
 
     - name: Build
       working-directory: src/Kendo/angular_demo
