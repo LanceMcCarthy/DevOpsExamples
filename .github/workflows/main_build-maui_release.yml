@@ -9,20 +9,21 @@ permissions:
   discussions: write
 
 defaults:
-  run:  # setting defaults for all 'run' steps
+  run:
     shell: pwsh
 
 env:
   CSPROJ_PATH: "src/MAUI/MauiDemo.csproj"
-  NUGETCONFIG_PATH: "src/NuGet.Config"
   BUILD_CONFIG: Release
-  DOTNET_VERSION: "8.0.x"
+  DOTNET_VERSION: "9.0.x"
+  WINUI_TFM: "net9.0-windows10.0.22621.0"
+  ANDROID_TFM: "net9.0-android"
+  IOS_TFM: "net9.0-ios"
+  MACCATALYST_TFM: "net9.0-maccatalyst"
   MACOS_ARTIFACTS_PATH: "artifacts_macos"
   IOS_ARTIFACTS_PATH: "artifacts_ios"
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
   WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
-  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}} # used inside the NuGet.Config file
-  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}} # used insdie the NuGet.Config file
 
 jobs:
   # ***************************************** #
@@ -67,27 +68,37 @@ jobs:
 
     # Needed only for WinUI builds
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.3.2    
+      uses: microsoft/setup-msbuild@v2 
       
     # The hosted runners do not have the maui workload installed by default, so we need to install it
     - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui
+
+    - name: Add Telerik NuGet Server
+      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}}
 
-    # Update the manifest for Microsoft Store identity
+    # Update the manifest for Microsoft Store using the store's app and publisher identity
     - name: Update manifest for Microsoft Store build
       run: |
         [xml]$manifest = get-content 'src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest'
-        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
-        $manifest.Package.Identity.Name = '123456YourPublisherName.MauiDemo'
-        $manifest.Package.Identity.Publisher = 'CN=xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-        $manifest.Package.Properties.DisplayName = "MauiDemo
-        $manifest.Package.Properties.PublisherDisplayName = "Your Publisher Name"
-        $manifest.Package.Applications.Application.VisualElements.DisplayName = "MauiDemo"
+        $manifest.Package.Identity.Version = "${{env.PackageIdentity_Version}}"
+        $manifest.Package.Identity.Name = "${{env.PackageIdentity_Name}}"
+        $manifest.Package.Identity.Publisher = "${{env.PackageIdentity_Publisher}}"
+        $manifest.Package.Properties.DisplayName = "${{env.PackageProperties_DisplayName}}"
+        $manifest.Package.Properties.PublisherDisplayName = "${{env.PackageProperties_PublisherDisplayName}}"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "${{env.ApplicationVisualElements_DisplayName}}"
         $manifest.save("src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest")
+      env:
+        PackageIdentity_Version: "${{needs.shared-resources.outputs.app_version}}"
+        PackageIdentity_Name: "61469LanceLotSoftware.MauiDemo"
+        PackageIdentity_Publisher: "CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02"
+        PackageProperties_DisplayName: "MauiDemo"
+        PackageProperties_PublisherDisplayName: "Lancelot Software"
+        ApplicationVisualElements_DisplayName: "Maui Demo"
 
     # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
     - name: Build WinUI win10-x64
@@ -97,33 +108,27 @@ jobs:
     - name: Build WinUI win10-arm64
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
-    # Find the msix file
-    - name: Generate msixbundle
-      id: generate-msixbundle
-      run: |
-        # 1. Add MakeAppx to the PATH
-        $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.19041.0 -AdditionalChildPath x86
-        $env:Path += ";$sdkToolsPath"
-        # 2. Create the artifacts folder
-        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
-        # 3. Find all msix files and copy them into the artifacts folder
-        Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
-        # 4. Change directory to the artifacts folder
-        Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
-        # 5. Create the msixbundle using all the msix files inside the artifacts folder
-        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        # 6. Export the full path as an easy var
-        $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
+    # Copy all MSIX files into a single directory
+    - name: Copy MSIX files
+      run: Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
 
-    # Attaching the asset to workflow run
+    # Bundle all the msix files into a single msixbundle file
+    - name: Make msixbundle
+      id: bundler
+      uses: LanceMcCarthy/Action-MsixBundler@v2.0.0
+      with:
+        msix-folder: "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
+        msixbundle-filepath: "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+        msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
+
+    # Attaching the msixbundle as an artifact
     - name: Attach artifacts
       uses: actions/upload-artifact@v4
       with:     
         name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle" 
-        path: ${{steps.generate-msixbundle.outputs.msixbundle_path}}
+        path: ${{steps.bundler.outputs.msixbundle_path}}
         if-no-files-found: error
-        retention-days: 30
+        retention-days: 10
 
   # ************************************** #
   # >>>>>>> Windows Sideload build <<<<<<< #
@@ -151,52 +156,95 @@ jobs:
 
     # Needed only for WinUI builds
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.3.2
+      uses: microsoft/setup-msbuild@v2
 
-    # The hosted runners do not have the maui workload installed by default, so we need to install it
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+    - name: Install MAUI workloads
+      run: dotnet workload install maui
 
-    # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
+    - name: Add Telerik NuGet Server
+      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
+
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}}
 
     # Update the app manifest using the sideload publisher identity (this MUST match the certificate's details)
     - name: Update manifest for side load build
       run: |
-        [xml]$manifest = get-content "src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest"
-        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
-        $manifest.Package.Identity.Name = "Your Certificate Identity Name"
-        $manifest.Package.Identity.Publisher = 'CN="YourCertName", O="CertOrg", L="OrgCity", S="OrgState", C="OrgCountry"'
-        $manifest.Package.Properties.DisplayName = "MauiDemo"
-        $manifest.Package.Properties.PublisherDisplayName = "Publisher Name"
-        $manifest.Package.Applications.Application.VisualElements.DisplayName = "MauiDemo"
+        [xml]$manifest = get-content 'src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest'
+        $manifest.Package.Identity.Version = "${{env.PackageIdentity_Version}}"
+        $manifest.Package.Identity.Name = "${{env.PackageIdentity_Name}}"
+        $manifest.Package.Identity.Publisher = "${{env.PackageIdentity_Publisher}}"
+        $manifest.Package.Properties.DisplayName = "${{env.PackageProperties_DisplayName}}"
+        $manifest.Package.Properties.PublisherDisplayName = "${{env.PackageProperties_PublisherDisplayName}}"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "${{env.ApplicationVisualElements_DisplayName}}"
         $manifest.save("src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest")
-    
-    - name: Build Maui WinUI project
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+      env:
+        PackageIdentity_Version: "${{needs.shared-resources.outputs.app_version}}"
+        PackageIdentity_Name: "LanceMcCarthy.MauiDemo"
+        PackageIdentity_Publisher: 'CN=" Lance McCarthy", O=" Lance McCarthy", L=Revere, S=Massachusetts, C=US'
+        PackageProperties_DisplayName: "MauiDemo"
+        PackageProperties_PublisherDisplayName: "Lance McCarthy"
+        ApplicationVisualElements_DisplayName: "Maui Demo"
 
-    - name: Process MSIX
-      id: process-msix-file
+    - name: Build WinUI ${{matrix.RID}} 
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f ${{env.WINUI_TFM}} -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+
+    - name: Locate msix
+      id: find-msix-file
       run: |
-        # 1. finds the correct msix file
         $msixPath = Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{$_.FullName}
-        # 2. create the artifacts folder
-        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
-        # 3. Create the final msix path
-        $finalMsixPath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix"
-        # 4. move the msix file to the artifacts folder and rename the file
-        Move-Item -Path $msixPath -Destination $finalMsixPath -Force
-        # 5. export the full path as an easy var
-        echo "PACKAGE_PATH=$finalMsixPath" >> $env:GITHUB_OUTPUT
+        echo "PACKAGE_PATH=$msixPath" >> $env:GITHUB_OUTPUT
+
+    # No secrets needed, uses the GitHub OIDC token's subject identifier "repo:LanceMcCarthy/DevOpsExamples:ref:refs/heads/main" 
+    # Entra ID App Registration > Certificates and Secrets > Federated Credentials
+    - name: Azure login using OIDC via GitHub
+      uses: azure/login@v2
+      id: azlogin
+      with:
+        client-id: ${{env.AZ_CLIENT_ID}}
+        tenant-id: ${{env.AZ_TENANT_ID}}
+        subscription-id: ${{env.AZ_SUBSCRIPTION_ID}}
+
+    # CODESIGN (uses Lance's certificate for now)
+    - name: Sign files with Trusted Signing
+      uses: azure/trusted-signing-action@v0.4.0
+      with:
+        endpoint: https://eus.codesigning.azure.net/
+        trusted-signing-account-name: PrimaryCodeSign
+        certificate-profile-name: lancemccarthylivepublic
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+        file-digest: SHA256
+        files: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        exclude-azure-cli-credential: false
+        exclude-environment-credential: true
+        exclude-workload-identity-credential: true
+        exclude-managed-identity-credential: true
+        exclude-shared-token-cache-credential: true
+        exclude-visual-studio-credential: true
+        exclude-visual-studio-code-credential: true
+        exclude-azure-powershell-credential: true
+        exclude-azure-developer-cli-credential: true
+        exclude-interactive-browser-credential: true
 
     - name: Attach artifacts to workflow run
       uses: actions/upload-artifact@v4
       with:     
         name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix" 
-        path: ${{steps.process-msix-file.outputs.PACKAGE_PATH}}
+        path: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
         if-no-files-found: error
         retention-days: 30
+
+    - name: Attach asset to GitHub Release
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{needs.shared-resources.outputs.upload_url}}
+        asset_path: ${{steps.find-msix-file.outputs.PACKAGE_PATH}}
+        asset_name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.msix"
+        asset_content_type: application/zip
 
 
   # ***************************** #
@@ -209,7 +257,6 @@ jobs:
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: android-arm64
-      TFM: net8.0-android
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -227,13 +274,16 @@ jobs:
         java-version: '11'
 
     - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui
+
+    - name: Add Telerik NuGet Server
+      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}}
 
     - name: Build Maui Android project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f "${{env.TFM}}" -p:PublishTrimmed=False
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.ANDROID_TFM}} --no-restore -p:PublishTrimmed=False
 
     # ! When you have a Google Play account and certificates, we can switch to this release setup
     # # Decode keystore base64 secret into a local file
@@ -244,7 +294,7 @@ jobs:
 
     # # Docs https://learn.microsoft.com/en-us/dotnet/maui/android/deployment/publish-cli?view=net-maui-8.0
     # - name: Build MAUI Android project
-    #   run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.TFM}}" -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
+    #   run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f ${{env.ANDROID_TFM}} -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
 
     # # Upload the artifact the Action's result
     # # To publish to the store, see https://github.com/marketplace/actions/upload-android-release-to-play-store
@@ -265,10 +315,9 @@ jobs:
     needs: shared-resources
     runs-on: macos-12
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
-    # Consider matrix for text flight and sideload
+    # Consider matrix for test flight and sideload
     env:
       RID: ios-arm64
-      TFM: net8.0-ios
       CODESIGN_KEY: "Apple Distribution: Lancelot Software (XXXXXXXXXX)"
       CODESIGN_PROV_PROFILE: "MauiDemo_ios_appstore"
       CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
@@ -290,15 +339,19 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui
+
+    - name: Add Telerik NuGet Server
+      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}}
 
     - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.TFM}}" -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
-    # ! When you have an apple account and certificates, we can switch to this release setup
+    #------- When you have an Apple account and certificates, you can use these steps. ------- #
+
     # # Docs https://github.com/Apple-Actions/import-codesign-certs
     # - name: Import Code-Signing Certificates
     #   uses: Apple-Actions/import-codesign-certs@v2
@@ -318,7 +371,7 @@ jobs:
     # # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-8.0
     # - name: Build MAUI iOS project
     #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}}
+    #     dotnet publish ${{env.CSPROJ_PATH}} -f ${{env.IOS_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}}
 
     # # Docs https://github.com/Apple-Actions/upload-testflight-build
     # - name: 'Upload app to TestFlight'
@@ -349,9 +402,8 @@ jobs:
     strategy:
       matrix:
         RID: [maccatalyst-arm64, maccatalyst-x64]
-        # Consider matrix for text flight and sideload
+        # Consider matrix for test flight and sideload
     env:
-      TFM: net8.0-maccatalyst
       CODESIGN_KEY: "Apple Distribution: Lancelot Software (XXXXXXXXXX)"
       CODESIGN_PROV_PROFILE: "MauiDemo_maccatalyst_appstore"
       CODESIGN_PROFILE_TYPE: "MAC_APP_STORE"
@@ -374,15 +426,18 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui
+
+    - name: Add Telerik NuGet Server
+      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}}
     
     - name: Build MAUI MacCatalyst project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f "${{env.TFM}}" -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.MACCATALYST_TFM}} --no-restore -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
 
-    # When you have an apple account and certificates, we can switch to this release setup
+    #------- When you have an Apple account and certificates, you can use these steps. ------- #
 
     # # Docs https://github.com/Apple-Actions/import-codesign-certs
     # - name: Import Code-Signing Certificates
@@ -403,7 +458,7 @@ jobs:
     # # Docs https://learn.microsoft.com/en-us/dotnet/maui/mac-catalyst/deployment/publish-app-store?view=net-maui-8.0 (carefully follow the intructions about entitlements.plist and info.plist)
     # - name: Build MAUI MacCatalyst project
     #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f "${{env.TFM}}" -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
+    #     dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f ${{env.MACCATALYST_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
 
     # WARNING ${{matrix.RID}} is in play, us if statement ${{matrix.RID}} == "testflight"
     # # Docs https://github.com/Apple-Actions/upload-testflight-build
@@ -423,55 +478,53 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-
-  # ************************************* #
-  # >>>>>>> Create GitHub Release <<<<<<< #
-  # ************************************* #
-  create-gh-release:
-    name: Codesign and Publish Release
-    if: ${{ success() }}
-    runs-on: windows-2022
+  create_release:
+    name: Create a new release
+    if: ${{success()}}
     needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     steps:
-    - uses: actions/download-artifact@v4
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: MauiDemo*
 
-    # Login to Azure CLI. No secrets needed, uses the GitHub OIDC token to authenticate.
-    - name: Azure login using OIDC via GitHub
-      uses: azure/login@v2
-      id: azlogin
-      with:
-        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
-        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
-        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
+      - name: Confirm downloaded files
+        run: ls -R
 
-    - name: Sign files with Trusted Signing
-      uses: azure/trusted-signing-action@v0.4.0
-      with:
-        endpoint: https://eus.codesigning.azure.net/
-        trusted-signing-account-name: PrimaryCodeSign
-        certificate-profile-name: lancemccarthylivepublic
-        timestamp-rfc3161: http://timestamp.acs.microsoft.com
-        timestamp-digest: SHA256
-        file-digest: SHA256
-        files-folder: ${{github.workspace}}
-        files-folder-filter: msix
-        files-folder-depth: 3
-        exclude-azure-cli-credential: false
-        exclude-environment-credential: true
-        exclude-workload-identity-credential: true
-        exclude-managed-identity-credential: true
-        exclude-shared-token-cache-credential: true
-        exclude-visual-studio-credential: true
-        exclude-visual-studio-code-credential: true
-        exclude-azure-powershell-credential: true
-        exclude-azure-developer-cli-credential: true
-        exclude-interactive-browser-credential: true
+      - name: Install zip tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install zip
 
-    - name: Release
-      uses: softprops/action-gh-release@v2
-      with:
-        name: "MauiDemo v${{needs.shared-resources.outputs.app_version}}"
-        body: |
-          This is v${{needs.shared-resources.outputs.app_version}} of the MauiDemo app built with .NET MAUI and Telerik UI for Maui. To install, use the appropriate installer file for your device.
-        files: ${{github.workspace}}/**/*
-        tag_name: "v${{needs.shared-resources.outputs.app_version}}"
+      - name: Archive each release asset
+        run: |
+          for file in *; do
+            if [ -f "$file" ]; then
+              echo "zipping up $file ..."
+              zip -r "$file.zip" "$file"
+            fi
+          done
+
+      - name: Delete original files
+        run: find . -type f -not -name '*.zip' -delete
+
+      - name: Confirm processed files
+        run: ls
+
+      - name: Create list of zip files
+        id: prepare-files-list
+        run: |
+          files=("*.zip")
+          echo "release_files=$files" >> $env:GITHUB_OUTPUT
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "${{needs.shared-resources.outputs.app_version}}"
+          tag_name: "${{needs.shared-resources.outputs.app_version}}"
+          fail_on_unmatched_files: true
+          files: ${steps.prepare-files-list.outputs.release_files}
