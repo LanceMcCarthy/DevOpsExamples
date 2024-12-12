@@ -15,6 +15,7 @@ on:
 env:
   CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:9.0"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
+  DOTNET_VERSION: "9.0.x"
 
 jobs:
 
@@ -103,6 +104,11 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
     - name: Login to GitHub Container Registry
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
@@ -139,6 +145,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Login to GitHub Container Registry
       run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
