@@ -11,7 +11,7 @@ on:
       - '.github/workflows/main_build-maui.yml' 
 
 env:
-  PROJECT_PATH: "src/MAUI/MauiDemo/MauiDemo.csproj"
+  PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}

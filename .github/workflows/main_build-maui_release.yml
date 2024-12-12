@@ -13,7 +13,7 @@ defaults:
     shell: pwsh
 
 env:
-  CSPROJ_PATH: "src/MAUI/MauiDemo/MauiDemo.csproj"
+  CSPROJ_PATH: "src/MAUI/MauiDemo.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   BUILD_CONFIG: Release
   DOTNET_VERSION: "8.0.x"
