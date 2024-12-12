@@ -117,8 +117,8 @@ jobs:
       id: bundler
       uses: LanceMcCarthy/Action-MsixBundler@v2.0.0
       with:
-        msix-folder: "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}"
-        msixbundle-filepath: "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+        msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
+        msixbundle-filepath: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStore.msixbundle
         msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
 
     # Attaching the msixbundle as an artifact
