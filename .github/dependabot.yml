@@ -1,0 +1,16 @@
+# Combines all dependency updates into a single PR
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/src/Kendo"
+    schedule:
+      interval: "monthly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+    groups:
+       dependencies:
+          applies-to: version-updates
+          patterns:
+            - "*"
