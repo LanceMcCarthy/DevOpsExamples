@@ -77,7 +77,7 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     # Update the manifest for Microsoft Store using the store's app and publisher identity
     - name: Update manifest for Microsoft Store build
@@ -160,7 +160,7 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     # Update the app manifest using the sideload publisher identity (this MUST match the certificate's details)
     - name: Update manifest for side load build
@@ -272,7 +272,7 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.ANDROID_TFM}} --no-restore -p:PublishTrimmed=False
@@ -333,7 +333,7 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MAUI iOS project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
@@ -416,7 +416,7 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
     
     - name: Build MAUI MacCatalyst project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.MACCATALYST_TFM}} --no-restore -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
