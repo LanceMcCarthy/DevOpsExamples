@@ -82,14 +82,14 @@ jobs:
     # Update the manifest for Microsoft Store using the store's app and publisher identity
     - name: Update manifest for Microsoft Store build
       run: |
-        [xml]$manifest = get-content 'src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest'
+        [xml]$manifest = get-content 'src\MAUI\Platforms\Windows\Package.appxmanifest'
         $manifest.Package.Identity.Version = "${{env.PackageIdentity_Version}}"
         $manifest.Package.Identity.Name = "${{env.PackageIdentity_Name}}"
         $manifest.Package.Identity.Publisher = "${{env.PackageIdentity_Publisher}}"
         $manifest.Package.Properties.DisplayName = "${{env.PackageProperties_DisplayName}}"
         $manifest.Package.Properties.PublisherDisplayName = "${{env.PackageProperties_PublisherDisplayName}}"
         $manifest.Package.Applications.Application.VisualElements.DisplayName = "${{env.ApplicationVisualElements_DisplayName}}"
-        $manifest.save("src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest")
+        $manifest.save("src\MAUI\Platforms\Windows\Package.appxmanifest")
       env:
         PackageIdentity_Version: "${{needs.shared-resources.outputs.app_version}}"
         PackageIdentity_Name: "61469LanceLotSoftware.MauiDemo"
@@ -165,14 +165,14 @@ jobs:
     # Update the app manifest using the sideload publisher identity (this MUST match the certificate's details)
     - name: Update manifest for side load build
       run: |
-        [xml]$manifest = get-content 'src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest'
+        [xml]$manifest = get-content 'src\MAUI\Platforms\Windows\Package.appxmanifest'
         $manifest.Package.Identity.Version = "${{env.PackageIdentity_Version}}"
         $manifest.Package.Identity.Name = "${{env.PackageIdentity_Name}}"
         $manifest.Package.Identity.Publisher = "${{env.PackageIdentity_Publisher}}"
         $manifest.Package.Properties.DisplayName = "${{env.PackageProperties_DisplayName}}"
         $manifest.Package.Properties.PublisherDisplayName = "${{env.PackageProperties_PublisherDisplayName}}"
         $manifest.Package.Applications.Application.VisualElements.DisplayName = "${{env.ApplicationVisualElements_DisplayName}}"
-        $manifest.save("src\MAUI\MauiDemo\Platforms\Windows\Package.appxmanifest")
+        $manifest.save("src\MAUI\Platforms\Windows\Package.appxmanifest")
       env:
         PackageIdentity_Version: "${{needs.shared-resources.outputs.app_version}}"
         PackageIdentity_Name: "LanceMcCarthy.MauiDemo"
@@ -320,9 +320,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    # - uses: maxim-lobanov/setup-xcode@v1
-    #   with:
-    #     xcode-version: latest
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -403,9 +403,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    # - uses: maxim-lobanov/setup-xcode@v1
-    #   with:
-    #     xcode-version: latest
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
