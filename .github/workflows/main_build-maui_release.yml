@@ -57,7 +57,7 @@ jobs:
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: win10-x64
-      TFM: net8.0-windows10.0.19041.0
+      TFM: net8.0-windows10.0.22621.0
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -83,20 +83,13 @@ jobs:
     - name: Update manifest for Microsoft Store build
       run: |
         [xml]$manifest = get-content 'src\MAUI\Platforms\Windows\Package.appxmanifest'
-        $manifest.Package.Identity.Version = "${{env.PackageIdentity_Version}}"
-        $manifest.Package.Identity.Name = "${{env.PackageIdentity_Name}}"
-        $manifest.Package.Identity.Publisher = "${{env.PackageIdentity_Publisher}}"
-        $manifest.Package.Properties.DisplayName = "${{env.PackageProperties_DisplayName}}"
-        $manifest.Package.Properties.PublisherDisplayName = "${{env.PackageProperties_PublisherDisplayName}}"
-        $manifest.Package.Applications.Application.VisualElements.DisplayName = "${{env.ApplicationVisualElements_DisplayName}}"
+        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
+        $manifest.Package.Identity.Name = "61469LanceLotSoftware.MauiDemo"
+        $manifest.Package.Identity.Publisher = "CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02"
+        $manifest.Package.Properties.DisplayName = "MauiDemo"
+        $manifest.Package.Properties.PublisherDisplayName = "Lancelot Software"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "Maui Demo"
         $manifest.save("src\MAUI\Platforms\Windows\Package.appxmanifest")
-      env:
-        PackageIdentity_Version: "${{needs.shared-resources.outputs.app_version}}"
-        PackageIdentity_Name: "61469LanceLotSoftware.MauiDemo"
-        PackageIdentity_Publisher: "CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02"
-        PackageProperties_DisplayName: "MauiDemo"
-        PackageProperties_PublisherDisplayName: "Lancelot Software"
-        ApplicationVisualElements_DisplayName: "Maui Demo"
 
     # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
     - name: Build WinUI win10-x64
@@ -140,7 +133,7 @@ jobs:
       matrix:
         RID: [win10-arm64, win10-x64]
     env:
-      TFM: net8.0-windows10.0.19041.0
+      TFM: net8.0-windows10.0.22621.0
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -166,20 +159,13 @@ jobs:
     - name: Update manifest for side load build
       run: |
         [xml]$manifest = get-content 'src\MAUI\Platforms\Windows\Package.appxmanifest'
-        $manifest.Package.Identity.Version = "${{env.PackageIdentity_Version}}"
-        $manifest.Package.Identity.Name = "${{env.PackageIdentity_Name}}"
-        $manifest.Package.Identity.Publisher = "${{env.PackageIdentity_Publisher}}"
-        $manifest.Package.Properties.DisplayName = "${{env.PackageProperties_DisplayName}}"
-        $manifest.Package.Properties.PublisherDisplayName = "${{env.PackageProperties_PublisherDisplayName}}"
-        $manifest.Package.Applications.Application.VisualElements.DisplayName = "${{env.ApplicationVisualElements_DisplayName}}"
+        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}"
+        $manifest.Package.Identity.Name = "LanceMcCarthy.MauiDemo"
+        $manifest.Package.Identity.Publisher = 'CN=" Lance McCarthy", O=" Lance McCarthy", L=Revere, S=Massachusetts, C=US'
+        $manifest.Package.Properties.DisplayName = "MauiDemo"
+        $manifest.Package.Properties.PublisherDisplayName = "Lance McCarthy"
+        $manifest.Package.Applications.Application.VisualElements.DisplayName = "Maui Demo"
         $manifest.save("src\MAUI\Platforms\Windows\Package.appxmanifest")
-      env:
-        PackageIdentity_Version: "${{needs.shared-resources.outputs.app_version}}"
-        PackageIdentity_Name: "LanceMcCarthy.MauiDemo"
-        PackageIdentity_Publisher: 'CN=" Lance McCarthy", O=" Lance McCarthy", L=Revere, S=Massachusetts, C=US'
-        PackageProperties_DisplayName: "MauiDemo"
-        PackageProperties_PublisherDisplayName: "Lance McCarthy"
-        ApplicationVisualElements_DisplayName: "Maui Demo"
 
     - name: Build WinUI ${{matrix.RID}} 
       run: dotnet publish ${{env.CSPROJ_PATH}} -f ${{env.WINUI_TFM}} -p:RuntimeIdentifierOverride=${{matrix.RID}} -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
@@ -338,7 +324,7 @@ jobs:
     # ------- Placeholder debug build ------- #
 
     - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}}
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}}
 
     # ------- When you have an Apple account and certificates, you can replace the previous step, with these steps for a Release build. ------- #
 
