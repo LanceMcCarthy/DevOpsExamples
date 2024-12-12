@@ -1,0 +1,6 @@
+{
+    "$schema": "./config-schema.json",
+    "version": "4.3.1",
+    "theme": "Default-Main",
+    "dark mode support": "off"
+}
