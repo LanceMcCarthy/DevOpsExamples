@@ -14,6 +14,9 @@ defaults:
 
 env:
   CSPROJ_PATH: "src/MAUI/MauiDemo.csproj"
+  NUGETCONFIG_PATH: "src/NuGet.Config"
+  TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
+  TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
   BUILD_CONFIG: Release
   DOTNET_VERSION: "9.0.x"
   WINUI_TFM: "net9.0-windows10.0.22621.0"
@@ -70,16 +73,11 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2 
       
-    # The hosted runners do not have the maui workload installed by default, so we need to install it
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui
+    - name: Install MAUI workloads
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-    - name: Add Telerik NuGet Server
-      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "${{secrets.MYTELERIKACCOUNTUSERNAME}}" -p "${{secrets.MYTELERIKACCOUNTPASSWORD}}" --store-password-in-clear-text
-
-    # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     # Update the manifest for Microsoft Store using the store's app and publisher identity
     - name: Update manifest for Microsoft Store build
@@ -159,13 +157,10 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Install MAUI workloads
-      run: dotnet workload install maui
-
-    - name: Add Telerik NuGet Server
-      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "${{secrets.MYTELERIKACCOUNTUSERNAME}}" -p "${{secrets.MYTELERIKACCOUNTPASSWORD}}" --store-password-in-clear-text
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     # Update the app manifest using the sideload publisher identity (this MUST match the certificate's details)
     - name: Update manifest for side load build
@@ -273,14 +268,11 @@ jobs:
         distribution: 'microsoft'
         java-version: '11'
 
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui
-
-    - name: Add Telerik NuGet Server
-      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "${{secrets.MYTELERIKACCOUNTUSERNAME}}" -p "${{secrets.MYTELERIKACCOUNTPASSWORD}}" --store-password-in-clear-text
+    - name: Install MAUI workloads
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.ANDROID_TFM}} --no-restore -p:PublishTrimmed=False
@@ -338,14 +330,11 @@ jobs:
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui
-
-    - name: Add Telerik NuGet Server
-      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "${{secrets.MYTELERIKACCOUNTUSERNAME}}" -p "${{secrets.MYTELERIKACCOUNTPASSWORD}}" --store-password-in-clear-text
+    - name: Install MAUI workloads
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MAUI iOS project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
@@ -425,14 +414,11 @@ jobs:
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Install MAUI workloads (required for GitHub-hosted runners)
-      run: dotnet workload install maui
-
-    - name: Add Telerik NuGet Server
-      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "${{secrets.MYTELERIKACCOUNTUSERNAME}}" -p "${{secrets.MYTELERIKACCOUNTPASSWORD}}" --store-password-in-clear-text
+    - name: Install MAUI workloads
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
     
     - name: Build MAUI MacCatalyst project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.MACCATALYST_TFM}} --no-restore -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
