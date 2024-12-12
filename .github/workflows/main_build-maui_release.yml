@@ -305,7 +305,7 @@ jobs:
   maui-ios:
     name: Build iOS
     needs: shared-resources
-    runs-on: macos-12
+    runs-on: macos-latest
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
     # Consider matrix for test flight and sideload
     env:
@@ -320,10 +320,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    # If the GitHub runner needs a specific version of the Xcode tooling
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: 16.1
+    # - uses: maxim-lobanov/setup-xcode@v1
+    #   with:
+    #     xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -386,7 +385,7 @@ jobs:
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
-    runs-on: macos-12
+    runs-on: macos-latest
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
     strategy:
       matrix:
@@ -404,9 +403,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: 16.1
+    # - uses: maxim-lobanov/setup-xcode@v1
+    #   with:
+    #     xcode-version: latest
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
