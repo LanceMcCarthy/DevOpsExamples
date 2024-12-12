@@ -94,9 +94,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    #- uses: maxim-lobanov/setup-xcode@v1
-    #  with:
-    #    xcode-version: latest
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -124,9 +124,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    # - uses: maxim-lobanov/setup-xcode@v1
-    #   with:
-    #     xcode-version: latest
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
