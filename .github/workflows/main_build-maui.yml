@@ -11,12 +11,46 @@ on:
       - '.github/workflows/main_build-maui.yml' 
 
 env:
-  PROJECT_PATH: "src/MAUI/MauiDemo/MauiDemo.csproj"
+  PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
   TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+  DOTNET_VERSION: "9.0.x"
+  WINUI_TFM: "net9.0-windows10.0.22621.0"
+  ANDROID_TFM: "net9.0-android"
+  IOS_TFM: "net9.0-ios"
+  MACCATALYST_TFM: "net9.0-maccatalyst"
 
 jobs:
+# ***************************** #
+# >>>>>>> Windows Build <<<<<<< #
+# ***************************** #
+  maui-windows:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    # For WinUI builds
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Install MAUI workloads
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+    - name: Build Maui WinUI project
+      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f ${{env.WINUI_TFM}}
+
 
 # ***************************** #
 # >>>>>>> Android build <<<<<<< #
@@ -32,7 +66,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     - uses: actions/setup-java@v4
       with:
@@ -46,37 +80,7 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build Maui Android project
-      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f net9.0-android --no-restore -p:PublishTrimmed=False
-
-
-# ***************************** #
-# >>>>>>> Windows Build <<<<<<< #
-# ***************************** #
-  maui-windows:
-    runs-on: windows-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
-
-    # For WinUI builds
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    - name: Build Maui WinUI project
-      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f net9.0-windows10.0.22621.0
+      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f ${{env.ANDROID_TFM}} --no-restore -p:PublishTrimmed=False
 
 
 # ************************* #
@@ -90,14 +94,14 @@ jobs:
       with:
         fetch-depth: 0
 
-    #- uses: maxim-lobanov/setup-xcode@v1
-    #  with:
-    #    xcode-version: latest
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
@@ -106,7 +110,7 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MAUI iOS project
-      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f net9.0-ios --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -c Debug -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
 
 
 # ********************************* #
@@ -120,14 +124,14 @@ jobs:
       with:
         fetch-depth: 0
 
-    # - uses: maxim-lobanov/setup-xcode@v1
-    #   with:
-    #     xcode-version: latest
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 16.1
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
@@ -136,4 +140,4 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
     
     - name: Build MAUI MacCatalyst project
-      run: dotnet build ${{env.PROJECT_PATH}} -f net9.0-maccatalyst -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.PROJECT_PATH}} -f ${{env.MACCATALYST_TFM}} -c Debug --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
