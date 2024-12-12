@@ -17,6 +17,7 @@ env:
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   TEST_PROJ_PATH: src/Blazor/MyBlazorApp.Tests/MyBlazorApp.Tests.csproj
   NUGET_CONFIG_PATH: src/Blazor/MyBlazorApp/NuGet.Config
+  DOTNET_VERSION: "9.0.x"
 
 jobs:
 
@@ -37,7 +38,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Restore NuGet Packages
       run: |
@@ -132,7 +133,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Restore NuGet Packages
       run: |
