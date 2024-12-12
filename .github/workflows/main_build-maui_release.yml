@@ -75,7 +75,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: Add Telerik NuGet Server
-      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
+      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     # Restore NuGet packages ahead of time because we want to use the dedicated nuget.config file
     - name: Restore NuGet packages
@@ -162,7 +162,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: Add Telerik NuGet Server
-      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
+      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}}
@@ -277,7 +277,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: Add Telerik NuGet Server
-      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
+      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}}
@@ -342,7 +342,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: Add Telerik NuGet Server
-      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
+      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}}
@@ -429,7 +429,7 @@ jobs:
       run: dotnet workload install maui
 
     - name: Add Telerik NuGet Server
-      uses: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
+      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
 
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}}
