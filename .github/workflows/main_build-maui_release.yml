@@ -335,23 +335,26 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
+    # ------- Placeholder debug build ------- #
+
     - name: Build MAUI iOS project
       run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}}
 
-    #------- When you have an Apple account and certificates, you can use these steps. ------- #
+    # ------- When you have an Apple account and certificates, you can replace the previous step, with these steps for a Release build. ------- #
 
     # # Docs https://github.com/Apple-Actions/import-codesign-certs
     # - name: Import Code-Signing Certificates
-    #   uses: Apple-Actions/import-codesign-certs@v2
+    #   uses: Apple-Actions/import-codesign-certs@v3
     #   with:
     #     p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERT_BASE64}}"
     #     p12-password: "${{secrets.APPLE_DISTRIBUTION_CERT_PASSWORD}}"
 
     # # Docs https://github.com/Apple-Actions/download-provisioning-profiles
-    # - uses: Apple-Actions/download-provisioning-profiles@v2
+    # - uses: Apple-Actions/download-provisioning-profiles@v3
+    #   id: provisioning
     #   with:
-    #     profile-type: ${{env.APP_ID}}
-    #     bundle-id: "${{env.CODESIGN_PROV_PROFILE}}"
+    #     profile-type: ${{env.CODESIGN_PROFILE_TYPE}}
+    #     bundle-id: "${{env.APP_ID}}"
     #     issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
     #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
     #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
@@ -359,7 +362,7 @@ jobs:
     # # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-8.0
     # - name: Build MAUI iOS project
     #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -f ${{env.IOS_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}}
+    #     dotnet publish ${{env.CSPROJ_PATH}} -f ${{env.IOS_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision="${{env.CODESIGN_PROV_PROFILE}}" -p:CodesignKey=${{env.CODESIGN_KEY}}
 
     # # Docs https://github.com/Apple-Actions/upload-testflight-build
     # - name: 'Upload app to TestFlight'
@@ -418,33 +421,36 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{matrix.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
     
-    - name: Build MAUI MacCatalyst project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.MACCATALYST_TFM}} -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
+    # ------- Placeholder debug build ------- #
 
-    #------- When you have an Apple account and certificates, you can use these steps. ------- #
+    - name: Build MAUI MacCatalyst project
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.MACCATALYST_TFM}} -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
+
+    # ------- When you have an Apple account and certificates, you can replace the previous step, with these steps for a Release build. ------- #
 
     # # Docs https://github.com/Apple-Actions/import-codesign-certs
     # - name: Import Code-Signing Certificates
-    #   uses: Apple-Actions/import-codesign-certs@v2
+    #   uses: Apple-Actions/import-codesign-certs@v3
     #   with:
-    #     p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERT_BASE64}}"
-    #     p12-password: "${{secrets.APPLE_DISTRIBUTION_CERT_PASSWORD}}"
+    #     p12-file-base64: "${{secrets.APPLE_DEVELOPER_CERTIFICATE_P12_BASE64}}"
+    #     p12-password: "${{secrets.APPLE_DEVELOPER_CERTIFICATE_PASSWORD}}"
 
     # # Docs https://github.com/Apple-Actions/download-provisioning-profiles
-    # - uses: Apple-Actions/download-provisioning-profiles@v2
+    # - uses: Apple-Actions/download-provisioning-profiles@v3
+    #   id: provisioning
     #   with:
-    #     profile-type: ${{env.APP_ID}}
-    #     bundle-id: "${{env.CODESIGN_PROV_PROFILE}}"
+    #     profile-type: ${{env.CODESIGN_PROFILE_TYPE}}
+    #     bundle-id: "${{env.APP_ID}}"
     #     issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
     #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
     #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
 
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/mac-catalyst/deployment/publish-app-store?view=net-maui-8.0 (carefully follow the intructions about entitlements.plist and info.plist)
+    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/mac-catalyst/deployment/publish-app-store?view=net-maui-8.0
+    # # Carefully follow the intructions about entitlements.plist and info.plist
     # - name: Build MAUI MacCatalyst project
     #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f ${{env.MACCATALYST_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision=${{env.CODESIGN_PROV_PROFILE}} -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
+    #     dotnet publish ${{env.CSPROJ_PATH}} -c Release -f ${{env.MACCATALYST_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:EnableCodeSigning=true -p:EnablePackageSigning=true -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId="${{env.APP_ID}}" -p:CodesignProvision="${{env.CODESIGN_PROV_PROFILE}}" -p:CodesignKey=${{env.CODESIGN_KEY}} -p:CodesignEntitlements=${{env.CODESIGN_ENTITLEMENTS}}
 
-    # WARNING ${{matrix.RID}} is in play, us if statement ${{matrix.RID}} == "testflight"
     # # Docs https://github.com/Apple-Actions/upload-testflight-build
     # - name: 'Upload app to TestFlight'
     #   uses: apple-actions/upload-testflight-build@v1
