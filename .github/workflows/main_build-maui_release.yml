@@ -333,10 +333,10 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}}
 
     #------- When you have an Apple account and certificates, you can use these steps. ------- #
 
@@ -416,10 +416,10 @@ jobs:
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
     - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{matrix.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
     
     - name: Build MAUI MacCatalyst project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.MACCATALYST_TFM}} --no-restore -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Release -f ${{env.MACCATALYST_TFM}} -p:RuntimeIdentifier=${{matrix.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly
 
     #------- When you have an Apple account and certificates, you can use these steps. ------- #
 
