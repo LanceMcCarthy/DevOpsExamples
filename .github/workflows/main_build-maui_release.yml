@@ -100,7 +100,11 @@ jobs:
 
     # Copy all MSIX files into a single directory
     - name: Copy MSIX files
-      run: Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
+      run: |
+        Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
+        # confirm copy result
+        cd ${{env.WINDOWS_ARTIFACTS_PATH}}
+        ls -a
 
     # Bundle all the msix files into a single msixbundle file
     - name: Make msixbundle
@@ -110,6 +114,30 @@ jobs:
         msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
         msixbundle-filepath: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStore.msixbundle
         msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
+
+    # Find the msix file
+    - name: Generate msixbundle
+      id: generate-msixbundle
+      run: |
+        # 1. Add MakeAppx to the PATH
+        $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.22621.0 -AdditionalChildPath x86
+        $env:Path += ";$sdkToolsPath"
+        
+        # 2. Create the artifacts folder
+        New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
+
+        # 3. Find all msix files and copy them into the artifacts folder
+        Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
+
+        # 4. Change directory to the artifacts folder
+        Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
+
+        # 5. Create the msixbundle using all the msix files inside the artifacts folder
+        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+
+        # 6. Export the full path as an easy var
+        $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+        echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the msixbundle as an artifact
     - name: Attach artifacts
@@ -179,7 +207,7 @@ jobs:
       uses: azure/login@v2
       id: azlogin
       with:
-        client-id: "0e68f236-d4c1-4fc6-b357-4c4b5ff5bf95"
+        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
         tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
         subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
 
