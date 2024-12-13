@@ -57,7 +57,6 @@ jobs:
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
     env:
       RID: win10-x64
-      TFM: net8.0-windows10.0.22621.0
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -93,11 +92,11 @@ jobs:
 
     # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
     - name: Build WinUI win10-x64
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINUI_TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
       # Compile and publish the WinUI ARM64 project for the Microsoft Store (no code signing)
     - name: Build WinUI win10-arm64
-      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
+      run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINUI_TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
     # Copy all MSIX files into a single directory
     - name: Copy MSIX files
@@ -132,8 +131,6 @@ jobs:
     strategy:
       matrix:
         RID: [win10-arm64, win10-x64]
-    env:
-      TFM: net8.0-windows10.0.22621.0
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -182,9 +179,9 @@ jobs:
       uses: azure/login@v2
       id: azlogin
       with:
-        client-id: ${{env.AZ_CLIENT_ID}}
-        tenant-id: ${{env.AZ_TENANT_ID}}
-        subscription-id: ${{env.AZ_SUBSCRIPTION_ID}}
+        client-id: "0e68f236-d4c1-4fc6-b357-4c4b5ff5bf95"
+        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
+        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
 
     # CODESIGN (uses Lance's certificate for now)
     - name: Sign files with Trusted Signing
@@ -299,7 +296,7 @@ jobs:
       CODESIGN_KEY: "Apple Distribution: Lancelot Software (XXXXXXXXXX)"
       CODESIGN_PROV_PROFILE: "MauiDemo_ios_appstore"
       CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
-      APP_ID: "com.LancelotSoftware.MauiDemo"
+      APP_ID: "com.LancelotSoftware.mauidemo"
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -324,7 +321,7 @@ jobs:
     # ------- Placeholder debug build ------- #
 
     - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.IOS_TFM}} --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}}
+      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.IOS_TFM}} --no-restore -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}}
 
     # ------- When you have an Apple account and certificates, you can replace the previous step, with these steps for a Release build. ------- #
 
