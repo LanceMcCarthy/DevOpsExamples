@@ -103,7 +103,7 @@ jobs:
       run: |
         Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
         # confirm copy result
-        cd ${{env.WINDOWS_ARTIFACTS_PATH}}
+        cd ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
         ls -a
 
     # Bundle all the msix files into a single msixbundle file
@@ -321,10 +321,10 @@ jobs:
     # Consider matrix for test flight and sideload
     env:
       RID: ios-arm64
-      CODESIGN_KEY: "Apple Distribution: Lancelot Software (XXXXXXXXXX)"
-      CODESIGN_PROV_PROFILE: "MauiDemo_ios_appstore"
-      CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
-      APP_ID: "com.LancelotSoftware.mauidemo"
+      # CODESIGN_KEY: "Apple Distribution: Lancelot Software (XXXXXXXXXX)"
+      # CODESIGN_PROV_PROFILE: "MauiDemo_ios_appstore"
+      # CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
+      # APP_ID: "com.LancelotSoftware.mauidemo"
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -479,53 +479,53 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-  create_release:
-    name: Create a new release
-    if: ${{success()}}
-    needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: MauiDemo*
+  # create_release:
+  #   name: Create a new release
+  #   if: ${{success()}}
+  #   needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         pattern: MauiDemo*
 
-      - name: Confirm downloaded files
-        run: ls -R
+  #     - name: Confirm downloaded files
+  #       run: ls -R
 
-      - name: Install zip tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install zip
+  #     - name: Install zip tools
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install zip
 
-      - name: Archive each release asset
-        run: |
-          for file in *; do
-            if [ -f "$file" ]; then
-              echo "zipping up $file ..."
-              zip -r "$file.zip" "$file"
-            fi
-          done
+  #     - name: Archive each release asset
+  #       run: |
+  #         for file in *; do
+  #           if [ -f "$file" ]; then
+  #             echo "zipping up $file ..."
+  #             zip -r "$file.zip" "$file"
+  #           fi
+  #         done
 
-      - name: Delete original files
-        run: find . -type f -not -name '*.zip' -delete
+  #     - name: Delete original files
+  #       run: find . -type f -not -name '*.zip' -delete
 
-      - name: Confirm processed files
-        run: ls
+  #     - name: Confirm processed files
+  #       run: ls
 
-      - name: Create list of zip files
-        id: prepare-files-list
-        run: |
-          files=("*.zip")
-          echo "release_files=$files" >> $env:GITHUB_OUTPUT
+  #     - name: Create list of zip files
+  #       id: prepare-files-list
+  #       run: |
+  #         files=("*.zip")
+  #         echo "release_files=$files" >> $env:GITHUB_OUTPUT
 
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: "${{needs.shared-resources.outputs.app_version}}"
-          tag_name: "${{needs.shared-resources.outputs.app_version}}"
-          fail_on_unmatched_files: true
-          files: ${steps.prepare-files-list.outputs.release_files}
+  #     - name: Release
+  #       uses: softprops/action-gh-release@v2
+  #       with:
+  #         name: "${{needs.shared-resources.outputs.app_version}}"
+  #         tag_name: "${{needs.shared-resources.outputs.app_version}}"
+  #         fail_on_unmatched_files: true
+  #         files: ${steps.prepare-files-list.outputs.release_files}
