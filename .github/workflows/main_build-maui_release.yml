@@ -98,23 +98,6 @@ jobs:
     - name: Build WinUI win10-arm64
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINUI_TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
-    # Copy all MSIX files into a single directory
-    - name: Copy MSIX files
-      run: |
-        Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
-        # confirm copy result
-        cd ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
-        ls -a
-
-    # Bundle all the msix files into a single msixbundle file
-    - name: Make msixbundle
-      id: bundler
-      uses: LanceMcCarthy/Action-MsixBundler@v2.0.0
-      with:
-        msix-folder: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}
-        msixbundle-filepath: ${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStore.msixbundle
-        msixbundle-version: ${{needs.shared-resources.outputs.app_version}}
-
     # Find the msix file
     - name: Generate msixbundle
       id: generate-msixbundle
@@ -334,13 +317,13 @@ jobs:
     #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
     #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
 
-    # - name: Publish MacCatalyst build artifacts
-    #   uses: actions/upload-artifact@v4
-    #   with:     
-    #     name: "MacCatalyst artifacts" 
-    #     path: "*.pkg"
-    #     if-no-files-found: warn
-    #     retention-days: 30
+    - name: Publish MacCatalyst build artifacts
+      uses: actions/upload-artifact@v4
+      with:     
+        name: "MacCatalyst artifacts" 
+        path: "*.pkg"
+        if-no-files-found: warn
+        retention-days: 30
 
 
   # ************************* #
