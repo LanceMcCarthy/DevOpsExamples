@@ -90,11 +90,11 @@ jobs:
         $manifest.Package.Applications.Application.VisualElements.DisplayName = "Maui Demo"
         $manifest.save("src\MAUI\Platforms\Windows\Package.appxmanifest")
 
-    # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing)
+    # Compile and publish the WinUI x64 project for the Microsoft Store (no code signing for store builds, Microsoft signs it)
     - name: Build WinUI win10-x64
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINUI_TFM}}" -p:RuntimeIdentifierOverride="win10-x64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
-      # Compile and publish the WinUI ARM64 project for the Microsoft Store (no code signing)
+      # Compile and publish the WinUI ARM64 project for the Microsoft Store (no code signing for store builds, Microsoft signs it)
     - name: Build WinUI win10-arm64
       run: dotnet publish ${{env.CSPROJ_PATH}} -f "${{env.WINUI_TFM}}" -p:RuntimeIdentifierOverride="win10-arm64" -p:PublishTrimmed=False -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=false -p:EnableMsixTooling=true --self-contained=true
 
@@ -123,30 +123,33 @@ jobs:
         $sdkToolsPath = Join-Path -Path 'C:\Program Files (x86)\Windows Kits\10\bin' -ChildPath 10.0.22621.0 -AdditionalChildPath x86
         $env:Path += ";$sdkToolsPath"
         
-        # 2. Create the artifacts folder
+        # 2. Create the artifacts folder and copy msix files
         New-Item -Path . -Name ${{env.WINDOWS_ARTIFACTS_PATH}} -ItemType Directory
 
-        # 3. Find all msix files and copy them into the artifacts folder
-        Get-ChildItem -Filter MauiDemo*.msix -Recurse | %{ Copy-Item $_.FullName -Destination ${{env.WINDOWS_ARTIFACTS_PATH}} }
+        Copy-Item ${{github.workspace}}\src\MAUI\bin\Release\net9.0-windows10.0.22621.0\win10-x64\AppPackages\${{needs.shared-resources.outputs.app_version}}_Test\MauiDemo_${{needs.shared-resources.outputs.app_version}}.0_x64.msix -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
+
+        Copy-Item ${{github.workspace}}\src\MAUI\bin\Release\net9.0-windows10.0.22621.0\win10-arm64\AppPackages\${{needs.shared-resources.outputs.app_version}}_Test\MauiDemo_${{needs.shared-resources.outputs.app_version}}.0_arm64.msix -Destination ${{env.WINDOWS_ARTIFACTS_PATH}}
 
         # 4. Change directory to the artifacts folder
         Set-Location ${{env.WINDOWS_ARTIFACTS_PATH}}
 
-        # 5. Create the msixbundle using all the msix files inside the artifacts folder
-        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
+        $bundleFilePath="MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
 
-        # 6. Export the full path as an easy var
-        $msixBundlePath = "${{github.workspace}}\${{env.WINDOWS_ARTIFACTS_PATH}}\MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle"
-        echo "msixbundle_path=$msixBundlePath" >> $env:GITHUB_OUTPUT
+        # 5. Create the msixbundle using all the msix files inside the artifacts folder
+        MakeAppx.exe bundle /bv "${{needs.shared-resources.outputs.app_version}}" /d . /p $bundleFilePath
+
+        # 6. Export the bundle path
+        echo "msixbundle_path=$bundleFilePath" >> $env:GITHUB_OUTPUT
 
     # Attaching the msixbundle as an artifact
     - name: Attach artifacts
       uses: actions/upload-artifact@v4
       with:     
-        name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_MsftStoreOnly.msixbundle" 
-        path: ${{steps.bundler.outputs.msixbundle_path}}
+        name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_x64_arm64_MsftStoreOnly.msixbundle" 
+        path: ${{steps.generate-msixbundle.outputs.msixbundle_path}}
         if-no-files-found: error
         retention-days: 10
+
 
   # ************************************** #
   # >>>>>>> Windows Sideload build <<<<<<< #
@@ -253,146 +256,6 @@ jobs:
         asset_content_type: application/zip
 
 
-  # ***************************** #
-  # >>>>>>> Android build <<<<<<< #
-  # ***************************** #
-  maui-android:
-    name: Build Android
-    needs: shared-resources
-    runs-on: windows-2022
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
-    env:
-      RID: android-arm64
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'microsoft'
-        java-version: '11'
-
-    - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    - name: Build Maui Android project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.ANDROID_TFM}} --no-restore -p:PublishTrimmed=False
-
-    # ! When you have a Google Play account and certificates, we can switch to this release setup
-    # # Decode keystore base64 secret into a local file
-    # - name: Decode the Keystore into File
-    #   run: |
-    #     $file_bytes = [System.Convert]::FromBase64String("${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}")
-    #     [IO.File]::WriteAllBytes("${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}", $file_bytes)
-
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/android/deployment/publish-cli?view=net-maui-8.0
-    # - name: Build MAUI Android project
-    #   run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f ${{env.ANDROID_TFM}} -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
-
-    # # Upload the artifact the Action's result
-    # # To publish to the store, see https://github.com/marketplace/actions/upload-android-release-to-play-store
-    # - name: Upload Android AAB artifacts (better than APKs)
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: "Android Artifacts" 
-    #     path: "${{github.workspace}}/**/*Signed.aab"
-    #     if-no-files-found: warn
-    #     retention-days: 10
-
-
-  # ************************* #
-  # >>>>>>> iOS Build <<<<<<< #
-  # ************************* #
-  maui-ios:
-    name: Build iOS
-    needs: shared-resources
-    runs-on: macos-latest
-    if: ${{ needs.shared-resources.outputs.app_version != ''}}
-    # Consider matrix for test flight and sideload
-    env:
-      RID: ios-arm64
-      # CODESIGN_KEY: "Apple Distribution: Lancelot Software (XXXXXXXXXX)"
-      # CODESIGN_PROV_PROFILE: "MauiDemo_ios_appstore"
-      # CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
-      # APP_ID: "com.LancelotSoftware.mauidemo"
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: 16.1
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    # ------- Placeholder debug build ------- #
-
-    - name: Build MAUI iOS project
-      run: dotnet build ${{env.CSPROJ_PATH}} -c Debug -f ${{env.IOS_TFM}} --no-restore -p:MtouchLink=SdkOnly -p:RuntimeIdentifier=${{env.RID}}
-
-    # ------- When you have an Apple account and certificates, you can replace the previous step, with these steps for a Release build. ------- #
-
-    # # Docs https://github.com/Apple-Actions/import-codesign-certs
-    # - name: Import Code-Signing Certificates
-    #   uses: Apple-Actions/import-codesign-certs@v3
-    #   with:
-    #     p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERT_BASE64}}"
-    #     p12-password: "${{secrets.APPLE_DISTRIBUTION_CERT_PASSWORD}}"
-
-    # # Docs https://github.com/Apple-Actions/download-provisioning-profiles
-    # - uses: Apple-Actions/download-provisioning-profiles@v3
-    #   id: provisioning
-    #   with:
-    #     profile-type: ${{env.CODESIGN_PROFILE_TYPE}}
-    #     bundle-id: "${{env.APP_ID}}"
-    #     issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
-    #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-    #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-    # # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-8.0
-    # - name: Build MAUI iOS project
-    #   run: |
-    #     dotnet publish ${{env.CSPROJ_PATH}} -f ${{env.IOS_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision="${{env.CODESIGN_PROV_PROFILE}}" -p:CodesignKey=${{env.CODESIGN_KEY}}
-
-    # # Docs https://github.com/Apple-Actions/upload-testflight-build
-    # - name: 'Upload app to TestFlight'
-    #   uses: apple-actions/upload-testflight-build@v1
-    #   with: 
-    #     app-path: "${{github.workspace}}/**/*.ipa" 
-    #     issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
-    #     api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
-    #     api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
-
-    # - name: Publish iOS build artifacts
-    #   uses: actions/upload-artifact@v4
-    #   with:     
-    #     name: "iOS artifacts" 
-    #     path: "*.app"
-    #     if-no-files-found: warn
-    #     retention-days: 30
-
-
   # ********************************* #
   # >>>>>>> MacCatalyst Build <<<<<<< #
   # ********************************* #
@@ -479,53 +342,183 @@ jobs:
     #     if-no-files-found: warn
     #     retention-days: 30
 
-  # create_release:
-  #   name: Create a new release
-  #   if: ${{success()}}
-  #   needs: [shared-resources, maui-macos, maui-ios, maui-android, maui-windows-sideload, maui-windows-msstore]
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash
+
+  # ************************* #
+  # >>>>>>> iOS Build <<<<<<< #
+  # ************************* #
+  # maui-ios:
+  #   name: Build iOS
+  #   needs: shared-resources
+  #   runs-on: macos-latest
+  #   if: ${{ needs.shared-resources.outputs.app_version != ''}}
+  #   env:
+  #     RID: ios-arm64
+  #     CODESIGN_KEY: "Apple Distribution: Lancelot Software (XXXXXXXXXX)"
+  #     CODESIGN_PROV_PROFILE: "MauiDemo_ios_appstore"
+  #     CODESIGN_PROFILE_TYPE: "IOS_APP_STORE"
+  #     APP_ID: "com.LancelotSoftware.mauidemo"
   #   steps:
-  #     - name: Download Artifacts
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         pattern: MauiDemo*
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+  #     with:
+  #       fetch-depth: 0
 
-  #     - name: Confirm downloaded files
-  #       run: ls -R
+  #   - uses: maxim-lobanov/setup-xcode@v1
+  #     with:
+  #       xcode-version: 16.1
 
-  #     - name: Install zip tools
-  #       run: |
-  #         sudo apt-get update
-  #         sudo apt-get install zip
+  #   - name: Setup .NET Core SDK
+  #     uses: actions/setup-dotnet@v4
+  #     with:
+  #       dotnet-version: ${{env.DOTNET_VERSION}}
 
-  #     - name: Archive each release asset
-  #       run: |
-  #         for file in *; do
-  #           if [ -f "$file" ]; then
-  #             echo "zipping up $file ..."
-  #             zip -r "$file.zip" "$file"
-  #           fi
-  #         done
+  #   - name: Install MAUI workloads
+  #     run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
 
-  #     - name: Delete original files
-  #       run: find . -type f -not -name '*.zip' -delete
+  #   - name: Restore NuGet packages
+  #     run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{env.RID}} --configfile ${{env.NUGETCONFIG_PATH}}
 
-  #     - name: Confirm processed files
-  #       run: ls
+  #   # Docs https://github.com/Apple-Actions/import-codesign-certs
+  #   - name: Import Code-Signing Certificates
+  #     uses: Apple-Actions/import-codesign-certs@v3
+  #     with:
+  #       p12-file-base64: "${{secrets.APPLE_DISTRIBUTION_CERT_BASE64}}"
+  #       p12-password: "${{secrets.APPLE_DISTRIBUTION_CERT_PASSWORD}}"
 
-  #     - name: Create list of zip files
-  #       id: prepare-files-list
-  #       run: |
-  #         files=("*.zip")
-  #         echo "release_files=$files" >> $env:GITHUB_OUTPUT
+  #   # Docs https://github.com/Apple-Actions/download-provisioning-profiles
+  #   - uses: Apple-Actions/download-provisioning-profiles@v3
+  #     id: provisioning
+  #     with:
+  #       profile-type: ${{env.CODESIGN_PROFILE_TYPE}}
+  #       bundle-id: "${{env.APP_ID}}"
+  #       issuer-id: "${{secrets.APPSTORE_API_ISSUER_ID}}"
+  #       api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+  #       api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
 
-  #     - name: Release
-  #       uses: softprops/action-gh-release@v2
-  #       with:
-  #         name: "${{needs.shared-resources.outputs.app_version}}"
-  #         tag_name: "${{needs.shared-resources.outputs.app_version}}"
-  #         fail_on_unmatched_files: true
-  #         files: ${steps.prepare-files-list.outputs.release_files}
+  #   # Docs https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/publish-cli?view=net-maui-8.0
+  #   - name: Build MAUI iOS project
+  #     run: |
+  #       dotnet publish ${{env.CSPROJ_PATH}} -f ${{env.IOS_TFM}} -p:RuntimeIdentifier=${{env.RID}} -p:PublishTrimmed=true -p:MtouchLink=SdkOnly -p:ApplicationId=${{env.APP_ID}} -p:CodesignProvision="${{env.CODESIGN_PROV_PROFILE}}" -p:CodesignKey=${{env.CODESIGN_KEY}}
+
+  #   # Docs https://github.com/Apple-Actions/upload-testflight-build
+  #   - name: 'Upload app to TestFlight'
+  #     uses: apple-actions/upload-testflight-build@v1
+  #     with: 
+  #       app-path: "${{github.workspace}}/**/*.ipa" 
+  #       issuer-id: ${{secrets.APPSTORE_API_ISSUER_ID}}
+  #       api-key-id: "${{secrets.APPSTORE_API_KEY_ID}}"
+  #       api-private-key: "${{secrets.APPSTORE_API_PRIVATE_KEY}}"
+
+  #   - name: Publish iOS build artifacts
+  #     uses: actions/upload-artifact@v4
+  #     with:     
+  #       name: "iOS artifacts" 
+  #       path: "*.app"
+  #       if-no-files-found: warn
+  #       retention-days: 30
+
+
+  # ***************************** #
+  # >>>>>>> Android build <<<<<<< #
+  # ***************************** #
+  # maui-android:
+  #   name: Build Android
+  #   needs: shared-resources
+  #   runs-on: windows-2022
+  #   if: ${{ needs.shared-resources.outputs.app_version != ''}}
+  #   env:
+  #     RID: android-arm64
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+  #     with:
+  #       fetch-depth: 0
+
+  #   - name: Setup .NET Core SDK
+  #     uses: actions/setup-dotnet@v4
+  #     with:
+  #       dotnet-version: ${{env.DOTNET_VERSION}}
+
+  #   - uses: actions/setup-java@v4
+  #     with:
+  #       distribution: 'microsoft'
+  #       java-version: '11'
+
+  #   - name: Install MAUI workloads
+  #     run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+  #   - name: Restore NuGet packages
+  #     run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+  #   # When you have a Google Play account and certificates, we can switch to this release setup
+  #   # Decode keystore base64 secret into a local file
+  #   - name: Decode the Keystore into File
+  #     run: |
+  #       $file_bytes = [System.Convert]::FromBase64String("${{secrets.ANDROID_SIGNING_KEYSTORE_BASE64}}")
+  #       [IO.File]::WriteAllBytes("${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}", $file_bytes)
+
+  #   # Docs https://learn.microsoft.com/en-us/dotnet/maui/android/deployment/publish-cli?view=net-maui-8.0
+  #   - name: Build MAUI Android project
+  #     run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -f ${{env.ANDROID_TFM}} -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}/${{secrets.ANDROID_SIGNING_KEYSTORE_FILENAME}}" -p:AndroidSigningStorePass="${{secrets.ANDROID_SIGNING_STORE_PASS}}" -p:AndroidSigningKeyAlias="${{secrets.ANDROID_SIGNING_KEY_ALIAS}}" -p:AndroidSigningKeyPass="${{secrets.ANDROID_SIGNING_KEY_PASS}}"
+
+  #   # Upload the artifact the Action's result
+  #   # To publish to the store, see https://github.com/marketplace/actions/upload-android-release-to-play-store
+  #   - name: Upload Android AAB artifacts (better than APKs)
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: "Android Artifacts" 
+  #       path: "${{github.workspace}}/**/*Signed.aab"
+  #       if-no-files-found: warn
+  #       retention-days: 10
+
+
+  create_release:
+    name: Create a new release
+    if: ${{success()}}
+    needs: [shared-resources, maui-macos, maui-windows-sideload, maui-windows-msstore] #, maui-ios, maui-android
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: MauiDemo*
+
+      - name: Confirm downloaded files
+        run: ls -R
+
+      - name: Install zip tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install zip
+
+      - name: Archive each release asset
+        run: |
+          for file in *; do
+            if [ -f "$file" ]; then
+              echo "zipping up $file ..."
+              zip -r "$file.zip" "$file"
+            fi
+          done
+
+      - name: Delete original files
+        run: find . -type f -not -name '*.zip' -delete
+
+      - name: Confirm processed files
+        run: ls
+
+      - name: Create list of zip files
+        id: prepare-files-list
+        run: |
+          files=("*.zip")
+          echo "release_files=$files" >> $env:GITHUB_OUTPUT
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "${{needs.shared-resources.outputs.app_version}}"
+          tag_name: "${{needs.shared-resources.outputs.app_version}}"
+          fail_on_unmatched_files: true
+          files: ${steps.prepare-files-list.outputs.release_files}
