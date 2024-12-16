@@ -33,6 +33,10 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
 
+  <!--<PropertyGroup>
+    <UseTelerikTheming>true</UseTelerikTheming>
+  </PropertyGroup>-->
+
 	<ItemGroup>
     <!-- App Icon -->
     <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -51,10 +55,6 @@
     <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-
-  <!--<PropertyGroup>
-    <UseTelerikTheming>true</UseTelerikTheming>
-  </PropertyGroup>-->
 
 	<ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />

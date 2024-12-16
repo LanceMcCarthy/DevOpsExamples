@@ -6,26 +6,23 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-        this.UserAppTheme = AppTheme.Unspecified;
-        this.RequestedThemeChanged += (s, e) => ApplyTelerikTheme();
-        this.ApplyTelerikTheme();
+        //this.UserAppTheme = AppTheme.Unspecified;
+        //this.RequestedThemeChanged += (s, e) => ApplyTelerikTheme();
+        //this.ApplyTelerikTheme();
     }
 
     protected override Window CreateWindow(IActivationState activationState)
     {
-        if (this.MainPage == null)
-        {
-            this.MainPage = activationState?.Context.Services.GetRequiredService<AppShell>();
-        }
+        this.MainPage ??= activationState?.Context.Services.GetRequiredService<AppShell>();
 
         return base.CreateWindow(activationState);
     }
 
-    private void ApplyTelerikTheme()
-    {
-        var swatchName = this.RequestedTheme == AppTheme.Dark ? "Purple Dark" : "Purple";
+    //private void ApplyTelerikTheme()
+    //{
+    //    var swatchName = this.RequestedTheme == AppTheme.Dark ? "Purple Dark" : "Purple";
 
-        this.Resources.MergedDictionaries.OfType<TelerikTheming>()
-            .Single().Theme = TelerikTheming.Themes.Single(t => t.Theme == "Telerik" && t.Swatch == swatchName);
-    }
+    //    this.Resources.MergedDictionaries.OfType<TelerikTheming>()
+    //        .Single().Theme = TelerikTheming.Themes.Single(t => t.Theme == "Telerik" && t.Swatch == swatchName);
+    //}
 }

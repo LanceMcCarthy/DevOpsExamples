@@ -31,12 +31,12 @@
         <HorizontalStackLayout Spacing="10"
                                Padding="10"
                                Grid.Row="1">
-            <Button Text="Start Over"
-                    Command="{Binding StartOverCommand}" />
-            <Button Text="Add Range (5)"
-                    Command="{Binding AddRangeCommand}" />
-            <Button Text="Clear"
-                    Command="{Binding ClearItemsCommand}" />
+            <telerik:RadButton Text="Start Over"
+                               Command="{Binding StartOverCommand}" />
+            <telerik:RadButton Text="Add Range (5)"
+                               Command="{Binding AddRangeCommand}" />
+            <telerik:RadButton Text="Clear"
+                               Command="{Binding ClearItemsCommand}" />
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>
