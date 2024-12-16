@@ -52,16 +52,15 @@
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-  <PropertyGroup>
+  <!--<PropertyGroup>
     <UseTelerikTheming>true</UseTelerikTheming>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
 	<ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="CommonHelpers" Version="1.4.0" />
-		<PackageReference Include="Telerik.UI.for.Maui" Version="8.0.0" />
+		<PackageReference Include="Telerik.UI.for.Maui" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

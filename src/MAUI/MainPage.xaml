@@ -21,7 +21,6 @@
                              ItemsSource="{Binding Employees}"
                              AutoGenerateColumns="False"
                              RowDetailsTemplate="{StaticResource GridTemplateForRowDetails}">
-
             <telerik:RadDataGrid.Columns>
                 <telerik:DataGridToggleRowDetailsColumn IsFrozen="True"/>
                 <telerik:DataGridTextColumn PropertyName="Name" HeaderText="Name" />
