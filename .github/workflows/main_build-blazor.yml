@@ -58,7 +58,7 @@ jobs:
   ######################################################
   ############ [Option B] DOCKER FILE BUILD ############
   ######################################################
-  # => Publishes to ghcr.io (GitHub registry) <= #
+  # Publishes to ghcr.io!
   build_container_with_dockerfile:
     runs-on: ubuntu-22.04
     permissions:
@@ -94,7 +94,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: src/Blazor/MyBlazorApp
-        platforms: linux/arm64,linux/amd64,linux/arm
+        platforms: linux/arm64,linux/amd64
         push: true
         secrets: |
           telerik_key=${{secrets.TELERIK_NUGET_KEY}}
@@ -106,7 +106,7 @@ jobs:
   ##########################################################
   ######### [Option C] .NET SDK CONTAINER BUILD ############
   ##########################################################
-  # => Publishes to registry.hub.docker.com <= #
+  # Publishes to registry.hub.docker.com!
   build_container_with_dotnet:
     runs-on: ubuntu-22.04   
     permissions:
