@@ -1,4 +1,4 @@
-# This example has two container build & publish examples
+# This demo has two container build & publish examples
 # [Option A] DOCKER FILE BUILD - publishes the image to Docker Hub
 # [Option B] .NET SDK CONTAINER BUILD - publishes the image to ghcr.io (GitHub container registry)
 name: ASP.NET Core (with Reporting)
@@ -18,13 +18,10 @@ env:
   DOTNET_VERSION: "9.0.x"
 
 jobs:
-
-##############################################
-######## [Option A] DOCKER FILE BUILD ########
-##############################################
-# => Publishes to registry.hub.docker.com <= #
-
-  # A job that containerizes an ASP.NET Core web app with Relerik Reporting REST service and publish to Docker Hub
+  ##############################################
+  ######## [Option A] DOCKER FILE BUILD ########
+  ##############################################
+  # => Publishes to registry.hub.docker.com <= #
   build_aspnetcore:
     runs-on: ubuntu-22.04
     permissions:
@@ -51,9 +48,6 @@ jobs:
         cd src/AspNetCore/MyAspNetCoreApp/wwwroot/js
         echo ${{steps.akeyless.outputs.KENDO_LICENSE_FILE}} > kendo-ui-license.js
 
-    - name: Verify tag output
-      run: echo ${{steps.tag-creator.outputs.DOCKER_HUB_TAG}}
-      
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
@@ -84,11 +78,10 @@ jobs:
           lancemccarthy/myaspnetcoreapp:latest
 
 
-##########################################################
-######### [Option B] .NET SDK CONTAINER BUILD ############
-##########################################################
-# => Publishes to ghcr.io (GitHub container registry) <= #
-
+  ##########################################################
+  ######### [Option B] .NET SDK CONTAINER BUILD ############
+  ##########################################################
+  # => Publishes to ghcr.io (GitHub container registry) <= #
   build_x64:
     runs-on: ubuntu-22.04
     permissions:
@@ -116,8 +109,8 @@ jobs:
       working-directory: ${{env.WORKING_DIRECTORY}}
       run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../../NuGet.Config"
       env:
-        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: build the x64 image
       id: build
@@ -158,8 +151,8 @@ jobs:
       working-directory: ${{env.WORKING_DIRECTORY}}
       run: dotnet restore -r "linux-${{env.target_arch}}" --configfile "../../NuGet.Config"
       env:
-        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: build the arm64 image
       id: build

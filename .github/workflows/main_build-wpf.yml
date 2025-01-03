@@ -33,7 +33,7 @@ jobs:
     - name: NuGet Restore
       run: dotnet restore src\Wpf\MyWpfApp\MyWpfApp.csproj --configfile src\NuGet.Config --runtime win-x86
       env:
-        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername }}
+        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
         TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
 
     # Use msbuild to compile the .NET Framework WPF project

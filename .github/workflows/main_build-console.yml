@@ -49,8 +49,8 @@ jobs:
         
     - name: Update NuGet Package Sources
       run: |
-        # 1. Use the 'update source' command to update the 'Telerik' source's credentials
-        dotnet nuget update source 'Telerik' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{env.TELERIK_NUGET_KEY}}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
+        # 1. Use the 'update source' command to update the 'Telerik_v3_Feed' source's credentials
+        dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{env.TELERIK_NUGET_KEY}}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
 
         # 2. Use 'restore' command
         dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} --runtime ${{env.RID}}

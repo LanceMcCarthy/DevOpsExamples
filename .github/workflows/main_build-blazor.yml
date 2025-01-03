@@ -1,6 +1,7 @@
 # This workflow has three examples (one for IIS, two using containers)
-# [Option A] DOCKER FILE BUILD - publishes the image to ghcr.io (GitHub container registry)
-# [Option B] .NET SDK CONTAINER BUILD - publishes the image to Docker Hub
+# [Option A] Typical IIS build & publish
+# [Option B] DOCKER FILE BUILD - publishes the image to ghcr.io (GitHub container registry)
+# [Option C] .NET SDK CONTAINER BUILD - publishes the image to Docker Hub
 name: Blazor (with Reporting)
 
 on:
@@ -11,7 +12,8 @@ on:
       - "blazor/*"
     paths:
       - 'src/Blazor/**/*'
-      - '.github/workflows/main_build-blazor.yml' 
+      - '.github/workflows/main_build-blazor.yml'
+
 env:
   CONFIGURATION: Release
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
@@ -20,11 +22,9 @@ env:
   DOTNET_VERSION: "9.0.x"
 
 jobs:
-
-####################################
-####### WINDOWS BUILD (IIS) ########
-####################################
-# => Standard Windows build for IIS
+  #####################################################
+  ######### [Option A] WINDOWS BUILD (IIS) ############
+  #####################################################
   build_windows:
     runs-on: windows-2022
     env:
@@ -42,11 +42,11 @@ jobs:
 
     - name: Restore NuGet Packages
       run: |
-        ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
+        dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
         dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
       env:
-        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: Build Test Project
       run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
@@ -55,11 +55,10 @@ jobs:
       run: dotnet test ${{env.TEST_PROJ_PATH}} -r ${{env.RID}}
 
 
-##############################################
-######## [Option A] DOCKER FILE BUILD ########
-##############################################
-# => Publishes to ghcr.io (GitHub container registry) <= #
-
+  ######################################################
+  ############ [Option B] DOCKER FILE BUILD ############
+  ######################################################
+  # => Publishes to ghcr.io (GitHub registry) <= #
   build_container_with_dockerfile:
     runs-on: ubuntu-22.04
     permissions:
@@ -98,18 +97,17 @@ jobs:
         platforms: linux/arm64,linux/amd64,linux/arm
         push: true
         secrets: |
-          telerik_username=${{secrets.MyTelerikAccountUsername}}
-          telerik_password=${{secrets.MyTelerikAccountPassword}}
+          telerik_username=api-key
+          telerik_password=${{secrets.TELERIK_NUGET_KEY}}
         tags: |
           "ghcr.io/lancemccarthy/myblazorapp:${{steps.tag-creator.outputs.VERSION_TAG}}"
           "ghcr.io/lancemccarthy/myblazorapp:latest"
 
 
-##########################################################
-######### [Option B] .NET SDK CONTAINER BUILD ############
-##########################################################
-# => Publishes to registry.hub.docker.com (Docker Hub) <= #
-
+  ##########################################################
+  ######### [Option C] .NET SDK CONTAINER BUILD ############
+  ##########################################################
+  # => Publishes to registry.hub.docker.com <= #
   build_container_with_dotnet:
     runs-on: ubuntu-22.04   
     permissions:
@@ -141,8 +139,8 @@ jobs:
         dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
         dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
       env:
-        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: Build Unit Test Project
       run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
@@ -162,6 +160,6 @@ jobs:
     - name: Login to Docker Hub
       run: docker login ${{env.CONTAINER_IMAGE_REGISTRY}} -u ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}} -p ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
 
-    # Build and publish the Container build and publish with.NET https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
+    # https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
       run: dotnet publish ${{env.BLAZOR_PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-build --os ${{env.CONTAINER_OS}} --arch ${{env.CONTAINER_ARCH}} -p PublishProfile=DefaultContainer -p ContainerRuntimeIdentifier=${{env.CONTAINER_RID}} -p ContainerRegistry=${{env.CONTAINER_IMAGE_REGISTRY}} -p ContainerRepository=${{env.CONTAINER_IMAGE_NAME}} -p ContainerImageTag="latest" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
