@@ -67,13 +67,13 @@
   </ItemGroup>
 
 	<ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
-		<PackageReference Include="CommonHelpers" Version="1.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.2" />
+		<PackageReference Include="CommonHelpers" Version="1.4.1" />
 		<PackageReference Include="Telerik.Licensing" Version="1.4.6" />
-		<PackageReference Include="Telerik.UI.for.Maui" Version="9.0.0" />
+		<PackageReference Include="Telerik.UI.for.Maui" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-		<PackageReference Include="WinUIEx" Version="2.5.0" />
+		<PackageReference Include="WinUIEx" Version="2.5.1" />
 	</ItemGroup>
 </Project>

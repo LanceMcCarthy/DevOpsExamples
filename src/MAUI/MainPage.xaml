@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              xmlns:local="using:MauiDemo"
+             xmlns:models="clr-namespace:CommonHelpers.Models;assembly=CommonHelpers"
              x:Class="MauiDemo.MainPage"
              x:DataType="local:MainViewModel">
     <ContentPage.Behaviors>
@@ -11,7 +12,8 @@
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
-        <DataTemplate x:Key="GridTemplateForRowDetails">
+        <DataTemplate x:Key="GridTemplateForRowDetails" 
+                      x:DataType="models:Employee">
             <local:RowDetailsView />
         </DataTemplate>
     </ContentPage.Resources>
