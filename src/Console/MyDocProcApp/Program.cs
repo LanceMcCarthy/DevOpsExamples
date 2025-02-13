@@ -2,30 +2,20 @@
 using System.IO;
 using System.Text;
 using System.Timers;
-using Telerik.Windows.Documents.Spreadsheet.FormatProviders;
 using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
 using Telerik.Windows.Documents.Spreadsheet.Model;
 
-//      Unicode character               Oct     Dec     Hex     HTML
-// ⣾	braille pattern dots-2345678	024376	10494	0x28FE	&#10494;
-// ⣽	braille pattern dots-1345678	024375	10493	0x28FD	&#10493;
-// ⣻	braille pattern dots-1245678	024373	10491	0x28FB	&#10491;
-// ⢿	braille pattern dots-1234568	024277	10431	0x28BF	&#10431;
-// ⡿	braille pattern dots-1234567	024177	10367	0x287F	&#10367;
-// ⣟	braille pattern dots-1234578	024337	10463	0x28DF	&#10463;
-// ⣯	braille pattern dots-1234678	024357	10479	0x28EF	&#10479;
-// ⣷	braille pattern dots-1235678	024367	10487	0x28F7	&#10487;
-
+// See characters list below
 //var timerChars = new [] { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}; // style 1
 var timerChars = new [] { "⢹", "⢺", "⢼", "⣸", "⣇", "⡧", "⡗", "⡏"};  // style 2
-int lastCharIndex = 0;
+var lastCharIndex = 0;
 
 // Change the encoding to UTF8 for Unicode support
 Console.OutputEncoding = Encoding.UTF8;
 Console.CancelKeyPress += ConsoleCancelKeyPress;
 
-Timer timer = new Timer(250);
-timer.Elapsed += Timer_Elapsed;
+var timer = new Timer(250);
+timer.Elapsed += TimerElapsed;
 
 Console.WriteLine("Hello, would you like to create a workbook? [Y/y][N/n]:");
 
@@ -38,22 +28,22 @@ if (result?.ToLower() == "y")
 
     timer.Start();
 
-    for (int i = 0; i < 500; i++)
+    for (var i = 0; i < 500; i++)
     {
-        for (int j = 0; j < 500; j++)
+        for (var j = 0; j < 500; j++)
         {
             var selection = worksheet.Cells[i, j]; //B2 cell 
             selection.SetValue($"Cell {i}:{j}");
         }
     }
 
-    var fileName = "SampleFile.xlsx";
+    const string fileName = "SampleFile.xlsx";
 
-    IWorkbookFormatProvider formatProvider = new XlsxFormatProvider();
+    var formatProvider = new XlsxFormatProvider();
 
     await using Stream output = new FileStream(fileName, FileMode.Create);
     
-    formatProvider.Export(workbook, output);
+    formatProvider.Export(workbook, output, TimeSpan.FromMinutes(2));
 
     timer.Stop();
 
@@ -74,7 +64,7 @@ if (result?.ToLower() == "y")
 // ⣷	braille pattern dots-1235678	024367	10487	0x28F7	&#10487;
 
 
-void Timer_Elapsed(object sender, ElapsedEventArgs e)
+void TimerElapsed(object sender, ElapsedEventArgs e)
 {
     var nextCharacter = timerChars[lastCharIndex];
 
@@ -104,7 +94,7 @@ static void ClearCurrentConsoleLine()
 {
     try
     {
-        int currentLineCursor = Console.CursorTop;
+        var currentLineCursor = Console.CursorTop;
         Console.SetCursorPosition(0, Console.CursorTop);
         Console.Write(new string(' ', Console.BufferWidth));
         Console.SetCursorPosition(0, currentLineCursor);

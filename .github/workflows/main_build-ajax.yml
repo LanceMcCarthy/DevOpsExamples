@@ -1,3 +1,4 @@
+# This example shows you how you can use the named environment variables in the nuget.config file to set the credentials, for more information see https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables
 name: ASP.NET AJAX
 
 on:
@@ -9,6 +10,13 @@ on:
     paths:
       - 'src/Ajax/**/*'
       - '.github/workflows/main_build-ajax.yml' 
+      
+env:
+  TELERIK_USERNAME: "api-key" # Variable name used in the nuget.config file
+  TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Variable name used in the nuget.config file
+  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}} # Used when compiling the project
+  CSPROJ_PATH: "src/Ajax/MySite.sln"
+  NUGETCONFIG_PATH: "src/NuGet.Config"
 
 jobs:
   build_web_app:
@@ -21,17 +29,15 @@ jobs:
 
     - name: Setup Nuget.exe 
       uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: '5.x'
 
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.3.2
+      uses: microsoft/setup-msbuild@v2
     
-    # We are using nuget.exe to restore the nuget packages before using msbuild. See https://docs.microsoft.com/en-us/nuget/reference/nuget-exe-cli-reference
-    # The environment variables are used in the nuget.config file, for more information see https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables
+    # Important: We are using nuget CLI (not dotnet CLI) See https://docs.microsoft.com/en-us/nuget/reference/nuget-exe-cli-reference
     - name: NuGet.exe Restore
-      run: nuget restore src\Ajax\MySite.sln -ConfigFile src\NuGet.Config
-      env:
-        TELERIK_USERNAME: "api-key"
-        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+      run: nuget restore ${{env.CSPROJ_PATH}} -ConfigFile ${{env.NUGETCONFIG_PATH}}
 
     - name: Build the AJAX application
-      run: msbuild src\Ajax\MySite.sln /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=any
+      run: msbuild ${{env.CSPROJ_PATH}} /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=any

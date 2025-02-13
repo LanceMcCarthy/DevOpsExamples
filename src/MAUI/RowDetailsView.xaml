@@ -2,7 +2,9 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             x:Class="MauiDemo.RowDetailsView">
+             xmlns:models="clr-namespace:CommonHelpers.Models;assembly=CommonHelpers"
+             x:Class="MauiDemo.RowDetailsView"
+             x:DataType="models:Employee">
     <Grid>
         <Grid BackgroundColor="#F2EFF9" Padding="12">
             <VerticalStackLayout Padding="10"

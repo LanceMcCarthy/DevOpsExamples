@@ -20,6 +20,8 @@ env:
   TEST_PROJ_PATH: src/Blazor/MyBlazorApp.Tests/MyBlazorApp.Tests.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
   DOTNET_VERSION: "9.0.x"
+  CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:9.0"
+  CONTAINER_IMAGE_NAME: "lancemccarthy/myblazorapp"
 
 jobs:
   #####################################################
@@ -29,6 +31,7 @@ jobs:
     runs-on: windows-2022
     env:
       RID: win-x64
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -58,12 +61,15 @@ jobs:
   ######################################################
   ############ [Option B] DOCKER FILE BUILD ############
   ######################################################
-  # Publishes to ghcr.io!
+  # Publishes to ghcr.io (GitHub)
   build_container_with_dockerfile:
     runs-on: ubuntu-22.04
     permissions:
       contents: read
       packages: write
+    env:
+      RID: win-x64
+      CONTAINER_IMAGE_REGISTRY: "registry.hub.docker.com"
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -86,36 +92,38 @@ jobs:
     - name: Login to ghcr.io
       uses: docker/login-action@v3
       with:
-        registry: ghcr.io
+        registry: ${{env.CONTAINER_IMAGE_REGISTRY}}
         username: ${{github.actor}}
         password: ${{secrets.GITHUB_TOKEN}}
 
-    - name: Build and Publish Container Images 
+    - name: Build and Publish arm64, amd64 Container Images
       uses: docker/build-push-action@v5
       with:
         context: src/Blazor/MyBlazorApp
         platforms: linux/arm64,linux/amd64
         push: true
         secrets: |
-          telerik_key=${{secrets.TELERIK_NUGET_KEY}}
+          telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
+          telerik-license-key=${{secrets.TELERIK_LICENSE}}
         tags: |
-          "ghcr.io/lancemccarthy/myblazorapp:${{steps.tag-creator.outputs.VERSION_TAG}}"
-          "ghcr.io/lancemccarthy/myblazorapp:latest"
+          "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_IMAGE_NAME}}:${{steps.tag-creator.outputs.VERSION_TAG}}"
+          "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_IMAGE_NAME}}:latest"
 
 
   ##########################################################
   ######### [Option C] .NET SDK CONTAINER BUILD ############
   ##########################################################
-  # Publishes to registry.hub.docker.com!
+  # Publishes to registry.hub.docker.com (Docker hub)
   build_container_with_dotnet:
     runs-on: ubuntu-22.04   
     permissions:
       id-token: write
       contents: read
     env:
+      TELERIK_USERNAME: "api-key"
+      TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
       RID: linux-x64
-      CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:9.0"
-      CONTAINER_IMAGE_NAME: "lancemccarthy/myblazorapp"
       CONTAINER_IMAGE_REGISTRY: "registry.hub.docker.com"
       CONTAINER_RID: "linux-x64"
       CONTAINER_ARCH: "x64"
@@ -134,12 +142,8 @@ jobs:
 
     - name: Restore NuGet Packages
       run: |
-        # In this special case, we're using the project's nested nuget.config file (instead of the global src/nuget.config)
         dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
         dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
-      env:
-        TELERIK_USERNAME: "api-key"
-        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: Build Unit Test Project
       run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
@@ -152,7 +156,11 @@ jobs:
       uses: LanceMcCarthy/akeyless-action@v3
       with:
         access-id: ${{secrets.AKEYLESS_JWT_ID}}
-        static-secrets: '{"/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"}'
+        static-secrets: |
+          {
+            "/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", 
+            "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"
+          }
         export-secrets-to-outputs: true
         export-secrets-to-environment: false
 

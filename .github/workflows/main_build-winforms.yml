@@ -1,3 +1,4 @@
+# This example shows you how you can use the named environment variables in the nuget.config file to set the credentials, for more information see https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables
 name: WinForms (.NET Framework)
 
 on:
@@ -10,11 +11,21 @@ on:
       - 'src/WinForms/**/*'
       - '.github/workflows/main_build-winforms.yml' 
 
+env:
+  TELERIK_USERNAME: "api-key" # Variable name used in the nuget.config file
+  TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Variable name used in the nuget.config file
+  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}} # Used when compiling the project
+  CSPROJ_PATH: "src/WinForms/MyWinFormsApp/MyWinFormsApp.csproj"
+  NUGETCONFIG_PATH: "src/NuGet.Config"
+
 jobs:
   # A job that builds a .NET Framework WPF application using Telerik UI for WinForms
   build_desktop:
     runs-on: windows-latest # WinForms apps must be built on Windows runners
-    
+    strategy:
+      matrix:
+        configuration: [Release]
+        platform: [x86, x64]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -27,15 +38,12 @@ jobs:
         dotnet-version: '9.0.x'
     
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.3.2
+      uses: microsoft/setup-msbuild@v2
     
-    # We use the dotnet CLI (instead of nuget.exe) to restore the nuget packages before using msbuild
+    # We use the dotnet CLI (instead of nuget CLI) to restore the nuget packages before using msbuild
     - name: NuGet Restore
-      run: dotnet restore src\WinForms\MyWinFormsApp\MyWinFormsApp.csproj --configfile src\NuGet.Config --runtime win-x86
-      env:
-        TELERIK_USERNAME: ${{secrets.MyTelerikAccountUsername}}
-        TELERIK_PASSWORD: ${{secrets.MyTelerikAccountPassword}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} --runtime win-${{matrix.platform}}
 
     # Use msbuild to compile the .NET Framework WinForms project
     - name: Build the WinForms application 
-      run: msbuild src\WinForms\MyWinFormsApp\MyWinFormsApp.csproj /t:Restore /p:Configuration=Release /p:RuntimeIdentifier=win-x86
+      run: msbuild ${{env.CSPROJ_PATH}} /t:Restore /p:Configuration=${{matrix.configuration}} /p:RuntimeIdentifier=win-${{matrix.platform}}
