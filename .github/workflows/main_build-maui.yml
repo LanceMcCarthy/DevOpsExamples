@@ -1,3 +1,4 @@
+# This example shows you how you can use the 'dotnet nuget update source' command to set the credentials
 name: MAUI
 
 on:
@@ -11,6 +12,7 @@ on:
       - '.github/workflows/main_build-maui.yml' 
 
 env:
+  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   DOTNET_VERSION: "9.0.x"

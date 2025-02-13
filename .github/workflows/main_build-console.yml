@@ -1,3 +1,4 @@
+# This example shows you how ot use Akeyless to fetch the required secrets instead of GitHub Actions secrets
 name: Console (.NET)
 
 on:
@@ -10,22 +11,23 @@ on:
       - 'src/Console/**/*'
       - '.github/workflows/main_build-console.yml' 
 
+# Allows the use of jwt authentication with Akeyless
+permissions:
+  id-token: write
+  contents: read
 
+env:
+  TELERIK_USERNAME: "api-key" # Variable name used in the nuget.config file
+  RID: win-x64
+  CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
+  NUGETCONFIG_PATH: src/NuGet.Config
+  BUILD_CONFIGURATION: Release
 
 jobs:
   # A job that builds a .NET console application using Telerik Document Processing Libraries 
   # It uses a Windows runner and builds for Any CPU (remember: Linux file paths are case-sensitive!)
   build_console:
     runs-on: ubuntu-22.04
-    env:
-      RID: win-x64
-      CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
-      NUGETCONFIG_PATH: src/NuGet.Config
-      BUILD_CONFIGURATION: Release
-    # IMPORTANT - REQUIRED For 'akeyless' step
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
     - name: Checkout
@@ -38,22 +40,33 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
-    # This example uses a NuGet Key instead of username and password, visit https://www.telerik.com/blogs/announcing-nuget-keys.
-    # You can use GitHub secret to store the key's value, here I am getting the secret from AKeyless using https://github.com/marketplace/actions/akeyless-integrations 
+    # Uses Akeyless instead of GitHub Actions for secrets 
+    # See https://github.com/marketplace/actions/akeyless-integrations
     - name: Fetch secrets from AKeyless
       id: akeyless
       uses: LanceMcCarthy/akeyless-action@v3
       with:
         access-id: ${{secrets.AKEYLESS_JWT_ID}}
-        static-secrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY"}'
+        static-secrets: |
+          {
+            "/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY",
+            "/personal-keys/mccarthy/TELERIK_LICENSE":"TELERIK_LICENSE_KEY"
+          }'
+        export-secrets-to-environment: false
+        export-secrets-to-outputs: true
         
     - name: Update NuGet Package Sources
-      run: |
-        # 1. Use the 'update source' command to update the 'Telerik_v3_Feed' source's credentials
-        dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{env.TELERIK_NUGET_KEY}}" --configfile 'src/NuGet.Config' --store-password-in-clear-text
+      run: dotnet nuget update source ${{env.PACKAGE_SOURCE}} -s ${{env.PACKAGE_SOURCE_URL}} -u ${{env.SOURCE_USERNAME}} -p ${{env.SOURCE_PASSWORD}} --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
+      env:
+        PACKAGE_SOURCE: 'Telerik_v3_Feed'
+        PACKAGE_SOURCE_URL: 'https://nuget.telerik.com/v3/index.json'
+        SOURCE_USERNAME: 'api-key'
+        SOURCE_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}} # from the AKeyless output
 
-        # 2. Use 'restore' command
-        dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} --runtime ${{env.RID}}
-    
-    - name: Build Solution
+    - name: Restore NuGet packages
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} --runtime ${{env.RID}}
+
+    - name: Build project
       run: dotnet build ${{env.CSPROJ_PATH}} --configuration ${{env.BUILD_CONFIGURATION}} --runtime ${{env.RID}} --no-self-contained --no-restore
+      env:
+        TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}} # from the AKeyless output
