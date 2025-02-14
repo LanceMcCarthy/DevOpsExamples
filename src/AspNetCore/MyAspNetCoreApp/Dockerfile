@@ -16,21 +16,17 @@ RUN apt-get install libfreetype6 libfontconfig1 -y
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY . .
-# 1. mount the "telerik-nuget-key" secret and immediately use it to add the Telerik server as a package source
+# 1. Mount the "telerik-nuget-key" secret and immediately use it to add the Telerik server as a package source
 RUN --mount=type=secret,id=telerik-nuget-key \
     dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
 
-# 2. restore the project
+# 2. Restore the project
 RUN dotnet restore "./MyAspNetCoreApp.csproj"
 
-# 3. mount the "telerik-license-key" secret and set the "TELERIK_LICENSE" environment variable
-RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE
-
-# 4. build and publish the project
-RUN dotnet publish "./MyAspNetCoreApp.csproj" -o /app/publish /p:UseAppHost=false --no-restore --self-contained false
-
-#5. IMPORTANT - Clear the Telerik License Key from this stage's image, an extra protection against accidentally distributing it with your final image
-RUN $TELERIK_LICENSE=""
+# 3. Mount the "telerik-license-key" secret and set the "TELERIK_LICENSE" environment variable, then run the build operation
+# Remember, you do not want the enivronment variable to be stored in the final image, so it is set here onlu for the build operation
+RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE \
+    dotnet publish "./MyAspNetCoreApp.csproj" -o /app/publish /p:UseAppHost=false --no-restore --self-contained false
 
 
 ### STAGE 3 ###
