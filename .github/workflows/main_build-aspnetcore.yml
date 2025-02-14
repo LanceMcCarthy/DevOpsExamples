@@ -23,7 +23,6 @@ env:
   CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   DOTNET_VERSION: "9.0.x"
-  NUGETCONFIG_PATH: "src/NuGet.Config"
 
 jobs:
   ##############################################
@@ -124,7 +123,7 @@ jobs:
 
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore -r "linux-${{env.target_arch}}"
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
@@ -167,7 +166,7 @@ jobs:
 
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore -r "linux-${{env.target_arch}}"
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
