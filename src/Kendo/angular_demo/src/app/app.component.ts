@@ -2,8 +2,15 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  template: `
+  <button
+        kendoButton
+      >
+        User Settings
+      </button>
+  `,
+  standalone: false
 })
 export class AppComponent {
-
+  title = 'angular_demo';
 }
