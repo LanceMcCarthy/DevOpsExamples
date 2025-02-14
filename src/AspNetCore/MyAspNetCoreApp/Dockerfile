@@ -23,10 +23,11 @@ RUN --mount=type=secret,id=telerik-nuget-key \
 # 2. Restore the project
 RUN dotnet restore "./MyAspNetCoreApp.csproj"
 
-# 3. Mount the "telerik-license-key" secret and set the "TELERIK_LICENSE" environment variable, then run the build operation
-# Remember, you do not want the enivronment variable to be stored in the final image, so it is set here onlu for the build operation
-RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE \
-    dotnet publish "./MyAspNetCoreApp.csproj" -o /app/publish /p:UseAppHost=false --no-restore --self-contained false
+# 3. Mount the "telerik-license-key" secret and save it to a license file
+RUN --mount=type=secret,id=telerik-license-key,target=~/.telerik/telerik-license.txt
+
+# 4. Build the project
+RUN dotnet publish "./MyAspNetCoreApp.csproj" -o /app/publish /p:UseAppHost=false --no-restore --self-contained false
 
 
 ### STAGE 3 ###
