@@ -134,7 +134,7 @@ jobs:
       working-directory: ${{env.WORKING_DIRECTORY}}
       run: |
         # job output to reference this build later
-        echo "tag_${{matrix.platform}}=${{matrix.platform}}" >> "$GITHUB_OUTPUT" 
+        echo "tag_${{matrix.platform}}=latest-${{matrix.platform}}" >> "$GITHUB_OUTPUT" 
 
         dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{matrix.platform}} -p ContainerImageTag="latest-${{matrix.platform}}" -p ContainerRepository=${{env.CONTAINER_REPOSITORY}} -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
 
