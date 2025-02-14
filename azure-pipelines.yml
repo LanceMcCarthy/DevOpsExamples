@@ -29,7 +29,7 @@ jobs:
       npx kendo-ui-license activate
 
       # build the project
-      ng build
+      npm run build
     displayName: "clean angular cache"
     env:
       TELERIK_LICENSE: $(KENDO_UI_LICENSE)
