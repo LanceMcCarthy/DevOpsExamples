@@ -22,21 +22,20 @@ jobs:
       working-directory: src/Kendo/angular_demo
       run: npm install
     
-    # The value of KENDO_LICENSE_KEY is stored as a GitHub repo secret (Settings -> Secrets -> Actions)
-    # Get your key here https://www.telerik.com/kendo-angular-ui/components/my-license/#toc-download-your-license-key
+    # Important:L We're setting the TELERIK_LICENSE env var using a GitHub secret 
     - name: Activate Kendo UI License
       working-directory: src/Kendo/angular_demo
       run: npx kendo-ui-license activate
       env:
-        KENDO_UI_LICENSE: ${{secrets.KENDO_LICENSE_KEY}}
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
 
     - name: Build
       working-directory: src/Kendo/angular_demo
       run: npm run build --prod
 
-    - uses: actions/upload-artifact@v4
-      with:
-        name: "Kendo UI Test"
-        path: 'src/Kendo/angular_demo/dist'
-        if-no-files-found: error
-        retention-days: 1
+    # - uses: actions/upload-artifact@v4
+    #   with:
+    #     name: "Kendo UI Test"
+    #     path: 'src/Kendo/angular_demo/dist'
+    #     if-no-files-found: error
+    #     retention-days: 1
