@@ -11,6 +11,19 @@ trigger:
 #     - 'src/Uwp/**/*'
 
 jobs:
+- job: BuildAngularApp
+  pool:
+    vmImage: 'windows-2022'
+  steps:
+  - powershell: |
+      cd src\Kendo\angular_demo
+      rm -rf .angular/cache; 
+      npm install --save @progress/kendo-licensing;
+      npx kendo-ui-license activate
+    env:
+      TELERIK_LICENSE: $(KENDO_UI_LICENSE)
+
+
 # *************************************************************** #
 # *           EXAMPLE - Uses Akeyless for credentials -         * #
 # *************************************************************** #
