@@ -35,7 +35,7 @@ jobs:
     runs-on: windows-2022
     env:
       RID: win-x64
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -108,7 +108,7 @@ jobs:
         push: true
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
-          telerik-license-key=${{secrets.TELERIK_LICENSE}}
+          telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
         tags: |
           "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_IMAGE_NAME}}:${{steps.tag-creator.outputs.VERSION_TAG}}"
           "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_IMAGE_NAME}}:latest"
@@ -126,7 +126,7 @@ jobs:
     env:
       TELERIK_USERNAME: "api-key"
       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
       RID: linux-x64
       CONTAINER_IMAGE_REGISTRY: "registry.hub.docker.com"
       CONTAINER_RID: "linux-x64"

@@ -14,7 +14,7 @@ jobs:
   build_angular:
     runs-on: ubuntu-latest
     env:
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     
     steps:
     - name: Checkout

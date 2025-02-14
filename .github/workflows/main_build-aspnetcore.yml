@@ -106,7 +106,7 @@ jobs:
       build_tag: ${{steps.build.outputs.build_tag}}
     env:
       target_arch: "x64"
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -149,7 +149,7 @@ jobs:
       build_tag: ${{steps.build.outputs.build_tag}}
     env:
       target_arch: "arm64"
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -218,7 +218,7 @@ jobs:
   #     tag_x64: ${{steps.build.outputs.tag_x64}}
   #   env:
   #     CONTAINER_REGISTRY: "ghcr.io"
-  #     TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+  #     TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
   #   steps:
   #   - name: Checkout
   #     uses: actions/checkout@v4
