@@ -13,13 +13,24 @@ trigger:
 jobs:
 - job: BuildAngularApp
   pool:
-    vmImage: 'windows-2022'
+    vmImage: 'ubuntu-latest'
   steps:
   - powershell: |
+      # Move to the angular project
       cd src\Kendo\angular_demo
-      rm -rf .angular/cache; 
+
+      # Clear the angular cache, it may hold outdated key value
+      rm -rf .angular/cache
+
+      # Just incase the project doesnt have it installed yet, add the licensing package now
       npm install --save @progress/kendo-licensing;
+
+      # Active the license
       npx kendo-ui-license activate
+
+      # build the project
+      ng build
+    displayName: "clean angular cache"
     env:
       TELERIK_LICENSE: $(KENDO_UI_LICENSE)
 
