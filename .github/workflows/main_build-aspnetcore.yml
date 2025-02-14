@@ -103,8 +103,8 @@ jobs:
       matrix:
         platform: [arm64, x64]
     outputs:
-      tag_arm64: ${{steps.build.outputs.build_tag_arm64}}
-      tag_amd64: ${{steps.build.outputs.build_tag_amd64}}
+      tag_arm64: ${{steps.build.outputs.tag_arm64}}
+      tag_x64: ${{steps.build.outputs.tag_x64}}
     env:
       CONTAINER_REGISTRY: "ghcr.io"
       TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
@@ -154,7 +154,7 @@ jobs:
 
     - name: Create multi-image manifest
       run: docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_amd64}}" \
+          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_x64}}" \
           "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_arm64}}"
         
     - name: Publish manifest
