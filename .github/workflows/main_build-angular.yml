@@ -13,6 +13,8 @@ on:
 jobs:
   build_angular:
     runs-on: ubuntu-latest
+    env:
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
     
     steps:
     - name: Checkout
@@ -22,12 +24,9 @@ jobs:
       working-directory: src/Kendo/angular_demo
       run: npm install
     
-    # Important:L We're setting the TELERIK_LICENSE env var using a GitHub secret 
     - name: Activate Kendo UI License
       working-directory: src/Kendo/angular_demo
       run: npx kendo-ui-license activate
-      env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
 
     - name: Build
       working-directory: src/Kendo/angular_demo
