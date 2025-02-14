@@ -122,14 +122,12 @@ jobs:
     - name: Login to GitHub Container Registry
       run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
-    # This time, we're demonstraing dynamically adding the Telerik server as a package source, using the system's default nuget.config
-    - name: Restore NuGet Packages
-      working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetAdded" -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --store-password-in-clear-text
-
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
       run: dotnet restore -r "linux-${{matrix.platform}}"
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: Build the platform image
       id: build
