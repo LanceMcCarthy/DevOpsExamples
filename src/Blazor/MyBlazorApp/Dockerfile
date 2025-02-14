@@ -15,7 +15,7 @@ WORKDIR /src/MyBlazorApp
 COPY . .
 # 1. mount the nuget key secret and immediately use it to add the Telerik server as a package source
 RUN --mount=type=secret,id=telerik-nuget-key \
-    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik_key) --store-password-in-clear-text
+    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
 
 # 2. restore the project
 RUN dotnet restore "MyBlazorApp.csproj"
