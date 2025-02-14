@@ -57,10 +57,11 @@ jobs:
         export-secrets-to-outputs: true
         export-secrets-to-environment: false
 
-    - name: Create Kendo license file in the appropriate project directory
-      run: |
-        cd ${{env.WORKING_DIRECTORY}}/wwwroot/js
-        echo ${{steps.akeyless.outputs.KENDO_LICENSE_FILE}} > kendo-ui-license.js
+    # Not needed since Q1 2025
+    # - name: Create Kendo license file in the appropriate project directory
+    #   run: |
+    #     cd ${{env.WORKING_DIRECTORY}}/wwwroot/js
+    #     echo ${{steps.akeyless.outputs.KENDO_LICENSE_FILE}} > kendo-ui-license.js
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -97,16 +98,15 @@ jobs:
   #         [Option B] .NET SDK CONTAINER BUILD            #
   ##########################################################
   # => Publishes to ghcr.io (GitHub)
-  dotnet_container_build:
+  build_x64:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        platform: [arm64, x64]
+    permissions:
+      contents: read
+      packages: write
     outputs:
-      tag_arm64: ${{steps.build.outputs.tag_arm64}}
-      tag_x64: ${{steps.build.outputs.tag_x64}}
+      build_tag: ${{steps.build.outputs.build_tag}}
     env:
-      CONTAINER_REGISTRY: "ghcr.io"
+      target_arch: "x64"
       TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
     steps:
     - name: Checkout
@@ -120,29 +120,73 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Login to GitHub Container Registry
-      run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+      run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{matrix.platform}}"
+      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile ${{env.NUGETCONFIG_PATH}}
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
-    - name: Build the platform image
+    - name: build the x64 image
       id: build
       working-directory: ${{env.WORKING_DIRECTORY}}
       run: |
-        # job output to reference this build later
-        echo "tag_${{matrix.platform}}=latest-${{matrix.platform}}" >> "$GITHUB_OUTPUT" 
+        TAG="latest-${{env.target_arch}}"
 
-        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{matrix.platform}} -p ContainerImageTag="latest-${{matrix.platform}}" -p ContainerRepository=${{env.CONTAINER_REPOSITORY}} -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+        # Build and publish arch-specific container
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+
+        # Job output the arch-specific container name so we can publish a multi-arch image later
+        echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+
+  build_arm64:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      build_tag: ${{steps.build.outputs.build_tag}}
+    env:
+      target_arch: "arm64"
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Login to GitHub Container Registry
+      run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+
+    - name: Restore NuGet Packages
+      working-directory: ${{env.WORKING_DIRECTORY}}
+      run: dotnet restore -r "linux-${{env.target_arch}}" --configfile ${{env.NUGETCONFIG_PATH}}
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+
+    - name: build the arm64 image
+      id: build
+      working-directory: ${{env.WORKING_DIRECTORY}}
+      run: |
+        TAG="latest-${{env.target_arch}}"
+
+        # Build and publish arch-specific container
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+
+        # Job output the arch-specific container name so we can publish a multi-arch image later
+        echo "build_tag=$TAG" >> $GITHUB_OUTPUT
 
   publish_combined_manifest:
     runs-on: ubuntu-22.04
-    needs: [dotnet_container_build]
-    env:
-      CONTAINER_REGISTRY: "ghcr.io"
+    needs: [build_x64, build_arm64]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -150,26 +194,31 @@ jobs:
         fetch-depth: 0
 
     - name: Login to GitHub Container Registry
-      run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+      run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
-    - name: Create multi-image manifest
-      run: docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_x64}}" \
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_arm64}}"
+    - name: create the multi-image manifest
+      run: |
+        docker manifest create "ghcr.io/lancemccarthy/myaspnetcoreapp:latest" \
+          "ghcr.io/lancemccarthy/myaspnetcoreapp:$X86_TAG" \
+          "ghcr.io/lancemccarthy/myaspnetcoreapp:$ARM64_TAG"
         
-    - name: Publish manifest
-      run: docker manifest push "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
+        docker manifest push "ghcr.io/lancemccarthy/myaspnetcoreapp:latest"
+      env:
+        X86_TAG: ${{needs.build_x64.outputs.build_tag}}
+        ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
 
-## TODO - Remove this after confirming matrix strategy works
-  # build_x64:
+
+# Matrix experiments
+  # dotnet_container_build:
   #   runs-on: ubuntu-22.04
-  #   permissions:
-  #     contents: read
-  #     packages: write
+  #   strategy:
+  #     matrix:
+  #       platform: [arm64, x64]
   #   outputs:
-  #     build_tag: ${{steps.build.outputs.build_tag}}
+  #     tag_arm64: ${{steps.build.outputs.tag_arm64}}
+  #     tag_x64: ${{steps.build.outputs.tag_x64}}
   #   env:
-  #     target_arch: "x64"
+  #     CONTAINER_REGISTRY: "ghcr.io"
   #     TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
   #   steps:
   #   - name: Checkout
@@ -183,73 +232,29 @@ jobs:
   #       dotnet-version: ${{env.DOTNET_VERSION}}
 
   #   - name: Login to GitHub Container Registry
-  #     run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+  #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
   #   - name: Restore NuGet Packages
   #     working-directory: ${{env.WORKING_DIRECTORY}}
-  #     run: dotnet restore -r "linux-${{env.target_arch}}" --configfile ${{env.NUGETCONFIG_PATH}}
+  #     run: dotnet restore -r "linux-${{matrix.platform}}"
   #     env:
   #       TELERIK_USERNAME: "api-key"
   #       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
-  #   - name: build the x64 image
+  #   - name: Build the platform image
   #     id: build
   #     working-directory: ${{env.WORKING_DIRECTORY}}
   #     run: |
-  #       TAG="latest-${{env.target_arch}}"
+  #       # job output to reference this build later
+  #       echo "tag_${{matrix.platform}}=${{matrix.platform}}" >> "$GITHUB_OUTPUT" 
 
-  #       # Build and publish arch-specific container
-  #       dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
-
-  #       # Job output the arch-specific container name so we can publish a multi-arch image later
-  #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
-
-  # build_arm64:
-  #   runs-on: ubuntu-22.04
-  #   permissions:
-  #     contents: read
-  #     packages: write
-  #   outputs:
-  #     build_tag: ${{steps.build.outputs.build_tag}}
-  #   env:
-  #     target_arch: "arm64"
-  #     TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
-  #     with:
-  #       fetch-depth: 0
-
-  #   - name: Setup .NET Core SDK
-  #     uses: actions/setup-dotnet@v4
-  #     with:
-  #       dotnet-version: ${{env.DOTNET_VERSION}}
-
-  #   - name: Login to GitHub Container Registry
-  #     run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
-
-  #   - name: Restore NuGet Packages
-  #     working-directory: ${{env.WORKING_DIRECTORY}}
-  #     run: dotnet restore -r "linux-${{env.target_arch}}" --configfile ${{env.NUGETCONFIG_PATH}}
-  #     env:
-  #       TELERIK_USERNAME: "api-key"
-  #       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-
-  #   - name: build the arm64 image
-  #     id: build
-  #     working-directory: ${{env.WORKING_DIRECTORY}}
-  #     run: |
-  #       TAG="latest-${{env.target_arch}}"
-
-  #       # Build and publish arch-specific container
-  #       dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
-
-  #       # Job output the arch-specific container name so we can publish a multi-arch image later
-  #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+  #       dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{matrix.platform}} -p ContainerImageTag="${{matrix.platform}}" -p ContainerRepository=${{env.CONTAINER_REPOSITORY}} -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
 
   # publish_combined_manifest:
   #   runs-on: ubuntu-22.04
-  #   needs: [build_x64, build_arm64]
+  #   needs: [dotnet_container_build]
+  #   env:
+  #     CONTAINER_REGISTRY: "ghcr.io"
   #   steps:
   #   - name: Checkout
   #     uses: actions/checkout@v4
@@ -257,15 +262,12 @@ jobs:
   #       fetch-depth: 0
 
   #   - name: Login to GitHub Container Registry
-  #     run: docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+  #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
-  #   - name: create the multi-image manifest
-  #     run: |
-  #       docker manifest create "ghcr.io/lancemccarthy/myaspnetcoreapp:latest" \
-  #         "ghcr.io/lancemccarthy/myaspnetcoreapp:$X86_TAG" \
-  #         "ghcr.io/lancemccarthy/myaspnetcoreapp:$ARM64_TAG"
+  #   - name: Create multi-image manifest
+  #     run: docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
+  #         "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_x64}}" \
+  #         "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_arm64}}"
         
-  #       docker manifest push "ghcr.io/lancemccarthy/myaspnetcoreapp:latest"
-  #     env:
-  #       X86_TAG: ${{needs.build_x64.outputs.build_tag}}
-  #       ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
+  #   - name: Publish manifest
+  #     run: docker manifest push "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
