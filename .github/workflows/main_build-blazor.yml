@@ -73,7 +73,7 @@ jobs:
       packages: write
     env:
       RID: win-x64
-      CONTAINER_IMAGE_REGISTRY: "registry.hub.docker.com"
+      CONTAINER_IMAGE_REGISTRY: "ghcr.io"
     steps:
     - name: Checkout
       uses: actions/checkout@v4

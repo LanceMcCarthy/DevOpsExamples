@@ -124,9 +124,10 @@ jobs:
     - name: Login to GitHub Container Registry
       run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
+    #  Note we need to travel back 2 folders to reach the nuget.config because of the working directory
     - name: Restore NuGet Packages
       working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{matrix.platform}}" --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore -r "linux-${{matrix.platform}}" --configfile ../../${{env.NUGETCONFIG_PATH}}
 
     - name: Build the platform image
       id: build
