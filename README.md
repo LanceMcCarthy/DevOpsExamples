@@ -34,15 +34,16 @@ Although I use Telerik's NuGet server because I have a license, these demos are 
 
 | Project | GitHub Actions | Azure DevOps | GitLab CI |
 |---------|--------------|----------------|-----------|
-| ASP.NET AJAX | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) | [![Build CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AJAX%20App)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=78) |  |
+| .NET MAUI | [![MAUI main](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml/badge.svg?branch=main)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20MAUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=72) |  |
 | ASP.NET Core | [![Build ASP.NET Core Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AspNetCore)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=80) |  | 
 | ASP.NET Blazor | [![Build Blazor Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-blazor.yml) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Blazor%20App)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
-| WPF (net48) | ![Build WPF](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WPF%20Application/badge.svg?branch=main) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WPF%20and%20WinForms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
-| WinForms (net48) | ![Build WinForms](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20WinForms%20Application/badge.svg?branch=main) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WinForms?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=79&branchName=main) |  |
-| Console | ![Build Console](https://github.com/LanceMcCarthy/DevOpsExamples/workflows/Build%20Console%20App/badge.svg?branch=main) | [![Build - YAML](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| WPF (`net48`) | [![WPF (.NET Framework)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-wpf.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-wpf.yml) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WPF%20and%20WinForms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| WinForms (`net48`) | [![WinForms (.NET Framework)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winforms.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winforms.yml) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WinForms?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=79&branchName=main) |  |
+| Console | [![Console (.NET)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-console.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-console.yml) | [![Build - YAML](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/LanceMcCarthy.DevOpsExamples?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | WinUI 3 | [![Build WinUI3 Project](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winui.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winui.yml) | | |
-| .NET MAUI | [![MAUI main](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml/badge.svg?branch=main)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20MAUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=72) |  |
 | Kendo Angular | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20Kendo%20Angular)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| ASP.NET AJAX (`net48`) | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) | [![Build CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20AJAX%20App)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=78) |  |
+
 
 ### Bonus Notes
 
@@ -84,15 +85,25 @@ That mean you must also have the secrets in your **Settings** > **Secrets** list
 ![image](https://user-images.githubusercontent.com/3520532/104634438-9cae6c00-566e-11eb-9a78-79d955247867.png)
 
 
-### Powershell: Update Package Source Dynamically
+### Powershell: Adding or Updating Package Source Dynamically
+
+#### Option 1 - Update existing package source
 
 You could also dynamically update the credentials of a Package Source defined in your nuget.config file This is a good option when you do not want to use a `packageSourceCredentials` section that uses environment variables.
 
 ```powershell
 # Updates a source named 'Telerik' in the nuget.config
-dotnet nuget update source "Telerik" --source "https://nuget.telerik.com/v3/index.json" --configfile "src/nuget.config" --username '${{ secrets.MyTelerikEmail }}' --password '${{ secrets.MyTelerikPassword }}' --store-password-in-clear-text
+dotnet nuget update source "Telerik" -s "https://nuget.telerik.com/v3/index.json" --configfile "src/nuget.config" -u '${{secrets.MyTelerikEmail}}' -p '${{secrets.MyTelerikPassword}}' --store-password-in-clear-text
 ```
- That command will look through the nuget.config for a package source with the key `Telerik` and then add/update the credentials for that source.
+That command will look through the nuget.config for a package source with the key `Telerik` and then add/update the credentials for that source.
+
+#### Option 2 - Add a new package source
+
+The other approach is a bit simpler because you dont need a custom nuget.config file. Just use the dotnet nuget add source command
+
+```powershell
+dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "AddedTelerikServer" -u ${{secrets.MyTelerikEmail}} -p ${{secrets.MyTelerikPassword}} --store-password-in-clear-text
+```
 
 > The `--store-password-in-clear-text` switch is important. It does *not* mean the password is visible, rather it means that you're using the password text and not a custom encrypted variant. For more information, please visit https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file#packagesourcecredentials
 
@@ -109,30 +120,42 @@ dotnet nuget update source "Telerik" --source "https://nuget.telerik.com/v3/inde
 > IMPORTANT: Protect your key by storing it in a GitHub Secret, then use the secret's varible name in the command
 
 ### Dockerfile: Using Secrets
-When using a Dockerfile to build a .NET project that uses the Telerik NuGet server, you'll need a safe and secure way to handle your crednetials. This can be done my mounting a Docker secret, which is a 1-liner in theDockerfile. Let's walkthrough through the highlights.
 
-In your GitHub Actions workflow, you can set a secret in the same step that you build/publish the container. In the following YAML, notice we're using a GitHub Actions Secret to set a Docker secret: `telerik_key=${{ secrets.TELERIK_NUGET_KEY }}`
+When using a Dockerfile to build a .NET project that uses the Telerik NuGet server, you'll need a safe and secure way to handle your NuGet crednetials and your Telerik License Key. This can be done my mounting a Docker secret.
+
+In your GitHub Actions workflow, you can define and set docker secrets in the docker build step. Take a look at the following example, we using GitHub secrest to set two docker secrets `telerik-nuget-key=${{secrets.MY_NUGET_KEY}}` and `telerik-license-key=${{secrets.MY_TELERIK_LICENSE_KEY}}`.
 
 ```yaml
     - uses: docker/build-push-action@v3
       with:
         secrets: |
-          telerik_key=${{ secrets.TELERIK_NUGET_KEY }}
-     ...
+          telerik-nuget-key=${{secrets.MY_NUGET_KEY}}
+          telerik-license-key=${{secrets.MY_TELERIK_LICENSE_KEY}}
 ```
 
-Now, insdie the Dockerfie itself, we can mount that secret:
+Now, inside the Dockerfile's `build` stage, you can mount and use those secrets
 
-```shell
-# Here we use a docker secret to update the 'Telerik_Feed' package source, then restore then build
-RUN --mount=type=secret,id=telerik_key \
-  echo $(cat /run/secrets/telerik_key)
+```Dockerfile
+# important, only use these secrests in the build stage!
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src/MyApp
+COPY . .
+
+# Step 1 - Restore NuGet packages
+# In this command, we do three things
+#   1. Mount the telerik-nuget-key secret
+#   2. Add the Telerik NuGet server to the package sources (usign the telerik-nuget-key for password)
+#   3. Use the 'dotnet restore' command
+RUN --mount=type=secret,id=telerik-nuget-key \
+    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
+RUN dotnet restore "MyApp.csproj"
+
+# Step 2 - Build the project
+# In this command, we do two things:
+#   1. We set the environment var 'TELERIK_LICENSE' using the 'telerik-license-key' docker secret
+#   2. Run the dotnet publish command, which compiles and  the project in release mode
+RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE
+RUN dotnet publish "MyApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
 ```
 
-Now that the secret's value is available (`/run/secrets/telerik_key` in this case), it can be used in subsequent dotnet commands. For example here, I update the Telerik package source's credentials.
-
-```shell
-dotnet nuget update source "Telerik_Feed" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --configfile "./NuGet.Config" --store-password-in-clear-text \
-```
-
-For a complete demo, [see the complete Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile) and [the complete workflow](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml).
+**Important**: *Do not* set the variables or license file in the `base` or `final` stage, you'll leak your secrets in the final image. Please [visit the complete Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile) and [the workflow](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml).
