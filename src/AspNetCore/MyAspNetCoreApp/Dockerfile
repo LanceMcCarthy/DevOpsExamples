@@ -6,7 +6,7 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-# Dependencies for Telerik Reporting on Linux with Skia
+# Install Telerik Reporting's modern Linux dependencies
 RUN apt-get update
 RUN apt-get install libfreetype6 libfontconfig1 -y
 
@@ -16,13 +16,12 @@ RUN apt-get install libfreetype6 libfontconfig1 -y
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY . .
-
 # 1. Mount the "telerik-nuget-key" secret and immediately use it to add the Telerik server as a package source
 RUN --mount=type=secret,id=telerik-nuget-key \
-    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text \
-    dotnet restore "./MyAspNetCoreApp.csproj"
-
-# 2. Mount the "telerik-license-key" secret into the env var and build the project
+    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
+# 2. Restore NuGet packages
+RUN dotnet restore "./MyAspNetCoreApp.csproj"
+# 3. Mount the "telerik-license-key" secret as an env var and build the project
 RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE \
     dotnet publish "./MyAspNetCoreApp.csproj" -o /app/publish /p:UseAppHost=false --no-restore --self-contained false
 
