@@ -13,13 +13,12 @@ EXPOSE 443
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY . .
-
-# 1. Mount the nuget key secret and immediately use it to add the Telerik server as a package source
+# 1. Mount the ecret and use it to add the Telerik server as a package source
 RUN --mount=type=secret,id=telerik-nuget-key \
-    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text \
-    dotnet restore "MyBlazorApp.csproj"
-
-# 2. Mount the "telerik-license-key" secret and save it to a license file
+    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
+# 2. Restore NuGet packages
+RUN dotnet restore "MyBlazorApp.csproj"
+# 3. Mount the "telerik-license-key" secret as an env var and build the project
 RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE \
     dotnet publish "MyBlazorApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
 
