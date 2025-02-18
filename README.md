@@ -133,10 +133,17 @@ In your GitHub Actions workflow, you can define and set docker secrets in the do
           telerik-license-key=${{secrets.MY_TELERIK_LICENSE_KEY}}
 ```
 
-Now, inside the Dockerfile's `build` stage, you can mount and use those secrets
+Now, inside the Dockerfile's `build` stage, you can mount and use those secrets. See **Stage #2** in this example
 
 ```Dockerfile
-# important, only use these secrests in the build stage!
+### STAGE 1 ###
+# Create our base image from the aspnet image, and prep any neccessary settings
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+WORKDIR /app
+
+### STAGE 2 ###
+# Compile the project and create production-ready artifacts
+# ⚠️important⚠️ only use these secrests in the build stage so you dont leak them in your final image
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src/MyApp
 COPY . .
@@ -145,17 +152,27 @@ COPY . .
 # In this command, we do three things
 #   1. Mount the telerik-nuget-key secret
 #   2. Add the Telerik NuGet server to the package sources (usign the telerik-nuget-key for password)
-#   3. Use the 'dotnet restore' command
 RUN --mount=type=secret,id=telerik-nuget-key \
     dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
+
+# 2. Restore NuGet packages
 RUN dotnet restore "MyApp.csproj"
 
-# Step 2 - Build the project
+# Step 3 - Build the project
 # In this command, we do two things:
 #   1. We set the environment var 'TELERIK_LICENSE' using the 'telerik-license-key' docker secret
 #   2. Run the dotnet publish command, which compiles and  the project in release mode
-RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE
-RUN dotnet publish "MyApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
+RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE \
+    dotnet publish "MyApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
+
+
+### STAGE 3 ###
+# Build the final image from the base, but copy the pubilsh artifacts from the intermediate stage
+FROM base AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "MyBlazorApp.dll"]
 ```
+
 
 **Important**: *Do not* set the variables or license file in the `base` or `final` stage, you'll leak your secrets in the final image. Please [visit the complete Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile) and [the workflow](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml).
