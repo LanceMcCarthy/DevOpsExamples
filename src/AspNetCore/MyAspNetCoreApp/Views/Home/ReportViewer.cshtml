@@ -14,6 +14,12 @@
     loading report viewer...
 </div>
 
+<!-- 
+  Problem: ReportViewer uses Kendo jQuery. However, it causes a Kendo jQuery license violation even though Reporting and UI for ASP.NET Core license was detected.
+  Workaround: Add a hidden UI for ASP.NET Core component anywhere in the same view.
+-->
+<kendo-button name="license-workaround"></kendo-button>
+
 <script>
     $(document).ready(function () {
         $("#reportViewer1").telerik_ReportViewer({
