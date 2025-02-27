@@ -49,12 +49,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GridViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridViewForm.Designer.cs">
+      <DependentUpon>GridViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PdfViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PdfViewerForm.Designer.cs">
+      <DependentUpon>PdfViewerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="RadForm1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RadForm1.Designer.cs">
       <DependentUpon>RadForm1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GridViewForm.resx">
+      <DependentUpon>GridViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfViewerForm.resx">
+      <DependentUpon>PdfViewerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="RadForm1.resx">
       <DependentUpon>RadForm1.cs</DependentUpon>
@@ -92,7 +110,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.Licensing">
-      <Version>1.4.6</Version>
+      <Version>1.4.9</Version>
+    </PackageReference>
+    <PackageReference Include="UI.for.WinForms.GridView">
+      <Version>2025.1.211</Version>
+    </PackageReference>
+    <PackageReference Include="UI.for.WinForms.PdfViewer">
+      <Version>2025.1.211</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.SyntaxEditor">
       <Version>2025.1.211</Version>
