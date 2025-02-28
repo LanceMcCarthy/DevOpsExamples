@@ -195,28 +195,31 @@ jobs:
       secureFile: 'telerik-license.txt'
 
   - task: NuGetToolInstaller@1
-    displayName: 'Use NuGet'
+    displayName: 'Use NuGet.exe'
     inputs:
       versionSpec: '4.x'
 
-  # Step 1. Using nuget.exe, set the credentials of the 'Telerik' source in the nuget.config (using pipeline secrets)
+  # Use nuget.exe in powershell to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
   - task: PowerShell@2
-    displayName: 'Update Package Source Credentials'
+    displayName: 'Set Package Source Credentials'
     inputs:
       targetType: 'inline'
       script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
-  # Step 2. Using nuget.exe, restore the NuGet packages
-  - task: PowerShell@2
-    displayName: 'Restore NuGet Packages'
+  # Using nuget.exe Task, restore the NuGet packages
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore'
     inputs:
-      targetType: 'inline'
-      script: nuget restore '$(ajaxProjectPath)' -ConfigFile '$(nugetConfigPath)'
+      restoreSolution: $(ajaxProjectPath)
+      feedsToUse: config
+      nugetConfigPath: $(nugetConfigPath)
+      externalFeedCredentials: 'Telerik_v3'
 
-  # Step 3. Build the project without restoring packages automatically
+  # Build the project without restoring packages automatically
   - task: MSBuild@1
     displayName: 'Build AJAX Project'
     inputs:
       solution: '$(ajaxProjectPath)'
       platform: Any CPU
       configuration: Release
+      msbuildArguments: '/p:RestorePackages=false'
