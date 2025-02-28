@@ -14,7 +14,7 @@ trigger:
 variables:
   DOTNET_SDK_VERSION: '9.0.x'
   buildConfiguration: 'Release'
-  nugetConfigPath: 'src/nuget.config'
+  nugetConfigPath: 'src/NuGet.Config'
   consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
   ajaxProjectPath: 'src/Ajax/MySite.sln'
   blazorProjectPath: 'src/Blazor/MyBlazorApp.sln'
@@ -26,9 +26,7 @@ variables:
 
 jobs:
 # *************************************************************** #
-# *                 EXAMPLE - KENDO ANGULAR                     * #
-# *                                                             * #
-# *                - Uses pipeline secrets -                    * #
+# *                      KENDO ANGULAR                          * #
 # *************************************************************** #
 - job: BuildAngularApp
   pool:
@@ -55,13 +53,11 @@ jobs:
 
 
 # *************************************************************** #
-# *                      EXAMPLE - CONSOLE                      * #
-# *                                                             * #
-# *                 - Uses Akeyless secrets -                   * #
+# *              CONSOLE (uses Akeyless secrets)                * #
 # *************************************************************** #
 - job: BuildConsoleApp1
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
   steps:
   # Get an authentication token from Azure so we can authenticate with Akeyless
   - task: AzureCLI@2
@@ -103,13 +99,11 @@ jobs:
 
 
 # *************************************************************** #
-# *                     EXAMPLE - CONSOLE                       * #
-# *                                                             * #
-# *                - Uses Service connection -                  * #
+# *              CONSOLE (uses Service connection)              * #
 # *************************************************************** #
 - job: BuildConsoleApp2
   pool:
-    vmImage: 'windows-latest'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: UseDotNet@2
     inputs:
@@ -138,22 +132,18 @@ jobs:
 
 
 # ************************************************************* #
-# *                   EXAMPLE - BLAZOR                        * #
-# *                                                           * #
-# *            - Uses Azure KeyVault secrets -                * #
+# *                         BLAZOR                            * #
 # ************************************************************* #
 - job: BuildBlazorApp
   pool:
     vmImage: 'ubuntu-latest'
-  variables:
-  - group: KeyVaultVariables
   steps:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(TELERIK-NUGET-KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
   - powershell: dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath)
@@ -166,15 +156,11 @@ jobs:
  
 
 # ************************************************************* #
-# *                  EXAMPLE - ASPNET Core                    * #
-# *                                                           * #
-# *            - Uses Azure KeyVault secrets -                * #
+# *                       ASPNET Core                         * #
 # ************************************************************* #
 - job: BuildAspNetCoreApp
   pool:
     vmImage: 'ubuntu-latest'
-  variables:
-  - group: KeyVaultVariables # this supplies two secrets from Azure KeyVault; TELERIK-NUGET-KEY and TELERIK-LICENSE-KEY
   steps:
   - task: UseDotNet@2
     inputs:
@@ -182,7 +168,7 @@ jobs:
       version: $(DOTNET_SDK_VERSION)
 
   # SPECIAL - Instead of using a custom provided nuget.config, we simply add a new package source (which updates the default nuget.config)
-  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n 'Telerik_Dynamically_Added' -u 'api-key' -p '$(TELERIK-NUGET-KEY)' --store-password-in-clear-text
+  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n 'Telerik_Dynamically_Added' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text
     displayName: 'Update Package Source Credentials'
 
   - powershell: dotnet restore $(aspnetProjectPath)
@@ -191,13 +177,11 @@ jobs:
   - powershell: dotnet publish $(aspnetProjectPath) -o /app/publish /p:UseAppHost=false --self-contained false --no-restore
     displayName: 'Publish the project'
     env:
-      TELERIK_LICENSE: $(TELERIK-LICENSE-KEY)  # Azure keyvault secret
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)  # Azure keyvault secret
 
 
 # *************************************************************** #
-# *           EXAMPLE - ASP.NET AJAX (.NET Framework)           * #
-# *                                                             * #
-# *                 - Uses pipeline secrets -                   * #
+# *                ASP.NET AJAX (.NET Framework)                * #
 # *************************************************************** #
 - job: BuildWebformsApp
   pool:
@@ -227,6 +211,5 @@ jobs:
       solution: '$(ajaxProjectPath)'
       platform: Any CPU
       configuration: Release
-      msbuildArguments: '/p:RestorePackages=false'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
