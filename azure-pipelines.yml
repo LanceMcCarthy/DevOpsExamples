@@ -190,12 +190,12 @@ jobs:
   # Secure File Example!
   # A) Download the license key file from your Secure Files library
   - task: DownloadSecureFile@1
-    name: telerik-license-file
+    name: licenseKeyFile
     displayName: 'Download Telerik License Key File'
     inputs:
       secureFile: 'telerik-license.txt'
   # B) Then move the file to the root directory of the project (might not be required for you, but ensures it's in an expected location)
-  - powershell: Move-Item -Path $(telerik-license-file.secureFilePath) -Destination "$(Pipeline.Workspace)/src/Ajax"
+  - powershell: Move-Item -Path $(licenseKeyFile.secureFilePath) -Destination "$(Pipeline.Workspace)/src/Ajax"
     displayName: 'Move Telerik License Key File'
 
   - task: NuGetToolInstaller@1
