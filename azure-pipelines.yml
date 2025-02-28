@@ -5,12 +5,31 @@ trigger:
   paths:
    include:
      - 'azure-pipelines.yml'
+     - 'src/Kendo/angular_demo/**/*'
      - 'src/Console/**/*'
-#     - 'src/Ajax/**/*'
-#     - 'src/Blazor/**/*'
-#     - 'src/Uwp/**/*'
+     - 'src/Ajax/**/*'
+     - 'src/Blazor/**/*'
+     - 'src/AspNetCore/**/*'
+
+variables:
+  DOTNET_SDK_VERSION: '9.0.x'
+  buildConfiguration: 'Release'
+  nugetConfigPath: 'src/nuget.config'
+  consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
+  ajaxProjectPath: 'src/Ajax/MySite.sln'
+  blazorProjectPath: 'src/Blazor/MyBlazorApp.sln'
+  aspnetProjectPath: 'src/AspNetCore/MyAspNetCoreApp.sln'
+# The following are saved as secret pipeline variables (in online AzDO editor)
+# AKEYLESS_ACCESS_ID
+# MY_TELERIK_NUGET_KEY
+# MY_TELERIK_LICENSE_KEY
 
 jobs:
+# *************************************************************** #
+# *                 EXAMPLE - KENDO ANGULAR                     * #
+# *                                                             * #
+# *                - Uses pipeline secrets -                    * #
+# *************************************************************** #
 - job: BuildAngularApp
   pool:
     vmImage: 'ubuntu-latest'
@@ -32,20 +51,19 @@ jobs:
       npm run build
     displayName: "clean angular cache"
     env:
-      TELERIK_LICENSE: $(KENDO_UI_LICENSE)
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)  # AzDO pipeline secret variable
 
 
 # *************************************************************** #
-# *           EXAMPLE - Uses Akeyless for credentials -         * #
+# *                      EXAMPLE - CONSOLE                      * #
+# *                                                             * #
+# *                 - Uses Akeyless secrets -                   * #
 # *************************************************************** #
 - job: BuildConsoleApp
   pool:
-    vmImage: 'windows-2022'
-  variables:
-    consoleNugetConfigPath: 'src/nuget.config'
-    consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
-
+    vmImage: 'ubuntu-latest'
   steps:
+  # Get an authentication token from Azure so we can authenticate with Akeyless
   - task: AzureCLI@2
     name: 'AzureCLI'
     displayName: 'Get JWT from Azure Service Principal'
@@ -54,192 +72,161 @@ jobs:
       scriptType: ps
       scriptLocation: inlineScript
       inlineScript: |
-        # Get a JWT using the azure CLI
         $JWT=$(az account get-access-token --query accessToken --output tsv)
-
-        # Set an output variable
         echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
   
-  # Needs JWT, see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
+  # Uses LanceMcCarthy/akeyless-extension-azdo to pull down static secret (also works for dynamic secrets)
+  # Needs a JWT see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
   - task: akeyless-secrets@1
     name: 'Akeyless1'
     displayName: 'Get Secrets from Akeyless'
     inputs:
-      accessid: '$(AKEYLESS_ACCESS_ID)'
-      azureJwt: '$(AzureCLI.azure_jwt)'
+      accessid: '$(AKEYLESS_ACCESS_ID)' # Stored as pipeline variable
+      azureJwt: '$(AzureCLI.azure_jwt)' # Output variable fomr the previous step
       staticSecrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"NUGET_KEY"}'
 
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
-      version: '8.0.x'
+      version: $(DOTNET_SDK_VERSION)
 
-  - powershell: dotnet nuget update source 'Telerik' --source 'https://nuget.telerik.com/v3/index.json' --username 'api-key' --password '$(Akeyless1.NUGET_KEY)' --configfile $(consoleNugetConfigPath) --store-password-in-clear-text
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' --source 'https://nuget.telerik.com/v3/index.json' --username 'api-key' --password '$(Akeyless1.NUGET_KEY)' --configfile $(nugetConfigPath) --store-password-in-clear-text
     displayName: 'Update package source credentials'
   
-  - powershell: dotnet restore $(consoleProjectPath) --configfile $(consoleNugetConfigPath)
+  - powershell: dotnet restore $(consoleProjectPath) --configfile $(nugetConfigPath)
     displayName: 'restore packages'
   
   - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
     displayName: 'Publish the project'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
 
 # *************************************************************** #
-# *                  EXAMPLE - CONSOLE (.NET)                   * #
+# *                     EXAMPLE - CONSOLE                       * #
 # *                                                             * #
-# *         -Uses Service Principal for credentials-            * #
+# *                - Uses Service connection -                  * #
 # *************************************************************** #
-# - job: BuildConsoleApp
-#   pool:
-#     vmImage: 'windows-2022'
+- job: BuildConsoleApp
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
 
-#   variables:
-#   - group: KeyVaultVariables
-#   - name: consoleNugetConfigPath
-#     value: 'src/nuget.config'
-#   - name: consoleProjectPath
-#     value: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
-#   - name: buildConfiguration
-#     value: 'Debug'
+  # Using Service connection for credentials
+  - task: DotNetCoreCLI@2
+    displayName: 'NuGet restore MyDocProcApp'
+    inputs:
+      command: 'restore'
+      projects: $(consoleProjectPath)
+      feedsToUse: 'config'
+      nugetConfigPath: $(nugetConfigPath)
+      externalFeedCredentials: 'Telerik_v3'
 
-#   steps:
-#   - task: UseDotNet@2
-#     inputs:
-#       packageType: 'sdk'
-#       version: '8.0.x'
-
-#   # Restore the NuGet packges using Service connection for credentials
-#   - task: DotNetCoreCLI@2
-#     displayName: 'NuGet restore MyDocProcApp'
-#     inputs:
-#       command: 'restore'
-#       projects: $(consoleProjectPath)
-#       feedsToUse: 'config'
-#       nugetConfigPath: $(consoleNugetConfigPath)
-#       externalFeedCredentials: 'TelerikFeed'
-
-#   # Build the project
-#   - task: DotNetCoreCLI@2
-#     displayName: 'Build MyDocProcApp'
-#     inputs:
-#       command: 'build'
-#       projects: $(consoleProjectPath)
-#       configuration: $(buildConfiguration)
-
-# *************************************************************** #
-# *         EXAMPLE   - ASP.NET AJAX (.NET Framework)           * #
-# *                                                             * #
-# *       -Update package source with pipeline secrets-         * #
-# *************************************************************** #
-# - job: BuildWebformsApp
-#   pool:
-#     vmImage: 'windows-2022'
-#   variables:
-#     nugetConfigPath: 'src\nuget.config'
-#     projectPath: 'src\Ajax\MySite.sln'
-
-#   steps:
-#   - task: NuGetToolInstaller@1
-#     displayName: 'Use NuGet '
-
-#   # Step 1. Using nuget.exe, set the credentials of the 'Telerik' source in the nuget.config (using pipeline secrets)
-#   - task: PowerShell@2
-#     displayName: 'Update Package Source Credentials'
-#     inputs:
-#       targetType: 'inline'
-#       script: nuget sources update -Name 'Telerik' -Source 'https://nuget.telerik.com/v3/index.json' -Username '$(MY_TELERIK_EMAIL)' -Password '$(MY_TELERIK_PASSWORD)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
-
-#   # Step 2. Using nuget.exe, restore the NuGet packages
-#   - task: PowerShell@2
-#     displayName: 'Restore NuGet Packages'
-#     inputs:
-#       targetType: 'inline'
-#       script: nuget restore '$(projectPath)' -ConfigFile '$(nugetConfigPath)'
-
-#   # Step 3. Build the project without restoring packages automatically
-#   - task: MSBuild@1
-#     displayName: 'Build AJAX Project'
-#     inputs:
-#       solution: '$(projectPath)'
-#       platform: Any CPU
-#       configuration: Release
-#       msbuildArguments: '/p:RestorePackages=false'
+  # Build the project
+  - task: DotNetCoreCLI@2
+    displayName: 'Build MyDocProcApp'
+    inputs:
+      command: 'build'
+      projects: $(consoleProjectPath)
+      configuration: $(buildConfiguration)
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
 
 # ************************************************************* #
-# *                 EXAMPLE 3 - BLAZOR                        * #
+# *                   EXAMPLE - BLAZOR                        * #
 # *                                                           * #
-# *        -Update package source with KeyVault secrets-      * #
+# *            - Uses Azure KeyVault secrets -                * #
 # ************************************************************* #
-# - job: BuildBlazorApp
-#   pool:
-#     vmImage: 'windows-2022'
-#   variables:
-#     nugetConfigPath: 'src\Blazor\MyBlazorApp\NuGet.Config'
-#     projectPath: 'src\Blazor\MyBlazorApp\MyBlazorApp.csproj'
-  
-#   steps:
-#   - task: UseDotNet@2
-#     inputs:
-#       packageType: 'sdk'
-#       version: '8.0.x'
-  
-#   # Step 1. Using dotnet CLI, set the credentials of the 'Telerik_Feed', defined in the nuget.config
-#   - task: PowerShell@2
-#     displayName: 'Update Package Source Credentials'
-#     inputs:
-#       targetType: 'inline'
-#       script: dotnet nuget update source 'Telerik_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u '$(MY_TELERIK_EMAIL)' -p '$(MY_TELERIK_PASSWORD)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+- job: BuildBlazorApp
+  pool:
+    vmImage: 'ubuntu-latest'
+  variables:
+  - group: KeyVaultVariables
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
 
-#   # Step 2. Using dotnet CLI, restore NuGet packages
-#   - task: PowerShell@2
-#     displayName: 'Restore NuGet Packages'
-#     inputs:
-#       targetType: 'inline'
-#       script: dotnet restore $(projectPath) --configfile $(nugetConfigPath) --runtime win-x64
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(TELERIK-NUGET-KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+    displayName: 'Update Package Source Credentials'
 
-#   # Step 3. Build the project
-#   - task: DotNetCoreCLI@2
-#     displayName: 'Build Blazor Project'
-#     inputs:
-#       command: 'build'
-#       projects: $(projectPath)
-#       configuration: Debug
+  - powershell: dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath)
+    displayName: 'Restore NuGet Packages'
+
+  - powershell: dotnet publish $(blazorProjectPath) -o /app/publish /p:UseAppHost=false --self-contained false --no-restore
+    displayName: 'Publish the project'
+    env:
+      TELERIK_LICENSE: $(TELERIK-LICENSE-KEY)  # Azure keyvault secret
+ 
+
+# ************************************************************* #
+# *                  EXAMPLE - ASPNET Core                    * #
+# *                                                           * #
+# *            - Uses Azure KeyVault secrets -                * #
+# ************************************************************* #
+- job: BuildBlazorApp
+  pool:
+    vmImage: 'ubuntu-latest'
+  variables:
+  - group: KeyVaultVariables # this supplies two secrets from Azure KeyVault; TELERIK-NUGET-KEY and TELERIK-LICENSE-KEY
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
+
+  # SPECIAL - Instead of using a custom provided nuget.config, we simply add a new package source (which updates the default nuget.config)
+  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n 'Telerik_Dynamically_Added' -u 'api-key' -p '$(TELERIK-NUGET-KEY)' --store-password-in-clear-text
+    displayName: 'Update Package Source Credentials'
+
+  - powershell: dotnet restore $(aspnetProjectPath)
+    displayName: 'Restore NuGet Packages'
+
+  - powershell: dotnet publish $(aspnetProjectPath) -o /app/publish /p:UseAppHost=false --self-contained false --no-restore
+    displayName: 'Publish the project'
+    env:
+      TELERIK_LICENSE: $(TELERIK-LICENSE-KEY)  # Azure keyvault secret
 
 
 # *************************************************************** #
-# *                   EXAMPLE 4 - UWP (WinRT)                   * #
+# *           EXAMPLE - ASP.NET AJAX (.NET Framework)           * #
 # *                                                             * #
-# *         -Uses Service Principal for credentials-            * #
+# *                 - Uses pipeline secrets -                   * #
 # *************************************************************** #
-# - job: BuildUwpApp
-#   pool:
-#     vmImage: 'windows-2022'
-  
-#   variables:
-#     solution: 'src/Uwp/SalesDashboard.UWP.sln'
-#     buildPlatform: 'x64'
-#     buildConfiguration: 'Debug'
-#     appxBundle: 'Never'
-#     appxBuildMode: 'CI'
-#     appxSigningEnabled: false
-  
-#   steps:
-#   - task: NuGetToolInstaller@1
-#     displayName: 'Use NuGet '
+- job: BuildWebformsApp
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: NuGetToolInstaller@1
+    displayName: 'Use NuGet '
 
-# # Restore the NuGet packges using Service connection for credentials
-#   - task: NuGetCommand@2
-#     displayName: 'NuGet restore'
-#     inputs:
-#       restoreSolution: $(solution)
-#       feedsToUse: config
-#       nugetConfigPath: src/nuget.config
-#       externalFeedCredentials: TelerikFeed
+  # Step 1. Using nuget.exe, set the credentials of the 'Telerik' source in the nuget.config (using pipeline secrets)
+  - task: PowerShell@2
+    displayName: 'Update Package Source Credentials'
+    inputs:
+      targetType: 'inline'
+      script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
-#   - task: VSBuild@1
-#     inputs:
-#       platform: $(buildPlatform)
-#       solution: $(solution)
-#       configuration: $(buildConfiguration)
-#       msbuildArgs: '/p:Configuration=$(buildConfiguration /p:Platform=$(buildPlatform) /p:UapAppxPackageBuildMode=$(appxBuildMode) /p:AppxPackageSigningEnabled=$(appxSigningEnabled) /p:AppxBundle=$(appxBundle)'
+  # Step 2. Using nuget.exe, restore the NuGet packages
+  - task: PowerShell@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      targetType: 'inline'
+      script: nuget restore '$(ajaxProjectPath)' -ConfigFile '$(nugetConfigPath)'
+
+  # Step 3. Build the project without restoring packages automatically
+  - task: MSBuild@1
+    displayName: 'Build AJAX Project'
+    inputs:
+      solution: '$(ajaxProjectPath)'
+      platform: Any CPU
+      configuration: Release
+      msbuildArguments: '/p:RestorePackages=false'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
