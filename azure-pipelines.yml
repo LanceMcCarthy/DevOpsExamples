@@ -149,10 +149,10 @@ jobs:
   - powershell: dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
 
-  - powershell: dotnet publish $(blazorProjectPath) -o /app/publish /p:UseAppHost=false --self-contained false --no-restore
-    displayName: 'Publish the project'
+  - powershell: dotnet build $(blazorProjectPath) --no-restore
+    displayName: 'Build and publish'
     env:
-      TELERIK_LICENSE: $(TELERIK-LICENSE-KEY)  # Azure keyvault secret
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
  
 
 # ************************************************************* #
@@ -174,10 +174,10 @@ jobs:
   - powershell: dotnet restore $(aspnetProjectPath)
     displayName: 'Restore NuGet Packages'
 
-  - powershell: dotnet publish $(aspnetProjectPath) -o /app/publish /p:UseAppHost=false --self-contained false --no-restore
-    displayName: 'Publish the project'
+  - powershell: dotnet build $(aspnetProjectPath) --no-restore
+    displayName: 'Build the project'
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)  # Azure keyvault secret
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
 
 # *************************************************************** #
@@ -187,8 +187,21 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   steps:
+  # Secure File Example!
+  # A) Download the license key file from your Secure Files library
+  - task: DownloadSecureFile@1
+    name: telerik-license-file
+    displayName: 'Download Telerik License Key File'
+    inputs:
+      secureFile: 'telerik-license.txt'
+  # B) Then move the file to the root directory of the project (might not be required for you, but ensures it's in an expected location)
+  - powershell: Move-Item -Path $(telerik-license-file.secureFilePath) -Destination "$(Pipeline.Workspace)/src/Ajax"
+    displayName: 'Move Telerik License Key File'
+
   - task: NuGetToolInstaller@1
-    displayName: 'Use NuGet '
+    displayName: 'Use NuGet'
+    inputs:
+      versionSpec: '4.x'
 
   # Step 1. Using nuget.exe, set the credentials of the 'Telerik' source in the nuget.config (using pipeline secrets)
   - task: PowerShell@2
@@ -211,5 +224,3 @@ jobs:
       solution: '$(ajaxProjectPath)'
       platform: Any CPU
       configuration: Release
-    env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
