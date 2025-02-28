@@ -167,13 +167,12 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  # SPECIAL - Instead of using a custom provided nuget.config, we simply add a new package source (which updates the default nuget.config)
-  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n 'Telerik_Dynamically_Added' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
-  - powershell: dotnet restore $(aspnetProjectPath)
+  - powershell: dotnet restore $(aspnetProjectPath) --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
-
+    
   - powershell: dotnet build $(aspnetProjectPath) --no-restore
     displayName: 'Build the project'
     env:
@@ -188,15 +187,12 @@ jobs:
     vmImage: 'windows-latest'
   steps:
   # Secure File Example!
-  # A) Download the license key file from your Secure Files library
+  # A) Download the license key file from your Secure Files library.
   - task: DownloadSecureFile@1
     name: licenseKeyFile
     displayName: 'Download Telerik License Key File'
     inputs:
       secureFile: 'telerik-license.txt'
-  # B) Then move the file to the root directory of the project (might not be required for you, but ensures it's in an expected location)
-  - powershell: Move-Item -Path $(licenseKeyFile.secureFilePath) -Destination "$(Pipeline.Workspace)/src/Ajax"
-    displayName: 'Move Telerik License Key File'
 
   - task: NuGetToolInstaller@1
     displayName: 'Use NuGet'
