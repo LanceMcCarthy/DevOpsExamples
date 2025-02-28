@@ -73,7 +73,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Telerik.Licensing.Runtime, Version=1.4.9.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Licensing.1.4.9\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
+      <HintPath>..\packages\Telerik.Licensing.1.4.9\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Web.Design, Version=2025.1.211.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.1.211\lib\net462\Telerik.Web.Design.dll</HintPath>
