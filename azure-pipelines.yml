@@ -59,7 +59,7 @@ jobs:
 # *                                                             * #
 # *                 - Uses Akeyless secrets -                   * #
 # *************************************************************** #
-- job: BuildConsoleApp
+- job: BuildConsoleApp1
   pool:
     vmImage: 'ubuntu-latest'
   steps:
@@ -107,7 +107,7 @@ jobs:
 # *                                                             * #
 # *                - Uses Service connection -                  * #
 # *************************************************************** #
-- job: BuildConsoleApp
+- job: BuildConsoleApp2
   pool:
     vmImage: 'windows-latest'
   steps:
@@ -170,7 +170,7 @@ jobs:
 # *                                                           * #
 # *            - Uses Azure KeyVault secrets -                * #
 # ************************************************************* #
-- job: BuildBlazorApp
+- job: BuildAspNetCoreApp
   pool:
     vmImage: 'ubuntu-latest'
   variables:
