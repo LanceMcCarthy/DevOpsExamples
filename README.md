@@ -172,6 +172,12 @@ ENTRYPOINT ["dotnet", "MyBlazorApp.dll"]
 
 Depending on how you're building our code, there are several ways to introduce the Telerik License Key at the right time for the build. Let me show you two; variable and file.
 
+- [Approach 1 - Using an Environment Variable](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-1---using-a-variable)
+- [Approach 2 - Using a License File](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-2---using-a-file)
+  - [In a YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#yaml-pipeline)
+  - [In a Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#classic-pipeline)
+
+
 #### Approach 1 - Using a Variable
 
 This is by far the easiest and safest way. You can use a secret (GitHub Action secret or AzDO Variable secret) and set the `TELERIK_LICENSE` environment variable before the project is compiled.
