@@ -187,31 +187,25 @@ jobs:
     vmImage: 'windows-latest'
   steps:
   # ------------------------- Secure File Example ------------------------- #
-  # A) Download the license key file from your Secure Files library.
+  # SecFile A) Download the license key file from your Secure Files library.
   - task: DownloadSecureFile@1
-    name: licenseKeyFile
+    name: DownloadTelerikLicenseFile
     displayName: 'Download Telerik License Key File'
     inputs:
       secureFile: 'telerik-license.txt'
-
-  # B) Set the TELERIK_LICENSE_PATH variable with the path to the secure file
-  - powershell: $TELERIK_LICENSE_PATH=$(licenseKeyFile.secureFilePath)
-    displayName: 'Set Telerik License File Path'
-  # ------------------------------------------------------------------------ #
 
   - task: NuGetToolInstaller@1
     displayName: 'Use NuGet.exe'
     inputs:
       versionSpec: '4.x'
 
-  # Use nuget.exe in powershell to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
+  # Use nuget.exe to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
   - task: PowerShell@2
     displayName: 'Set Package Source Credentials'
     inputs:
       targetType: 'inline'
       script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
-  # Using nuget.exe Task, restore the NuGet packages
   - task: NuGetCommand@2
     displayName: 'NuGet restore'
     inputs:
@@ -220,7 +214,6 @@ jobs:
       nugetConfigPath: $(nugetConfigPath)
       externalFeedCredentials: 'Telerik_v3'
 
-  # Build the project without restoring packages automatically
   - task: MSBuild@1
     displayName: 'Build AJAX Project'
     inputs:
@@ -228,3 +221,5 @@ jobs:
       platform: Any CPU
       configuration: Release
       msbuildArguments: '/p:RestorePackages=false'
+    env:
+      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # SecFile B) Set the TELERIK_LICENSE_PATH variable using the secureFilePath value
