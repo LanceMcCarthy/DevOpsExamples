@@ -17,6 +17,7 @@ Although I use Telerik's NuGet server because I have a license, these demos are 
   - [Example: Update package source dynamically](https://github.com/LanceMcCarthy/DevOpsExamples#powershell-update-package-source-dynamically)
   - [Example Using Telerik NuGet Keys](https://github.com/LanceMcCarthy/DevOpsExamples#using-telerik-nuget-keys)
   - [Dockerfile: Using Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#dockerfile-using-secrets)
+  - [Telerik License Approaches](https://github.com/LanceMcCarthy/DevOpsExamples#telerik-license-approaches)
 - Related Blog Posts
   - [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
   - [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
@@ -117,7 +118,8 @@ Please visit the [Announcing NuGet Keys](https://www.telerik.com/blogs/announcin
 dotnet nuget update source "Telerik" --source "https://nuget.telerik.com/v3/index.json" --configfile "src/nuget.config" --username 'api-key' --password '${{ secrets.MyNuGetKey }}' --store-password-in-clear-text
 ```
 
-> IMPORTANT: Protect your key by storing it in a GitHub Secret, then use the secret's varible name in the command
+> [!CAUTION]
+> Protect your key by storing it in a GitHub Secret, then use the secret's varible name in the command
 
 ### Dockerfile: Using Secrets
 
@@ -133,46 +135,118 @@ In your GitHub Actions workflow, you can define and set docker secrets in the do
           telerik-license-key=${{secrets.MY_TELERIK_LICENSE_KEY}}
 ```
 
-Now, inside the Dockerfile's `build` stage, you can mount and use those secrets. See **Stage #2** in this example
+Now, inside the Dockerfile's `build` stage, you can mount and use those secrets. See Stage 2 in the following example:
 
 ```Dockerfile
 ### STAGE 1 ###
-# Create our base image from the aspnet image, and prep any neccessary settings
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 
 ### STAGE 2 ###
-# Compile the project and create production-ready artifacts
-# ⚠️important⚠️ only use these secrests in the build stage so you dont leak them in your final image
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src/MyApp
 COPY . .
-
-# Step 1 - Restore NuGet packages
-# In this command, we do three things
-#   1. Mount the telerik-nuget-key secret
-#   2. Add the Telerik NuGet server to the package sources (usign the telerik-nuget-key for password)
+# 1. Mount the ecret and use it to add the Telerik server as a package source
 RUN --mount=type=secret,id=telerik-nuget-key \
     dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
-
 # 2. Restore NuGet packages
-RUN dotnet restore "MyApp.csproj"
-
-# Step 3 - Build the project
-# In this command, we do two things:
-#   1. We set the environment var 'TELERIK_LICENSE' using the 'telerik-license-key' docker secret
-#   2. Run the dotnet publish command, which compiles and  the project in release mode
-RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE \
-    dotnet publish "MyApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
+RUN dotnet restore "MyBlazorApp.csproj"
+# 3. Mount the "telerik-license-key" secret as an env var and build the project
+RUN --mount=type=secret,id=telerik-license-key \
+    TELERIK_LICENSE="$(cat /run/secrets/telerik-license-key)" \
+    dotnet publish "MyBlazorApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
 
 
 ### STAGE 3 ###
-# Build the final image from the base, but copy the pubilsh artifacts from the intermediate stage
+# Build final from base, but copy ONLY THE PUBLISH ARTIFACTS from stage 2
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "MyBlazorApp.dll"]
 ```
 
+> [!CAUTION]
+> Only set these sensitive values in the build stage or you risk leaking secrets in the final image. Please [visit the complete Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile) and [the workflow](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml).
 
-**Important**: *Do not* set the variables or license file in the `base` or `final` stage, you'll leak your secrets in the final image. Please [visit the complete Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile) and [the workflow](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml).
+### Telerik License Approaches
+
+Depending on how you're building our code, there are several ways to introduce the Telerik License Key at the right time for the build. Let me show you two; variable and file.
+
+#### Approach 1 - Using a Variable
+
+This is by far the easiest and safest way. You can use a secret (GitHub Action secret or AzDO Variable secret) and set the `TELERIK_LICENSE` environment variable before the project is compiled.
+
+In a YAML workflow/pipeline, you can set the environment variable at the beginning of the job or on a step that needs it.
+
+GH Actions
+```yaml
+  - run: dotnet publish MyApp.csproj -o /app/publish /p:UseAppHost=false --no-restore
+    env:
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+```
+
+Azure Pipelines YAML
+
+```yaml
+  - powershell: dotnet publish MyApp.csproj -o /app/publish /p:UseAppHost=false --no-restore
+    displayName: 'Build and publish the project'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+```
+
+If you're using classic pipelines, you can use a pipeline variable:
+
+![Image](https://github.com/user-attachments/assets/bcdcc8c3-8ec7-43af-8452-4bace4e8ee83)
+
+> [!IMPORTANT]
+> License key length - If you are using a Library **Variable Group**, there is a character limit for the variable values. The only way to have a long value in the Variable Group is to link it from Azure KeyVault. If you cannot use Azure KeyVault, then use a normal pipeline variable instead (seen above) or use the Secure File approach instead (see below).
+
+
+#### Approach 2 - Using a File
+
+You have two options for a file-base option. Set the TELERIK_LICENSE_PATH variable or add a file named **telerik-license.txt** to the project directory. The licensing runtime will do a recursive check from the project directory to root, and then finally %appdata%/telerik/.
+
+On Azure DevOps, there is a powerful feature called Secure Files. It lets you upload a file and then use it in a pipeline. Go to your Library tab, then select Secure File
+
+After you've uploaded the Secure File to your Azure DevOps project, you can use it in a pipeline, liek this:
+
+> [!CAUTION]
+> Never check in the **telerik-license.txt** file with your code and never distr4ibute it with your application/docker image.
+
+##### YAML Pipeline
+
+With a YAML pipeline, you can use the **DownloadSecureFile@1** task, then use `$(name.secureFilePath)` to reference it. For example:
+
+```yaml
+  - task: DownloadSecureFile@1
+    name: DownloadTelerikLicenseFile # defining the 'name' is important
+    displayName: 'Download Telerik License Key File'
+    inputs:
+      secureFile: 'telerik-license.txt'
+
+  - task: MSBuild@1
+    displayName: 'Build Project'
+    inputs:
+      solution: 'myapp.csproj'
+      platform: Any CPU
+      configuration: Release
+      msbuildArguments: '/p:RestorePackages=false'
+    env:
+      # use the name.secureFilePath value to set the special TELERIK_LICENSE_PATH
+      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) 
+```
+
+##### Classic Pipeline
+
+With a classic pipeline, you'll still use the same Task, but you must manually set the output variable's name
+
+![Image](https://github.com/user-attachments/assets/8c9f0aa4-0ef8-48a9-9805-b0686db1109c)
+
+With the secure file downlaoded to the runner, you can copy it into the solution directory:
+
+![Image](https://github.com/user-attachments/assets/0b1fd81f-5ee6-49e1-8ce3-031ed379c1d6)
+
+> [!CAUTION]
+> If you distribute the source code with your artifacts, make sure you delete the copied license.txt file immediately after the build step.
+
+Ultimately, there are many routes to take, and you can choose th eone that best suits your CI-CD needs. What is most important is that you protect the key value/file as you'd protect any sensitive secret.
