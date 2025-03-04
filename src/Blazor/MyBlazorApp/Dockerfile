@@ -19,7 +19,8 @@ RUN --mount=type=secret,id=telerik-nuget-key \
 # 2. Restore NuGet packages
 RUN dotnet restore "MyBlazorApp.csproj"
 # 3. Mount the "telerik-license-key" secret as an env var and build the project
-RUN --mount=type=secret,id=telerik-license-key,env=TELERIK_LICENSE \
+RUN --mount=type=secret,id=telerik-license-key \
+    TELERIK_LICENSE="$(cat /run/secrets/telerik-license-key)" \
     dotnet publish "MyBlazorApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
 
 
