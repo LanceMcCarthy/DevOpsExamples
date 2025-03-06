@@ -19,10 +19,11 @@ permissions:
   packages: write
 
 env:
-  CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:9.0"
   CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   DOTNET_VERSION: "9.0.x"
+  # Custom base image with Skia dependencies pre-installed
+  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/reporting-aspnet:9.0"
 
 jobs:
   ##############################################
@@ -135,7 +136,7 @@ jobs:
         TAG="latest-${{env.target_arch}}"
 
         # Build and publish arch-specific container
-        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} --no-restore
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
@@ -178,7 +179,7 @@ jobs:
         TAG="latest-${{env.target_arch}}"
 
         # Build and publish arch-specific container
-        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+        dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{env.target_arch}} -p ContainerImageTag="$TAG" -p ContainerRepository="lancemccarthy/myaspnetcoreapp" -p ContainerRegistry="ghcr.io" -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} --no-restore
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
@@ -247,7 +248,7 @@ jobs:
   #       # job output to reference this build later
   #       echo "tag_${{matrix.platform}}=${{matrix.platform}}" >> "$GITHUB_OUTPUT" 
 
-  #       dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{matrix.platform}} -p ContainerImageTag="${{matrix.platform}}" -p ContainerRepository=${{env.CONTAINER_REPOSITORY}} -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} --no-restore
+  #       dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{matrix.platform}} -p ContainerImageTag="${{matrix.platform}}" -p ContainerRepository=${{env.CONTAINER_REPOSITORY}} -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} --no-restore
 
   # publish_combined_manifest:
   #   runs-on: ubuntu-22.04
