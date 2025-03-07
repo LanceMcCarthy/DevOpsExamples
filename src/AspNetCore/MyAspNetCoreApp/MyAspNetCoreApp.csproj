@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>6ca2a36f-6cc7-4d98-9cd4-724a3953a16b</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <ContainerBaseImage>ghcr.io/lancemccarthy/reporting-aspnet:9.0</ContainerBaseImage>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -17,6 +18,12 @@
 		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="19.0.25.211" />
 		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.1.211" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.2" />
+  
+    <!-- For stripped down container environments -->
+    <PackageReference Include="SkiaSharp" Version="3.116.1" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.116.1" />
+		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.116.1" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.116.1" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
