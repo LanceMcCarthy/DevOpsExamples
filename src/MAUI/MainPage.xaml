@@ -11,28 +11,46 @@
                                            EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <ContentPage.Resources>
-        <DataTemplate x:Key="GridTemplateForRowDetails" 
-                      x:DataType="models:Employee">
-            <local:RowDetailsView />
-        </DataTemplate>
-    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*,Auto">
+        <Grid Background="{Binding BackgroundColor, Source={x:Reference MyToolbar}}" 
+              HorizontalOptions="Fill">
+            <telerik:RadToolbar x:Name="MyToolbar"
+                                HorizontalOptions="Center">
+                <telerik:ButtonToolbarItem Text="Button">
+                    <telerik:ButtonToolbarItem.ImageSource>
+                        <FontImageSource Glyph="{x:Static telerik:TelerikFont.IconUndo}"
+                                         FontFamily="{x:Static telerik:TelerikFont.Name}"
+                                         Size="16" />
+                    </telerik:ButtonToolbarItem.ImageSource>
+                </telerik:ButtonToolbarItem>
 
-    <Grid RowDefinitions="*,Auto">
+                <telerik:SeparatorToolbarItem />
+
+                <telerik:ToggleButtonToolbarItem Text="ToggleButton">
+                    <telerik:ToggleButtonToolbarItem.ImageSource>
+                        <FontImageSource Glyph="{x:Static telerik:TelerikFont.IconBold}"
+                                         FontFamily="{x:Static telerik:TelerikFont.Name}"
+                                         Size="16" />
+                    </telerik:ToggleButtonToolbarItem.ImageSource>
+                </telerik:ToggleButtonToolbarItem>
+            </telerik:RadToolbar>
+        </Grid>
+
         <telerik:RadDataGrid x:Name="EmployeesGrid"
                              ItemsSource="{Binding Employees}"
                              AutoGenerateColumns="False"
-                             RowDetailsTemplate="{StaticResource GridTemplateForRowDetails}">
+                             Grid.Row="1">
             <telerik:RadDataGrid.Columns>
-                <telerik:DataGridToggleRowDetailsColumn IsFrozen="True"/>
-                <telerik:DataGridTextColumn PropertyName="Name" HeaderText="Name" />
-                <telerik:DataGridNumericalColumn PropertyName="Position" HeaderText="Position" />
+                <telerik:DataGridTextColumn PropertyName="Name"
+                                            HeaderText="Name" />
+                <telerik:DataGridNumericalColumn PropertyName="Position"
+                                                 HeaderText="Position" />
             </telerik:RadDataGrid.Columns>
         </telerik:RadDataGrid>
 
         <HorizontalStackLayout Spacing="10"
                                Padding="10"
-                               Grid.Row="1">
+                               Grid.Row="2">
             <telerik:RadButton Text="Start Over"
                                Command="{Binding StartOverCommand}" />
             <telerik:RadButton Text="Add Range (5)"

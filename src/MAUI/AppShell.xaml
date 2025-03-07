@@ -5,6 +5,10 @@
        xmlns:local="clr-namespace:MauiDemo"
        Shell.FlyoutBehavior="Flyout">
 
+    <ShellContent Title="Scheduler"
+                  ContentTemplate="{DataTemplate local:SchedulerPage}"
+                  Route="SchedulerPage" />
+
     <ShellContent Title="Home"
                   ContentTemplate="{DataTemplate local:MainPage}"
                   Route="MainPage" />

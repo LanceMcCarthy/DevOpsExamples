@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mauiDemo="clr-namespace:MauiDemo"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             x:Class="MauiDemo.SchedulerPage"
+             Title="SchedulerPage"
+             x:DataType="mauiDemo:SchedulerPageViewModel">
+
+    <ContentPage.Resources>
+        <mauiDemo:CustomAppointmentDataTemplate x:Key="CustomAppointmentDataTemplate">
+            <mauiDemo:CustomAppointmentDataTemplate.AllDayAppointmentTemplate>
+                <DataTemplate x:DataType="telerik:AppointmentNode">
+                    <telerik:RadBorder CornerRadius="4"
+                                       IsClippedToBounds="True"
+                                       BackgroundColor="#B2DFDB">
+                        <Grid>
+                            <BoxView WidthRequest="4"
+                                     BackgroundColor="#00897B"
+                                     HorizontalOptions="Start" />
+                            <HorizontalStackLayout Spacing="4"
+                                                   Margin="6, 0, 4, 0">
+                                <Label Text="&#xe83a;"
+                                       FontFamily="TelerikFontExamples"
+                                       TextColor="#00796B"
+                                       VerticalTextAlignment="Center" />
+                                <Label Text="{Binding Occurrence.Appointment.Subject}"
+                                       TextColor="Black"
+                                       VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </telerik:RadBorder>
+                </DataTemplate>
+            </mauiDemo:CustomAppointmentDataTemplate.AllDayAppointmentTemplate>
+            <mauiDemo:CustomAppointmentDataTemplate.AppointmentTemplate>
+                <DataTemplate  x:DataType="telerik:AppointmentNode">
+                    <telerik:RadBorder CornerRadius="4"
+                                       IsClippedToBounds="True"
+                                       BackgroundColor="#D2C6E6">
+                        <Grid>
+                            <BoxView WidthRequest="4"
+                                     BackgroundColor="#8660C5"
+                                     HorizontalOptions="Start" />
+                            <Label Text="{Binding Occurrence.Appointment.Subject}"
+                                   TextColor="Black"
+                                   Margin="6, 0, 4, 0" />
+                        </Grid>
+                    </telerik:RadBorder>
+                </DataTemplate>
+            </mauiDemo:CustomAppointmentDataTemplate.AppointmentTemplate>
+        </mauiDemo:CustomAppointmentDataTemplate>
+    </ContentPage.Resources>
+
+    <Grid>
+        <telerik:RadScheduler x:Name="scheduler" 
+                              AppointmentsSource="{Binding Appointments}"
+                              AppointmentTemplate="{StaticResource CustomAppointmentDataTemplate}">
+            <telerik:RadScheduler.ViewDefinitions>
+                <telerik:DayViewDefinition />
+                <telerik:WeekViewDefinition Title="Work Week" IsWeekendVisible="False" />
+                <telerik:MonthViewDefinition />
+            </telerik:RadScheduler.ViewDefinitions>
+        </telerik:RadScheduler>
+    </Grid>
+</ContentPage>

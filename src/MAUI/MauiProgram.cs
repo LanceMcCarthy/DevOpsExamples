@@ -32,9 +32,14 @@ public static class MauiProgram
                 fonts.AddFont("telerikfontexamples.ttf", "telerikfontexamples");
             });
 
+        // Register views with DI
         builder.Services.AddSingleton<AppShell>();
         builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<SchedulerPage>();
+
+        // Register viewmodels with DI
         builder.Services.AddSingleton<MainViewModel>();
+        builder.Services.AddSingleton<SchedulerPageViewModel>();
 
         builder.ConfigureLifecycleEvents(events =>
         {
