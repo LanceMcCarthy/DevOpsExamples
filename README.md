@@ -244,11 +244,18 @@ With a YAML pipeline, you can use the **DownloadSecureFile@1** task, then use `$
 
 ##### Classic Pipeline
 
-With a classic pipeline, you'll still use the same Task, but you must manually set the output variable's name
+With a classic pipeline, you can use the same `DownloadSecureFile` Task
 
 ![Image](https://github.com/user-attachments/assets/8c9f0aa4-0ef8-48a9-9805-b0686db1109c)
 
-With the secure file downlaoded to the runner, you can copy it into the solution directory:
+> [!IMPORTANT]
+> See the screenshot above. You must set the output variable's name, this is the **reference name** which gets prepended to the `.secureFilePath` output variable.
+
+With the secure file downloaded to the runner, you have two options again:
+
+- A) Set the TELERIK_LICENSE_PATH variable with the path $(telerik.secureFilePath)
+- or
+- B) Copy the actual license file to a directory you want to use it in.
 
 ![Image](https://github.com/user-attachments/assets/0b1fd81f-5ee6-49e1-8ce3-031ed379c1d6)
 
