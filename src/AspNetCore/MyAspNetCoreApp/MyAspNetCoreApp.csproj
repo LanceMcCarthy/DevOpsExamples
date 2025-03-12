@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>6ca2a36f-6cc7-4d98-9cd4-724a3953a16b</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <ContainerBaseImage>ghcr.io/lancemccarthy/reporting-aspnet:9.0</ContainerBaseImage>
+    <ContainerBaseImage>ghcr.io/lancemccarthy/skia-aspnet:9.0</ContainerBaseImage>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -48,5 +48,4 @@
 			<UserProperties UseCdnSupport="" />
 		</VisualStudio>
 	</ProjectExtensions>
-
 </Project>
