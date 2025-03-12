@@ -22,8 +22,7 @@ env:
   CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   DOTNET_VERSION: "9.0.x"
-  # Custom base image with Skia dependencies pre-installed
-  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/reporting-aspnet:9.0"
+  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0" # Custom base image with Skia dependencies pre-installed
 
 jobs:
   ##############################################
