@@ -14,7 +14,7 @@ on:
 env:
   TELERIK_USERNAME: "api-key" # Variable name used in the nuget.config file
   TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Variable name used in the nuget.config file
-  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}} # Used when compiling the project
+  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}} # Used when compiling the project
   CSPROJ_PATH: "src/WinForms/MyWinFormsApp/MyWinFormsApp.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
 

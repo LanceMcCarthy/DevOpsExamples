@@ -12,7 +12,7 @@ on:
       - '.github/workflows/main_build-maui.yml' 
 
 env:
-  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE}}
+  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   DOTNET_VERSION: "9.0.x"

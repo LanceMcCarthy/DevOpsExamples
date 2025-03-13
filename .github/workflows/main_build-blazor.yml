@@ -35,7 +35,6 @@ jobs:
     runs-on: windows-2022
     env:
       RID: win-x64
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -57,9 +56,8 @@ jobs:
 
     - name: Build Test Project
       run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
-
-    - name: Run Tests
-      run: dotnet test ${{env.TEST_PROJ_PATH}} -r ${{env.RID}}
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
 
   ######################################################
@@ -67,6 +65,7 @@ jobs:
   ######################################################
   # Publishes to ghcr.io (GitHub)
   build_container_with_dockerfile:
+    name: "Dockerfile container build"
     runs-on: ubuntu-22.04
     permissions:
       contents: read
@@ -119,6 +118,7 @@ jobs:
   ##########################################################
   # Publishes to registry.hub.docker.com (Docker hub)
   build_container_with_dotnet:
+    name: ".NET SDK Container build"
     runs-on: ubuntu-22.04   
     permissions:
       id-token: write

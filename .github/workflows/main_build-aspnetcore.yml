@@ -22,7 +22,8 @@ env:
   CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   DOTNET_VERSION: "9.0.x"
-  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0" # Custom base image with Skia dependencies pre-installed
+  # Custom base image with Skia dependencies pre-installed, only used by the .NET SDK container build.
+  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0" 
 
 jobs:
   ##############################################
@@ -55,12 +56,6 @@ jobs:
           }
         export-secrets-to-outputs: true
         export-secrets-to-environment: false
-
-    # Not needed since Q1 2025
-    # - name: Create Kendo license file in the appropriate project directory
-    #   run: |
-    #     cd ${{env.WORKING_DIRECTORY}}/wwwroot/js
-    #     echo ${{steps.akeyless.outputs.KENDO_LICENSE_FILE}} > kendo-ui-license.js
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -106,7 +101,6 @@ jobs:
       build_tag: ${{steps.build.outputs.build_tag}}
     env:
       target_arch: "x64"
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -139,6 +133,8 @@ jobs:
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
   build_arm64:
     runs-on: ubuntu-22.04
@@ -149,7 +145,6 @@ jobs:
       build_tag: ${{steps.build.outputs.build_tag}}
     env:
       target_arch: "arm64"
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -182,6 +177,8 @@ jobs:
 
         # Job output the arch-specific container name so we can publish a multi-arch image later
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
   publish_combined_manifest:
     runs-on: ubuntu-22.04
