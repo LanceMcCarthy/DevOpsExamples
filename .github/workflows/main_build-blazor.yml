@@ -17,7 +17,7 @@ on:
 permissions:
   contents: read
   packages: write # to publish to GitHub container registry
-  id-token: write # only for Akeyless auth
+  id-token: write # # JWT for Akeyless auth
 
 env:
   CONFIGURATION: Release
@@ -83,13 +83,6 @@ jobs:
         tags="$buildDay.$GITHUB_RUN_NUMBER"
         echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
 
-    - name: Login to ghcr.io
-      uses: docker/login-action@v3
-      with:
-        registry: ${{env.CONTAINER_IMAGE_REGISTRY}}
-        username: ${{github.actor}}
-        password: ${{secrets.GITHUB_TOKEN}}
-
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
@@ -101,6 +94,13 @@ jobs:
       uses: docker/metadata-action@v5
       with:
         images: ${{env.CONTAINER_REPOSITORY}}
+
+    - name: Login to ghcr.io
+      uses: docker/login-action@v3
+      with:
+        registry: ${{env.CONTAINER_IMAGE_REGISTRY}}
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
 
     - name: Build and Publish arm64, amd64 Container Images
       uses: docker/build-push-action@v5
