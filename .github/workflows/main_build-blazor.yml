@@ -16,7 +16,8 @@ on:
       
 permissions:
   contents: read
-  packages: write
+  packages: write # to publish to GitHub container registry
+  id-token: write # only for Akeyless auth
 
 env:
   CONFIGURATION: Release
@@ -24,7 +25,7 @@ env:
   TEST_PROJ_PATH: src/Blazor/MyBlazorApp.Tests/MyBlazorApp.Tests.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
   DOTNET_VERSION: "9.0.x"
-  CONTAINER_BASE_IMAGE: "mcr.microsoft.com/dotnet/aspnet:9.0"
+  CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:9.0"
   CONTAINER_IMAGE_NAME: "lancemccarthy/myblazorapp"
 
 jobs:
@@ -67,11 +68,7 @@ jobs:
   build_container_with_dockerfile:
     name: "Dockerfile container build"
     runs-on: ubuntu-22.04
-    permissions:
-      contents: read
-      packages: write
     env:
-      RID: win-x64
       CONTAINER_IMAGE_REGISTRY: "ghcr.io"
     steps:
     - name: Checkout
@@ -86,18 +83,24 @@ jobs:
         tags="$buildDay.$GITHUB_RUN_NUMBER"
         echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
     - name: Login to ghcr.io
       uses: docker/login-action@v3
       with:
         registry: ${{env.CONTAINER_IMAGE_REGISTRY}}
         username: ${{github.actor}}
         password: ${{secrets.GITHUB_TOKEN}}
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Get package metadata from Docker Hub
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{env.CONTAINER_REPOSITORY}}
 
     - name: Build and Publish arm64, amd64 Container Images
       uses: docker/build-push-action@v5
@@ -119,20 +122,11 @@ jobs:
   # Publishes to registry.hub.docker.com (Docker hub)
   build_container_with_dotnet:
     name: ".NET SDK Container build"
-    runs-on: ubuntu-22.04   
-    permissions:
-      id-token: write
-      contents: read
+    runs-on: ubuntu-22.04
     env:
-      TELERIK_USERNAME: "api-key"
-      TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
-      RID: linux-x64
-      CONTAINER_IMAGE_REGISTRY: "registry.hub.docker.com"
-      CONTAINER_RID: "linux-x64"
+      CONTAINER_REGISTRY: "registry.hub.docker.com"
       CONTAINER_ARCH: "x64"
       CONTAINER_OS: "linux"
-
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -146,14 +140,11 @@ jobs:
 
     - name: Restore NuGet Packages
       run: |
-        dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
-        dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
-
-    - name: Build Unit Test Project
-      run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
-
-    - name: Run Unit Tests
-      run: dotnet test ${{env.TEST_PROJ_PATH}} -r ${{env.RID}}
+        dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "${{env.CONTAINER_OS}}-${{env.CONTAINER_ARCH}}"
+        dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r "${{env.CONTAINER_OS}}-${{env.CONTAINER_ARCH}}"
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: Fetch secrets from AKeyless
       id: akeyless
@@ -169,8 +160,21 @@ jobs:
         export-secrets-to-environment: false
 
     - name: Login to Docker Hub
-      run: docker login ${{env.CONTAINER_IMAGE_REGISTRY}} -u ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}} -p ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
+      run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}} -p ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
 
     # https://learn.microsoft.com/en-us/dotnet/core/docker/publish-as-container
     - name: Publish Blazor Project to Docker Hub
-      run: dotnet publish ${{env.BLAZOR_PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-build --os ${{env.CONTAINER_OS}} --arch ${{env.CONTAINER_ARCH}} -p PublishProfile=DefaultContainer -p ContainerRuntimeIdentifier=${{env.CONTAINER_RID}} -p ContainerRegistry=${{env.CONTAINER_IMAGE_REGISTRY}} -p ContainerRepository=${{env.CONTAINER_IMAGE_NAME}} -p ContainerImageTag="latest" -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
+      run: |
+        dotnet publish ${{env.BLAZOR_PROJ_PATH}} \
+          -c ${{env.CONFIGURATION}} \
+          --no-restore \
+          --os ${{env.CONTAINER_OS}} \
+          --arch ${{env.CONTAINER_ARCH}} \
+          -p PublishProfile=DefaultContainer \
+          -p ContainerRuntimeIdentifier="${{env.CONTAINER_OS}}-${{env.CONTAINER_ARCH}}" \
+          -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} \
+          -p ContainerRepository=${{env.CONTAINER_IMAGE_NAME}} \
+          -p ContainerImageTag="latest" \
+          -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
