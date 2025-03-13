@@ -84,6 +84,15 @@ jobs:
         tags: |
           ${{env.CONTAINER_REPOSITORY}}:latest
 
+    - name: Delete old (untagged) images
+      run: |
+        IMAGE_TAGS=$(curl -s "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results|.[]|.name')
+        for TAGG in $IMAGE_TAGS; do
+          if [[ "$TAGG" == "null" ]]; then
+            docker rmi "${{env.CONTAINER_REPOSITORY}}:$TAGG"
+            curl -s -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAGG/"
+          fi
+        done
 
   ##########################################################
   #         [Option B] .NET SDK CONTAINER BUILD            #
@@ -204,6 +213,13 @@ jobs:
         X86_TAG: ${{needs.build_x64.outputs.build_tag}}
         ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
 
+    - name: Delete old Docker images
+      uses: actions/delete-package-versions@v5
+      with:
+        package-name: "myaspnetcoreapp"
+        package-type: container
+        min-versions-to-keep: 3
+        token: ${{secrets.GITHUB_TOKEN}}
 
 # Matrix experiments
   # dotnet_container_build:

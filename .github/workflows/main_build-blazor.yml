@@ -26,7 +26,7 @@ env:
   NUGET_CONFIG_PATH: src/NuGet.Config
   DOTNET_VERSION: "9.0.x"
   CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:9.0"
-  CONTAINER_IMAGE_NAME: "lancemccarthy/myblazorapp"
+  CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
 
 jobs:
   #####################################################
@@ -112,10 +112,18 @@ jobs:
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
           telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
         tags: |
-          "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_IMAGE_NAME}}:${{steps.tag-creator.outputs.VERSION_TAG}}"
-          "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_IMAGE_NAME}}:latest"
+          "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{steps.tag-creator.outputs.VERSION_TAG}}"
+          "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
 
+    - name: Delete old Docker images
+      uses: actions/delete-package-versions@v5
+      with:
+        package-name: "myblazorapp"
+        package-type: container
+        min-versions-to-keep: 1
+        token: ${{secrets.GITHUB_TOKEN}}
 
+      
   ##########################################################
   ######### [Option C] .NET SDK CONTAINER BUILD ############
   ##########################################################
@@ -173,8 +181,18 @@ jobs:
           -p PublishProfile=DefaultContainer \
           -p ContainerRuntimeIdentifier="${{env.CONTAINER_OS}}-${{env.CONTAINER_ARCH}}" \
           -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} \
-          -p ContainerRepository=${{env.CONTAINER_IMAGE_NAME}} \
+          -p ContainerRepository=${{env.CONTAINER_REPOSITORY}} \
           -p ContainerImageTag="latest" \
           -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}}
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+    - name: Delete old (untagged) images
+      run: |
+        IMAGE_TAGS=$(curl -s "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results|.[]|.name')
+        for TAGG in $IMAGE_TAGS; do
+          if [[ "$TAGG" == "null" ]]; then
+            docker rmi "${{env.CONTAINER_REPOSITORY}}:$TAGG"
+            curl -s -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAGG/"
+          fi
+        done
