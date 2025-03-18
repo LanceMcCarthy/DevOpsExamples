@@ -220,6 +220,6 @@ jobs:
       solution: '$(ajaxProjectPath)'
       platform: Any CPU
       configuration: Release
-      msbuildArguments: '/p:RestorePackages=false'
+      msbuildArguments: '/p:RestorePackages=true'
     env:
       TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # SecFile B) Set the TELERIK_LICENSE_PATH variable using the secureFilePath value
