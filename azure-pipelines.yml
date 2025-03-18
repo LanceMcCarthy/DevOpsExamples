@@ -55,7 +55,7 @@ jobs:
 # *************************************************************** #
 # *              CONSOLE (uses Akeyless secrets)                * #
 # *************************************************************** #
-- job: BuildConsoleApp1
+- job: BuildConsoleApp_Akeyless
   pool:
     vmImage: 'windows-latest'
   steps:
@@ -101,7 +101,7 @@ jobs:
 # *************************************************************** #
 # *              CONSOLE (uses Service connection)              * #
 # *************************************************************** #
-- job: BuildConsoleApp2
+- job: BuildConsoleApp_ServiceConnection
   pool:
     vmImage: 'ubuntu-latest'
   steps:
@@ -182,7 +182,7 @@ jobs:
 # *************************************************************** #
 # *                ASP.NET AJAX (.NET Framework)                * #
 # *************************************************************** #
-- job: BuildWebformsApp
+- job: BuildAjaxApp
   pool:
     vmImage: 'windows-latest'
   steps:
