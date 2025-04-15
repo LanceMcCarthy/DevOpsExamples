@@ -27,9 +27,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.183">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Telerik.WinUI.Controls" Version="3.0.0" />
 		<PackageReference Include="CommonHelpers" Version="1.4.1" />
-		<PackageReference Include="PInvoke.User32" Version="0.7.124" />
 		<PackageReference Include="WinUIEx" Version="2.5.1" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
