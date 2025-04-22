@@ -291,7 +291,7 @@ jobs:
     displayName: 'Build winUI Project'
     inputs:
       solution: '$(winuiProjectPath)'
-      platform: Any CPU
+      platform: x64|ARM64
       configuration: Release
       msbuildArguments: '/p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
     env:
