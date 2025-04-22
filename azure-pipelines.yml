@@ -299,8 +299,21 @@ jobs:
     inputs:
       secureFile: 'Lancelot Software, LLC.pfx'
 
-  - name: Build and Create MSIX
-    run: msbuild $(winuiProjectPath) /p:Configuration=Release /p:Platform=$(BUILD_PLATFORM) /p:AppxBundlePlatforms=$(BUNDLE_PLATFORMS) /p:AppxPackageSigningEnabled=$(MSIX_SIGNING_ENABLED) /p:PackageCertificateKeyFile=$(PFX_FILE_PATH) /p:PackageCertificatePassword=$(PFX_PASSWORD) /p:PackageCertificateThumbprint=$(PFX_THUMBPRINT) /p:AppxPackageDir=$(MSIX_PACKAGE_DIR) /p:GenerateAppxPackageOnBuild=$(MSIX_GENERATE_PACKAGE) /p:UapAppxPackageBuildMode=$(MSIX_BUILDMODE) /p:AppxBundleBuildMode=$(MSIX_BUILDMODE) /p:AppxBundleDir=$(MSIX_PACKAGE_DIR) /p:AppxBundle=$(MSIX_BUNDLE)
+  - powershell: |
+      msbuild $(winuiProjectPath) /p:Configuration=Release `
+        /p:Platform=$(BUILD_PLATFORM) `
+        /p:AppxBundlePlatforms=$(BUNDLE_PLATFORMS) `
+        /p:AppxPackageSigningEnabled=$(MSIX_SIGNING_ENABLED) `
+        /p:AppxPackageDir=$(MSIX_PACKAGE_DIR) `
+        /p:AppxBundleBuildMode=$(MSIX_BUILDMODE)`
+        /p:AppxBundle=$(MSIX_BUNDLE) `
+        /p:AppxBundleDir=$(MSIX_PACKAGE_DIR) `
+        /p:GenerateAppxPackageOnBuild=$(MSIX_GENERATE_PACKAGE) `
+        /p:PackageCertificateKeyFile=$(PFX_FILE_PATH) `
+        /p:PackageCertificatePassword=$(PFX_PASSWORD) `
+        /p:PackageCertificateThumbprint=$(PFX_THUMBPRINT) `
+        /p:UapAppxPackageBuildMode=$(MSIX_BUILDMODE)
+    displayName: Build and Create MSIX
     env:
       PFX_FILE_PATH: $(PfxDownloadStep.secureFilePath) # Reference the secureFilePath value
       PFX_PASSWORD: $(LancelotSoftwarePfx2023Password) # From KeyVault
