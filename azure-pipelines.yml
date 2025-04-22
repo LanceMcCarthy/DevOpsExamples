@@ -293,27 +293,27 @@ jobs:
   - powershell: msbuild $(winuiProjectPath) /t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference
     displayName: 'Restore RIDs'
 
+  - task: MSBuild@1
+    displayName: 'Restore RIDs'
+    inputs:
+      solution: '$(winuiProjectPath)'
+      platform: x64
+      configuration: Release
+      msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
+
   - task: DownloadSecureFile@1
     name: PfxDownloadStep
     displayName: 'Download PFX'
     inputs:
       secureFile: 'LancelotSoftwareLLC.pfx'
 
-  - powershell: |
-      msbuild $(winuiProjectPath) /p:Configuration=Release `
-        /p:Platform=$(BUILD_PLATFORM) `
-        /p:AppxBundlePlatforms=$(BUNDLE_PLATFORMS) `
-        /p:AppxPackageSigningEnabled=$(MSIX_SIGNING_ENABLED) `
-        /p:AppxPackageDir=$(MSIX_PACKAGE_DIR) `
-        /p:AppxBundleBuildMode=$(MSIX_BUILDMODE)`
-        /p:AppxBundle=$(MSIX_BUNDLE) `
-        /p:AppxBundleDir=$(MSIX_PACKAGE_DIR) `
-        /p:GenerateAppxPackageOnBuild=$(MSIX_GENERATE_PACKAGE) `
-        /p:PackageCertificateKeyFile=$(PFX_FILE_PATH) `
-        /p:PackageCertificatePassword=$(PFX_PASSWORD) `
-        /p:PackageCertificateThumbprint=$(PFX_THUMBPRINT) `
-        /p:UapAppxPackageBuildMode=$(MSIX_BUILDMODE)
-    displayName: Build and Create MSIX
+  - task: MSBuild@1
+    displayName: 'Build and Create MSIX'
+    inputs:
+      solution: '$(winuiProjectPath)'
+      platform: x64
+      configuration: Release
+      msbuildArguments: '/p:AppxBundlePlatforms=$(BUNDLE_PLATFORMS) /p:AppxPackageSigningEnabled=$(MSIX_SIGNING_ENABLED) /p:AppxPackageDir=$(MSIX_PACKAGE_DIR) /p:AppxBundleBuildMode=$(MSIX_BUILDMODE) /p:AppxBundle=$(MSIX_BUNDLE) /p:AppxBundleDir=$(MSIX_PACKAGE_DIR) /p:GenerateAppxPackageOnBuild=$(MSIX_GENERATE_PACKAGE) /p:PackageCertificateKeyFile=$(PFX_FILE_PATH) /p:PackageCertificatePassword=$(PFX_PASSWORD) /p:PackageCertificateThumbprint=$(PFX_THUMBPRINT) /p:UapAppxPackageBuildMode=$(MSIX_BUILDMODE)'
     env:
       PFX_FILE_PATH: "$(PfxDownloadStep.secureFilePath)" # Reference the secureFilePath value
       PFX_PASSWORD: "$(LancelotSoftwarePfx2023Password)" # From KeyVault
@@ -324,7 +324,6 @@ jobs:
       MSIX_BUILDMODE: CI # only generates msix package, skips test subfolders
       MSIX_PACKAGE_DIR: Packages
       MSIX_BUNDLE: Always
-      BUILD_PLATFORM: x64
       BUNDLE_PLATFORMS: x64|arm64|x86
 
 
