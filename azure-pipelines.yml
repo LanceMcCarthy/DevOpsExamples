@@ -276,6 +276,8 @@ jobs:
 - job: BuildWinUI
   pool:
     vmImage: 'windows-latest'
+  variables:
+    group: 'KeyVaultVariables'
   steps:
   - task: UseDotNet@2
     inputs:
@@ -285,12 +287,31 @@ jobs:
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
-  - task: MSBuild@1
-    displayName: 'Build winUI Project'
+  - powershell: dotnet restore $(winuiProjectPath) --configfile $(nugetConfigPath)
+    displayName: 'Restore NuGet Packages'
+
+  - powershell: msbuild $(winuiProjectPath) /t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference
+    displayName: 'Restore RIDs'
+
+  - task: DownloadSecureFile@1
+    name: PfxDownloadStep
+    displayName: 'Download PFX'
     inputs:
-      solution: '$(winuiProjectPath)'
-      platform: x64
-      configuration: Release
-      msbuildArguments: '/p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
+      secureFile: 'Lancelot Software, LLC.pfx'
+
+  - name: Build and Create MSIX
+    run: msbuild $(winuiProjectPath) /p:Configuration=Release /p:Platform=$(BUILD_PLATFORM) /p:AppxBundlePlatforms=$(BUNDLE_PLATFORMS) /p:AppxPackageSigningEnabled=$(MSIX_SIGNING_ENABLED) /p:PackageCertificateKeyFile=$(PFX_FILE_PATH) /p:PackageCertificatePassword=$(PFX_PASSWORD) /p:PackageCertificateThumbprint=$(PFX_THUMBPRINT) /p:AppxPackageDir=$(MSIX_PACKAGE_DIR) /p:GenerateAppxPackageOnBuild=$(MSIX_GENERATE_PACKAGE) /p:UapAppxPackageBuildMode=$(MSIX_BUILDMODE) /p:AppxBundleBuildMode=$(MSIX_BUILDMODE) /p:AppxBundleDir=$(MSIX_PACKAGE_DIR) /p:AppxBundle=$(MSIX_BUNDLE)
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      PFX_FILE_PATH: $(PfxDownloadStep.secureFilePath) # Reference the secureFilePath value
+      PFX_PASSWORD: $(LancelotSoftwarePfx2023Password) # From KeyVault
+      PFX_THUMBPRINT: $(LancelotSoftwarePfx2023Thumbprint) # From KeyVault
+      TELERIK_LICENSE: $(TelerikLicenseKey) # From KeyVault
+      MSIX_GENERATE_PACKAGE: true
+      MSIX_SIGNING_ENABLED: true
+      MSIX_BUILDMODE: CI # only generates msix package, skips test subfolders
+      MSIX_PACKAGE_DIR: Packages
+      MSIX_BUNDLE: Always
+      BUILD_PLATFORM: x64
+      BUNDLE_PLATFORMS: x64|arm64|x86
+
+
