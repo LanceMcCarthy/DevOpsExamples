@@ -2,14 +2,15 @@ trigger:
   branches:
     include:
     - main
-  paths:
-   include:
-     - 'azure-pipelines.yml'
-     - 'src/Kendo/angular_demo/**/*'
-     - 'src/Console/**/*'
-     - 'src/Ajax/**/*'
-     - 'src/Blazor/**/*'
-     - 'src/AspNetCore/**/*'
+  # To avoid uneccessary builds, I am manually triggering a pipeline run. In a real scenario, you would set the path trigger to the code folder
+  # paths:
+  #  include:
+  #    - 'azure-pipelines.yml'
+  #    - 'src/Kendo/angular_demo/**/*'
+  #    - 'src/Console/**/*'
+  #    - 'src/Ajax/**/*'
+  #    - 'src/Blazor/**/*'
+  #    - 'src/AspNetCore/**/*'
 
 variables:
   DOTNET_SDK_VERSION: '9.0.x'
@@ -19,10 +20,11 @@ variables:
   ajaxProjectPath: 'src/Ajax/MySite.sln'
   blazorProjectPath: 'src/Blazor/MyBlazorApp.sln'
   aspnetProjectPath: 'src/AspNetCore/MyAspNetCoreApp.sln'
-# The following are saved as secret pipeline variables (in online AzDO editor)
-# AKEYLESS_ACCESS_ID
-# MY_TELERIK_NUGET_KEY
-# MY_TELERIK_LICENSE_KEY
+  winuiProjectPath: 'src/WinUI/MyDemo.sln'
+  # Pipeline variables, set using the AzDO yaml editor at dev.azure.com
+  # AKEYLESS_ACCESS_ID
+  # MY_TELERIK_NUGET_KEY
+  # MY_TELERIK_LICENSE_KEY
 
 jobs:
 # *************************************************************** #
@@ -268,3 +270,29 @@ jobs:
       msbuildArguments: '/p:RestorePackages=true'
     env:
       TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # SecFile B) Set the TELERIK_LICENSE_PATH variable using the secureFilePath value
+
+
+# ************************************************************* #
+# *                         WinUI 3                           * #
+# ************************************************************* #
+- job: BuildWinUI
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
+
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+    displayName: 'Update Package Source Credentials'
+
+  - task: MSBuild@1
+    displayName: 'Build winUI Project'
+    inputs:
+      solution: '$(winuiProjectPath)'
+      platform: Any CPU
+      configuration: Release
+      msbuildArguments: '/p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
