@@ -315,9 +315,9 @@ jobs:
         /p:UapAppxPackageBuildMode=$(MSIX_BUILDMODE)
     displayName: Build and Create MSIX
     env:
-      PFX_FILE_PATH: $(PfxDownloadStep.secureFilePath) # Reference the secureFilePath value
-      PFX_PASSWORD: $(LancelotSoftwarePfx2023Password) # From KeyVault
-      PFX_THUMBPRINT: $(LancelotSoftwarePfx2023Thumbprint) # From KeyVault
+      PFX_FILE_PATH: "$(PfxDownloadStep.secureFilePath)" # Reference the secureFilePath value
+      PFX_PASSWORD: "$(LancelotSoftwarePfx2023Password)" # From KeyVault
+      PFX_THUMBPRINT: "$(LancelotSoftwarePfx2023Thumbprint)" # From KeyVault
       TELERIK_LICENSE: $(TelerikLicenseKey) # From KeyVault
       MSIX_GENERATE_PACKAGE: true
       MSIX_SIGNING_ENABLED: true
