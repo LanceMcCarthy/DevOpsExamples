@@ -26,30 +26,75 @@ variables:
 
 jobs:
 # *************************************************************** #
-# *                      KENDO ANGULAR                          * #
+# *                 KENDO ANGULAR (env var)                     * #
 # *************************************************************** #
-- job: BuildAngularApp
+- job: BuildAngularAppWithVariables
   pool:
     vmImage: 'ubuntu-latest'
   steps:
+  # Handle dependencies
   - powershell: |
-      # Move to the angular project
-      cd src\Kendo\angular_demo
-
-      # Clear the angular cache, it may hold outdated key value
+      # 1. Clean the angular cache, to avoid using any expired keys
       rm -rf .angular/cache
 
-      # Just incase the project doesnt have it installed yet, add the licensing package now
-      npm install --save @progress/kendo-licensing;
+      # 2. Install your project dependencies
+      npm install
 
-      # Active the license
-      npx kendo-ui-license activate
+      # 2.b - If you don't already have the @progress/kendo-licensing dependency, you can add it now.
+      # npm install --save @progress/kendo-licensing;
+    workingDirectory: "src/Kendo/angular_demo"
+    displayName: "Install dependencies"
 
-      # build the project
-      npm run build
-    displayName: "clean angular cache"
+  # Activate the license using the environment variable.
+  - powershell: npx kendo-ui-license activate
+    workingDirectory: "src/Kendo/angular_demo"
+    displayName: "Activate license"
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)  # AzDO pipeline secret variable
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+
+  # Build the project
+  - powershell: npm run build
+    workingDirectory: "src/Kendo/angular_demo"
+    displayName: "Build project"
+
+# *************************************************************** #
+# *               KENDO ANGULAR (secure file)                   * #
+# *************************************************************** #
+- job: BuildAngularAppWithVariables
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  # Download the license key file (this MUST have a 'name' so it can be referenced later).
+  - task: DownloadSecureFile@1
+    name: DownloadTelerikLicenseFile
+    displayName: 'Download SecureFile'
+    inputs:
+      secureFile: 'telerik-license.txt'
+
+  # Handle dependencies
+  - powershell: |
+      # 1. Clean the angular cache, to avoid using any expired keys
+      rm -rf .angular/cache
+
+      # 2. Install your project dependencies
+      npm install
+
+      # 2.b - If you don't already have the @progress/kendo-licensing dependency, you can add it now.
+      # npm install --save @progress/kendo-licensing;
+    workingDirectory: "src/Kendo/angular_demo"
+    displayName: "Install dependencies"
+
+  # Activate the license using the secure file downloaded above.
+  - powershell: npx kendo-ui-license activate
+    workingDirectory: "src/Kendo/angular_demo"
+    displayName: "Activate license"
+    env:
+      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath)
+    
+  # Build the project
+  - powershell: npm run build
+    workingDirectory: "src/Kendo/angular_demo"
+    displayName: "Build project"
 
 
 # *************************************************************** #
