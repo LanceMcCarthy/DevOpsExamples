@@ -297,7 +297,7 @@ jobs:
     name: PfxDownloadStep
     displayName: 'Download PFX'
     inputs:
-      secureFile: 'Lancelot Software, LLC.pfx'
+      secureFile: 'LancelotSoftwareLLC.pfx'
 
   - powershell: |
       msbuild $(winuiProjectPath) /p:Configuration=Release `
