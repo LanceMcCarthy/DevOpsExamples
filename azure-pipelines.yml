@@ -227,16 +227,14 @@ jobs:
 
 
 # *************************************************************** #
-# *                ASP.NET AJAX (.NET Framework)                * #
+# *          ASP.NET AJAX (.NET Framework - SecureFile)         * #
 # *************************************************************** #
 - job: BuildAjaxApp
   pool:
     vmImage: 'windows-latest'
   steps:
-  # ------------------------- Secure File Example ------------------------- #
-  # SecFile A) Download the license key file from your Secure Files library.
   - task: DownloadSecureFile@1
-    name: DownloadTelerikLicenseFile
+    name: DownloadTelerikLicenseFile  # Note 1: Make sure a name value is set, it's referenced later.
     displayName: 'Download Telerik License Key File'
     inputs:
       secureFile: 'telerik-license.txt'
@@ -269,7 +267,7 @@ jobs:
       configuration: Release
       msbuildArguments: '/p:RestorePackages=true'
     env:
-      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # SecFile B) Set the TELERIK_LICENSE_PATH variable using the secureFilePath value
+      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # Note 2: We use the name to reference the secureFilePath value
 
 
 # ************************************************************* #
@@ -291,7 +289,7 @@ jobs:
     displayName: 'Build winUI Project'
     inputs:
       solution: '$(winuiProjectPath)'
-      platform: x64|ARM64
+      platform: x64
       configuration: Release
       msbuildArguments: '/p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
     env:
