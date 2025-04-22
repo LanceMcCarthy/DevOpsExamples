@@ -60,7 +60,7 @@ jobs:
 # *************************************************************** #
 # *               KENDO ANGULAR (secure file)                   * #
 # *************************************************************** #
-- job: BuildAngularAppWithVariables
+- job: BuildAngularAppWithSecureFile
   pool:
     vmImage: 'ubuntu-latest'
   steps:
