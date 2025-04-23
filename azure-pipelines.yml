@@ -303,15 +303,12 @@ jobs:
       solution: '$(winuiProjectPath)'
       platform: x64
       configuration: Release
-      msbuildArguments: '/p:WindowsAppSDKSelfContained=$env:SELF_CONTAINED /p:GenerateAppxPackageOnBuild=$env:MSIX_GEN_PACKAGE /p:AppxBundlePlatforms=$env:MSIX_PLATFORMS /p:AppxPackageDir=$env:PACKAGE_DIR /p:AppxBundle=Never /p:AppxPackageSigningEnabled=$env:MSIX_SIGNING /p:PackageCertificateKeyFile=$env:PFX_PATH /p:PackageCertificatePassword=$env:PFX_PASS /p:PackageCertificateThumbprint=$env:PFX_THUMB /p:UapAppxPackageBuildMode=$env:MSIX_BUILD_MODE'
+      msbuildArguments: '/p:UapAppxPackageBuildMode=$env:MSIX_BUILD_MODE /p:AppxBundle=Never /p:PackageCertificateKeyFile=$env:PFX_PATH /p:PackageCertificatePassword=$env:PFX_PASS /p:AppxPackageDir=$env:PACKAGE_DIR /p:GenerateAppxPackageOnBuild=$env:MSIX_GEN_PACKAGE /p:AppxPackageSigningEnabled=$env:MSIX_SIGNING'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
       PFX_PATH: "$(PfxDownloadStep.secureFilePath)"
-      PFX_PASS: $(PfxPassword)
-      PFX_THUMB: "8c787ddfab5dd35c64ae7914982780cf25b9f839"
+      PFX_PASS: "$(PfxPassword)"
       PACKAGE_DIR: "$(Build.ArtifactStagingDirectory)/WinUI"
-      SELF_CONTAINED: true
       MSIX_GEN_PACKAGE: true
       MSIX_SIGNING: true
-      MSIX_PLATFORMS: "x64|arm64"
       MSIX_BUILD_MODE: SideloadOnly
