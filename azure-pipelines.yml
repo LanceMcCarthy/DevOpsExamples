@@ -290,9 +290,6 @@ jobs:
   - powershell: dotnet restore $(winuiProjectPath) --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
 
-  - powershell: msbuild $(winuiProjectPath) /t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference
-    displayName: 'Restore RIDs'
-
   - task: MSBuild@1
     displayName: 'Restore RIDs'
     inputs:
