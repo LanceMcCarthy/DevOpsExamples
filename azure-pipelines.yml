@@ -310,7 +310,6 @@ jobs:
       solution: '$(winuiProjectPath)'
       platform: x64
       configuration: Release
-      msbuildArguments: '/p:GenerateAppxPackageOnBuild=true /p:AppxBundlePlatforms="x64|arm64" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/WinUI" /p:AppxBundle=Never /p:AppxPackageSigningEnabled=true /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" /p:PackageCertificatePassword="$(LancelotSoftwarePfx2023Password)" /p:PackageCertificateThumbprint="$(LancelotSoftwarePfx2023Thumbprint)" /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArguments: '/p:WindowsAppSDKSelfContained=true /p:GenerateAppxPackageOnBuild=true /p:AppxBundlePlatforms="x64|arm64" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/WinUI" /p:AppxBundle=Never /p:AppxPackageSigningEnabled=true /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" /p:PackageCertificatePassword="$(LancelotSoftwarePfx2023Password)" /p:PackageCertificateThumbprint="$(LancelotSoftwarePfx2023Thumbprint)" /p:UapAppxPackageBuildMode=SideloadOnly'
     env:
-      PFX_FILE_PATH: "$(PfxDownloadStep.secureFilePath)"
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
