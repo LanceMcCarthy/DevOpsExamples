@@ -11,11 +11,11 @@ public partial class App : Microsoft.UI.Xaml.Application
 
     protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
     {
-        m_window = new MainWindow();
-        m_window.Activate();
+        mWindow = new MainWindow();
+        mWindow.Activate();
 
-        m_window.CenterOnScreen(1024,768);
+        mWindow.CenterOnScreen(1024,768);
     }
 
-    private Microsoft.UI.Xaml.Window m_window;
+    private Microsoft.UI.Xaml.Window mWindow = null!;
 }
