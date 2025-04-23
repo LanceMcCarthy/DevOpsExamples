@@ -17,6 +17,10 @@
     <NoWarn>CS8305;WMC1501</NoWarn>
     <NoWarn>$(NoWarn);IL2050</NoWarn>
     <IsAotCompatible>true</IsAotCompatible>
+		<SelfContained>true</SelfContained>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+	  <WindowsPackageType>MSIX</WindowsPackageType>
+	  <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
 	</PropertyGroup>
 
 	<ItemGroup>
