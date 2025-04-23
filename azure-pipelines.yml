@@ -125,7 +125,7 @@ jobs:
     displayName: 'Get Secrets from Akeyless'
     inputs:
       accessid: '$(AKEYLESS_ACCESS_ID)' # Stored as pipeline variable
-      azureJwt: '$(AzureCLI.azure_jwt)' # Output variable fomr the previous step
+      azureJwt: '$(AzureCLI.azure_jwt)' # Output variable from the previous step
       staticSecrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"NUGET_KEY"}'
 
   - task: UseDotNet@2
@@ -277,7 +277,7 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   variables:
-    group: 'KeyVaultVariables'
+    group: 'KeyVaultVariables'  # Azure KeyVault supplies LancelotSoftwarePfx2023Password
   steps:
   - task: UseDotNet@2
     inputs:
@@ -310,17 +310,7 @@ jobs:
       solution: '$(winuiProjectPath)'
       platform: x64
       configuration: Release
-      msbuildArguments: '/p:AppxBundlePlatforms=$(BUNDLE_PLATFORMS) /p:AppxPackageSigningEnabled=$(MSIX_SIGNING_ENABLED) /p:AppxPackageDir=$(MSIX_PACKAGE_DIR) /p:AppxBundleBuildMode=$(MSIX_BUILDMODE) /p:AppxBundle=$(MSIX_BUNDLE) /p:AppxBundleDir=$(MSIX_PACKAGE_DIR) /p:GenerateAppxPackageOnBuild=$(MSIX_GENERATE_PACKAGE) /p:PackageCertificateKeyFile=$(PFX_FILE_PATH) /p:PackageCertificatePassword=$(PFX_PASSWORD) /p:PackageCertificateThumbprint=$(PFX_THUMBPRINT) /p:UapAppxPackageBuildMode=$(MSIX_BUILDMODE)'
+      msbuildArguments: '/p:GenerateAppxPackageOnBuild=true /p:AppxBundlePlatforms="x64|arm64" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/WinUI" /p:AppxBundle=Never /p:AppxPackageSigningEnabled=true /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" /p:PackageCertificatePassword="$(LancelotSoftwarePfx2023Password)" /p:PackageCertificateThumbprint="$(LancelotSoftwarePfx2023Thumbprint)" /p:UapAppxPackageBuildMode=SideloadOnly'
     env:
-      PFX_FILE_PATH: "$(PfxDownloadStep.secureFilePath)" # Reference the secureFilePath value
-      PFX_PASSWORD: "$(LancelotSoftwarePfx2023Password)" # From KeyVault
-      PFX_THUMBPRINT: "$(LancelotSoftwarePfx2023Thumbprint)" # From KeyVault
-      TELERIK_LICENSE: $(TelerikLicenseKey) # From KeyVault
-      MSIX_GENERATE_PACKAGE: true
-      MSIX_SIGNING_ENABLED: true
-      MSIX_BUILDMODE: CI # only generates msix package, skips test subfolders
-      MSIX_PACKAGE_DIR: Packages
-      MSIX_BUNDLE: Always
-      BUNDLE_PLATFORMS: x64|arm64|x86
-
-
+      PFX_FILE_PATH: "$(PfxDownloadStep.secureFilePath)"
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
