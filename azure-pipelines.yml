@@ -2,15 +2,16 @@ trigger:
   branches:
     include:
     - main
-  # To avoid uneccessary builds, I am manually triggering a pipeline run. In a real scenario, you would set the path trigger to the code folder
-  # paths:
-  #  include:
-  #    - 'azure-pipelines.yml'
-  #    - 'src/Kendo/angular_demo/**/*'
-  #    - 'src/Console/**/*'
-  #    - 'src/Ajax/**/*'
-  #    - 'src/Blazor/**/*'
-  #    - 'src/AspNetCore/**/*'
+  paths:
+   # Only trigger pieline run for changes in these paths
+   include:
+     - 'azure-pipelines.yml'
+     - 'src/Kendo/angular_demo/**/*'
+     - 'src/Console/**/*'
+     - 'src/Ajax/**/*'
+     - 'src/Blazor/**/*'
+     - 'src/AspNetCore/**/*'
+     - 'src/WinUI/**/*'
 
 variables:
   DOTNET_SDK_VERSION: '9.0.x'
@@ -98,7 +99,6 @@ jobs:
     workingDirectory: "src/Kendo/angular_demo"
     displayName: "Build project"
 
-
 # *************************************************************** #
 # *              CONSOLE (uses Akeyless secrets)                * #
 # *************************************************************** #
@@ -144,7 +144,6 @@ jobs:
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
-
 # *************************************************************** #
 # *              CONSOLE (uses Service connection)              * #
 # *************************************************************** #
@@ -177,7 +176,6 @@ jobs:
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
-
 # ************************************************************* #
 # *                         BLAZOR                            * #
 # ************************************************************* #
@@ -200,7 +198,6 @@ jobs:
     displayName: 'Build and publish'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
- 
 
 # ************************************************************* #
 # *                       ASPNET Core                         * #
@@ -224,7 +221,6 @@ jobs:
     displayName: 'Build the project'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
-
 
 # *************************************************************** #
 # *          ASP.NET AJAX (.NET Framework - SecureFile)         * #
@@ -269,15 +265,12 @@ jobs:
     env:
       TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # Note 2: We use the name to reference the secureFilePath value
 
-
 # ************************************************************* #
 # *                         WinUI 3                           * #
 # ************************************************************* #
 - job: BuildWinUI
   pool:
     vmImage: 'windows-latest'
-  variables:
-    group: 'KeyVaultVariables'  # Azure KeyVault supplies LancelotSoftwarePfx2023Password
   steps:
   - task: UseDotNet@2
     inputs:
@@ -310,6 +303,15 @@ jobs:
       solution: '$(winuiProjectPath)'
       platform: x64
       configuration: Release
-      msbuildArguments: '/p:WindowsAppSDKSelfContained=true /p:GenerateAppxPackageOnBuild=true /p:AppxBundlePlatforms="x64|arm64" /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/WinUI" /p:AppxBundle=Never /p:AppxPackageSigningEnabled=true /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" /p:PackageCertificatePassword="$(LancelotSoftwarePfx2023Password)" /p:PackageCertificateThumbprint="$(LancelotSoftwarePfx2023Thumbprint)" /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArguments: '/p:WindowsAppSDKSelfContained=$env:SELF_CONTAINED /p:GenerateAppxPackageOnBuild=$env:MSIX_GEN_PACKAGE /p:AppxBundlePlatforms=$env:MSIX_PLATFORMS /p:AppxPackageDir=$env:PACKAGE_DIR /p:AppxBundle=Never /p:AppxPackageSigningEnabled=$env:MSIX_SIGNING /p:PackageCertificateKeyFile=$env:PFX_PATH /p:PackageCertificatePassword=$env:PFX_PASS /p:PackageCertificateThumbprint=$env:PFX_THUMB /p:UapAppxPackageBuildMode=$env:MSIX_BUILD_MODE'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+      PFX_PATH: "$(PfxDownloadStep.secureFilePath)"
+      PFX_PASS: $(PfxPassword)
+      PFX_THUMB: "8c787ddfab5dd35c64ae7914982780cf25b9f839"
+      PACKAGE_DIR: "$(Build.ArtifactStagingDirectory)/WinUI"
+      SELF_CONTAINED: true
+      MSIX_GEN_PACKAGE: true
+      MSIX_SIGNING: true
+      MSIX_PLATFORMS: "x64|arm64"
+      MSIX_BUILD_MODE: SideloadOnly
