@@ -59,12 +59,11 @@ jobs:
           /p:AppxBundle=Never `
           /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" `
           /p:PackageCertificatePassword=${{env.PFX_PASSWORD}} `
-          /p:AppxPackageDir="${{github.workspace}}AppPackages" `
+          /p:AppxPackageDir="${{github.workspace}}/AppPackages" `
           /p:GenerateAppxPackageOnBuild=true `
           /p:AppxPackageSigningEnabled=true `
           /p:SelfContained=true 
       env:
-        GENERATE_MSIX: true
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
     # Delete the pfx file
