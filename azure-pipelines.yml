@@ -35,30 +35,25 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-  # Handle dependencies
   - powershell: |
       # 1. Clean the angular cache, to avoid using any expired keys
       rm -rf .angular/cache
 
       # 2. Install your project dependencies
       npm install
+      # npm install --save @progress/kendo-licensing;  # if missing from package.json
 
-      # 2.b - If you don't already have the @progress/kendo-licensing dependency, you can add it now.
-      # npm install --save @progress/kendo-licensing;
-    workingDirectory: "src/Kendo/angular_demo"
-    displayName: "Install dependencies"
+      #3. Activate
+      npx kendo-ui-license activate
 
-  # Activate the license using the environment variable.
-  - powershell: npx kendo-ui-license activate
+      #4. Build the project
+      npm run build
     workingDirectory: "src/Kendo/angular_demo"
-    displayName: "Activate license"
+    displayName: "Install Dependencies and Activate Kendo"
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath)
 
-  # Build the project
-  - powershell: npm run build
-    workingDirectory: "src/Kendo/angular_demo"
-    displayName: "Build project"
 
 # *************************************************************** #
 # *               KENDO ANGULAR (secure file)                   * #
@@ -69,35 +64,29 @@ jobs:
   steps:
   # Download the license key file (this MUST have a 'name' so it can be referenced later).
   - task: DownloadSecureFile@1
-    name: DownloadTelerikLicenseFile
+    name: GetLicenseFileTask
     displayName: 'Download SecureFile'
     inputs:
       secureFile: 'telerik-license.txt'
 
-  # Handle dependencies
   - powershell: |
       # 1. Clean the angular cache, to avoid using any expired keys
       rm -rf .angular/cache
 
       # 2. Install your project dependencies
       npm install
+      # npm install --save @progress/kendo-licensing; # if missing from package.json
 
-      # 2.b - If you don't already have the @progress/kendo-licensing dependency, you can add it now.
-      # npm install --save @progress/kendo-licensing;
-    workingDirectory: "src/Kendo/angular_demo"
-    displayName: "Install dependencies"
+      #3. Activate
+      npx kendo-ui-license activate
 
-  # Activate the license using the secure file downloaded above.
-  - powershell: npx kendo-ui-license activate
+      #4. Build the project
+      npm run build
     workingDirectory: "src/Kendo/angular_demo"
-    displayName: "Activate license"
+    displayName: "Install Dependencies and Activate Kendo"
     env:
-      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath)
-    
-  # Build the project
-  - powershell: npm run build
-    workingDirectory: "src/Kendo/angular_demo"
-    displayName: "Build project"
+      TELERIK_LICENSE_PATH: $(GetLicenseFileTask.secureFilePath)
+
 
 # *************************************************************** #
 # *              CONSOLE (uses Akeyless secrets)                * #
@@ -144,6 +133,7 @@ jobs:
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
+
 # *************************************************************** #
 # *              CONSOLE (uses Service connection)              * #
 # *************************************************************** #
@@ -176,6 +166,7 @@ jobs:
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
+
 # ************************************************************* #
 # *                         BLAZOR                            * #
 # ************************************************************* #
@@ -199,6 +190,7 @@ jobs:
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
+
 # ************************************************************* #
 # *                       ASPNET Core                         * #
 # ************************************************************* #
@@ -221,6 +213,7 @@ jobs:
     displayName: 'Build the project'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+
 
 # *************************************************************** #
 # *          ASP.NET AJAX (.NET Framework - SecureFile)         * #
@@ -265,6 +258,7 @@ jobs:
     env:
       TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # Note 2: We use the name to reference the secureFilePath value
 
+
 # ************************************************************* #
 # *                         WinUI 3                           * #
 # ************************************************************* #
@@ -297,18 +291,33 @@ jobs:
     inputs:
       secureFile: 'LancelotSoftwareLLC.pfx'
 
+  # Note: PFX thumbprint is intentionally set to an empty string, this overrides any previous thumbprint from the project
   - task: MSBuild@1
     displayName: 'Build and Create MSIX'
     inputs:
       solution: '$(winuiProjectPath)'
       platform: x64
       configuration: Release
-      msbuildArguments: '/p:UapAppxPackageBuildMode=$env:MSIX_BUILD_MODE /p:AppxBundle=Never /p:PackageCertificateKeyFile=$env:PFX_PATH /p:PackageCertificatePassword=$env:PFX_PASS /p:AppxPackageDir=$env:PACKAGE_DIR /p:GenerateAppxPackageOnBuild=$env:MSIX_GEN_PACKAGE /p:AppxPackageSigningEnabled=$env:MSIX_SIGNING'
+      msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
+                         /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)\AppxPackages\" 
+                         /p:AppxBundle=Never
+                         /p:UapAppxPackageBuildMode=SideloadOnly 
+                         /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" 
+                         /p:PackageCertificatePassword="$(PfxPassword)"
+                         /p:PackageCertificateThumbprint="" 
+                         /p:GenerateAppxPackageOnBuild=true 
+                         /p:AppxPackageSigningEnabled=true'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
-      PFX_PATH: "$(PfxDownloadStep.secureFilePath)"
-      PFX_PASS: "$(PfxPassword)"
-      PACKAGE_DIR: "$(Build.ArtifactStagingDirectory)/WinUI"
-      MSIX_GEN_PACKAGE: true
-      MSIX_SIGNING: true
-      MSIX_BUILD_MODE: SideloadOnly
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**\bin\$(BuildConfiguration)\**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: MSIX'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
