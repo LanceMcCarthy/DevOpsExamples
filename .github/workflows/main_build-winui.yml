@@ -13,7 +13,6 @@ on:
 env:
   TELERIK_USERNAME: "api-key" # Used by the nuget.config file
   TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Used by the nuget.config file
-  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}} # Used when compiling the project
   SOLUTION_NAME: "src/WinUI/MyDemo.sln"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   PFX_FILENAME: "MyCodeSignCert.pfx"
@@ -22,10 +21,6 @@ env:
 jobs:
   build-windows:
     runs-on: windows-2022
-    strategy:
-      matrix:
-        configuration: [Release]
-        platform: [x64, arm64]
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -46,7 +41,7 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore RIDs
-      run: msbuild ${{env.SOLUTION_NAME}} /t:Restore /p:Configuration=${{matrix.configuration}}
+      run: msbuild ${{env.SOLUTION_NAME}} /t:Restore /p:Configuration=Release
 
     - name: Decode and save the pfx
       run: |
@@ -55,13 +50,21 @@ jobs:
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
 
     - name: Build and Create MSIX
-      run: msbuild ${{env.SOLUTION_NAME}} /p:Configuration=${{matrix.configuration}} /p:Platform=${{matrix.platform}} /p:UapAppxPackageBuildMode=${{env.APPX_PACKAGE_BUILD_MODE}} /p:AppxBundle=${{env.APPX_BUNDLE}} /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" /p:PackageCertificatePassword=${{env.PFX_PASSWORD}} /p:AppxPackageDir="${{env.APPX_PACKAGE_DIR}}" /p:GenerateAppxPackageOnBuild=${{env.GENERATE_MSIX}} /p:AppxPackageSigningEnabled=${{env.APPX_SIGNING}} /p:SelfContained=true
+      run: |
+        msbuild ${{env.SOLUTION_NAME}} `
+          /p:Configuration=Release `
+          /p:Platform=x64 `
+          /p:AppxBundlePlatforms="x64|arm64" `
+          /p:UapAppxPackageBuildMode=SideloadOnly `
+          /p:AppxBundle=Never `
+          /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" `
+          /p:PackageCertificatePassword=${{env.PFX_PASSWORD}} `
+          /p:AppxPackageDir="${{github.workspace}}AppPackages" `
+          /p:GenerateAppxPackageOnBuild=true `
+          /p:AppxPackageSigningEnabled=true
       env:
         GENERATE_MSIX: true
-        APPX_BUNDLE: Never
-        APPX_SIGNING: true
-        APPX_PACKAGE_BUILD_MODE: SideloadOnly
-        APPX_PACKAGE_DIR: Packages\
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
     # Delete the pfx file
     - name: Remove the pfx
