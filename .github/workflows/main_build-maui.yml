@@ -20,6 +20,7 @@ env:
   ANDROID_TFM: "net9.0-android"
   IOS_TFM: "net9.0-ios"
   MACCATALYST_TFM: "net9.0-maccatalyst"
+  XCODE_VERSION: '16.2'
 
 jobs:
 # ***************************** #
@@ -102,7 +103,7 @@ jobs:
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 16.1
+        xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -135,7 +136,7 @@ jobs:
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 16.1
+        xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
