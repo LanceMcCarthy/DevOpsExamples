@@ -55,7 +55,7 @@ jobs:
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
 
     - name: Build and Create MSIX
-      run: msbuild ${{env.SOLUTION_NAME}} /p:Configuration=${{matrix.configuration}} /p:Platform=${{matrix.platform}} /p:UapAppxPackageBuildMode=${{env.APPX_PACKAGE_BUILD_MODE}} /p:AppxBundle=${{env.APPX_BUNDLE}} /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" /p:PackageCertificatePassword=${{env.PFX_PASSWORD}} /p:AppxPackageDir="${{env.APPX_PACKAGE_DIR}}" /p:GenerateAppxPackageOnBuild=${{env.GENERATE_MSIX}} /p:AppxPackageSigningEnabled=${{env.APPX_SIGNING}}
+      run: msbuild ${{env.SOLUTION_NAME}} /p:Configuration=${{matrix.configuration}} /p:Platform=${{matrix.platform}} /p:UapAppxPackageBuildMode=${{env.APPX_PACKAGE_BUILD_MODE}} /p:AppxBundle=${{env.APPX_BUNDLE}} /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" /p:PackageCertificatePassword=${{env.PFX_PASSWORD}} /p:AppxPackageDir="${{env.APPX_PACKAGE_DIR}}" /p:GenerateAppxPackageOnBuild=${{env.GENERATE_MSIX}} /p:AppxPackageSigningEnabled=${{env.APPX_SIGNING}} /p:SelfContained=true
       env:
         GENERATE_MSIX: true
         APPX_BUNDLE: Never
