@@ -15,7 +15,6 @@ env:
   TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Used by the nuget.config file
   SOLUTION_NAME: "src/WinUI/MyDemo.sln"
   NUGETCONFIG_PATH: "src/NuGet.Config"
-  PFX_FILENAME: "${{github.workspace}}/MyCodeSignCert.pfx"
 
 jobs:
   build-windows:
@@ -42,30 +41,17 @@ jobs:
     - name: Restore RIDs
       run: msbuild ${{env.SOLUTION_NAME}} /t:Restore /p:Configuration=Release
 
-    - name: Decode and save the pfx
-      run: |
-        $pfx_cert_byte = [System.Convert]::FromBase64String("${{secrets.BASE64_ENCODED_PFX}}")
-        $certificatePath = "${{env.PFX_FILENAME}}"
-        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
-
     - name: Build and Create MSIX
       run: |
         msbuild ${{env.SOLUTION_NAME}} `
           /p:Configuration=Release `
           /p:Platform=x64 `
           /p:AppxBundlePlatforms="x64|arm64" `
-          /p:UapAppxPackageBuildMode=SideloadOnly `
+          /p:UapAppxPackageBuildMode=CI `
           /p:AppxBundle=Never `
-          /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" `
-          /p:PackageCertificatePassword=${{secrets.PFX_PASSWORD}} `
-          /p:PackageCertificateThumbprint="" `
           /p:AppxPackageDir="${{github.workspace}}/AppPackages" `
           /p:GenerateAppxPackageOnBuild=true `
-          /p:AppxPackageSigningEnabled=true `
+          /p:AppxPackageSigningEnabled=false `
           /p:SelfContained=true 
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
-
-    # Delete the pfx file
-    - name: Remove the pfx
-      run: Remove-Item -path ${{env.PFX_FILENAME}}
