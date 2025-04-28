@@ -285,12 +285,6 @@ jobs:
       configuration: Release
       msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
 
-  - task: DownloadSecureFile@1
-    name: PfxDownloadStep
-    displayName: 'Download PFX'
-    inputs:
-      secureFile: 'LancelotSoftwareLLC.pfx'
-
   # Note: PFX thumbprint is intentionally set to an empty string, this overrides any previous thumbprint from the project
   - task: MSBuild@1
     displayName: 'Build and Create MSIX'
@@ -299,14 +293,14 @@ jobs:
       platform: x64
       configuration: Release
       msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
-                         /p:UapAppxPackageBuildMode=SideloadOnly 
+                         /p:UapAppxPackageBuildMode=CI 
                          /p:AppxBundle=Never
                          /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" 
                          /p:PackageCertificatePassword="$(PfxPassword)"
                          /p:PackageCertificateThumbprint="" 
                          /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppPackages"           
                          /p:GenerateAppxPackageOnBuild=true 
-                         /p:AppxPackageSigningEnabled=true
+                         /p:AppxPackageSigningEnabled=false
                          /p:SelfContained=true'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
