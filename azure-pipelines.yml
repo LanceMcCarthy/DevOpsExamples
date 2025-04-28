@@ -299,25 +299,14 @@ jobs:
       platform: x64
       configuration: Release
       msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
-                         /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)\AppxPackages\" 
-                         /p:AppxBundle=Never
                          /p:UapAppxPackageBuildMode=SideloadOnly 
+                         /p:AppxBundle=Never
                          /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" 
                          /p:PackageCertificatePassword="$(PfxPassword)"
                          /p:PackageCertificateThumbprint="" 
+                         /p:AppxPackageDir="${{github.workspace}}/AppPackages"
                          /p:GenerateAppxPackageOnBuild=true 
-                         /p:AppxPackageSigningEnabled=true'
+                         /p:AppxPackageSigningEnabled=true
+                         /p:SelfContained=true'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
-
-  - task: CopyFiles@2
-    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-    inputs:
-      SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\$(BuildConfiguration)\**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: MSIX'
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
