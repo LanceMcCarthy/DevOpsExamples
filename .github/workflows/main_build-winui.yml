@@ -15,7 +15,7 @@ env:
   TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Used by the nuget.config file
   SOLUTION_NAME: "src/WinUI/MyDemo.sln"
   NUGETCONFIG_PATH: "src/NuGet.Config"
-  PFX_FILENAME: "MyCodeSignCert.pfx"
+  PFX_FILENAME: "${{github.workspace}}/MyCodeSignCert.pfx"
   PFX_PASSWORD: ${{secrets.PFX_PASSWORD}}
 
 jobs:
