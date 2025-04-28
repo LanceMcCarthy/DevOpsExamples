@@ -16,7 +16,6 @@ env:
   SOLUTION_NAME: "src/WinUI/MyDemo.sln"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   PFX_FILENAME: "${{github.workspace}}/MyCodeSignCert.pfx"
-  PFX_PASSWORD: ${{secrets.PFX_PASSWORD}}
 
 jobs:
   build-windows:
@@ -58,7 +57,8 @@ jobs:
           /p:UapAppxPackageBuildMode=SideloadOnly `
           /p:AppxBundle=Never `
           /p:PackageCertificateKeyFile="${{env.PFX_FILENAME}}" `
-          /p:PackageCertificatePassword=${{env.PFX_PASSWORD}} `
+          /p:PackageCertificatePassword=${{secrets.PFX_PASSWORD}} `
+          /p:PackageCertificateThumbprint="" `
           /p:AppxPackageDir="${{github.workspace}}/AppPackages" `
           /p:GenerateAppxPackageOnBuild=true `
           /p:AppxPackageSigningEnabled=true `
