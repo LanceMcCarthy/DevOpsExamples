@@ -52,7 +52,6 @@ jobs:
     displayName: "Install Dependencies and Activate Kendo"
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
-      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath)
 
 
 # *************************************************************** #
