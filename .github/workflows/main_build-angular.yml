@@ -13,8 +13,6 @@ on:
 jobs:
   build_angular:
     runs-on: ubuntu-latest
-    env:
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
     
     steps:
     - name: Checkout
@@ -22,12 +20,18 @@ jobs:
       
     - name: Install NPM modules
       working-directory: src/Kendo/angular_demo
-      run: npm install
-    
-    - name: Activate Kendo UI License
-      working-directory: src/Kendo/angular_demo
-      run: npx kendo-ui-license activate
+      run: |
+        # 1. Clean the angular cache, to avoid using any expired keys
+        rm -rf .angular/cache
 
-    - name: Build
-      working-directory: src/Kendo/angular_demo
-      run: npm run build --prod
+        # 2. Install your project dependencies
+        npm install
+        # npm install --save @progress/kendo-licensing;  # if missing from package.json
+
+        #3. Activate
+        npx kendo-ui-license activate
+
+        #4. Build the project
+        npm run build  --prod
+    env:
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
