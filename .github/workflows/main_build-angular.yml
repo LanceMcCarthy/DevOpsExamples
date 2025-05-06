@@ -18,7 +18,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       
-    - name: Install NPM modules
+    - name: Build App
       working-directory: src/Kendo/angular_demo
       run: |
         # 1. Clean the angular cache, to avoid using any expired keys
