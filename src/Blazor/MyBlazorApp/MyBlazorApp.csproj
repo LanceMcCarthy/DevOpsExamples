@@ -5,10 +5,10 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
-    <PackageReference Include="Telerik.Licensing" Version="1.4.16" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="8.1.1" />
-		<PackageReference Include="Telerik.Drawing.Skia" Version="19.0.25.313" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Telerik.Licensing" Version="1.6.5" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="9.0.0" />
+		<PackageReference Include="Telerik.Drawing.Skia" Version="19.1.25.521" />
   </ItemGroup>
 
   <ItemGroup>

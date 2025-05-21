@@ -106,22 +106,22 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.Licensing">
-      <Version>1.4.12</Version>
+      <Version>1.6.5</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.for.Wpf">
-      <Version>2025.1.211</Version>
+      <Version>2025.2.521</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf">
-      <Version>2025.1.211</Version>
+      <Version>2025.2.521</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.Input.for.Wpf">
-      <Version>2025.1.211</Version>
+      <Version>2025.2.521</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Data.for.Wpf">
-      <Version>2025.1.211</Version>
+      <Version>2025.2.521</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Themes.VisualStudio2019.for.Wpf">
-      <Version>2025.1.211</Version>
+      <Version>2025.2.521</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
