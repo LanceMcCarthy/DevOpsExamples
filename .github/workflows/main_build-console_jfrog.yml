@@ -2,13 +2,6 @@ name: Console using Artifactory (.NET)
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - "console/*"
-    paths:
-      - 'src/Console/**/*'
-      - '.github/workflows/main_build-console.yml' 
 
 jobs:
   build_console:
