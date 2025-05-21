@@ -31,11 +31,7 @@ jobs:
         }
 
         # Add the Artifactory virtual source
-        dotnet nuget add source "artifactory_virtual" \
-          -s ${{env.ARTIFACORY_URL}} \
-          -u ${{env.ARTIFACORY_USER}} \
-          -p ${{env.ARTIFACORY_PWD}} \
-          --store-password-in-clear-text
+        dotnet nuget add source "artifactory_virtual" -s ${{env.ARTIFACORY_URL}} -u ${{env.ARTIFACORY_USER}} -p ${{env.ARTIFACORY_PWD}} --store-password-in-clear-text
         
         # Build the project to restore the packages
         dotnet build ${{env.PROJECT_PATH}}
