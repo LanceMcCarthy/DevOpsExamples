@@ -3,7 +3,6 @@ trigger:
     include:
     - main
   paths:
-   # Only trigger pieline run for changes in these paths
    include:
      - 'azure-pipelines.yml'
      - 'src/Kendo/angular_demo/**/*'
@@ -12,6 +11,7 @@ trigger:
      - 'src/Blazor/**/*'
      - 'src/AspNetCore/**/*'
      - 'src/WinUI/**/*'
+     - 'src/MAUI/**/*'
 
 variables:
   DOTNET_SDK_VERSION: '9.0.x'
@@ -22,7 +22,8 @@ variables:
   blazorProjectPath: 'src/Blazor/MyBlazorApp.sln'
   aspnetProjectPath: 'src/AspNetCore/MyAspNetCoreApp.sln'
   winuiProjectPath: 'src/WinUI/MyDemo.sln'
-  # Pipeline variables, set using the AzDO yaml editor at dev.azure.com
+  mauiProjectPath: 'src/MAUI/MauiDemo.csproj'
+  # These pipeline variables (secrets) have been set using the AzDO yaml editor at dev.azure.com.
   # AKEYLESS_ACCESS_ID
   # MY_TELERIK_NUGET_KEY
   # MY_TELERIK_LICENSE_KEY
@@ -261,45 +262,87 @@ jobs:
 # ************************************************************* #
 # *                         WinUI 3                           * #
 # ************************************************************* #
-- job: BuildWinUI
+# - job: BuildWinUI
+#   pool:
+#     vmImage: 'windows-latest'
+#   steps:
+#   - task: UseDotNet@2
+#     inputs:
+#       packageType: 'sdk'
+#       version: $(DOTNET_SDK_VERSION)
+
+#   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+#     displayName: 'Update Package Source Credentials'
+
+#   - powershell: dotnet restore $(winuiProjectPath) --configfile $(nugetConfigPath)
+#     displayName: 'Restore NuGet Packages'
+
+#   - task: MSBuild@1
+#     displayName: 'Restore RIDs'
+#     inputs:
+#       solution: '$(winuiProjectPath)'
+#       platform: x64
+#       configuration: Release
+#       msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
+
+#   # Note: PFX thumbprint is intentionally set to an empty string, this overrides any previous thumbprint from the project
+#   - task: MSBuild@1
+#     displayName: 'Build and Create MSIX'
+#     inputs:
+#       solution: '$(winuiProjectPath)'
+#       platform: x64
+#       configuration: Release
+#       msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
+#                          /p:UapAppxPackageBuildMode=CI 
+#                          /p:AppxBundle=Never 
+#                          /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" 
+#                          /p:PackageCertificatePassword="$(PfxPassword)" 
+#                          /p:PackageCertificateThumbprint="" 
+#                          /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppPackages" 
+#                          /p:GenerateAppxPackageOnBuild=true 
+#                          /p:AppxPackageSigningEnabled=false 
+#                          /p:SelfContained=true'
+#     env:
+#       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+
+
+# ************************************************************* #
+# *                       .NET MAUI                           * #
+# ************************************************************* #
+- job: BuildMauiApp
+  strategy:
+    matrix:
+      android:
+        TFM: 'net9.0-android'
+        imageName: 'windows-latest'
+      windows:
+        TFM: 'net9.0-windows10.0.22621.0'
+        imageName: 'windows-latest'
+      ios:
+        TFM: 'net9.0-ios'
+        imageName: 'macOS-latest'
+      maccatalyst:
+        TFM: 'net9.0-maccatalyst'
+        imageName: 'macOS-latest'
+    maxParallel: 4
   pool:
-    vmImage: 'windows-latest'
+    vmImage: $(imageName)
   steps:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
+  - powershell: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+    displayName: 'Install maui workloads'
+    
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
-  - powershell: dotnet restore $(winuiProjectPath) --configfile $(nugetConfigPath)
+  - powershell: dotnet restore $(mauiProjectPath) --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
 
-  - task: MSBuild@1
-    displayName: 'Restore RIDs'
-    inputs:
-      solution: '$(winuiProjectPath)'
-      platform: x64
-      configuration: Release
-      msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
-
-  # Note: PFX thumbprint is intentionally set to an empty string, this overrides any previous thumbprint from the project
-  - task: MSBuild@1
-    displayName: 'Build and Create MSIX'
-    inputs:
-      solution: '$(winuiProjectPath)'
-      platform: x64
-      configuration: Release
-      msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
-                         /p:UapAppxPackageBuildMode=CI 
-                         /p:AppxBundle=Never
-                         /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" 
-                         /p:PackageCertificatePassword="$(PfxPassword)"
-                         /p:PackageCertificateThumbprint="" 
-                         /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppPackages"           
-                         /p:GenerateAppxPackageOnBuild=true 
-                         /p:AppxPackageSigningEnabled=false
-                         /p:SelfContained=true'
+  - powershell: dotnet build $(mauiProjectPath) -f $(TFM) --no-restore
+    displayName: 'Build and publish'
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
