@@ -320,10 +320,10 @@ jobs:
         imageName: 'windows-latest'
       ios:
         TFM: 'net9.0-ios'
-        imageName: 'macOS-latest'
+        imageName: 'macOS-15'
       maccatalyst:
         TFM: 'net9.0-maccatalyst'
-        imageName: 'macOS-latest'
+        imageName: 'macOS-15'
     maxParallel: 4
   pool:
     vmImage: $(imageName)
