@@ -72,6 +72,15 @@ jobs:
         username: ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}
         password: ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
 
+    - name: Delete old images
+      run: |
+        # Delete all images (tagged and untagged) from Docker Hub for the repository
+        IMAGE_TAGS=$(curl -s -u "${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}:${{steps.akeyless.outputs.DOCKER_HUB_PAT}}" "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results[].name')
+        for TAG in $IMAGE_TAGS; do
+          echo "Deleting tag: $TAG"
+          curl -s -u "${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}:${{steps.akeyless.outputs.DOCKER_HUB_PAT}}" -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAG/"
+        done
+
     - name: Build and push to Docker Hub
       uses: docker/build-push-action@v5
       with:
@@ -84,15 +93,6 @@ jobs:
         tags: |
           ${{env.CONTAINER_REPOSITORY}}:latest
 
-    - name: Delete old (untagged) images
-      run: |
-        IMAGE_TAGS=$(curl -s "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results|.[]|.name')
-        for TAGG in $IMAGE_TAGS; do
-          if [[ "$TAGG" == "null" ]]; then
-            docker rmi "${{env.CONTAINER_REPOSITORY}}:$TAGG"
-            curl -s -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAGG/"
-          fi
-        done
 
   ##########################################################
   #         [Option B] .NET SDK CONTAINER BUILD            #
