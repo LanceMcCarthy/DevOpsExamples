@@ -1,6 +1,7 @@
 # This demo has two container build & publish examples
-# [Option A] DOCKER FILE BUILD - publishes the image to Docker Hub
-# [Option B] .NET SDK CONTAINER BUILD - publishes the image to ghcr.io (GitHub container registry)
+# [Option A] Typical IIS build & publish
+# [Option B] DOCKER FILE BUILD - publishes the image to Docker Hub
+# [Option C] .NET SDK CONTAINER BUILD - publishes the image to ghcr.io (GitHub container registry)
 name: ASP.NET Core (with Reporting)
 
 on:
@@ -19,220 +20,112 @@ permissions:
   id-token: write # JWT for Akeyless auth
 
 env:
+  PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   DOTNET_VERSION: "9.0.x"
-  # Custom base image with Skia dependencies pre-installed, only used by the .NET SDK container build.
-  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0" 
+  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0"  # Custom base image with Skia dependencies pre-installed, only used by the .NET SDK container build.
 
 jobs:
+  #####################################################
+  ######### [Option A] WINDOWS BUILD (IIS) ############
+  #####################################################
+  build_windows:
+    runs-on: windows-2022
+    env:
+      RID: win-x64
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+      TELERIK_USERNAME: "api-key"
+      TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Restore NuGet Packages
+      run: |
+        dotnet restore ${{env.PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
+
+    - name: Build Test Project
+      run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
+
+
   ##############################################
-  #         [Option A] DOCKERFILE BUILD        #
+  #         [Option B] DOCKERFILE BUILD        #
   ##############################################
   # Publishes to registry.hub.docker.com (Docker hub)
-  build_aspnetcore:
-    runs-on: ubuntu-22.04
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+  # build_aspnetcore:
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+  #     with:
+  #       fetch-depth: 0
 
-    # Using AKeyless for secrets, you can use GitHub Actions instead.
-    - name: Fetch secrets from AKeyless
-      id: akeyless
-      uses: LanceMcCarthy/akeyless-action@v3
-      with:
-        access-id: ${{secrets.AKEYLESS_JWT_ID}}
-        static-secrets: |
-          {
-            "/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY",
-            "/personal-keys/mccarthy/TELERIK_LICENSE":"TELERIK_LICENSE_KEY", 
-            "/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", 
-            "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"
-          }
-        export-secrets-to-outputs: true
-        export-secrets-to-environment: false
+  #   # Using AKeyless for secrets, you can use GitHub Actions instead.
+  #   - name: Fetch secrets from AKeyless
+  #     id: akeyless
+  #     uses: LanceMcCarthy/akeyless-action@v3
+  #     with:
+  #       access-id: ${{secrets.AKEYLESS_JWT_ID}}
+  #       static-secrets: |
+  #         {
+  #           "/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY",
+  #           "/personal-keys/mccarthy/TELERIK_LICENSE":"TELERIK_LICENSE_KEY", 
+  #           "/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", 
+  #           "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"
+  #         }
+  #       export-secrets-to-outputs: true
+  #       export-secrets-to-environment: false
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
+  #   - name: Set up QEMU
+  #     uses: docker/setup-qemu-action@v3
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3
       
-    - name: Get package metadata from Docker Hub
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{env.CONTAINER_REPOSITORY}}
+  #   - name: Get package metadata from Docker Hub
+  #     id: meta
+  #     uses: docker/metadata-action@v5
+  #     with:
+  #       images: ${{env.CONTAINER_REPOSITORY}}
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}
-        password: ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
+  #   - name: Login to DockerHub
+  #     uses: docker/login-action@v3
+  #     with:
+  #       username: ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}
+  #       password: ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
 
-    - name: Delete old images
-      run: |
-        # Delete all images (tagged and untagged) from Docker Hub for the repository
-        IMAGE_TAGS=$(curl -s -u "${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}:${{steps.akeyless.outputs.DOCKER_HUB_PAT}}" "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results[].name')
-        for TAG in $IMAGE_TAGS; do
-          echo "Deleting tag: $TAG"
-          curl -s -u "${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}:${{steps.akeyless.outputs.DOCKER_HUB_PAT}}" -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAG/"
-        done
-
-    - name: Build and push to Docker Hub
-      uses: docker/build-push-action@v5
-      with:
-        context: ${{env.WORKING_DIRECTORY}}
-        platforms: linux/arm64,linux/amd64
-        push: true
-        secrets: |
-          telerik-nuget-key=${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
-          telerik-license-key=${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
-        tags: |
-          ${{env.CONTAINER_REPOSITORY}}:latest
+  #   - name: Build and push to Docker Hub
+  #     uses: docker/build-push-action@v5
+  #     with:
+  #       context: ${{env.WORKING_DIRECTORY}}
+  #       platforms: linux/arm64,linux/amd64
+  #       push: true
+  #       secrets: |
+  #         telerik-nuget-key=${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
+  #         telerik-license-key=${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
+  #       tags: |
+  #         ${{env.CONTAINER_REPOSITORY}}:latest
 
 
   ##########################################################
-  #         [Option B] .NET SDK CONTAINER BUILD            #
+  #         [Option C] .NET SDK CONTAINER BUILD            #
   ##########################################################
   # => Publishes to ghcr.io (GitHub)
-  build_x64:
-    runs-on: ubuntu-22.04
-    outputs:
-      build_tag: ${{steps.build.outputs.build_tag}}
-    env:
-      target_arch: "x64"
-      CONTAINER_REGISTRY: "ghcr.io"
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - name: Login to GitHub Container Registry
-      run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
-
-    - name: Restore NuGet Packages
-      working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{env.target_arch}}"
-      env:
-        TELERIK_USERNAME: "api-key"
-        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-
-    - name: build the x64 image
-      id: build
-      working-directory: ${{env.WORKING_DIRECTORY}}
-      run: |
-        TAG="latest-${{env.target_arch}}"
-        dotnet publish \
-          -t:PublishContainer \
-          -p PublishProfile=DefaultContainer \
-          --arch ${{env.target_arch}} \
-          -p ContainerImageTag="$TAG" \
-          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
-          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
-          -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} \
-          --no-restore
-        echo "build_tag=$TAG" >> $GITHUB_OUTPUT
-      env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
-
-  build_arm64:
-    runs-on: ubuntu-22.04
-    outputs:
-      build_tag: ${{steps.build.outputs.build_tag}}
-    env:
-      target_arch: "arm64"
-      CONTAINER_REGISTRY: "ghcr.io"
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - name: Login to GitHub Container Registry
-      run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
-
-    - name: Restore NuGet Packages
-      working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet restore -r "linux-${{env.target_arch}}"
-      env:
-        TELERIK_USERNAME: "api-key"
-        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-
-    - name: build the arm64 image
-      id: build
-      working-directory: ${{env.WORKING_DIRECTORY}}
-      run: |
-        TAG="latest-${{env.target_arch}}"
-        dotnet publish -t:PublishContainer \
-          -p PublishProfile=DefaultContainer \
-          --arch ${{env.target_arch}} \
-          -p ContainerImageTag="$TAG" \
-          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
-          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
-          -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} \
-          --no-restore
-        echo "build_tag=$TAG" >> $GITHUB_OUTPUT
-      env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
-
-  publish_combined_manifest:
-    runs-on: ubuntu-22.04
-    needs: [build_x64, build_arm64]
-    env:
-      CONTAINER_REGISTRY: "ghcr.io"
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Login to GitHub Container Registry
-      run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
-
-    - name: create the multi-image manifest
-      run: |
-        docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$X86_TAG" \
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$ARM64_TAG"
-        docker manifest push "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
-      env:
-        X86_TAG: ${{needs.build_x64.outputs.build_tag}}
-        ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
-
-    - name: Delete old Docker images
-      uses: actions/delete-package-versions@v5
-      with:
-        package-name: "myaspnetcoreapp"
-        package-type: container
-        min-versions-to-keep: 3
-        token: ${{secrets.GITHUB_TOKEN}}
-
-# Matrix experiments
-  # dotnet_container_build:
+  # build_x64:
   #   runs-on: ubuntu-22.04
-  #   strategy:
-  #     matrix:
-  #       platform: [arm64, x64]
   #   outputs:
-  #     tag_arm64: ${{steps.build.outputs.tag_arm64}}
-  #     tag_x64: ${{steps.build.outputs.tag_x64}}
+  #     build_tag: ${{steps.build.outputs.build_tag}}
   #   env:
+  #     target_arch: "x64"
   #     CONTAINER_REGISTRY: "ghcr.io"
-  #     TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
   #   steps:
   #   - name: Checkout
   #     uses: actions/checkout@v4
@@ -249,23 +142,77 @@ jobs:
 
   #   - name: Restore NuGet Packages
   #     working-directory: ${{env.WORKING_DIRECTORY}}
-  #     run: dotnet restore -r "linux-${{matrix.platform}}"
+  #     run: dotnet restore -r "linux-${{env.target_arch}}"
   #     env:
   #       TELERIK_USERNAME: "api-key"
   #       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
-  #   - name: Build the platform image
+  #   - name: build the x64 image
   #     id: build
   #     working-directory: ${{env.WORKING_DIRECTORY}}
   #     run: |
-  #       # job output to reference this build later
-  #       echo "tag_${{matrix.platform}}=${{matrix.platform}}" >> "$GITHUB_OUTPUT" 
+  #       TAG="latest-${{env.target_arch}}"
+  #       dotnet publish \
+  #         -t:PublishContainer \
+  #         -p PublishProfile=DefaultContainer \
+  #         --arch ${{env.target_arch}} \
+  #         -p ContainerImageTag="$TAG" \
+  #         -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
+  #         -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
+  #         -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} \
+  #         --no-restore
+  #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+  #     env:
+  #       TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
-  #       dotnet publish -t:PublishContainer -p PublishProfile=DefaultContainer --arch ${{matrix.platform}} -p ContainerImageTag="${{matrix.platform}}" -p ContainerRepository=${{env.CONTAINER_REPOSITORY}} -p ContainerRegistry=${{env.CONTAINER_REGISTRY}} -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} --no-restore
+  # build_arm64:
+  #   runs-on: ubuntu-22.04
+  #   outputs:
+  #     build_tag: ${{steps.build.outputs.build_tag}}
+  #   env:
+  #     target_arch: "arm64"
+  #     CONTAINER_REGISTRY: "ghcr.io"
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+  #     with:
+  #       fetch-depth: 0
+
+  #   - name: Setup .NET Core SDK
+  #     uses: actions/setup-dotnet@v4
+  #     with:
+  #       dotnet-version: ${{env.DOTNET_VERSION}}
+
+  #   - name: Login to GitHub Container Registry
+  #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+
+  #   - name: Restore NuGet Packages
+  #     working-directory: ${{env.WORKING_DIRECTORY}}
+  #     run: dotnet restore -r "linux-${{env.target_arch}}"
+  #     env:
+  #       TELERIK_USERNAME: "api-key"
+  #       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+
+  #   - name: build the arm64 image
+  #     id: build
+  #     working-directory: ${{env.WORKING_DIRECTORY}}
+  #     run: |
+  #       TAG="latest-${{env.target_arch}}"
+  #       dotnet publish -t:PublishContainer \
+  #         -p PublishProfile=DefaultContainer \
+  #         --arch ${{env.target_arch}} \
+  #         -p ContainerImageTag="$TAG" \
+  #         -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
+  #         -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
+  #         -p ContainerBaseImage=${{env.BASE_IMAGE_DOTNET_BUILD}} \
+  #         --no-restore
+  #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+  #     env:
+  #       TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
   # publish_combined_manifest:
   #   runs-on: ubuntu-22.04
-  #   needs: [dotnet_container_build]
+  #   needs: [build_x64, build_arm64]
   #   env:
   #     CONTAINER_REGISTRY: "ghcr.io"
   #   steps:
@@ -277,10 +224,20 @@ jobs:
   #   - name: Login to GitHub Container Registry
   #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
 
-  #   - name: Create multi-image manifest
-  #     run: docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
-  #         "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_x64}}" \
-  #         "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{needs.dotnet_container_build.outputs.tag_arm64}}"
-        
-  #   - name: Publish manifest
-  #     run: docker manifest push "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
+  #   - name: create the multi-image manifest
+  #     run: |
+  #       docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
+  #         "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$X86_TAG" \
+  #         "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$ARM64_TAG"
+  #       docker manifest push "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
+  #     env:
+  #       X86_TAG: ${{needs.build_x64.outputs.build_tag}}
+  #       ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
+
+  #   - name: Delete old Docker images
+  #     uses: actions/delete-package-versions@v5
+  #     with:
+  #       package-name: "myaspnetcoreapp"
+  #       package-type: container
+  #       min-versions-to-keep: 3
+  #       token: ${{secrets.GITHUB_TOKEN}}
