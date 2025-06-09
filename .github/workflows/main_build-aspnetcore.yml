@@ -20,7 +20,7 @@ permissions:
   id-token: write # JWT for Akeyless auth
 
 env:
-  PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
+  PROJ_PATH: src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj
   CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   DOTNET_VERSION: "9.0.x"
@@ -53,7 +53,7 @@ jobs:
         dotnet restore ${{env.PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
 
     - name: Build Test Project
-      run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
+      run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-restore
 
 
   ##############################################
