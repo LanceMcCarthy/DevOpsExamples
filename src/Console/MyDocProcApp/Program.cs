@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Timers;
 using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
 using Telerik.Windows.Documents.Spreadsheet.Model;
+using Telerik.Zip;
 
 // See characters list below
 //var timerChars = new [] { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}; // style 1

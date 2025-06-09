@@ -14,6 +14,7 @@
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
 		<PackageReference Include="Telerik.Drawing.Skia" Version="19.1.25.521" />
 		<PackageReference Include="Telerik.Licensing" Version="1.6.5" />
+		<PackageReference Include="Telerik.Reporting.AI.Microsoft.Extensions.AzureOpenAI" Version="19.1.25.521" />
 		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="19.1.25.521" />
 		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="19.1.25.521" />
 		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.2.520" />
