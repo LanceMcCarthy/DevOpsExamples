@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiDemo"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              x:Class="MauiDemo.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,6 +10,19 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="HorizontalStackLayout">
+                <Setter Property="Spacing" Value="10" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+            <Style x:Key="FillGridStyle" TargetType="Grid">
+                <Setter Property="HorizontalOptions" Value="Fill" />
+            </Style>
+            <Style x:Key="CenterToolbarStyle" TargetType="telerik:RadToolbar">
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <Style TargetType="telerik:RadButton">
+
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

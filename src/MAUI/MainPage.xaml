@@ -3,19 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              xmlns:local="using:MauiDemo"
-             xmlns:models="clr-namespace:CommonHelpers.Models;assembly=CommonHelpers"
              x:Class="MauiDemo.MainPage"
              x:DataType="local:MainViewModel">
+
     <ContentPage.Behaviors>
         <telerik:RadEventToCommandBehavior Command="{Binding AppearingCommand}"
                                            EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <Grid RowDefinitions="Auto,*,Auto">
-        <Grid Background="{Binding BackgroundColor, Source={x:Reference MyToolbar}}" 
-              HorizontalOptions="Fill">
+    <Grid RowDefinitions="Auto,*,Auto" Style="{StaticResource FillGridStyle}">
+        <Grid Background="{Binding BackgroundColor, Source={x:Reference MyToolbar}}">
             <telerik:RadToolbar x:Name="MyToolbar"
-                                HorizontalOptions="Center">
+                                Style="{StaticResource CenterToolbarStyle}">
                 <telerik:ButtonToolbarItem Text="Button">
                     <telerik:ButtonToolbarItem.ImageSource>
                         <FontImageSource Glyph="{x:Static telerik:TelerikFont.IconUndo}"
@@ -48,9 +47,7 @@
             </telerik:RadDataGrid.Columns>
         </telerik:RadDataGrid>
 
-        <HorizontalStackLayout Spacing="10"
-                               Padding="10"
-                               Grid.Row="2">
+        <HorizontalStackLayout Grid.Row="2">
             <telerik:RadButton Text="Start Over"
                                Command="{Binding StartOverCommand}" />
             <telerik:RadButton Text="Add Range (5)"
