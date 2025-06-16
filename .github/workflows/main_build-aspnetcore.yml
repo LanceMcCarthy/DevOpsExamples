@@ -20,10 +20,10 @@ permissions:
   id-token: write # JWT for Akeyless auth
 
 env:
-  CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
-  WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   DOTNET_VERSION: "9.0.x"
-  BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0"  # Custom base image with Skia dependencies pre-installed, only used by the .NET SDK container build.
+  CONFIGURATION: Release
+  NUGET_CONFIG_PATH: src/NuGet.Config
+  WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
 
 jobs:
   #####################################################
@@ -63,6 +63,8 @@ jobs:
   # Publishes to registry.hub.docker.com (Docker hub)
   # build_aspnetcore:
   #   runs-on: ubuntu-22.04
+  #   env:
+  #     CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   #   steps:
   #   - name: Checkout
   #     uses: actions/checkout@v4
@@ -127,6 +129,8 @@ jobs:
   #   env:
   #     target_arch: "x64"
   #     CONTAINER_REGISTRY: "ghcr.io"
+  #     CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
+  #     BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0"  # Custom base image with Skia dependencies pre-installed, only used by the .NET SDK container build.
   #   steps:
   #   - name: Checkout
   #     uses: actions/checkout@v4
