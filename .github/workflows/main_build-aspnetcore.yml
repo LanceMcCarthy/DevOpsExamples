@@ -22,8 +22,6 @@ permissions:
 env:
   DOTNET_VERSION: "9.0.x"
   CONFIGURATION: Release
-  NUGET_CONFIG_PATH: src/NuGet.Config
-  WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
 
 jobs:
   #####################################################
@@ -43,16 +41,14 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Restore NuGet Packages
-      working-directory: ${{env.WORKING_DIRECTORY}}
       run: |
-        dotnet restore --configfile ${{env.NUGET_CONFIG_PATH}} -r win-x64
+        dotnet restore src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj --configfile src/NuGet.Config -r win-x64
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
-    - name: Build Test Project
-      working-directory: ${{env.WORKING_DIRECTORY}}
-      run: dotnet build -c ${{env.CONFIGURATION}} -r win-x64 --no-restore
+    - name: Build ASP.NET Core Project
+      run: dotnet build src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj -c ${{env.CONFIGURATION}} -r win-x64 --no-restore
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
@@ -65,6 +61,7 @@ jobs:
   #   runs-on: ubuntu-22.04
   #   env:
   #     CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
+  #     WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   #   steps:
   #   - name: Checkout
   #     uses: actions/checkout@v4
@@ -131,6 +128,7 @@ jobs:
   #     CONTAINER_REGISTRY: "ghcr.io"
   #     CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
   #     BASE_IMAGE_DOTNET_BUILD: "lancemccarthy/skia-aspnet:9.0"  # Custom base image with Skia dependencies pre-installed, only used by the .NET SDK container build.
+  #     WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   #   steps:
   #   - name: Checkout
   #     uses: actions/checkout@v4
