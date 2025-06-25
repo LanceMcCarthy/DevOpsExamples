@@ -20,7 +20,7 @@ env:
   ANDROID_TFM: "net9.0-android"
   IOS_TFM: "net9.0-ios"
   MACCATALYST_TFM: "net9.0-maccatalyst"
-  XCODE_VERSION: '16.2'
+  XCODE_VERSION: '16.4'
 
 jobs:
 # ***************************** #
