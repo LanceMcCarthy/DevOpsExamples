@@ -6,13 +6,13 @@
        xmlns:views="clr-namespace:MauiDemo.Views"
        Shell.FlyoutBehavior="Flyout">
 
-    <ShellContent Title="DataForm"
-                  ContentTemplate="{DataTemplate views:DataFormPage}"
-                  Route="DataFormPage" />
-
     <ShellContent Title="Home"
                   ContentTemplate="{DataTemplate views:MainPage}"
                   Route="MainPage" />
+
+    <ShellContent Title="DataForm"
+                  ContentTemplate="{DataTemplate views:DataFormPage}"
+                  Route="DataFormPage" />
 
     <ShellContent Title="Scheduler"
                   ContentTemplate="{DataTemplate views:SchedulerPage}"
