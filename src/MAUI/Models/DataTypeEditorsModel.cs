@@ -1,15 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Telerik.Maui.Controls;
 
-namespace MauiDemo;
-
-public partial class DataFormPage : ContentPage
-{
-	public DataFormPage()
-	{
-		InitializeComponent();
-	}
-}
+namespace MauiDemo.Models;
 
 public class DataTypeEditorsModel : NotifyPropertyChangedBase
 {
@@ -66,7 +58,7 @@ public class DataTypeEditorsModel : NotifyPropertyChangedBase
     [Required]
     [Display(Name = "Enter password")]
     [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}", ErrorMessage = "Password must contain: -at least one upper case, " +
-        "at least one lower case, at least one digit, at least one special character and to be at least 8 symbols")]
+                                                                                                       "at least one lower case, at least one digit, at least one special character and to be at least 8 symbols")]
     [DataType(DataType.Password)]
     public string Password
     {

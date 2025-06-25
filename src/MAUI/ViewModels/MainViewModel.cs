@@ -2,18 +2,10 @@
 using CommonHelpers.Common;
 using CommonHelpers.Models;
 using CommonHelpers.Services;
+using MauiDemo.Interfaces;
 using System.Collections.Specialized;
 
-namespace MauiDemo;
-
-public partial class MainPage : ContentPage
-{
-    public MainPage(MainViewModel vm)
-    {
-        InitializeComponent();
-        this.BindingContext = vm;
-    }
-}
+namespace MauiDemo.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
@@ -23,14 +15,15 @@ public class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        AppearingCommand = new(OnAddRange);
-        StartOverCommand = new(OnStartOver);
-        AddRangeCommand = new(OnAddRange);
-        ClearItemsCommand = new(OnClearItems);
+        AppearingCommand = new Command(OnAddRange);
+        StartOverCommand = new Command(OnStartOver);
+        AddRangeCommand = new Command(OnAddRange);
+        ClearItemsCommand = new Command(OnClearItems);
+        CheckDataViewCommand = new Command(CheckDataView);
 
         data = SampleDataService.Current.GenerateEmployeeData();
 
-        Employees = new ObservableRangeCollection<Employee>();
+        Employees = [];
         Employees.AddRange(data.Skip(Employees.Count).Take(5));
         Employees.CollectionChanged += Employees_CollectionChanged;
     }
@@ -59,6 +52,37 @@ public class MainViewModel : ViewModelBase
     public Command ClearItemsCommand { get; set; }
 
     public Command AppearingCommand { get; set; }
+
+    public Command CheckDataViewCommand { get; set; }
+
+    public IDataGridView DataGridView { get; set; }
+
+    private void CheckDataView()
+    {
+        while (true)
+        {
+            var currentView = DataGridView.GetDataView();
+
+            if (currentView.IsDataReady)
+            {
+                // Items currently filtered/sorted/grouped
+                var filteredItems = currentView.Items;
+
+                Shell.Current.DisplayAlert(
+                    "DataView Result", 
+                    $"You have {filteredItems.Count} items in the dataView", 
+                    "okay");
+            }
+            else
+            {
+                // Wait 500ms, then check IsDataReady again
+                Task.Delay(500);
+                continue;
+            }
+
+            break;
+        }
+    }
 
     private void OnAddRange()
     {

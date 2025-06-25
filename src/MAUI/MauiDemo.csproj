@@ -67,10 +67,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="DataFormPage.xaml">
+	  <MauiXaml Update="Views\DataFormPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SchedulerPage.xaml">
+	  <MauiXaml Update="Views\SchedulerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

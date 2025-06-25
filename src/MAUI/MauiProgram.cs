@@ -1,4 +1,6 @@
-﻿using Telerik.Maui.Controls.Compatibility;
+﻿using MauiDemo.ViewModels;
+using MauiDemo.Views;
+using Telerik.Maui.Controls.Compatibility;
 using Microsoft.Maui.LifecycleEvents;
 
 #if WINDOWS
@@ -37,7 +39,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<SchedulerPage>();
 
-        // Register viewmodels with DI
+        // Register view models with DI
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<SchedulerPageViewModel>();
 

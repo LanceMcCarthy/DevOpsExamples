@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
              xmlns:local="using:MauiDemo"
-             x:Class="MauiDemo.MainPage"
-             x:DataType="local:MainViewModel">
+             xmlns:views="clr-namespace:MauiDemo.Views"
+             xmlns:viewModels="clr-namespace:MauiDemo.ViewModels"
+             x:Class="MauiDemo.Views.MainPage"
+             x:DataType="viewModels:MainViewModel">
 
     <ContentPage.Behaviors>
         <telerik:RadEventToCommandBehavior Command="{Binding AppearingCommand}"
@@ -37,6 +39,8 @@
 
         <telerik:RadDataGrid x:Name="EmployeesGrid"
                              ItemsSource="{Binding Employees}"
+                             UserFilterMode="Enabled"
+                             UserSortMode="Multiple"
                              AutoGenerateColumns="False"
                              Grid.Row="1">
             <telerik:RadDataGrid.Columns>
@@ -54,6 +58,8 @@
                                Command="{Binding AddRangeCommand}" />
             <telerik:RadButton Text="Clear"
                                Command="{Binding ClearItemsCommand}" />
+            <telerik:RadButton Text="Check DataView"
+                               Command="{Binding CheckDataViewCommand}" />
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>
