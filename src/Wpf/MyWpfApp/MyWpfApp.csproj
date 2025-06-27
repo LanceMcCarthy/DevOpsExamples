@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -35,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -112,6 +114,9 @@
       <Version>2025.2.521</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf">
+      <Version>2025.2.521</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.Windows.Controls.GridView.SpreadsheetStreamingExport.for.Wpf">
       <Version>2025.2.521</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.Input.for.Wpf">

@@ -4,17 +4,35 @@
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:local="clr-namespace:MyWpfApp"
         Title="MainWindow"
-        Height="350"
-        Width="525">
+        Height="600"
+        Width="900">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
     <Grid>
-        <telerik:RadGridView ItemsSource="{Binding Products}" />
-        <Button Content="Load Products"
-                Command="{Binding LoadProductsCommand}"
-                VerticalAlignment="Bottom"
-                HorizontalAlignment="Center"
-                Margin="10" />
+        <telerik:RadGridView x:Name="MyGridView"
+                             ItemsSource="{Binding Products}" />
+        
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Bottom"
+                    Background="#88AAAAAA">
+
+            <Button Content="Load More Products"
+                    Command="{Binding LoadProductsCommand}"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    Margin="10" />
+
+            <Button Content="Export CSV"
+                    Margin="10" 
+                    x:Name="StartExportButton"
+                    Click="StartExportButton_OnClick"/>
+            
+            <Button Content="Cancel Export"
+                    Visibility="Collapsed"
+                    Margin="10" 
+                    x:Name="CancelExportButton"
+                    Click="CancelExportButton_OnClick"/>
+        </StackPanel>
     </Grid>
 </Window>
