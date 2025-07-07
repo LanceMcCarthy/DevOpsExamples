@@ -314,10 +314,10 @@ jobs:
     matrix:
       android:
         TFM: 'net9.0-android'
-        imageName: 'windows-latest'
+        imageName: 'windows-2025'
       windows:
         TFM: 'net9.0-windows10.0.22621.0'
-        imageName: 'windows-latest'
+        imageName: 'windows-2025'
       ios:
         TFM: 'net9.0-ios'
         imageName: 'macOS-15'
@@ -334,12 +334,12 @@ jobs:
       version: $(DOTNET_SDK_VERSION)
 
   - task: CmdLine@2
-    displayName: 'Set Xcode v14.1.0'
+    displayName: 'Set Xcode to v16.4.0'
     condition: eq(variables['Agent.OS'], 'Darwin') # Only run this step on macOS
     inputs:
       script: |
-        echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_16.3.app
-        sudo xcode-select --switch /Applications/Xcode_16.3.app/Contents/Developer
+        echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_16.4.app
+        sudo xcode-select --switch /Applications/Xcode_16.4.app/Contents/Developer
 
   - powershell: dotnet workload install maui --source https://api.nuget.org/v3/index.json
     displayName: 'Install maui workloads'
