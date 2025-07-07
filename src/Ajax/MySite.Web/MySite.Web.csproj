@@ -216,10 +216,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.props'))" />
     <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.props" Condition="Exists('..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.props')" />
   <Import Project="..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.6.8\build\Telerik.Licensing.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
