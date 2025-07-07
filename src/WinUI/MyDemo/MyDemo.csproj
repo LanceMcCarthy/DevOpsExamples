@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Telerik.WinUI.Controls" Version="4.0.0" />
+		<PackageReference Include="Telerik.WinUI.Controls" Version="4.0.1" />
 		<PackageReference Include="CommonHelpers" Version="1.5.1" />
 		<PackageReference Include="WinUIEx" Version="2.6.0" />
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
