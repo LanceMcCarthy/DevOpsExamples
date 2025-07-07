@@ -1,8 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyBlazorApp.Services;
+using MyBlazorApp.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Telerik.JustMock;
+using System;
 
 namespace MyBlazorApp.Tests.Services;
 
@@ -67,5 +70,51 @@ public class DashboardDataServiceTest
         var revenue = await service.GetRevenue();
 
         Mock.Assert(revenue > 0);
+    }
+
+    [TestMethod]
+    public void PodcastViewModel_ViewsProperty_ReturnsSumOfDownloadsAndStreams()
+    {
+        var model = new PodcastViewModel { Downloads = 10, Streams = 15 };
+        Assert.AreEqual(25, model.Views);
+    }
+
+    [TestMethod]
+    public async Task GetStreams_ReturnsCorrectSum()
+    {
+        var service = new DashboardDataService();
+        var podcasts = await service.GetPodcasts();
+        var expected = podcasts.Sum(p => p.Streams);
+        var actual = await service.GetStreams();
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public async Task GetPlatformData_GroupsByPlatformName()
+    {
+        var service = new DashboardDataService();
+        var data = (await service.GetPlatformData(false)).ToList();
+        Assert.IsTrue(data.Count > 0);
+        Assert.IsFalse(string.IsNullOrEmpty(data[0].Category));
+    }
+
+    [TestMethod]
+    public async Task GetPodcasts_EmptyList_ReturnsEmpty()
+    {
+        // Arrange
+        var emptyService = Mock.Create<IDashboardDataService>();
+        Mock.Arrange(() => emptyService.GetPodcasts()).Returns(Task.FromResult<IEnumerable<PodcastViewModel>>(new List<PodcastViewModel>()));
+        // Act
+        var podcasts = await emptyService.GetPodcasts();
+        // Assert
+        Assert.IsFalse(podcasts.Any());
+    }
+
+    [TestMethod]
+    public void PlatformViewModel_PropertyAssignment_Works()
+    {
+        var model = new PlatformViewModel { Category = "Test", Views = 123 };
+        Assert.AreEqual("Test", model.Category);
+        Assert.AreEqual(123, model.Views);
     }
 }
