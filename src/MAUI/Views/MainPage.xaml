@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-             xmlns:local="using:MauiDemo"
              xmlns:views="clr-namespace:MauiDemo.Views"
              xmlns:viewModels="clr-namespace:MauiDemo.ViewModels"
+             xmlns:commands="using:MauiDemo.Commands"
              x:Class="MauiDemo.Views.MainPage"
              x:DataType="viewModels:MainViewModel">
 
@@ -43,6 +43,11 @@
                              UserSortMode="Multiple"
                              AutoGenerateColumns="False"
                              Grid.Row="1">
+            <telerik:RadDataGrid.Commands>
+                <commands:CellTapUserCommand />
+                <commands:BeginEditCommand />
+                <commands:CommitEditCommand />
+            </telerik:RadDataGrid.Commands>
             <telerik:RadDataGrid.Columns>
                 <telerik:DataGridTextColumn PropertyName="Name"
                                             HeaderText="Name" />
