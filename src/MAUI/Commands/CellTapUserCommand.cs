@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Diagnostics;
 using Telerik.Maui.Controls.DataGrid;
-using WinUIEx.Messaging;
 
 namespace MauiDemo.Commands;
 
