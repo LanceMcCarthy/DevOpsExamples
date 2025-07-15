@@ -1,0 +1,81 @@
+﻿@implements IDisposable
+
+@using MyBlazorApp.Models
+@using MyBlazorApp.Services
+
+@inject IJSRuntime Js
+@inject DashboardDataService DataService
+
+<div class="k-body" style="padding:2em;">
+    <label>
+        Select a Telerik theme:
+        <TelerikDropDownList Data="@ThemeData"
+                             Value="@ThemeSwatchValue"
+                             ValueChanged="@ThemeSwatchValueChanged"
+                             TItem="@ThemeModel"
+                             TValue="@int"
+                             ValueField="@nameof(ThemeModel.Id)"
+                             TextField="@nameof(ThemeModel.FullName)"
+                             Width="240px">
+        </TelerikDropDownList>
+    </label>
+
+    <TelerikLoader Visible="@LoaderVisible" />
+
+    <br/><br/>
+
+    <TelerikChart @ref="@ChartRef"
+                  Height="240px">
+        <ChartSeriesItems>
+            <ChartSeries Type="ChartSeriesType.Line"
+                         Data="@Series1Data"
+                         Field="@nameof(ChartModel.Revenue)"
+                         CategoryField="@nameof(ChartModel.TimePeriod)"
+                         Name="Product 1">
+            </ChartSeries>
+            <ChartSeries Type="ChartSeriesType.Column"
+                         Data="@Series2Data"
+                         Field="@nameof(ChartModel.Revenue)"
+                         CategoryField="@nameof(ChartModel.TimePeriod)"
+                         Name="Product 2">
+            </ChartSeries>
+            <ChartSeries Type="ChartSeriesType.Area"
+                         Data="@Series3Data"
+                         Field="@nameof(ChartModel.Revenue)"
+                         CategoryField="@nameof(ChartModel.TimePeriod)"
+                         Name="Product 3">
+            </ChartSeries>
+        </ChartSeriesItems>
+
+        <ChartCategoryAxes>
+            <ChartCategoryAxis Type="@ChartCategoryAxisType.Date"></ChartCategoryAxis>
+        </ChartCategoryAxes>
+
+        <ChartValueAxes>
+            <ChartValueAxis Max="600">
+                <ChartValueAxisLabels Format="c2" />
+            </ChartValueAxis>
+        </ChartValueAxes>
+
+        <ChartTitle Text="Telerik Chart"></ChartTitle>
+
+        <ChartLegend Position="ChartLegendPosition.Right">
+        </ChartLegend>
+    </TelerikChart>
+
+    <TelerikGrid Data="@Podcasts"
+                 Sortable="true"
+                 Height="100%"
+                 Pageable="false"
+                 ScrollMode="@GridScrollMode.Scrollable"
+                 SortMode="SortMode.Single"
+                 FilterMode="GridFilterMode.FilterRow"
+                 OnStateInit="@((GridStateEventArgs<PodcastViewModel> args) => OnStateInit(args))">
+        <GridColumns>
+            <GridColumn Field="@(nameof(PodcastViewModel.Name))" Title="Podcast Episode" Width="320px" />
+            <GridColumn Field="@(nameof(PodcastViewModel.Streams))" Width="150px" />
+            <GridColumn Field="@(nameof(PodcastViewModel.Downloads))" Width="150px" />
+        </GridColumns>
+    </TelerikGrid>
+</div>
+
