@@ -12,6 +12,7 @@ trigger:
      - 'src/AspNetCore/**/*'
      - 'src/WinUI/**/*'
      - 'src/MAUI/**/*'
+     - 'src/Wpf/**/*'
 
 variables:
   DOTNET_SDK_VERSION: '9.0.x'
@@ -23,6 +24,7 @@ variables:
   aspnetProjectPath: 'src/AspNetCore/MyAspNetCoreApp.sln'
   winuiProjectPath: 'src/WinUI/MyDemo.sln'
   mauiProjectPath: 'src/MAUI/MauiDemo.csproj'
+  wpfProjectPath: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
   # These pipeline variables (secrets) have been set using the AzDO yaml editor at dev.azure.com.
   # AKEYLESS_ACCESS_ID
   # MY_TELERIK_NUGET_KEY
@@ -356,7 +358,7 @@ jobs:
     displayName: 'Restore NuGet Packages'
 
   - powershell: dotnet build $(mauiProjectPath) -f $(TFM) -c Debug --no-restore
-    displayName: 'Build '
+    displayName: 'Build $(TFM)'
     env:
       # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
@@ -378,25 +380,18 @@ jobs:
     inputs:
       versionSpec: '4.x'
 
-  # Use nuget.exe to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
-  - task: PowerShell@2
-    displayName: 'Set Package Source Credentials'
-    inputs:
-      targetType: 'inline'
-      script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
-
   - task: NuGetCommand@2
     displayName: 'NuGet restore'
     inputs:
-      restoreSolution: $(ajaxProjectPath)
+      restoreSolution: $(wpfProjectPath)
       feedsToUse: config
       nugetConfigPath: $(nugetConfigPath)
       externalFeedCredentials: 'Telerik_v3'
 
   - task: MSBuild@1
-    displayName: 'Build '
+    displayName: 'Build WPF'
     inputs:
-      solution: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
+      solution: $(wpfProjectPath)
       platform: 'x86'
       configuration: 'Release'
       msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
