@@ -56,11 +56,11 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.90" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.7" />
 		<PackageReference Include="CommonHelpers" Version="1.5.1" />
 		<PackageReference Include="System.Private.Uri" Version="4.3.2" />
-		<PackageReference Include="Telerik.Licensing" Version="1.6.8" />
+		<PackageReference Include="Telerik.Licensing" Version="1.6.9" />
 		<PackageReference Include="Telerik.UI.for.Maui" Version="11.0.1" />
   </ItemGroup>
 
