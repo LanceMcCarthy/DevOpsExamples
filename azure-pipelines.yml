@@ -36,7 +36,9 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
+  - powershell: |
+      $key=$(MY_TELERIK_LICENSE_KEY)
+      echo "Key Length - $($key.Length)"
     displayName: 'Check license key variable length'
 
   - powershell: |
@@ -182,14 +184,16 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
+  - powershell: |
+      $key=$(MY_TELERIK_LICENSE_KEY)
+      echo "Key Length - $($key.Length)"
+    displayName: 'Check license key variable length'
+
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
   - powershell: dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
-
-  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
-    displayName: 'Check license key variable length'
 
   - powershell: dotnet build $(blazorProjectPath) --no-restore
     displayName: 'Build and publish'
@@ -209,7 +213,9 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
+  - powershell: |
+      $key=$(MY_TELERIK_LICENSE_KEY)
+      echo "Key Length - $($key.Length)"
     displayName: 'Check license key variable length'
 
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
@@ -376,7 +382,9 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
+  - powershell: |
+      $key=$(MY_TELERIK_LICENSE_KEY)
+      echo "Key Length - $($key.Length)"
     displayName: 'Check license key variable length'
     
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
