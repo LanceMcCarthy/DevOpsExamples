@@ -373,19 +373,33 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
-    displayName: 'Update Package Source Credentials'
+  - task: NuGetToolInstaller@1
+    displayName: 'Use NuGet.exe'
+    inputs:
+      versionSpec: '4.x'
 
-  - powershell: dotnet restore 'src/Wpf/MyWpfApp/MyWpfApp.csproj' --configfile $(nugetConfigPath) --runtime win-64
-    displayName: 'Restore NuGet Packages'
+  # Use nuget.exe to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
+  - task: PowerShell@2
+    displayName: 'Set Package Source Credentials'
+    inputs:
+      targetType: 'inline'
+      script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore'
+    inputs:
+      restoreSolution: $(ajaxProjectPath)
+      feedsToUse: config
+      nugetConfigPath: $(nugetConfigPath)
+      externalFeedCredentials: 'Telerik_v3'
 
   - task: MSBuild@1
     displayName: 'Build '
     inputs:
       solution: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
-      platform: 'x64'
+      platform: 'x86'
       configuration: 'Release'
-      msbuildArguments: '/p:OutputPath=$(Build.artifactStagingDirectory) /p:RuntimeIdentifier=win-64'
+      msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
     env:
       # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
