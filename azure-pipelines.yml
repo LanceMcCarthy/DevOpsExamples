@@ -376,7 +376,7 @@ jobs:
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
-  - powershell: dotnet restore 'src/Wpf/MyWpfApp/MyWpfApp.csproj' --configfile $(nugetConfigPath)
+  - powershell: dotnet restore 'src/Wpf/MyWpfApp/MyWpfApp.csproj' --configfile $(nugetConfigPath) --runtime win-64
     displayName: 'Restore NuGet Packages'
 
   - task: MSBuild@1
@@ -385,7 +385,7 @@ jobs:
       solution: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
       platform: 'x64'
       configuration: 'Release'
-      msbuildArguments: '/p:OutputPath=$(Build.artifactStagingDirectory)'
+      msbuildArguments: '/p:OutputPath=$(Build.artifactStagingDirectory) /p:RuntimeIdentifier=win-64'
     env:
       # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
