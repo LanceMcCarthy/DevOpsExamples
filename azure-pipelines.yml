@@ -36,6 +36,9 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
+  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
+    displayName: 'Check license key variable length'
+
   - powershell: |
       # 1. Clean the angular cache, to avoid using any expired keys
       rm -rf .angular/cache
@@ -185,6 +188,9 @@ jobs:
   - powershell: dotnet restore $(blazorProjectPath) --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
 
+  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
+    displayName: 'Check license key variable length'
+
   - powershell: dotnet build $(blazorProjectPath) --no-restore
     displayName: 'Build and publish'
     env:
@@ -202,6 +208,9 @@ jobs:
     inputs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
+
+  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
+    displayName: 'Check license key variable length'
 
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
@@ -356,27 +365,24 @@ jobs:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
 
 # ************************************************************* #
-# *                       .NET MAUI                           * #
+# *                          WPF                              * #
 # ************************************************************* #
 - job: BuildWpfApp
   pool:
-    vmImage: $(imageName)
+    vmImage: windows-2025
   steps:
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: |
-      $key = $(MY_TELERIK_LICENSE_KEY)
-      $length = $string.Length
-      Write-Output "The length of the string is $length
-    displayName: 'Chack var length'
+  - powershell: echo "Key Length - $($(MY_TELERIK_LICENSE_KEY).Length)"
+    displayName: 'Check license key variable length'
     
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
-  - powershell: dotnet restore $(mauiProjectPath) --configfile $(nugetConfigPath)
+  - powershell: dotnet restore 'src/Wpf/MyWpfApp/MyWpfApp.csproj' --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
 
   - task: MSBuild@1
