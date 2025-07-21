@@ -354,3 +354,42 @@ jobs:
     displayName: 'Build '
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+
+# ************************************************************* #
+# *                       .NET MAUI                           * #
+# ************************************************************* #
+- job: BuildWpfApp
+  pool:
+    vmImage: $(imageName)
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
+
+  - powershell: |
+      $key = $(MY_TELERIK_LICENSE_KEY)
+      $length = $string.Length
+      Write-Output "The length of the string is $length
+    displayName: 'Chack var length'
+    
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+    displayName: 'Update Package Source Credentials'
+
+  - powershell: dotnet restore $(mauiProjectPath) --configfile $(nugetConfigPath)
+    displayName: 'Restore NuGet Packages'
+
+  - task: MSBuild@1
+    displayName: 'Build '
+    inputs:
+      solution: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
+      platform: 'x64'
+      configuration: 'Release'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'wpf_drop'
+      publishLocation: 'Container'
