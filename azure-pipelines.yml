@@ -37,12 +37,6 @@ jobs:
     vmImage: 'ubuntu-latest'
   steps:
   - powershell: |
-      $key=$(MY_TELERIK_LICENSE_KEY)
-      $length=$key.length
-      echo "Key Length - $length"
-    displayName: 'Check license key variable length'
-
-  - powershell: |
       # 1. Clean the angular cache, to avoid using any expired keys
       rm -rf .angular/cache
 
@@ -58,7 +52,8 @@ jobs:
     workingDirectory: "src/Kendo/angular_demo"
     displayName: "Install Dependencies and Activate Kendo"
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
 # *************************************************************** #
@@ -137,7 +132,8 @@ jobs:
   - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
     displayName: 'Publish the project'
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
 # *************************************************************** #
@@ -170,7 +166,8 @@ jobs:
       projects: $(consoleProjectPath)
       configuration: $(buildConfiguration)
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
 # ************************************************************* #
@@ -185,12 +182,6 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: |
-      $key=$(MY_TELERIK_LICENSE_KEY)
-      $length=$key.length
-      echo "Key Length - $length"
-    displayName: 'Check license key variable length'
-
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
@@ -200,7 +191,8 @@ jobs:
   - powershell: dotnet build $(blazorProjectPath) --no-restore
     displayName: 'Build and publish'
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
 # ************************************************************* #
@@ -215,12 +207,6 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: |
-      $key=$(MY_TELERIK_LICENSE_KEY)
-      $length=$key.length
-      echo "Key Length - $length"
-    displayName: 'Check license key variable length'
-
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
@@ -230,7 +216,8 @@ jobs:
   - powershell: dotnet build $(aspnetProjectPath) --no-restore
     displayName: 'Build the project'
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
 # *************************************************************** #
@@ -371,7 +358,8 @@ jobs:
   - powershell: dotnet build $(mauiProjectPath) -f $(TFM) -c Debug --no-restore
     displayName: 'Build '
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 # ************************************************************* #
 # *                          WPF                              * #
@@ -385,12 +373,6 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: |
-      $key=$(MY_TELERIK_LICENSE_KEY)
-      $length=$key.length
-      echo "Key Length - $length"
-    displayName: 'Check license key variable length'
-    
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
     displayName: 'Update Package Source Credentials'
 
@@ -404,7 +386,8 @@ jobs:
       platform: 'x64'
       configuration: 'Release'
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
   - task: PublishBuildArtifacts@1
     inputs:
