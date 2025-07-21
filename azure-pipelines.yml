@@ -38,7 +38,8 @@ jobs:
   steps:
   - powershell: |
       $key=$(MY_TELERIK_LICENSE_KEY)
-      echo "Key Length - $($key.Length)"
+      $length=$key.length
+      echo "Key Length - $length"
     displayName: 'Check license key variable length'
 
   - powershell: |
@@ -186,7 +187,8 @@ jobs:
 
   - powershell: |
       $key=$(MY_TELERIK_LICENSE_KEY)
-      echo "Key Length - $($key.Length)"
+      $length=$key.length
+      echo "Key Length - $length"
     displayName: 'Check license key variable length'
 
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
@@ -215,7 +217,8 @@ jobs:
 
   - powershell: |
       $key=$(MY_TELERIK_LICENSE_KEY)
-      echo "Key Length - $($key.Length)"
+      $length=$key.length
+      echo "Key Length - $length"
     displayName: 'Check license key variable length'
 
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
@@ -384,7 +387,8 @@ jobs:
 
   - powershell: |
       $key=$(MY_TELERIK_LICENSE_KEY)
-      echo "Key Length - $($key.Length)"
+      $length=$key.length
+      echo "Key Length - $length"
     displayName: 'Check license key variable length'
     
   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
