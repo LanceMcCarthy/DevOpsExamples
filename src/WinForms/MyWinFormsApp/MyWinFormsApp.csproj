@@ -110,16 +110,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.Licensing">
-      <Version>1.6.9</Version>
+      <Version>1.6.16</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.GridView">
-      <Version>2025.2.520</Version>
+      <Version>2025.3.812</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.PdfViewer">
-      <Version>2025.2.520</Version>
+      <Version>2025.3.812</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.SyntaxEditor">
-      <Version>2025.2.520</Version>
+      <Version>2025.3.812</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
