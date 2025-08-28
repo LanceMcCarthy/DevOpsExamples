@@ -60,11 +60,11 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<PackageReference Include="CommonHelpers" Version="1.5.1" />
 		<PackageReference Include="System.Private.Uri" Version="4.3.2" />
-		<PackageReference Include="Telerik.Licensing" Version="1.6.16" />
+		<PackageReference Include="Telerik.Licensing" Version="1.6.21" />
 		<PackageReference Include="Telerik.UI.for.Maui" Version="11.1.0" />
   </ItemGroup>
 
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-		<PackageReference Include="WinUIEx" Version="2.6.0" />
+		<PackageReference Include="WinUIEx" Version="2.7.0" />
 	</ItemGroup>
 </Project>

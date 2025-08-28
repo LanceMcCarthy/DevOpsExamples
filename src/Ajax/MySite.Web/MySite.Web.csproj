@@ -74,23 +74,23 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Telerik.Licensing.Runtime, Version=1.6.9.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Licensing.1.6.16\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Licensing.1.6.21\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.Design, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.812\lib\net462\Telerik.Web.Design.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.Device.Detection, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.812\lib\net462\Telerik.Web.Device.Detection.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.Device.Detection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.812\lib\net462\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI.Skins, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.812\lib\net462\Telerik.Web.UI.Skins.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.UI.Skins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Core, Version=2025.2.701.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
@@ -219,16 +219,16 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Telerik.Licensing.1.6.16\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Telerik.Licensing.1.6.16\build\Telerik.Licensing.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.6.21\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.6.21\build\Telerik.Licensing.targets'))" />
   </Target>
-  <Import Project="..\packages\Telerik.Licensing.1.6.16\build\Telerik.Licensing.targets" Condition="Exists('..\packages\Telerik.Licensing.1.6.16\build\Telerik.Licensing.targets')" />
+  <Import Project="..\..\packages\Telerik.Licensing.1.6.21\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.6.21\build\Telerik.Licensing.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

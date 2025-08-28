@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.Licensing">
-      <Version>1.6.16</Version>
+      <Version>1.6.21</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.for.Wpf">
       <Version>2025.3.813</Version>
