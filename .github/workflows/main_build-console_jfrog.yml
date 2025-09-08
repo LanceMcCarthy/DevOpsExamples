@@ -5,7 +5,7 @@ on:
 
 jobs:
   build_console:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
@@ -15,22 +15,23 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
-    - name: Build using only an Artifactory virtual NuGet source
+    - name: Clear NuGet Sources and Add Artifactory Virtual Source
       shell: pwsh
       run: |
-        # Remove all existing sources
         dotnet nuget list source | ForEach-Object { 
-          dotnet nuget remove source -n $_.Name 
+          dotnet nuget remove source $_.Name
         }
 
-        # Add the Artifactory virtual source
-        dotnet nuget add source "artifactory_virtual" -s ${{env.ARTIFACORY_URL}} -u ${{env.ARTIFACORY_USER}} -p ${{env.ARTIFACORY_PWD}} --store-password-in-clear-text
-        
-        # Build the project to restore the packages
-        dotnet build ${{env.PROJECT_PATH}}
+    - name: Add Artifactory Virtual Source
+      shell: pwsh
+      run: dotnet nuget add source "artifactory_virtual" -s ${{env.ARTIFACORY_URL}} -u ${{env.ARTIFACORY_USER}} -p ${{env.ARTIFACORY_PWD}} --store-password-in-clear-text
       env:
-        PROJECT_PATH: "src/Console/MyDocProcApp/MyDocProcApp.csproj"
         ARTIFACORY_URL: "https://bed-artifactory.bedford.progress.com/artifactory/api/nuget/v3/dt-nuget-virtual-tierpoint/index.json"
         ARTIFACORY_USER: ${{secrets.ARTIFACTORY_NUGET_USERNAME}}
         ARTIFACORY_PWD: ${{secrets.ARTIFACTORY_NUGET_PASSWORD}}
+
+    - name: Build
+      shell: pwsh
+      run: dotnet build "src/Console/MyDocProcApp/MyDocProcApp.csproj"
+      env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
