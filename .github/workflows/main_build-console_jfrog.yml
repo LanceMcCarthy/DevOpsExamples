@@ -21,7 +21,7 @@ jobs:
 
     - name: Build Console App w/only Artifactory Source
       run: |
-        1. Remove all existing package sources
+        # 1. Remove all existing package sources
         $sourceList = dotnet nuget list source
         $sourceNames = @()
         foreach ($line in $sourceList) {
@@ -34,17 +34,17 @@ jobs:
             Write-Host "Removed $name ..."
         }
         
-        2. Add Artifactory source with credentials from GitHub Secrets
+        # 2. Add Artifactory source with credentials from GitHub Secrets
         dotnet nuget add source "https://bed-artifactory.bedford.progress.com/artifactory/api/nuget/v3/dt-nuget-virtual-tierpoint/index.json" `
           --name "artifactory_virtual" `
           --username ${{secrets.ARTIFACTORY_NUGET_USERNAME}} `
           --password ${{secrets.ARTIFACTORY_NUGET_PASSWORD}} `
           --store-password-in-clear-text
 
-        3. List sources to verify
+        # 3. List sources to verify
         dotnet nuget list source
 
-        4. Build the project
+        # 4. Build the project
         dotnet build "src/Console/MyDocProcApp/MyDocProcApp.csproj"
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
