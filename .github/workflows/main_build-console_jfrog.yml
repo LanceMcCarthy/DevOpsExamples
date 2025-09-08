@@ -15,14 +15,24 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
-    - name: Clear NuGet Sources and Add Artifactory Virtual Source
+    - name: Clear All Existing NuGet Sources
       shell: pwsh
       run: |
-        dotnet nuget list source | ForEach-Object { 
-          dotnet nuget remove source $_.Name
+        $sourceList = dotnet nuget list source
+        $sourceNames = @()
+
+        foreach ($line in $sourceList) {
+            if ($line -match '^\s*\d+\.\s+(.*)\s+\[Enabled\]') {
+                $sourceNames += $matches[1].Trim()
+            }
         }
 
-    - name: Add Artifactory Virtual Source
+        foreach ($name in $sourceNames) {
+            Write-Host "Removing source: $name"
+            dotnet nuget remove source "$name"
+        }
+
+    - name: Add Artifactory NuGet Source
       shell: pwsh
       run: dotnet nuget add source ${{env.ARTIFACORY_URL}} --name "artifactory_virtual" --username ${{env.ARTIFACORY_USER}} --password ${{env.ARTIFACORY_PWD}} --store-password-in-clear-text
       env:
