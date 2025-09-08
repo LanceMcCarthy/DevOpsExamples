@@ -3,6 +3,10 @@ name: Console using Artifactory (.NET)
 on:
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: pwsh
+
 jobs:
   build_console:
     runs-on: ubuntu-latest
@@ -16,32 +20,30 @@ jobs:
         dotnet-version: '9.0.x'
 
     - name: Clear All Existing NuGet Sources
-      shell: pwsh
       run: |
         $sourceList = dotnet nuget list source
         $sourceNames = @()
-
         foreach ($line in $sourceList) {
             if ($line -match '^\s*\d+\.\s+(.*)\s+\[Enabled\]') {
                 $sourceNames += $matches[1].Trim()
             }
         }
-
         foreach ($name in $sourceNames) {
             Write-Host "Removing source: $name"
             dotnet nuget remove source "$name"
         }
 
     - name: Add Artifactory NuGet Source
-      shell: pwsh
       run: dotnet nuget add source ${{env.ARTIFACORY_URL}} --name "artifactory_virtual" --username ${{env.ARTIFACORY_USER}} --password ${{env.ARTIFACORY_PWD}} --store-password-in-clear-text
       env:
         ARTIFACORY_URL: "https://bed-artifactory.bedford.progress.com/artifactory/api/nuget/v3/dt-nuget-virtual-tierpoint/index.json"
         ARTIFACORY_USER: ${{secrets.ARTIFACTORY_NUGET_USERNAME}}
         ARTIFACORY_PWD: ${{secrets.ARTIFACTORY_NUGET_PASSWORD}}
 
-    - name: Build
-      shell: pwsh
-      run: dotnet build "src/Console/MyDocProcApp/MyDocProcApp.csproj"
+    - name: Restore packages from only Artifactory Only
+      run: dotnet restore "src/Console/MyDocProcApp/MyDocProcApp.csproj"
+      
+    - name: Build Console App with Artifactory Only
+      run: dotnet build "src/Console/MyDocProcApp/MyDocProcApp.csproj" --no-restore
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
