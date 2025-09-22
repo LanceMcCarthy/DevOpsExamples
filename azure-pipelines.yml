@@ -98,6 +98,11 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
+
   # Get an authentication token from Azure so we can authenticate with Akeyless
   - task: AzureCLI@2
     name: 'AzureCLI'
@@ -119,22 +124,17 @@ jobs:
       azureJwt: '$(AzureCLI.azure_jwt)' # Output variable from the previous step
       staticSecrets: '{"/progress/TELERIK_USERNAME":"NUGET_UN", "/progress/TELERIK_PASSWORD":"NUGET_PWD"}'
 
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: $(DOTNET_SDK_VERSION)
-
-    # Instead of a custom nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
-  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u '$(Akeyless1.NUGET_UN)' -p '$(Akeyless1.NUGET_PWD)' --store-password-in-clear-text
-    displayName: 'Update package source credentials'
+    # Instead of a supplied nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
+  - powershell: dotnet nuget add source "https://nuget.telerik.com/v3/index.json" --name "TelerikNuGet_Added" --username $(Akeyless1.NUGET_UN) --password $(Akeyless1.NUGET_PWD) --store-password-in-clear-text
+    displayName: 'Add Telerik NuGet server package source'
   
-  - powershell: dotnet restore $(consoleProjectPath) --configfile $(nugetConfigPath)
+  - powershell: dotnet restore $(consoleProjectPath)
     displayName: 'restore packages'
   
   - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
     displayName: 'Publish the project'
     env:
-      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
+      # AzDO pipeline secret variable. Note: YAML variables supports large string values, classic pipelines do not (2-4kb max)!
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
