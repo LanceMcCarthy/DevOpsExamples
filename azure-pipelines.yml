@@ -92,7 +92,7 @@ jobs:
 
 
 # *************************************************************** #
-# *              CONSOLE (uses Akeyless secrets)                * #
+# *              CONSOLE  (without nuget.config)                * #
 # *************************************************************** #
 - job: BuildConsoleApp_Akeyless
   pool:
@@ -110,8 +110,7 @@ jobs:
         $JWT=$(az account get-access-token --query accessToken --output tsv)
         echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
   
-  # Uses LanceMcCarthy/akeyless-extension-azdo to pull down static secret (also works for dynamic secrets)
-  # Needs a JWT see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
+  # Uses LanceMcCarthy/akeyless-extension-azdo to get a secret. Needs a JWT see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
   - task: akeyless-secrets@1
     name: 'Akeyless1'
     displayName: 'Get Secrets from Akeyless'
@@ -125,7 +124,8 @@ jobs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: dotnet nuget update source 'Telerik_v3_Feed' --source 'https://nuget.telerik.com/v3/index.json' --username 'api-key' --password '$(Akeyless1.NUGET_KEY)' --configfile $(nugetConfigPath) --store-password-in-clear-text
+    # Instead of a custom nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
+  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p '$(Akeyless1.NUGET_KEY)' --store-password-in-clear-text
     displayName: 'Update package source credentials'
   
   - powershell: dotnet restore $(consoleProjectPath) --configfile $(nugetConfigPath)
@@ -269,48 +269,48 @@ jobs:
 # ************************************************************* #
 # *                         WinUI 3                           * #
 # ************************************************************* #
-# - job: BuildWinUI
-#   pool:
-#     vmImage: 'windows-latest'
-#   steps:
-#   - task: UseDotNet@2
-#     inputs:
-#       packageType: 'sdk'
-#       version: $(DOTNET_SDK_VERSION)
+- job: BuildWinUI
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
 
-#   - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
-#     displayName: 'Update Package Source Credentials'
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+    displayName: 'Update Package Source Credentials'
 
-#   - powershell: dotnet restore $(winuiProjectPath) --configfile $(nugetConfigPath)
-#     displayName: 'Restore NuGet Packages'
+  - powershell: dotnet restore $(winuiProjectPath) --configfile $(nugetConfigPath)
+    displayName: 'Restore NuGet Packages'
 
-#   - task: MSBuild@1
-#     displayName: 'Restore RIDs'
-#     inputs:
-#       solution: '$(winuiProjectPath)'
-#       platform: x64
-#       configuration: Release
-#       msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
+  - task: MSBuild@1
+    displayName: 'Restore RIDs'
+    inputs:
+      solution: '$(winuiProjectPath)'
+      platform: x64
+      configuration: Release
+      msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
 
-#   # Note: PFX thumbprint is intentionally set to an empty string, this overrides any previous thumbprint from the project
-#   - task: MSBuild@1
-#     displayName: 'Build and Create MSIX'
-#     inputs:
-#       solution: '$(winuiProjectPath)'
-#       platform: x64
-#       configuration: Release
-#       msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
-#                          /p:UapAppxPackageBuildMode=CI 
-#                          /p:AppxBundle=Never 
-#                          /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" 
-#                          /p:PackageCertificatePassword="$(PfxPassword)" 
-#                          /p:PackageCertificateThumbprint="" 
-#                          /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppPackages" 
-#                          /p:GenerateAppxPackageOnBuild=true 
-#                          /p:AppxPackageSigningEnabled=false 
-#                          /p:SelfContained=true'
-#     env:
-#       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+  # Note: PFX thumbprint is intentionally set to an empty string, this overrides any previous thumbprint from the project
+  - task: MSBuild@1
+    displayName: 'Build and Create MSIX'
+    inputs:
+      solution: '$(winuiProjectPath)'
+      platform: x64
+      configuration: Release
+      msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
+                         /p:UapAppxPackageBuildMode=CI 
+                         /p:AppxBundle=Never 
+                         /p:PackageCertificateKeyFile="$(PfxDownloadStep.secureFilePath)" 
+                         /p:PackageCertificatePassword="$(PfxPassword)" 
+                         /p:PackageCertificateThumbprint="" 
+                         /p:AppxPackageDir="$(Build.ArtifactStagingDirectory)/AppPackages" 
+                         /p:GenerateAppxPackageOnBuild=true 
+                         /p:AppxPackageSigningEnabled=false 
+                         /p:SelfContained=true'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
 
 
 # ************************************************************* #
@@ -397,7 +397,7 @@ jobs:
       msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
     env:
       # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
 
   # - task: PublishBuildArtifacts@1
   #   inputs:
