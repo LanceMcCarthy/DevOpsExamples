@@ -117,7 +117,7 @@ jobs:
     inputs:
       accessid: '$(AKEYLESS_ACCESS_ID)' # Stored as pipeline variable
       azureJwt: '$(AzureCLI.azure_jwt)' # Output variable from the previous step
-      staticSecrets: '{"/progress/TELERIK_NUGET_KEY":"NUGET_KEY"}'
+      staticSecrets: '{"/progress/TELERIK_USERNAME":"NUGET_UN", "/progress/TELERIK_PASSWORD":"NUGET_PWD"}'
 
   - task: UseDotNet@2
     inputs:
@@ -125,7 +125,7 @@ jobs:
       version: $(DOTNET_SDK_VERSION)
 
     # Instead of a custom nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
-  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p '$(Akeyless1.NUGET_KEY)' --store-password-in-clear-text
+  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u '$(Akeyless1.NUGET_UN)' -p '$(Akeyless1.NUGET_PWD)' --store-password-in-clear-text
     displayName: 'Update package source credentials'
   
   - powershell: dotnet restore $(consoleProjectPath) --configfile $(nugetConfigPath)
