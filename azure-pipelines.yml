@@ -118,7 +118,7 @@ jobs:
     inputs:
       accessid: '$(AKEYLESS_ACCESS_ID)' # Stored as pipeline variable
       azureJwt: '$(AzureCLI.azure_jwt)' # Output variable from the previous step
-      staticSecrets: '{"/personal-keys/mccarthy/TELERIK_NUGET_KEY":"NUGET_KEY"}'
+      staticSecrets: '{"/progress/TELERIK_NUGET_KEY":"NUGET_KEY"}'
 
   - task: UseDotNet@2
     inputs:
