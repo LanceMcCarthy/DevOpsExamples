@@ -240,7 +240,7 @@ jobs:
     inputs:
       versionSpec: '4.x'
 
-  # Use nuget.exe to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
+  # IMPORTANT Uses nuget.exe, not dotnet sdk, to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
   - task: PowerShell@2
     displayName: 'Set Package Source Credentials'
     inputs:
