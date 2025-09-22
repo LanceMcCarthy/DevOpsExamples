@@ -74,42 +74,42 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Telerik.Licensing.Runtime, Version=1.6.23.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Licensing.1.6.23\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
+      <HintPath>..\packages\Telerik.Licensing.1.6.23\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Web.Design, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.Design.dll</HintPath>
+      <HintPath>..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.Device.Detection, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.Device.Detection.dll</HintPath>
+      <HintPath>..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.Device.Detection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI.Skins, Version=2025.2.609.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.UI.Skins.dll</HintPath>
+      <HintPath>..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.UI.Skins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Core, Version=2025.2.701.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Core.2025.3.806\lib\net462\Telerik.Windows.Documents.Core.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Documents.Core.2025.3.806\lib\net462\Telerik.Windows.Documents.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Flow, Version=2025.2.701.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Flow.2025.3.806\lib\net462\Telerik.Windows.Documents.Flow.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Documents.Flow.2025.3.806\lib\net462\Telerik.Windows.Documents.Flow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet, Version=2025.2.701.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.2025.3.806\lib\net462\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Documents.Spreadsheet.2025.3.806\lib\net462\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml, Version=2025.2.701.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.2025.3.806\lib\net462\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.2025.3.806\lib\net462\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Zip, Version=2025.2.701.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Zip.2025.3.806\lib\net462\Telerik.Windows.Zip.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Zip.2025.3.806\lib\net462\Telerik.Windows.Zip.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
@@ -228,11 +228,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets')" />
+  <Import Project="..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets" Condition="Exists('..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets'))" />
+    <Error Condition="!Exists('..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets'))" />
   </Target>
 </Project>
