@@ -98,11 +98,6 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: $(DOTNET_SDK_VERSION)
-
   # Get an authentication token from Azure so we can authenticate with Akeyless
   - task: AzureCLI@2
     name: 'AzureCLI'
@@ -122,19 +117,23 @@ jobs:
     inputs:
       accessid: 'p-sxfgaph9urt4om' # Auth Method ID (see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md#akeyless-setup)
       azureJwt: '$(AzureCLI.azure_jwt)' # Output variable from the previous step
-      staticSecrets: '{"/progress/TELERIK_USERNAME":"TK_UN","/progress/TELERIK_PASSWORD":"TK_PWD"}'
+      staticSecrets: '{"/progress/TELERIK_NUGET_KEY":"NUGET_KEY"}'
 
-    # Instead of a supplied nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
-  - powershell: |
-      dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' --name 'TelerikNuGet_Added' -u "$(Akeyless1.TK_UN)" -p "$(Akeyless1.TK_PWD)" --store-password-in-clear-text
-      dotnet restore $(consoleProjectPath)
-    displayName: 'Add Telerik NuGet server and restore packages'
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: $(DOTNET_SDK_VERSION)
+
+  - powershell: dotnet nuget update source 'Telerik_v3_Feed' --source 'https://nuget.telerik.com/v3/index.json' --username 'api-key' --password '$(Akeyless1.NUGET_KEY)' --configfile $(nugetConfigPath) --store-password-in-clear-text
+    displayName: 'Update package source credentials'
   
-  - powershell: |
-      dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
+  - powershell: dotnet restore $(consoleProjectPath) --configfile $(nugetConfigPath)
+    displayName: 'restore packages'
+  
+  - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
     displayName: 'Publish the project'
     env:
-      # AzDO pipeline secret variable. Note: YAML variables supports large string values, classic pipelines do not (2-4kb max)!
+      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
