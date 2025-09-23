@@ -9,9 +9,9 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-#RUN cd /etc/yum.repos.d/
-#RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/centos.repo
-#RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/centos.repo
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/centos.repo
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/centos.repo
 RUN yum update -y
 
 # IMPORTANT - Enable EPEL repostitory (if this doesn't work, use `RUN rpm -ihv --nodeps https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm` instead)
