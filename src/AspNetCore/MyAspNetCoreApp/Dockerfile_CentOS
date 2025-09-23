@@ -19,7 +19,7 @@ RUN yum install epel-release -y
 
 # REPORTING DEPENDENCIES - See https://docs.telerik.com/reporting/knowledge-base/how-to-build-and-install-libgdiplus-linux#solution-for-centos-and-amazon-linux
 # Install Skia dependencies for new Telerik report rendering with Skia
-RUN yum install libfreetype6 libfontconfig1 -y
+RUN yum install freetype fontconfig -y
 
 # DOTNET RUNTIME - Install aspnetcore runtime (if your base image does not have it already)
 RUN rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
