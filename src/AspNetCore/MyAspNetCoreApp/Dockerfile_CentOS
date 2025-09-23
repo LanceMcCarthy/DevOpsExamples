@@ -4,7 +4,7 @@
 ### STAGE 1 ###
 ###############
 # Install required dependencies into the stripped-down base image
-FROM centos:latest AS base
+FROM --platform=$BUILDPLATFORM tgagor/centos:stream9 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
