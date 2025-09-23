@@ -115,31 +115,22 @@ jobs:
         $JWT=$(az account get-access-token --query accessToken --output tsv)
         echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
   
-  # Uses LanceMcCarthy/akeyless-extension-azdo to get a secret. Needs a JWT see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
+  # Uses LanceMcCarthy/akeyless-extension-azdo to get a secret (uses azureJwt, see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md)
   - task: akeyless-secrets@1
     name: 'Akeyless1'
     displayName: 'Get Secrets from Akeyless'
     inputs:
-      accessid: '$(AKEYLESS_ACCESS_ID)' # Stored as pipeline variable
+      accessid: 'p-sxfgaph9urt4om' # Auth Method ID (see https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md#akeyless-setup)
       azureJwt: '$(AzureCLI.azure_jwt)' # Output variable from the previous step
-      staticSecrets: '{"/progress/TELERIK_NUGET_KEY":"TK_NUGET_KEY","/progress/TELERIK_USERNAME":"TK_UN","/progress/TELERIK_PASSWORD":"TK_PWD"}'
-
-  - powershell: |
-      $keyVal=$(Akeyless1.TK_NUGET_KEY)
-      $unVal=$(Akeyless1.TK_UN)
-      $pwdVal=$(Akeyless1.TK_PWD)
-
-      $keyLetterCount=$keyVal.Count
-      $unLetterCount=$keyVal.Count
-      $pwdLetterCount=$keyVal.Count
-
-      echo "TK_NUGET_KEY Count: $keyLetterCount"
-      echo "TK_UN Count: $unLetterCount"
-      echo "TK_PWD Count: $pwdLetterCount"
-    displayName: 'Verify secrets'
+      staticSecrets: '{"/progress/TELERIK_USERNAME":"TK_UN","/progress/TELERIK_PASSWORD":"TK_PWD"}'
 
     # Instead of a supplied nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
-  - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' --name 'TelerikNuGet_Added' --username 'api-key' --password '$(Akeyless1.TK_NUGET_KEY)' --store-password-in-clear-text
+  - powershell: |
+      $unVal="$(Akeyless1.TK_UN)"
+      $pwdVal="$(Akeyless1.TK_PWD)"
+      $unCount=$unVal.Length
+      echo "TK_UN Length: $unCount"
+      dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' --name 'TelerikNuGet_Added' -u $unVal -p $pwdVal --store-password-in-clear-text
     displayName: 'Add Telerik NuGet server package source'
   
   - powershell: dotnet restore $(consoleProjectPath)
