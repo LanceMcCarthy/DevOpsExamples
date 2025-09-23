@@ -57,62 +57,63 @@ jobs:
   #         [Option B] DOCKERFILE BUILD        #
   ##############################################
   # Publishes to registry.hub.docker.com (Docker hub)
-  # build_aspnetcore:
-  #   runs-on: ubuntu-22.04
-  #   env:
-  #     CONTAINER_REPOSITORY: "lancemccarthy/myaspnetcoreapp"
-  #     WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
-  #     with:
-  #       fetch-depth: 0
+  build_aspnetcore:
+    runs-on: ubuntu-22.04
+    env:
+      CONTAINER_REPOSITORY: "lancemccarthy/reporting-on-centos"
+      WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-  #   # Using AKeyless for secrets, you can use GitHub Actions instead.
-  #   - name: Fetch secrets from AKeyless
-  #     id: akeyless
-  #     uses: LanceMcCarthy/akeyless-action@v3
-  #     with:
-  #       access-id: ${{secrets.AKEYLESS_JWT_ID}}
-  #       static-secrets: |
-  #         {
-  #           "/personal-keys/mccarthy/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY",
-  #           "/personal-keys/mccarthy/TELERIK_LICENSE":"TELERIK_LICENSE_KEY", 
-  #           "/personal-keys/mccarthy/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", 
-  #           "/personal-keys/mccarthy/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"
-  #         }
-  #       export-secrets-to-outputs: true
-  #       export-secrets-to-environment: false
+    # Using AKeyless for secrets, you can use GitHub Actions instead.
+    - name: Fetch secrets from AKeyless
+      id: akeyless
+      uses: LanceMcCarthy/akeyless-action@v3
+      with:
+        access-id: 'p-4blpeo5zdfeaom'
+        static-secrets: |
+          {
+            "/progress/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY",
+            "/progress/TELERIK_LICENSE":"TELERIK_LICENSE_KEY", 
+            "/docker/DOCKER_HUB_USERNAME":"DOCKER_HUB_USERNAME", 
+            "/docker/DOCKER_HUB_PAT":"DOCKER_HUB_PAT"
+          }
+        export-secrets-to-outputs: true
+        export-secrets-to-environment: false
 
-  #   - name: Set up QEMU
-  #     uses: docker/setup-qemu-action@v3
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
 
-  #   - name: Set up Docker Buildx
-  #     uses: docker/setup-buildx-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
       
-  #   - name: Get package metadata from Docker Hub
-  #     id: meta
-  #     uses: docker/metadata-action@v5
-  #     with:
-  #       images: ${{env.CONTAINER_REPOSITORY}}
+    - name: Get package metadata from Docker Hub
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{env.CONTAINER_REPOSITORY}}
 
-  #   - name: Login to DockerHub
-  #     uses: docker/login-action@v3
-  #     with:
-  #       username: ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}
-  #       password: ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{steps.akeyless.outputs.DOCKER_HUB_USERNAME}}
+        password: ${{steps.akeyless.outputs.DOCKER_HUB_PAT}}
 
-  #   - name: Build and push to Docker Hub
-  #     uses: docker/build-push-action@v5
-  #     with:
-  #       context: ${{env.WORKING_DIRECTORY}}
-  #       platforms: linux/arm64,linux/amd64
-  #       push: true
-  #       secrets: |
-  #         telerik-nuget-key=${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
-  #         telerik-license-key=${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
-  #       tags: |
-  #         ${{env.CONTAINER_REPOSITORY}}:latest
+    - name: Build and push to Docker Hub
+      uses: docker/build-push-action@v5
+      with:
+        file: ${{env.WORKING_DIRECTORY}}/Dockerfile_CentOS
+        context: ${{env.WORKING_DIRECTORY}}
+        platforms: linux/arm64,linux/amd64
+        push: true
+        secrets: |
+          telerik-nuget-key=${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
+          telerik-license-key=${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
+        tags: |
+          ${{env.CONTAINER_REPOSITORY}}:latest
 
 
   ##########################################################
