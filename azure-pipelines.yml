@@ -126,17 +126,12 @@ jobs:
 
     # Instead of a supplied nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
   - powershell: |
-      $unVal="$(Akeyless1.TK_UN)"
-      $pwdVal="$(Akeyless1.TK_PWD)"
-      $unCount=$unVal.Length
-      echo "TK_UN Length: $unCount"
-      dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' --name 'TelerikNuGet_Added' -u $unVal -p $pwdVal --store-password-in-clear-text
-    displayName: 'Add Telerik NuGet server package source'
+      dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' --name 'TelerikNuGet_Added' -u "$(Akeyless1.TK_UN)" -p "$(Akeyless1.TK_PWD)" --store-password-in-clear-text
+      dotnet restore $(consoleProjectPath)
+    displayName: 'Add Telerik NuGet server and restore packages'
   
-  - powershell: dotnet restore $(consoleProjectPath)
-    displayName: 'restore packages'
-  
-  - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
+  - powershell: |
+      dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
     displayName: 'Publish the project'
     env:
       # AzDO pipeline secret variable. Note: YAML variables supports large string values, classic pipelines do not (2-4kb max)!
