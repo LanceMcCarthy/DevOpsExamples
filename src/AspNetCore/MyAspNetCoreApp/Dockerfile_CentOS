@@ -4,7 +4,7 @@
 ### STAGE 1 ###
 ###############
 # Install required dependencies into the stripped-down base image
-FROM --platform=$BUILDPLATFORM tgagor/centos:latest AS base
+FROM --platform=$BUILDPLATFORM tgagor/centos:7 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -23,7 +23,7 @@ RUN yum install libfreetype6 libfontconfig1 -y
 
 # DOTNET RUNTIME - Install aspnetcore runtime (if your base image does not have it already)
 RUN rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
-RUN yum install aspnetcore-runtime-8.0 -y
+RUN yum install aspnetcore-runtime-9.0 -y
 
 
 ###############
