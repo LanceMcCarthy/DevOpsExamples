@@ -122,7 +122,21 @@ jobs:
     inputs:
       accessid: '$(AKEYLESS_ACCESS_ID)' # Stored as pipeline variable
       azureJwt: '$(AzureCLI.azure_jwt)' # Output variable from the previous step
-      staticSecrets: '{"/progress/TELERIK_NUGET_KEY":"TK_NUGET_KEY"}'
+      staticSecrets: '{"/progress/TELERIK_NUGET_KEY":"TK_NUGET_KEY","/progress/TELERIK_USERNAME":"TK_UN","/progress/TELERIK_PASSWORD":"TK_PWD"}'
+
+  - powershell: |
+      $keyVal=$(Akeyless1.TK_NUGET_KEY)
+      $unVal=$(Akeyless1.TK_UN)
+      $pwdVal=$(Akeyless1.TK_PWD)
+
+      $keyLetterCount=$keyVal.Count
+      $unLetterCount=$keyVal.Count
+      $pwdLetterCount=$keyVal.Count
+
+      echo "TK_NUGET_KEY Count: $keyLetterCount"
+      echo "TK_UN Count: $unLetterCount"
+      echo "TK_PWD Count: $pwdLetterCount"
+    displayName: 'Verify secrets'
 
     # Instead of a supplied nuget.config, lets ADD the Telerik server to the default nuget.config on the runner
   - powershell: dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' --name 'TelerikNuGet_Added' --username 'api-key' --password '$(Akeyless1.TK_NUGET_KEY)' --store-password-in-clear-text
