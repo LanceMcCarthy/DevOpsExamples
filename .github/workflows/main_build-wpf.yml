@@ -45,6 +45,4 @@ jobs:
 
     # Use msbuild to compile the .NET Framework WPF project
     - name: Build the WPF application
-      run: |
-        msbuild ${{env.CSPROJ_PATH}} /t:Restore /p:Configuration=${{matrix.configuration}} /p:RuntimeIdentifier=win-${{matrix.platform}}
-        msbuild ${{env.CSPROJ_PATH}} /p:Configuration=${{matrix.configuration}} /p:RuntimeIdentifier=win-${{matrix.platform}}
+      run: msbuild ${{env.CSPROJ_PATH}} /t:Restore /p:Configuration=${{matrix.configuration}} /p:RuntimeIdentifier=${{matrix.platform}}
