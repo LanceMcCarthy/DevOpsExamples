@@ -74,7 +74,8 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Telerik.Licensing.Runtime, Version=1.6.23.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Licensing.1.6.23\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Licensing.1.6.24\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.Design, Version=2025.3.825.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2025.3.825\lib\net462\Telerik.Web.Design.dll</HintPath>
@@ -218,7 +219,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -234,5 +235,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Telerik.Licensing.1.6.23\build\Telerik.Licensing.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.6.24\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.6.24\build\Telerik.Licensing.targets'))" />
   </Target>
+  <Import Project="..\..\packages\Telerik.Licensing.1.6.24\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.6.24\build\Telerik.Licensing.targets')" />
 </Project>

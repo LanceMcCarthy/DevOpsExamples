@@ -6,9 +6,9 @@
   
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
-    <PackageReference Include="Telerik.Licensing" Version="1.6.23" />
+    <PackageReference Include="Telerik.Licensing" Version="1.6.24" />
     <PackageReference Include="Telerik.UI.for.Blazor" Version="11.1.1" />
-		<PackageReference Include="Telerik.Drawing.Skia" Version="19.2.25.813" />
+		<PackageReference Include="Telerik.Drawing.Skia" Version="19.2.25.924" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Telerik.Licensing;
 
 namespace MyWpfApp
 {
@@ -6,6 +7,7 @@ namespace MyWpfApp
     {
         public App()
         {
+            TelerikLicensing.EnableDiagnostics();
            this.InitializeComponent();
         }
     }
