@@ -7,10 +7,5 @@ public partial class App : Application
 		InitializeComponent();
     }
 
-    protected override Window CreateWindow(IActivationState activationState)
-    {
-        this.MainPage ??= activationState?.Context.Services.GetRequiredService<AppShell>();
-
-        return base.CreateWindow(activationState);
-    }
+    protected override Window CreateWindow(IActivationState activationState) => new Window(activationState?.Context.Services.GetRequiredService<AppShell>() ?? new AppShell());
 }

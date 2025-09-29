@@ -13,8 +13,8 @@
                                            EventName="Appearing" />
     </ContentPage.Behaviors>
 
-    <Grid RowDefinitions="Auto,*,Auto" Style="{StaticResource FillGridStyle}">
-        <Grid Background="{Binding BackgroundColor, Source={x:Reference MyToolbar}}">
+    <Grid RowDefinitions="Auto,*,Auto" Style="{StaticResource FillGridStyle}" >
+        <Grid BackgroundColor="{Binding BackgroundColor, Source={x:Reference MyToolbar}, x:DataType=Color}">
             <telerik:RadToolbar x:Name="MyToolbar"
                                 Style="{StaticResource CenterToolbarStyle}">
                 <telerik:ButtonToolbarItem Text="Button">

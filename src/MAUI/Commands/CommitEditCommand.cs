@@ -7,16 +7,16 @@ public class CommitEditCommand : DataGridCommand
 {
     public CommitEditCommand()
     {
-        this.Id = DataGridCommandId.CommitEdit;
+        Id = DataGridCommandId.CommitEdit;
     }
 
     public override void Execute(object parameter)
     {
-        if (parameter is EditContext context)
-        {
-            Debug.WriteLine($"CommitEdit on: {context.CellInfo.Value} via {context.TriggerAction}.");
+        if (parameter is not EditContext context) 
+            return;
 
-            this.Owner.CommandService.ExecuteDefaultCommand(DataGridCommandId.CommitEdit, parameter);
-        }
+        Owner.CommandService.ExecuteDefaultCommand(DataGridCommandId.CommitEdit, parameter);
+
+        Debug.WriteLine($"CommitEdit on: {context.CellInfo.Value} via {context.TriggerAction}.");
     }
 }

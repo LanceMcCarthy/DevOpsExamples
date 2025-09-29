@@ -14,11 +14,12 @@ public class DataTypeEditorsModel : NotifyPropertyChangedBase
     private string phoneNumber;
     private string email;
     private string password;
-    private string? url;
+    private string url;
     private decimal? cost;
-    private string? notes;
+    private string notes;
     private TimeSpan? duration;
     private EnumValue accommodation = EnumValue.Apartment;
+
     public enum EnumValue
     {
         SingleRoom,
@@ -103,10 +104,7 @@ public class DataTypeEditorsModel : NotifyPropertyChangedBase
     [Display(Name = "Select accomodation")]
     public EnumValue Accommodation
     {
-        get
-        {
-            return accommodation;
-        }
+        get => accommodation;
         set
         {
             if (accommodation != value)
@@ -134,7 +132,7 @@ public class DataTypeEditorsModel : NotifyPropertyChangedBase
     [Display(Name = "Web address")]
     [DataType(DataType.Url)]
     [RegularExpression(@"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$", ErrorMessage = "Please enter valid url.")]
-    public string? URL
+    public string Url
     {
         get => url;
         set => UpdateValue(ref url, value);
@@ -151,7 +149,7 @@ public class DataTypeEditorsModel : NotifyPropertyChangedBase
 
     [Display(Name = "Notes")]
     [DataType(DataType.MultilineText)]
-    public string? Notes
+    public string Notes
     {
         get => notes;
         set => UpdateValue(ref notes, value);

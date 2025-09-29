@@ -7,16 +7,16 @@ public class BeginEditCommand : DataGridCommand
 {
     public BeginEditCommand()
     {
-        this.Id = DataGridCommandId.BeginEdit;
+        Id = DataGridCommandId.BeginEdit;
     }
 
     public override void Execute(object parameter)
     {
-        if (parameter is EditContext context)
-        {
-            Debug.WriteLine($"BeginEdit on: {context.CellInfo.Value} via {context.TriggerAction}.");
+        if (parameter is not EditContext context) 
+            return;
 
-            this.Owner.CommandService.ExecuteDefaultCommand(DataGridCommandId.BeginEdit, parameter);
-        }
+        Owner.CommandService.ExecuteDefaultCommand(DataGridCommandId.BeginEdit, parameter);
+
+        Debug.WriteLine($"BeginEdit on: {context.CellInfo.Value} via {context.TriggerAction}.");
     }
 }
