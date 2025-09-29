@@ -239,12 +239,12 @@ jobs:
     inputs:
       versionSpec: '4.x'
 
-  # IMPORTANT Uses nuget.exe, not dotnet sdk, to update the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
-  - task: PowerShell@2
-    displayName: 'Set Package Source Credentials'
-    inputs:
-      targetType: 'inline'
-      script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+  # You could also use nuget.exe's update command to set the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
+  # - task: PowerShell@2
+  #   displayName: 'Set Package Source Credentials'
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
 
   - task: NuGetCommand@2
     displayName: 'NuGet restore'
@@ -260,7 +260,7 @@ jobs:
       solution: '$(ajaxProjectPath)'
       platform: Any CPU
       configuration: Release
-      msbuildArguments: '/p:RestorePackages=true'
+      msbuildArguments: '/t:Restore /p:Configuration=Release /p:RuntimeIdentifier=any'
     env:
       TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # Note 2: We use the name to reference the secureFilePath value
 
