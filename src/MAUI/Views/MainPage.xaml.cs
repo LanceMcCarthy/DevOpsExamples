@@ -1,5 +1,9 @@
-﻿using MauiDemo.Interfaces;
+﻿using System.Globalization;
+using MauiDemo.Interfaces;
 using MauiDemo.ViewModels;
+using SkiaSharp;
+using SkiaSharp.Views.Maui;
+using SkiaSharp.Views.Maui.Controls;
 using Telerik.Maui.Data;
 
 namespace MauiDemo.Views;

@@ -62,4 +62,16 @@
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<PackageReference Include="WinUIEx" Version="2.7.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\SignaturePadPage.xaml.cs">
+	    <DependentUpon>SignaturePadPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\SignaturePadPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
 </Project>

@@ -69,8 +69,8 @@ public class MainViewModel : ViewModelBase
                 var filteredItems = currentView.Items;
 
                 Shell.Current.DisplayAlert(
-                    "DataView Result", 
-                    $"You have {filteredItems.Count} items in the dataView", 
+                    "DataView Result",
+                    $"You have {filteredItems.Count} items in the dataView",
                     "okay");
             }
             else

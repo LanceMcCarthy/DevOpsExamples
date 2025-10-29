@@ -1,6 +1,8 @@
 using MauiDemo.ViewModels;
 using Telerik.Maui.Controls.Scheduler;
 
+#pragma warning disable JMA001
+
 namespace MauiDemo.Views;
 
 public partial class SchedulerPage : ContentPage
