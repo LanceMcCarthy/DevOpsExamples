@@ -4,7 +4,7 @@ using Telerik.Maui.Controls.Compatibility;
 using Microsoft.Maui.LifecycleEvents;
 
 #if WINDOWS
-using WinUIEx;
+//using WinUIEx;
 
 #elif MACCATALYST
 using CoreGraphics;
@@ -46,7 +46,7 @@ public static class MauiProgram
         builder.ConfigureLifecycleEvents(events =>
         {
 #if WINDOWS
-            events.AddWindows(b => b.OnWindowCreated(window => window.CenterOnScreen(1024,768)));
+            //events.AddWindows(b => b.OnWindowCreated(window => window.CenterOnScreen(1024,768)));
 
 #elif MACCATALYST
 

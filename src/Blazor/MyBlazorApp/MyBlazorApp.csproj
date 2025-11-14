@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
-    <PackageReference Include="Telerik.Licensing" Version="1.6.24" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="11.1.1" />
-		<PackageReference Include="Telerik.Drawing.Skia" Version="19.2.25.924" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+    <PackageReference Include="Telerik.Licensing" Version="1.6.31" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="12.0.0" />
+		<PackageReference Include="Telerik.Drawing.Skia" Version="19.3.25.1111" />
   </ItemGroup>
 
   <ItemGroup>

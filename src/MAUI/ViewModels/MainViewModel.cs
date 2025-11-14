@@ -19,7 +19,7 @@ public class MainViewModel : ViewModelBase
         StartOverCommand = new Command(OnStartOver);
         AddRangeCommand = new Command(OnAddRange);
         ClearItemsCommand = new Command(OnClearItems);
-        CheckDataViewCommand = new Command(CheckDataView);
+        CheckDataViewCommand = new Command(async () => await CheckDataView());
 
         data = SampleDataService.Current.GenerateEmployeeData();
 
@@ -57,7 +57,7 @@ public class MainViewModel : ViewModelBase
 
     public IDataGridView DataGridView { get; set; }
 
-    private void CheckDataView()
+    private async Task CheckDataView()
     {
         while (true)
         {
@@ -68,7 +68,7 @@ public class MainViewModel : ViewModelBase
                 // Items currently filtered/sorted/grouped
                 var filteredItems = currentView.Items;
 
-                Shell.Current.DisplayAlert(
+                await Shell.Current.DisplayAlertAsync(
                     "DataView Result",
                     $"You have {filteredItems.Count} items in the dataView",
                     "okay");
@@ -76,7 +76,7 @@ public class MainViewModel : ViewModelBase
             else
             {
                 // Wait 500ms, then check IsDataReady again
-                Task.Delay(500);
+                await Task.Delay(500);
                 continue;
             }
 
