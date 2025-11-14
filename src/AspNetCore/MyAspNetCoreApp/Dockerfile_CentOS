@@ -29,7 +29,7 @@ RUN yum install freetype fontconfig -y
 
 # DOTNET RUNTIME - Install aspnetcore runtime (if your base image does not have it already)
 RUN rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
-RUN yum install aspnetcore-runtime-9.0 -y
+RUN yum install aspnetcore-runtime-10.0 -y
 
 
 ###############
@@ -37,7 +37,7 @@ RUN yum install aspnetcore-runtime-9.0 -y
 ###############
 
 # Compile the project and create production-ready artifacts
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY . .
 
