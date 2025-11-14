@@ -15,7 +15,7 @@ trigger:
      - 'src/Wpf/**/*'
 
 variables:
-  DOTNET_SDK_VERSION: '9.0.x'
+  DOTNET_SDK_VERSION: '10.0.x'
   buildConfiguration: 'Release'
   nugetConfigPath: 'src/NuGet.Config'
   consoleProjectPath: 'src/Console/MyDocProcApp/MyDocProcApp.csproj'
