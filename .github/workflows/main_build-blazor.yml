@@ -24,8 +24,8 @@ env:
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   TEST_PROJ_PATH: src/Blazor/MyBlazorApp.Tests/MyBlazorApp.Tests.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
-  DOTNET_VERSION: "9.0.x"
-  CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:9.0"
+  DOTNET_VERSION: "10.0.x"
+  CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:10.0"
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
 
 jobs:

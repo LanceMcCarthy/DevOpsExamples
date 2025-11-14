@@ -32,7 +32,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
+        dotnet-version: '10.0.x'
 
     - name: Update NuGet Package Sources
       run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text

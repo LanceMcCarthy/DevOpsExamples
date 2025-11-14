@@ -38,6 +38,6 @@ public class CellTapUserCommand : DataGridCommand
 
         Owner.CommandService.ExecuteDefaultCommand(DataGridCommandId.CellTap, parameter);
 
-        Shell.Current.DisplayAlert("CellTap Command: ", $"You tapped on {context.Value} inside {context.Column.HeaderText} column, which is index {index}!", "OK");
+        Shell.Current.DisplayAlertAsync("CellTap Command: ", $"You tapped on {context.Value} inside {context.Column.HeaderText} column, which is index {index}!", "OK");
     }
 }
