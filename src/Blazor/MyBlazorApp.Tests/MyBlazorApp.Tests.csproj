@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <RootNamespace>MyBlazorApp.Tests</RootNamespace>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JustMock.Commercial" Version="2025.2.523.445" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.9.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.9.3" />
-    <PackageReference Include="System.Security.Permissions" Version="9.0.6" />
+    <PackageReference Include="JustMock.Commercial" Version="2025.4.1112.487" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
+    <PackageReference Include="System.Security.Permissions" Version="10.0.0" />
     <PackageReference Include="Telerik.Licensing" Version="*" />
   </ItemGroup>
 
