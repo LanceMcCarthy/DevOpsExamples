@@ -1,0 +1,221 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Android",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "run-android-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-android/MauiDemo.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Debug iOS Simulator",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "run-ios-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-ios/iossimulator-arm64/MauiDemo.app/MauiDemo",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Debug Mac Catalyst",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "run-maccatalyst-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/MauiDemo.app/Contents/MacOS/MauiDemo",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Debug Windows",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "run-windows-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-windows10.0.22621.0/win10-x64/MauiDemo.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Build Android (Debug)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-android-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-android/MauiDemo.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Build iOS (Debug)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ios-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-ios/iossimulator-arm64/MauiDemo.app/MauiDemo",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Build Mac Catalyst (Debug)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-maccatalyst-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/MauiDemo.app/Contents/MacOS/MauiDemo",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Build Windows (Debug)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-windows-debug",
+      "program": "${workspaceFolder}/bin/Debug/net10.0-windows10.0.22621.0/win10-x64/MauiDemo.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole",
+      "env": {
+        "DOTNET_MODIFIABLE_ASSEMBLIES": "debug"
+      }
+    },
+    {
+      "name": "Build Android (Release)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-android-release",
+      "program": "${workspaceFolder}/bin/Release/net10.0-android/MauiDemo.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Build iOS (Release)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ios-release",
+      "program": "${workspaceFolder}/bin/Release/net10.0-ios/iossimulator-arm64/MauiDemo.app/MauiDemo",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Build Mac Catalyst (Release)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-maccatalyst-release",
+      "program": "${workspaceFolder}/bin/Release/net10.0-maccatalyst/maccatalyst-arm64/MauiDemo.app/Contents/MacOS/MauiDemo",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Build Windows (Release)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-windows-release",
+      "program": "${workspaceFolder}/bin/Release/net10.0-windows10.0.22621.0/win10-x64/MauiDemo.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Attach to Android Process",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "MauiDemo"
+    },
+    {
+      "name": "Attach to iOS Simulator Process",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "MauiDemo"
+    },
+    {
+      "name": "Attach to Windows Process",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "MauiDemo"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug All Platforms",
+      "configurations": [
+        "Debug Android",
+        "Debug iOS Simulator",
+        "Debug Mac Catalyst",
+        "Debug Windows"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Debug Mobile Platforms",
+      "configurations": ["Debug Android", "Debug iOS Simulator"],
+      "stopAll": true
+    },
+    {
+      "name": "Debug Desktop Platforms",
+      "configurations": ["Debug Mac Catalyst", "Debug Windows"],
+      "stopAll": true
+    },
+    {
+      "name": "Build All Platforms (Debug)",
+      "configurations": [
+        "Build Android (Debug)",
+        "Build iOS (Debug)",
+        "Build Mac Catalyst (Debug)",
+        "Build Windows (Debug)"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "Build All Platforms (Release)",
+      "configurations": [
+        "Build Android (Release)",
+        "Build iOS (Release)",
+        "Build Mac Catalyst (Release)",
+        "Build Windows (Release)"
+      ],
+      "stopAll": true
+    }
+  ]
+}

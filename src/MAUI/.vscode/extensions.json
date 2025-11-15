@@ -1,0 +1,43 @@
+{
+  "recommendations": [
+    // Core .NET/C# extensions
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.dotnet-interactive-vscode",
+
+    // MAUI and Mobile development
+    "ms-dotnettools.vscode-dotnet-runtime",
+    "ms-vscode.mono-debug",
+
+    // XAML support
+    "doggy8088.netcore-extension-pack",
+    "ms-dotnettools.blazorwasm-companion",
+
+    // Git and version control
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+
+    // Code quality and productivity
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "formulahendry.auto-rename-tag",
+    "bradlc.vscode-tailwindcss",
+
+    // Testing
+    "ms-dotnettools.dotnet-test-explorer",
+
+    // NuGet package management
+    "jmrog.vscode-nuget-package-manager",
+
+    // JSON and XML support
+    "redhat.vscode-xml",
+    "vscode-icons-team.vscode-icons",
+
+    // Terminal and shell
+    "ms-vscode.powershell",
+
+    // Documentation and markdown
+    "davidanson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one"
+  ]
+}

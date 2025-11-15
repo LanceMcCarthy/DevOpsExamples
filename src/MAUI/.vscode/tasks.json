@@ -1,0 +1,445 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-android-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-android",
+        "-c",
+        "Debug"
+      ],
+      "group": "build",
+      "options": {
+        "env": {
+          "TELERIK_USERNAME": "${env:TELERIK_USERNAME}",
+          "TELERIK_PASSWORD": "${env:TELERIK_PASSWORD}"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-ios-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-ios",
+        "-c",
+        "Debug"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-maccatalyst-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-maccatalyst",
+        "-c",
+        "Debug"
+      ],
+      "group": "build",
+      "options": {
+        "env": {
+          "TELERIK_USERNAME": "${env:TELERIK_USERNAME}",
+          "TELERIK_PASSWORD": "${env:TELERIK_PASSWORD}"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-windows-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-windows10.0.22621.0",
+        "-c",
+        "Debug"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-android-release",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-android",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-ios-release",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-ios",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-maccatalyst-release",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-maccatalyst",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-windows-release",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-windows10.0.22621.0",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "run-android-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-android",
+        "-c",
+        "Debug"
+      ],
+      "group": "test",
+      "dependsOn": "build-android-debug",
+      "options": {
+        "env": {
+          "TELERIK_USERNAME": "${env:TELERIK_USERNAME}",
+          "TELERIK_PASSWORD": "${env:TELERIK_PASSWORD}"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "run-ios-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-ios",
+        "-c",
+        "Debug"
+      ],
+      "group": "test",
+      "dependsOn": "build-ios-debug",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "run-maccatalyst-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-maccatalyst",
+        "-c",
+        "Debug",
+        "--launch-profile",
+        "MacCatalyst (Default)"
+      ],
+      "group": "test",
+      "dependsOn": "build-maccatalyst-debug",
+      "options": {
+        "env": {
+          "TELERIK_USERNAME": "${env:TELERIK_USERNAME}",
+          "TELERIK_PASSWORD": "${env:TELERIK_PASSWORD}"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "run-windows-debug",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-windows10.0.22621.0",
+        "-c",
+        "Debug"
+      ],
+      "group": "test",
+      "dependsOn": "build-windows-debug",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "clean",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["clean", "${workspaceFolder}/MauiDemo.csproj"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "restore",
+      "type": "shell",
+      "command": "dotnet",
+      "args": ["restore", "${workspaceFolder}/MauiDemo.csproj"],
+      "group": "build",
+      "options": {
+        "env": {
+          "TELERIK_USERNAME": "${env:TELERIK_USERNAME}",
+          "TELERIK_PASSWORD": "${env:TELERIK_PASSWORD}"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "deploy-android",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-android",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "dependsOn": "build-android-release",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "deploy-ios",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-ios",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "dependsOn": "build-ios-release",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "deploy-maccatalyst",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-maccatalyst",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "dependsOn": "build-maccatalyst-release",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "deploy-windows",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "${workspaceFolder}/MauiDemo.csproj",
+        "-f",
+        "net10.0-windows10.0.22621.0",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "dependsOn": "build-windows-release",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

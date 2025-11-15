@@ -1,6 +1,87 @@
 {
-    "dotnet.defaultSolution": "MauiDemo.sln",
-    "dotnet.preferRuntimeFromSDK": true,
-    "dotnet.server.trace": "Debug",
-    "dotnetAcquisitionExtension.installTimeoutValue": 240
+  "dotnet.defaultSolution": "MauiDemo.sln",
+  "dotnet.preferRuntimeFromSDK": true,
+  "dotnet.server.trace": "Debug",
+  "dotnetAcquisitionExtension.installTimeoutValue": 240,
+
+  // MAUI specific settings
+  "omnisharp.enableMsBuildLoadProjectsOnDemand": false,
+  "omnisharp.enableDecompilationSupport": true,
+
+  // XAML settings
+  "xml.fileAssociations": [
+    {
+      "pattern": "**/*.xaml",
+      "systemId": "xaml"
+    }
+  ],
+  "files.associations": {
+    "*.xaml": "xml"
+  },
+
+  // Hot Reload settings
+  "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+  "dotnet.inlayHints.enableInlayHintsForParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForLiteralParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForIndexerParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForObjectCreationParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForOtherParameters": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatDifferOnlyBySuffix": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchMethodIntent": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchArgumentName": true,
+
+  // Terminal settings for iOS builds and Telerik credentials
+  "terminal.integrated.env.osx": {
+    "DOTNET_ROOT": "/usr/local/share/dotnet",
+    "PATH": "${env:PATH}:/usr/local/share/dotnet",
+    "TELERIK_USERNAME": "${env:TELERIK_USERNAME}",
+    "TELERIK_PASSWORD": "${env:TELERIK_PASSWORD}"
+  },
+
+  // Terminal settings for Windows builds and Telerik credentials
+  "terminal.integrated.env.windows": {
+    "TELERIK_USERNAME": "${env:TELERIK_USERNAME}",
+    "TELERIK_PASSWORD": "${env:TELERIK_PASSWORD}"
+  },
+
+  // File excludes for better performance
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+
+  // Search excludes
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+
+  // Watcher excludes for performance
+  "files.watcherExclude": {
+    "**/bin/**": true,
+    "**/obj/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true
+  },
+
+  // Editor settings
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+
+  // C# specific settings
+  "csharp.format.enable": true,
+  "csharp.semanticHighlighting.enabled": true,
+
+  // Task settings
+  "task.allowAutomaticTasks": "on",
+  "task.showDecorations": true
 }
