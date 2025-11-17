@@ -315,21 +315,22 @@ jobs:
 # ************************************************************* #
 # *                       .NET MAUI                           * #
 # ************************************************************* #
+# https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=windows-images%2Cyaml#software
 - job: BuildMauiApp
   strategy:
     matrix:
       android:
-        TFM: 'net9.0-android'
-        imageName: 'windows-2025'
+        TFM: 'net10.0-android'
+        imageName: 'windows-2025' # windows-2025
       windows:
-        TFM: 'net9.0-windows10.0.22621.0'
-        imageName: 'windows-2025'
+        TFM: 'net10.0-windows10.0.19041.0'
+        imageName: 'windows-latest' # windows-2025
       ios:
-        TFM: 'net9.0-ios'
-        imageName: 'macOS-15'
+        TFM: 'net10.0-ios'
+        imageName: 'macOS-latest' # macOS-15
       maccatalyst:
-        TFM: 'net9.0-maccatalyst'
-        imageName: 'macOS-15'
+        TFM: 'net10.0-maccatalyst'
+        imageName: 'macOS-latest' # macOS-15
     maxParallel: 4
   pool:
     vmImage: $(imageName)
@@ -340,12 +341,12 @@ jobs:
       version: $(DOTNET_SDK_VERSION)
 
   - task: CmdLine@2
-    displayName: 'Set Xcode to v16.4.0'
+    displayName: 'Set Xcode to v26.1.0'
     condition: eq(variables['Agent.OS'], 'Darwin') # Only run this step on macOS
     inputs:
       script: |
-        echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_16.4.app
-        sudo xcode-select --switch /Applications/Xcode_16.4.app/Contents/Developer
+        echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_26.1.app
+        sudo xcode-select --switch /Applications/Xcode_26.1.app/Contents/Developer
 
   - powershell: dotnet workload install maui --source https://api.nuget.org/v3/index.json
     displayName: 'Install maui workloads'
