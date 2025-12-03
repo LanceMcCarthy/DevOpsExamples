@@ -1,0 +1,218 @@
+name: Publish Container Images [blazor]
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/Blazor/**/*'
+
+env:
+  BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
+  NUGET_CONFIG_PATH: src/NuGet.Config
+  DOTNET_VERSION: "10.0.x"
+  CONTAINER_REGISTRY: "registry.hub.docker.com"
+  CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:10.0"
+  CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
+
+############################################################
+# Use the .NET SDK to build and push the image to Docker Hub
+############################################################
+jobs:
+  # Builds the lancemccarthy/myblazorapp:latest-x64 image
+  build_x64:
+    runs-on: ubuntu-latest
+    name: Push to GHCR using .NET SDK
+    outputs:
+      build_tag: ${{steps.build.outputs.build_tag}}
+    env:
+      target_arch: "x64"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PAT}}
+
+    - name: Restore NuGet Packages
+      run: dotnet restore ${{env.BLAZOR_PROJ_PATH}} -r "linux-${{env.target_arch}}"
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+
+    - name: build the x64 image
+      id: build
+      run: |
+        TAG="latest-${{env.target_arch}}"
+        dotnet publish ${{env.BLAZOR_PROJ_PATH}} \
+          -t:PublishContainer \
+          -p PublishProfile=DefaultContainer \
+          -p ContainerImageTag="$TAG" \
+          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
+          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
+          -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
+          --arch ${{env.target_arch}} \
+          --no-restore
+        echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+  # Builds the lancemccarthy/myblazorapp:latest-arm64 image
+  build_arm64:
+    runs-on: ubuntu-latest
+    outputs:
+      build_tag: ${{steps.build.outputs.build_tag}}
+    env:
+      target_arch: "arm64"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PAT}}
+
+    - name: Restore NuGet Packages
+      run: dotnet restore ${{env.BLAZOR_PROJ_PATH}} -r "linux-${{env.target_arch}}"
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+
+    - name: build the arm64 image
+      id: build
+      run: |
+        TAG="latest-${{env.target_arch}}"
+        dotnet publish ${{env.BLAZOR_PROJ_PATH}} -t:PublishContainer \
+          -p PublishProfile=DefaultContainer \
+          -p ContainerImageTag="$TAG" \
+          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
+          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
+          -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
+          --arch ${{env.target_arch}} \
+          --no-restore
+        echo "build_tag=$TAG" >> $GITHUB_OUTPUT
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+  # Create a manifest to combine both images into a single "lancemccarthy/myblazorapp:latest" tag
+  publish_combined_manifest:
+    runs-on: ubuntu-latest
+    needs: [build_x64, build_arm64]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PAT}}
+
+    - name: Create the multi-image manifest
+      run: |
+        docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
+          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$X64_TAG" \
+          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$ARM64_TAG"
+        docker manifest push "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
+      env:
+        X64_TAG: ${{needs.build_x64.outputs.build_tag}}
+        ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
+
+    - name: Delete old (untagged) images
+      run: |
+        IMAGE_TAGS=$(curl -s "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results|.[]|.name')
+        for TAGG in $IMAGE_TAGS; do
+          if [[ "$TAGG" == "null" ]]; then
+            docker rmi "${{env.CONTAINER_REPOSITORY}}:$TAGG"
+            curl -s -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAGG/"
+          fi
+        done
+
+
+#########################################################
+# Example 2: Dockerfile build that publishes to ghcr.io
+#########################################################
+
+# permissions:
+#   contents: read
+#   packages: write # to publish to GitHub container registry
+
+  # build_container_with_dockerfile:
+  #   name: "Dockerfile container build"
+  #   runs-on: ubuntu-22.04
+  #   env:
+  #     CONTAINER_IMAGE_REGISTRY: "ghcr.io"
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+  #     with:
+  #       fetch-depth: 0
+
+  #   - name: Generate tag version
+  #     id: tag-creator
+  #     run: |
+  #       buildDay=`date +%Y.%m.%d`
+  #       tags="$buildDay.$GITHUB_RUN_NUMBER"
+  #       echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
+
+  #   - name: Set up QEMU
+  #     uses: docker/setup-qemu-action@v3
+
+  #   - name: Set up Docker Buildx
+  #     uses: docker/setup-buildx-action@v3
+
+  #   - name: Get package metadata from Docker Hub
+  #     id: meta
+  #     uses: docker/metadata-action@v5
+  #     with:
+  #       images: ${{env.CONTAINER_REPOSITORY}}
+
+  #   - name: Login to ghcr.io
+  #     uses: docker/login-action@v3
+  #     with:
+  #       registry: ${{env.CONTAINER_IMAGE_REGISTRY}}
+  #       username: ${{github.actor}}
+  #       password: ${{secrets.GITHUB_TOKEN}}
+
+  #   - name: Build and Publish arm64, amd64 Container Images
+  #     uses: docker/build-push-action@v5
+  #     with:
+  #       context: src/Blazor/MyBlazorApp
+  #       platforms: linux/arm64,linux/amd64
+  #       push: true
+  #       secrets: |
+  #         telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
+  #         telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
+  #       tags: |
+  #         "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{steps.tag-creator.outputs.VERSION_TAG}}"
+  #         "${{env.CONTAINER_IMAGE_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
+
+  #   - name: Delete old Docker images
+  #     uses: actions/delete-package-versions@v5
+  #     with:
+  #       package-name: "myblazorapp"
+  #       package-type: container
+  #       min-versions-to-keep: 1
+  #       token: ${{secrets.GITHUB_TOKEN}}
