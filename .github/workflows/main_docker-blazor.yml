@@ -14,6 +14,7 @@ env:
   DOTNET_VERSION: "10.0.x"
   CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:10.0"
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
+  CONTAINER_REGISTRY: "registry-1.docker.io"
 
 ############################################################
 # Use the .NET SDK to build and push the image to Docker Hub
@@ -51,11 +52,12 @@ jobs:
       id: build
       run: |
         TAG="latest-${{env.target_arch}}"
-        
+
         dotnet publish ${{env.BLAZOR_PROJ_PATH}} \
           -t:PublishContainer \
           -p PublishProfile=DefaultContainer \
           -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
+          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
           -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
           -p ContainerImageTag="$TAG" \
           --arch ${{env.target_arch}} \
@@ -102,6 +104,7 @@ jobs:
           -t:PublishContainer \
           -p PublishProfile=DefaultContainer \
           -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
+          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
           -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
           -p ContainerImageTag="$TAG" \
           --arch ${{env.target_arch}} \
