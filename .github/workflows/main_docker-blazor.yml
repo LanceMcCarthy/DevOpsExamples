@@ -12,7 +12,7 @@ env:
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
   DOTNET_VERSION: "10.0.x"
-  CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:10.0"
+  CONTAINER_BASE_IMAGE: "docker.io/lancemccarthy/skia-aspnet:10.0"
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
   CONTAINER_REGISTRY: "docker.io"
 
