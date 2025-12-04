@@ -23,7 +23,7 @@ jobs:
   # Builds the lancemccarthy/myblazorapp:latest-x64 image
   build_x64:
     runs-on: ubuntu-latest
-    name: Push to GHCR using .NET SDK
+    name: Publish x64 images (.NET SDK)
     outputs:
       build_tag: ${{steps.build.outputs.build_tag}}
     env:
@@ -39,11 +39,8 @@ jobs:
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{secrets.DOCKER_HUB_USERNAME}}
-        password: ${{secrets.DOCKER_HUB_PAT}}
+    - name: Login to Docker Hub
+      run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_PAT}}
 
     - name: Restore NuGet Packages
       run: dotnet restore ${{env.BLAZOR_PROJ_PATH}} -r "linux-${{env.target_arch}}"
@@ -70,6 +67,7 @@ jobs:
 
   # Builds the lancemccarthy/myblazorapp:latest-arm64 image
   build_arm64:
+    name: Publish arm64 images (.NET SDK)
     runs-on: ubuntu-latest
     outputs:
       build_tag: ${{steps.build.outputs.build_tag}}
@@ -86,11 +84,8 @@ jobs:
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{secrets.DOCKER_HUB_USERNAME}}
-        password: ${{secrets.DOCKER_HUB_PAT}}
+    - name: Login to Docker Hub
+      run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_PAT}}
 
     - name: Restore NuGet Packages
       run: dotnet restore ${{env.BLAZOR_PROJ_PATH}} -r "linux-${{env.target_arch}}"
@@ -124,11 +119,8 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{secrets.DOCKER_HUB_USERNAME}}
-        password: ${{secrets.DOCKER_HUB_PAT}}
+    - name: Login to Docker Hub
+      run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_PAT}}
 
     - name: Create the multi-image manifest
       run: |
@@ -140,6 +132,7 @@ jobs:
         X64_TAG: ${{needs.build_x64.outputs.build_tag}}
         ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
 
+    # Required because actions/delete-package-versions@v5 does not work with Docker Hub
     - name: Delete old (untagged) images
       run: |
         IMAGE_TAGS=$(curl -s "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results|.[]|.name')
@@ -152,15 +145,17 @@ jobs:
 
 
 #########################################################
-# Example 2: Dockerfile build that publishes to ghcr.io
+# Example 2: Dockerfile & ghcr.io Demo
+# Uses docker GH actions to build and push multi-arch images
 #########################################################
 
+# Required permissions to publish to GitHub container registry
 # permissions:
 #   contents: read
-#   packages: write # to publish to GitHub container registry
+#   packages: write 
 
-  # build_container_with_dockerfile:
-  #   name: "Dockerfile container build"
+  # ghcr_dockerfile_demo:
+  #   name: "Dockerfile and ghcr.io Demo"
   #   runs-on: ubuntu-22.04
   #   env:
   #     CONTAINER_IMAGE_REGISTRY: "ghcr.io"
