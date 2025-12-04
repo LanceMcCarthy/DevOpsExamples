@@ -12,7 +12,6 @@ env:
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
   DOTNET_VERSION: "10.0.x"
-  CONTAINER_REGISTRY: "registry.hub.docker.com"
   CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:10.0"
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
 
@@ -52,15 +51,16 @@ jobs:
       id: build
       run: |
         TAG="latest-${{env.target_arch}}"
+        
         dotnet publish ${{env.BLAZOR_PROJ_PATH}} \
           -t:PublishContainer \
           -p PublishProfile=DefaultContainer \
-          -p ContainerImageTag="$TAG" \
-          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
-          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
           -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
+          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
+          -p ContainerImageTag="$TAG" \
           --arch ${{env.target_arch}} \
           --no-restore
+
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
@@ -97,14 +97,16 @@ jobs:
       id: build
       run: |
         TAG="latest-${{env.target_arch}}"
-        dotnet publish ${{env.BLAZOR_PROJ_PATH}} -t:PublishContainer \
+
+        dotnet publish ${{env.BLAZOR_PROJ_PATH}} \
+          -t:PublishContainer \
           -p PublishProfile=DefaultContainer \
-          -p ContainerImageTag="$TAG" \
-          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
-          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
           -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
+          -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
+          -p ContainerImageTag="$TAG" \
           --arch ${{env.target_arch}} \
           --no-restore
+
         echo "build_tag=$TAG" >> $GITHUB_OUTPUT
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
@@ -124,10 +126,10 @@ jobs:
 
     - name: Create the multi-image manifest
       run: |
-        docker manifest create "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest" \
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$X64_TAG" \
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:$ARM64_TAG"
-        docker manifest push "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
+        docker manifest create "${{env.CONTAINER_REPOSITORY}}:latest" \
+          "${{env.CONTAINER_REPOSITORY}}:$X64_TAG" \
+          "${{env.CONTAINER_REPOSITORY}}:$ARM64_TAG"
+        docker manifest push "${{env.CONTAINER_REPOSITORY}}:latest"
       env:
         X64_TAG: ${{needs.build_x64.outputs.build_tag}}
         ARM64_TAG: ${{needs.build_arm64.outputs.build_tag}}
