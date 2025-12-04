@@ -14,7 +14,7 @@ env:
   DOTNET_VERSION: "10.0.x"
   CONTAINER_BASE_IMAGE: "lancemccarthy/skia-aspnet:10.0"
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
-  CONTAINER_REGISTRY: "registry-1.docker.io"
+  CONTAINER_REGISTRY: "docker.io"
 
 ############################################################
 # Use the .NET SDK to build and push the image to Docker Hub
