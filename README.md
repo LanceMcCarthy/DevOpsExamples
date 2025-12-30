@@ -45,7 +45,6 @@ Although I use Telerik's NuGet server because I have a license, these demos are 
 | **Kendo Angular** | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildAngularAppWithVariables)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | **ASP.NET AJAX** (`net48`) | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildAjaxApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 
-
 ### Bonus Notes
 
 - Docker and DockerHub integration:
@@ -93,10 +92,10 @@ That mean you must also have the secrets in your **Settings** > **Secrets** list
 You could also dynamically update the credentials of a Package Source defined in your nuget.config file This is a good option when you do not want to use a `packageSourceCredentials` section that uses environment variables.
 
 ```powershell
-# Updates a source named 'Telerik' in the nuget.config
-dotnet nuget update source "Telerik" -s "https://nuget.telerik.com/v3/index.json" --configfile "src/nuget.config" -u '${{secrets.MyTelerikEmail}}' -p '${{secrets.MyTelerikPassword}}' --store-password-in-clear-text
+# Setting credentials for the 'Telerik_v3_Feed' defined in the nuget.config file.
+dotnet nuget update source "Telerik_v3_Feed" -s "https://nuget.telerik.com/v3/index.json" -u '${{secrets.MyTelerikEmail}}' -p '${{secrets.MyTelerikPassword}}' --configfile "src/nuget.config" --store-password-in-clear-text
 ```
-That command will look through the nuget.config for a package source with the key `Telerik` and then add/update the credentials for that source.
+That command will look through the nuget.config for a package source with the key `Telerik_v3_Feed` and then add/update the credentials for that source.
 
 #### Option 2 - Add a new package source
 
@@ -115,47 +114,54 @@ You can use the same approach in the previous section. Everything is exactly the
 Please visit the [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys) blog post for more details how ot create the key and how to use it.
 
 ```powershell
-dotnet nuget update source "Telerik" --source "https://nuget.telerik.com/v3/index.json" --configfile "src/nuget.config" --username 'api-key' --password '${{ secrets.MyNuGetKey }}' --store-password-in-clear-text
+dotnet nuget update source "Telerik_v3_Feed" -s "https://nuget.telerik.com/v3/index.json" -u 'api-key' -p '${{secrets.MyNuGetKey}}' --configfile "src/nuget.config" --store-password-in-clear-text
 ```
 
 > [!CAUTION]
-> Protect your key by storing it in a GitHub Secret, then use the secret's varible name in the command
+> Protect your key by storing it in a GitHub Secret, then use the secret's ID in the command.
 
 ### Dockerfile: Using Secrets
 
 When using a Dockerfile to build a .NET project that uses the Telerik NuGet server, you'll need a safe and secure way to handle your NuGet crednetials and your Telerik License Key. This can be done my mounting a Docker secret.
 
-In your GitHub Actions workflow, you can define and set docker secrets in the docker build step. Take a look at the following example, we using GitHub secrest to set two docker secrets `telerik-nuget-key=${{secrets.MY_NUGET_KEY}}` and `telerik-license-key=${{secrets.MY_TELERIK_LICENSE_KEY}}`.
+In your GitHub Actions workflow, you can define and set docker secrets in the docker build step. In the following example, notice how we are setting two docker secrets (`nuget-sec` and `license-sec`) using the values from GitHub secrets.
 
 ```yaml
     - uses: docker/build-push-action@v3
       with:
         secrets: |
-          telerik-nuget-key=${{secrets.MY_NUGET_KEY}}
-          telerik-license-key=${{secrets.MY_TELERIK_LICENSE_KEY}}
+          nuget-sec=${{secrets.MY_NUGET_KEY}}
+          license-sec=${{secrets.MY_TELERIK_LICENSE_KEY}}
 ```
 
-Now, inside the Dockerfile's `build` stage, you can mount and use those secrets. See Stage 2 in the following example:
+Now, inside the Dockerfile, you can mount and use those secrets. See Stage 2 in the following example:
 
 ```Dockerfile
 ### STAGE 1 ###
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 WORKDIR /app
 
 ### STAGE 2 ###
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src/MyApp
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
 COPY . .
-# 1. Mount the ecret and use it to add the Telerik server as a package source
-RUN --mount=type=secret,id=telerik-nuget-key \
-    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "TelerikNuGetServer" -u "api-key" -p $(cat /run/secrets/telerik-nuget-key) --store-password-in-clear-text
-# 2. Restore NuGet packages
-RUN dotnet restore "MyBlazorApp.csproj"
-# 3. Mount the "telerik-license-key" secret as an env var and build the project
-RUN --mount=type=secret,id=telerik-license-key \
-    TELERIK_LICENSE="$(cat /run/secrets/telerik-license-key)" \
-    dotnet publish "MyBlazorApp.csproj" -o /app/publish /p:UseAppHost=false --self-contained false
-
+# STEP 1. Mount the 'nuget-sec' secret, then:
+# a. add the Telerik package source
+# b. restore packages
+RUN --mount=type=secret,id=nuget-sec,required \
+    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "Telerik_v3_Feed" -u "api-key" -p "$(cat /run/secrets/nuget-sec)" --store-password-in-clear-text \
+    && \
+    dotnet restore "MyBlazorApp.csproj"
+# STEP 2. Mount the "license-sec" secret, then:
+# a. create the license file
+# b. build the project
+# c. delete the file so you don't distribute it in your image (important!)
+RUN --mount=type=secret,id=license-key,required \
+    mkdir -p ~/.telerik  && echo "$(cat /run/secrets/license-sec)" > ~/.telerik/telerik-license.txt \
+    && \
+    dotnet publish "Researcher.Web/Researcher.Web.csproj" -o /app/publish /p:UseAppHost=false --no-restore --self-contained false \
+    && \
+    rm -rf ~/.telerik
 
 ### STAGE 3 ###
 # Build final from base, but copy ONLY THE PUBLISH ARTIFACTS from stage 2
@@ -166,7 +172,7 @@ ENTRYPOINT ["dotnet", "MyBlazorApp.dll"]
 ```
 
 > [!CAUTION]
-> Only set these sensitive values in the build stage or you risk leaking secrets in the final image. Please [visit the complete Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile) and [the workflow](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/.github/workflows/main_build-aspnetcore.yml).
+> Pay attention to whether or not you are including any secrets in your final image. You can run your container to explore the files (and env vars in Exec) to make sure.
 
 ### Telerik License Approaches
 
@@ -176,7 +182,6 @@ Depending on how you're building our code, there are several ways to introduce t
 - [Approach 2 - Using a License File](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-2---using-a-file)
   - [In a YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#yaml-pipeline)
   - [In a Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#classic-pipeline)
-
 
 #### Approach 1 - Using a Variable
 
