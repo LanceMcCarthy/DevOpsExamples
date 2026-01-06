@@ -1,0 +1,105 @@
+name: Console Codesigned (.NET)
+
+on:
+  workflow_dispatch:
+
+# For OIDC authentication
+permissions:
+  id-token: write
+
+env:
+  CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
+  NUGETCONFIG_PATH: src/NuGet.Config
+  BUILD_CONFIGURATION: Release
+
+jobs:
+  build_console:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        os: [linux, win]
+        config: [x64, arm64]
+    env:
+      OUTPUT_DIR: ${{github.workspace}}/output/${{matrix.os}}-${{matrix.config}}/
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Update NuGet Package Sources
+      run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
+
+    - name: Restore NuGet packages
+      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} --runtime ${{matrix.os}}-${{matrix.config}}
+
+    - name: Build project
+      run: dotnet publish ${{env.CSPROJ_PATH}} --configuration ${{env.BUILD_CONFIGURATION}} --runtime ${{matrix.os}}-${{matrix.config}} --no-self-contained --no-restore --output ${{env.OUTPUT_DIR}}
+      env:
+        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+    - name: Attach artifacts
+      id: upload-artifact
+      uses: actions/upload-artifact@v4
+      with:     
+        name: "Console_${{matrix.os}}-${{matrix.config}}" 
+        path: ${{env.OUTPUT_DIR}}
+        if-no-files-found: error
+        retention-days: 30
+
+  codesign_release:
+    name: Codesign Release
+    if: ${{ success() }}
+    runs-on: windows-latest
+    needs: [build_console]
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        path: ${{github.workspace}}/artifacts/
+
+    # No secrets needed, uses the GitHub OIDC token to authenticate.
+    - name: Azure login using OIDC via GitHub
+      uses: azure/login@v2
+      id: azlogin
+      with:
+        client-id: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
+        tenant-id: "bd47e796-3473-4b8a-9101-1f4c0c7af31a"
+        subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
+
+    # Codesign files with Azure Trusted Signing
+    - name: Sign files with Trusted Signing
+      uses: azure/trusted-signing-action@v0.4.0
+      with:
+        endpoint: https://eus.codesigning.azure.net/
+        trusted-signing-account-name: PrimaryCodeSign
+        certificate-profile-name: lancemccarthylivepublic
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+        file-digest: SHA256
+        files-folder: ${{github.workspace}}/artifacts/
+        files-folder-filter: exe
+        files-folder-depth: 3
+        exclude-azure-cli-credential: false
+        exclude-environment-credential: true
+        exclude-workload-identity-credential: true
+        exclude-managed-identity-credential: true
+        exclude-shared-token-cache-credential: true
+        exclude-visual-studio-credential: true
+        exclude-visual-studio-code-credential: true
+        exclude-azure-powershell-credential: true
+        exclude-azure-developer-cli-credential: true
+        exclude-interactive-browser-credential: true
+
+    - name: Attach artifacts
+      id: upload-artifact
+      uses: actions/upload-artifact@v4
+      with:     
+        name: "Console_Codesigned" 
+        path: ${{github.workspace}}/artifacts/
+        if-no-files-found: error
+        retention-days: 30
