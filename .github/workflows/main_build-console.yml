@@ -11,6 +11,10 @@ on:
       - 'src/Console/**/*'
       - '.github/workflows/main_build-console.yml' 
 
+defaults:
+  run:
+    shell: bash
+
 env:
   CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
   NUGETCONFIG_PATH: src/NuGet.Config
