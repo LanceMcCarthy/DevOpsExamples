@@ -1,4 +1,4 @@
-name: Console using Artifactory (.NET)
+name: Console (.NET) - Artifactory Only
 
 on:
   workflow_dispatch:
