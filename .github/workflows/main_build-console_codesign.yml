@@ -99,16 +99,7 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
-    - name: Delete unsigned artifacts from run
-      run: |
-        $artifacts = gh api repos/${{github.repository}}/actions/runs/${{github.run_id}}/artifacts --paginate -q '.artifacts[].id'
-        foreach ($artifactId in $artifacts) {
-          gh api -X DELETE repos/${{github.repository}}/actions/artifacts/$artifactId
-        }
-      env:
-        GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-    - name: Attach artifacts
+    - name: Attach signed artifact
       id: upload-artifact
       uses: actions/upload-artifact@v4
       with:
@@ -117,3 +108,12 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
+    - name: Delete unsigned artifacts from run
+      uses: geekyeggo/delete-artifact@v5
+      with:
+        name: |
+          Console_linux-x64
+          Console_linux-arm64
+          Console_win-x64
+          Console_win-arm64
+        failOnError: false
