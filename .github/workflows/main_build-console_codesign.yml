@@ -1,11 +1,14 @@
-name: Console Codesigned (.NET)
+name: Console (.NET) - Trusted Signing
 
 on:
   workflow_dispatch:
 
-# For OIDC authentication
+defaults:
+  run:
+    shell: bash
+
 permissions:
-  id-token: write
+  id-token: write  # For OIDC auth
 
 env:
   CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
@@ -58,7 +61,8 @@ jobs:
     runs-on: windows-latest
     needs: [build_console]
     steps:
-    - uses: actions/download-artifact@v4
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
       with:
         path: ${{github.workspace}}/artifacts/
 
@@ -95,11 +99,21 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
+    - name: Delete unsigned artifacts from run
+      run: |
+        $artifacts = gh api repos/${{github.repository}}/actions/runs/${{github.run_id}}/artifacts --paginate -q '.artifacts[].id'
+        foreach ($artifactId in $artifacts) {
+          gh api -X DELETE repos/${{github.repository}}/actions/artifacts/$artifactId
+        }
+      env:
+        GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
     - name: Attach artifacts
       id: upload-artifact
       uses: actions/upload-artifact@v4
-      with:     
+      with:
         name: "Console_Codesigned" 
         path: ${{github.workspace}}/artifacts/
         if-no-files-found: error
         retention-days: 30
+
