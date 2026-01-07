@@ -5,7 +5,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: pwsh
 
 permissions:
   id-token: write  # For OIDC auth

@@ -13,7 +13,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: pwsh
 
 env:
   CSPROJ_PATH: src/Console/MyDocProcApp/MyDocProcApp.csproj
