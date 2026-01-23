@@ -1,0 +1,12 @@
+services:
+  myaspnetcoreapp:
+    image: 'lancemccarthy/myaspnetcoreapp:latest'
+    restart: unless-stopped
+    ports:
+      - '8888:8080'
+  
+  myblazorapp:
+    image: 'lancemccarthy/myblazorapp:latest'
+    restart: unless-stopped
+    ports:
+      - '8999:8080'
