@@ -17,7 +17,7 @@ jobs:
     name: CentOS Base - Publish to Docker Hub
     runs-on: ubuntu-latest
     env:
-      CONTAINER_REPOSITORY: "lancemccarthy/reporting-centos-base"
+      CONTAINER_REPOSITORY: "lancemccarthy/reporting-on-centos"
       DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS"
     steps:
     - name: Checkout
