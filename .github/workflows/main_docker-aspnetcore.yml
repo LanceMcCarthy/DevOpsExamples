@@ -17,7 +17,7 @@ jobs:
     name: CentOS Base - Publish to Docker Hub
     runs-on: ubuntu-latest
     env:
-      CONTAINER_REPOSITORY: "lancemccarthy/reporting-on-centos"
+      CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-centosbase"
       DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS"
     steps:
     - name: Checkout
@@ -60,7 +60,7 @@ jobs:
     name: Microsoft Base - Publish to Docker Hub
     runs-on: ubuntu-latest
     env:
-      CONTAINER_REPOSITORY: "lancemccarthy/reporting-msft-base"
+      CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-msftbase"
       DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase"
     steps:
     - name: Checkout
