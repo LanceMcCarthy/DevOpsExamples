@@ -20,7 +20,6 @@ env:
   CONFIGURATION: Release
   PROJECT_PATH: src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj
   NUGETCONFIG_PATH: src/NuGet.Config
-  RID: win-x64
   AZURE_WEBAPP_NAME: TelerikAspnetCoreWithReporting
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
 
@@ -53,13 +52,13 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Restore NuGet Packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} -r ${{env.RID}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
 
     - name: Build ASP.NET Core Project
-      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} -o ${{env.WORKING_DIRECTORY}}\published --no-restore
+      run: dotnet publish ${{env.PROJECT_PATH}} -o ${{env.WORKING_DIRECTORY}}\published --no-restore
       env:
         TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
 
