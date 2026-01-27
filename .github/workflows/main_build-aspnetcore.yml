@@ -13,7 +13,7 @@ on:
 permissions:
   contents: read
   packages: write # to publish to GitHub container registry
-  id-token: write # JWT for Akeyless auth
+  id-token: write # JWT for Akeyless and Azure auth
 
 env:
   DOTNET_VERSION: "10.0.x"
@@ -21,6 +21,8 @@ env:
   PROJECT_PATH: src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj
   NUGETCONFIG_PATH: src/NuGet.Config
   RID: win-x64
+  AZURE_WEBAPP_NAME: TelerikAspnetCoreWithReporting
+  AZURE_WEBAPP_PACKAGE_PATH: MyAspNetCoreApp\published
 
 jobs:
   build_windows:
@@ -31,7 +33,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Using AKeyless for secrets in this demo
+    # Using AKeyless for secrets in this demo, but you can use github Secrets instead
     - name: Fetch secrets from AKeyless
       id: akeyless
       uses: LanceMcCarthy/akeyless-action@v3
@@ -51,13 +53,26 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Restore NuGet Packages
-      run: |
-        dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} -r ${{env.RID}}
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} -r ${{env.RID}}
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
 
     - name: Build ASP.NET Core Project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
+      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}} --no-restore
       env:
         TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
+
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{secrets.AZUREAPPSERVICE_CLIENTID_CFFB4C5B17014959ADED97E71860CC5D}}
+        tenant-id: ${{secrets.AZUREAPPSERVICE_TENANTID_E6D2D4DA9EDC4282BA7AA37EDAACE5AA}}
+        subscription-id: ${{secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3F1C5E79A80C4DAC80D1C59FF7B29E91}}
+
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: ${{env.AZURE_WEBAPP_NAME}}
+        package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+        slot-name: 'Production'
