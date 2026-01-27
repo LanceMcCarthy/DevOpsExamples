@@ -22,7 +22,7 @@ env:
   NUGETCONFIG_PATH: src/NuGet.Config
   RID: win-x64
   AZURE_WEBAPP_NAME: TelerikAspnetCoreWithReporting
-  AZURE_WEBAPP_PACKAGE_PATH: MyAspNetCoreApp\published
+  WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
 
 jobs:
   build_windows:
@@ -59,7 +59,7 @@ jobs:
         TELERIK_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
 
     - name: Build ASP.NET Core Project
-      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}} --no-restore
+      run: dotnet publish ${{env.PROJECT_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} -o ${{env.WORKING_DIRECTORY}}\published --no-restore
       env:
         TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
 
@@ -73,6 +73,5 @@ jobs:
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v3
       with:
-        app-name: ${{env.AZURE_WEBAPP_NAME}}
-        package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
-        slot-name: 'Production'
+        app-name: 'TelerikAspnetCoreWithReporting'
+        package: ${{env.WORKING_DIRECTORY}}\published
