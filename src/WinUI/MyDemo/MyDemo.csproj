@@ -29,13 +29,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Telerik.Licensing" Version="1.6.35" />
+		<PackageReference Include="Telerik.Licensing" Version="1.6.36" />
 		<PackageReference Include="Telerik.WinUI.Controls" Version="4.1.0" />
 		<PackageReference Include="CommonHelpers" Version="1.5.1" />
 		<PackageReference Include="WinUIEx" Version="2.9.0" />
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
-		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
-		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.264">
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260101001" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7463" />
+		<PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.269">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
