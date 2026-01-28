@@ -13,6 +13,7 @@
     <AssemblyName>MyWinFormsApp</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TelerikLicensingVerbosity>diagnostic</TelerikLicensingVerbosity>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -110,16 +111,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Telerik.Licensing">
-      <Version>1.6.35</Version>
+      <Version>1.6.36</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.GridView">
-      <Version>2025.4.1111</Version>
+      <Version>2025.4.1321</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.PdfViewer">
-      <Version>2025.4.1111</Version>
+      <Version>2025.4.1321</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.SyntaxEditor">
-      <Version>2025.4.1111</Version>
+      <Version>2025.4.1321</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
