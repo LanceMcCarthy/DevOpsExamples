@@ -25,9 +25,9 @@ jobs:
 #########################################################
   dockerfile_to_dockerhub:
     name: "Dockerfile Build and Publish"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
-      CONTAINER_REGISTRY: "ghcr.io"
+      CONTAINER_REGISTRY: "docker.io"
     steps:
     - name: Checkout
       uses: actions/checkout@v4
