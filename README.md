@@ -10,6 +10,7 @@ Although I use Telerik's NuGet server because I have a license, these demos are 
 ## Table of Contents
 - [CI Systems](https://github.com/LanceMcCarthy/DevOpsExamples#ci-systems)
 - [Build Badges](https://github.com/LanceMcCarthy/DevOpsExamples#badges)
+- [Docker Examples](https://github.com/LanceMcCarthy/DevOpsExamples#docker-examples)
 - [Videos](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
   - [Authenticating in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#azure-devops-with-telerik-nuget-server)
 - [Tips and Troubleshooting](https://github.com/LanceMcCarthy/DevOpsExamples#tips-and-troubleshooting)
@@ -45,15 +46,21 @@ Although I use Telerik's NuGet server because I have a license, these demos are 
 | **Kendo Angular** | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildAngularAppWithVariables)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 | **ASP.NET AJAX** (`net48`) | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildAjaxApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
 
-### Bonus Notes
+> All Azure DevOps status badges are for classic pipelines, except the `Console` project, which uses Azure DevOps YAML pipelines.
 
-- Docker and DockerHub integration:
-    - The `workflows/main_build-aspnetcore.yml` uses a Dockerfile to build and publish a Linux image to DockerHub => [lancemccarthy/myaspnetcoreapp](https://hub.docker.com/r/lancemccarthy/myaspnetcoreapp).
-        - Ex. `docker run -d  -p 8080:8080 lancemccarthy/myaspnetcoreapp:latest`
-        - Ex. `docker run -d  -p 8080:8080 lancemccarthy/myblazorapp:latest`
-    - For a real-world example, visit [Akeyless Web Target's docker-publish.yml](https://github.com/LanceMcCarthy/akeyless-web-target/blob/main/.github/workflows/docker-publish.yml), which builds and publishes the [lancemccarthy/secretsmocker](https://hub.docker.com/r/lancemccarthy/secretsmocker) container image to Docker Hub.
-        - Ex. `docker run -d  -p 8080:80 lancemccarthy/secretsmocker:latest`
-- Azure DevOps: All statuses are for classic pipelines, except the `Console` project, which uses Azure DevOps YAML pipelines.
+## Docker Examples
+
+| Image | GitHub Action | Dockerfile |
+|--------------|---------------|------------|
+| `lancemccarthy/aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [Dockerfile_CentOS](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS) (AWS) |
+| `lancemccarthy/aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [Dockerfile_MSRuntimeBase](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase) |
+| `lancemccarthy/myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile) |
+
+This repo also contains examples on how to build and publish a Telerik powered .NET project as a container image. The image names above are Docker Hub images, but the approach also works for any container registry.
+
+> [!NOTE] Example
+> Execute `docker run -d  -p 8080:8080 lancemccarthy/myblazorapp:latest`, then open web browser to http://localhost:8080.
+
 
 ## Videos
 
