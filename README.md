@@ -50,17 +50,18 @@ Although I use Telerik's NuGet server because I have a license, these demos are 
 
 ## Docker Examples
 
+This repo also contains examples on how to build and publish a Telerik powered .NET project as a container image. The image names below are published to the `lancemccarthy` Docker Hub user, but the approach also works for any container registry.
+
 | Image | GitHub Action | Dockerfile |
 |--------------|---------------|------------|
-| `lancemccarthy/aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [Dockerfile_CentOS](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS) (AWS) |
-| `lancemccarthy/aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [Dockerfile_MSRuntimeBase](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase) |
-| `lancemccarthy/myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [Dockerfile](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile) |
+| `aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS) |
+| `aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase) |
+| `myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile) |
 
-This repo also contains examples on how to build and publish a Telerik powered .NET project as a container image. The image names above are Docker Hub images, but the approach also works for any container registry.
-
-> [!NOTE] Example
-> Execute `docker run -d  -p 8080:8080 lancemccarthy/myblazorapp:latest`, then open web browser to http://localhost:8080.
-
+> [!NOTE] Quickstart Example
+> ```bash
+> docker run -d -p 8080:8080 lancemccarthy/myblazorapp:latest
+> ```
 
 ## Videos
 
