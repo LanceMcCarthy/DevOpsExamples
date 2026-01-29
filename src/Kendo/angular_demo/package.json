@@ -10,6 +10,9 @@
     "upgrade": "npx npm-check-updates --upgrade --filter /@progress.*/ --packageFile ./package.json"
   },
   "private": true,
+  "overrides": {
+    "tar": "^7.5.7"
+  },
   "dependencies": {
     "@angular/animations": "^21.1.0",
     "@angular/common": "^21.1.0",
@@ -24,10 +27,12 @@
     "@progress/kendo-angular-common": "22.0.1",
     "@progress/kendo-angular-icons": "22.0.1",
     "@progress/kendo-angular-l10n": "22.0.1",
+    "@progress/kendo-angular-pdfviewer": "^22.0.1",
     "@progress/kendo-angular-popup": "22.0.1",
     "@progress/kendo-licensing": "^1.10.0",
     "@progress/kendo-svg-icons": "^4.8.0",
     "@progress/kendo-theme-default": "^12.3.0",
+    "pdfjs-dist": "^5.4.530",
     "rxjs": "~7.8.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
