@@ -54,14 +54,13 @@ This repo also contains examples on how to build and publish a Telerik powered .
 
 | Image | GitHub Action | Dockerfile |
 |--------------|---------------|------------|
-| `aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS) |
-| `aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase) |
-| `myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile) |
+| `lancemccarthy/aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS "MyAspNetCoreApp/Dockerfile_CentOS") |
+| `lancemccarthy/aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase "MyAspNetCoreApp/Dockerfile_MSRuntimeBase") |
+| `lancemccarthy/myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile "MyBlazorApp/Dockerfile") |
 
-> [!NOTE] Quickstart Example
-> ```bash
-> docker run -d -p 8080:8080 lancemccarthy/myblazorapp:latest
-> ```
+> [!NOTE] 
+> To use an image to create a container, forward port 8080 to the host. For example 
+> ` docker run -d -p  9999:8080 lancemccarthy/myblazorapp:latest`
 
 ## Videos
 
@@ -75,6 +74,11 @@ The following **4 minute** video takes you though all the steps on adding a priv
 - [1:14](https://youtu.be/rUWU2n6FwgA?t=74) Classic pipeline for .NET Core
 - [1:47](https://youtu.be/rUWU2n6FwgA?t=107) Classic .NET Framework pipeline
 - [2:25](https://youtu.be/rUWU2n6FwgA?t=145) YAML pipeline setup for .NET Core
+
+> [!NOTE]
+> The recording has some outdated information, take the following into consideration:
+> - Use the v3 server address `https://nuget.telerik.com/v3/index.json` 
+> - If you use SSO for telerik.com, you need to use API key credentials. See [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys) for details.
 
 ## Tips and Troubleshooting
 
