@@ -13,6 +13,9 @@ env:
   TARGET_PLATFORMS: "linux/amd64,linux/arm64"
 
 jobs:
+###########################
+# Uses a CentOS Base Image
+###########################
   dockerhub_centosbase_build:
     name: CentOS Base - Publish to Docker Hub
     runs-on: ubuntu-latest
@@ -56,6 +59,10 @@ jobs:
         tags: |
           ${{env.CONTAINER_REPOSITORY}}:latest
 
+
+#########################################################
+# Uses ASPNET Runtime Base Image
+#########################################################
   dockerhub_msftbase_build:
     name: Microsoft Base - Publish to Docker Hub
     runs-on: ubuntu-latest
@@ -68,7 +75,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Set up QEMU
+    - name: Set up QEMU for multi-arch support
       uses: docker/setup-qemu-action@v3
 
     - name: Set up Docker Buildx
