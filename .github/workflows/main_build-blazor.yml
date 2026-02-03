@@ -28,6 +28,46 @@ env:
 
 jobs:
   build_windows:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Using AKeyless for secrets in this demo
+    - name: Fetch secrets from AKeyless
+      id: akeyless
+      uses: LanceMcCarthy/akeyless-action@v5
+      with:
+        access-id: 'p-4blpeo5zdfeaom'
+        static-secrets: |
+          {
+            "/progress/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY",
+            "/progress/TELERIK_LICENSE":"TELERIK_LICENSE_KEY"
+          }
+        export-secrets-to-outputs: true
+        export-secrets-to-environment: false
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Restore NuGet Packages
+      run: |
+        dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+        dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
+
+    - name: Build Test Project
+      run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-restore
+      env:
+        TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
+
+  build_linux:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -38,7 +78,7 @@ jobs:
     # Using AKeyless for secrets in this demo
     - name: Fetch secrets from AKeyless
       id: akeyless
-      uses: LanceMcCarthy/akeyless-action@v5.2.1
+      uses: LanceMcCarthy/akeyless-action@v5
       with:
         access-id: 'p-4blpeo5zdfeaom'
         static-secrets: |
