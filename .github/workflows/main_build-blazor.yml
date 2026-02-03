@@ -40,7 +40,7 @@ jobs:
     # Using AKeyless for secrets in this demo
     - name: Fetch secrets from AKeyless
       id: akeyless
-      uses: LanceMcCarthy/akeyless-action@v5
+      uses: LanceMcCarthy/akeyless-action@v5.1.2
       with:
         access-id: 'p-4blpeo5zdfeaom'
         static-secrets: |
