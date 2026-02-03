@@ -28,9 +28,7 @@ env:
 
 jobs:
   build_windows:
-    runs-on: windows-2022
-    env:
-      RID: win-x64
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -58,13 +56,13 @@ jobs:
 
     - name: Restore NuGet Packages
       run: |
-        dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
-        dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}} -r ${{env.RID}}
+        dotnet restore ${{env.BLAZOR_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
+        dotnet restore ${{env.TEST_PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
 
     - name: Build Test Project
-      run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} -r ${{env.RID}} --no-restore
+      run: dotnet build ${{env.TEST_PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-restore
       env:
         TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
