@@ -9,22 +9,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
 		<PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-		<PackageReference Include="Telerik.Drawing.Skia" Version="19.3.26.121" />
-		<PackageReference Include="Telerik.Licensing" Version="1.6.36" />
-		<PackageReference Include="Telerik.Reporting.AI.Microsoft.Extensions.AzureOpenAI" Version="19.3.26.121" />
-		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="19.3.26.121" />
-		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="19.3.26.121" />
+		<PackageReference Include="Telerik.Drawing.Skia" Version="20.0.26.211" />
+		<PackageReference Include="Telerik.Licensing" Version="1.6.40" />
+		<PackageReference Include="Telerik.Reporting.AI.Microsoft.Extensions.AzureOpenAI" Version="20.0.26.211" />
+		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="20.0.26.211" />
+		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="20.0.26.211" />
 		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2025.4.1321" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.3" />
   
     <!-- For stripped down container environments -->
-    <PackageReference Include="SkiaSharp" Version="3.119.1" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.1" />
-		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.1" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp" Version="3.119.2" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.2" />
+		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.2" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.2" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
