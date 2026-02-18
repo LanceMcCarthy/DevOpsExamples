@@ -200,6 +200,7 @@ Depending on how you're building our code, there are several ways to introduce t
       - [Secure File - Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#secure-file---classic-pipeline)
         - [Scenario 1 - Task With Env Vars Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-1---task-with-env-var-inputs)
         - [Scenario 2 - Task Without Env Var Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-2---task-without-env-var-inputs)
+        - [Scenario 3 - Move Secure File](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-3---move-secure-file)
 
 #### Approach 1 - Using a Variable
 
@@ -282,15 +283,32 @@ With the secure file downloaded to the runner, you can now set the **TELERIK_LIC
 
 ###### Scenario 2 - Task Without Env Var Inputs
 
-Not all AzDO tasks have the "Environment variables" section. To solve this, you can set a pipeline variable before that task. Using the secure file 
+Not all AzDO tasks have the "Environment variables" section (e.g. MsBuild task doesn't have it). To solve this, you can set a pipeline variable before that task. Using the secure file 
 
-1. Add a new Powershell or Bash task, immediately after the Download Secure File task
-2. Set the **TELERIK_LICENSE_PATH** pipeline variable using the secure file's output var name
+1. Add a new Powershell or Bash task (_after_ the Download Secure File task)
+2. Set the **TELERIK_LICENSE_PATH** using `task.setvariable` command with `issecret=true`and the secure file task's output variable
+  ```powershell
+  # If using Powershell
+  Write-Host "##vso[task.setvariable variable=TELERIK_LICENSE_PATH;issecret=true]$(telerik.secureFilePath)"
 
-```powershell
-##vso[task.setvariable variable=TELERIK_LICENSE_PATH]$(telerik.secureFilePath)
-```
+  # If using Bash
+  echo "##vso[task.setvariable variable=TELERIK_LICENSE_PATH;issecret=true]$(telerik.secureFilePath)"
+  ```
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/9f1bcecd-a2d2-45f2-95b6-76bdfbda6516" />
 
-Ultimately, there are many routes to take, and you can choose the best one for your scenario. What is most important is that you protect the key value/file as you'd protect any sensitive secret.
+###### Scenario 3 - Move Secure File
+
+If you have nay trouble with the TELERIK_LICENSE_PATH variable, you can just simply move the file to the root build directory.
+
+1. Add a new Powershell or Bash task (_after_ the Download Secure File task)
+  ```powershell
+  Move-Item -Path "$(telerik.secureFilePath)" -Destination "$(Build.Repository.LocalPath)/telerik-license.txt" -Force
+  ```
+2. Build the code
+3. Delete the file (so you don't accidentally include it in your distribution)
+  ```powershell
+  Remove-Item -Path "$(Build.Repository.LocalPath)/telerik-license.txt" -Force
+  ```
+
+As you can see, there are a wide range of options. The one you choose highly depends on your environment and CI requirements.
