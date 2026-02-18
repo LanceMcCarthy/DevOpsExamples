@@ -194,6 +194,12 @@ Depending on how you're building our code, there are several ways to introduce t
 - [Approach 2 - Using a License File](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-2---using-a-file)
   - [In a YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#yaml-pipeline)
   - [In a Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#classic-pipeline)
+    - [Approach 1 - Using a Variable](https://github.com/LanceMcCarthy/DevOpsExamples#approach-1---using-a-variable)
+    - [Approach 2 - Using a File](https://github.com/LanceMcCarthy/DevOpsExamples#approach-2---using-a-file)
+      - [Secure File - YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#secure-file---yaml-pipeline)
+      - [Secure File - Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#secure-file---classic-pipeline)
+        - [Scenario 1 - Task With Env Vars Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-1---task-with-env-var-inputs)
+        - [Scenario 2 - Task Without Env Var Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-2---task-without-env-var-inputs)
 
 #### Approach 1 - Using a Variable
 
@@ -229,12 +235,12 @@ If you're using classic pipelines, you can use a pipeline variable:
 
 You have two options for a file-base option. Set the TELERIK_LICENSE_PATH variable or add a file named **telerik-license.txt** to the project directory. The licensing runtime will do a recursive check from the project directory to root, and then finally %appdata%/telerik/.
 
-On Azure DevOps, there is a powerful feature called Secure Files. It lets you upload a file and then use it in a pipeline. Go to your Library tab, then select Secure File
+On Azure DevOps, there is a powerful feature called Secure Files. It lets you upload a file and then use it in a pipeline. Go to your Library tab, then select Secure File. After you've uploaded the Secure File to your Azure DevOps project, you can use it in a pipeline.
 
-After you've uploaded the Secure File to your Azure DevOps project, you can use it in a pipeline, liek this:
+Here are several ways to use that Secure File.
 
 > [!CAUTION]
-> Never check in the **telerik-license.txt** file with your code and never distr4ibute it with your application/docker image.
+> Never include the **telerik-license.txt** file inside your application/docker image!
 
 ##### YAML Pipeline
 
@@ -266,17 +272,25 @@ With a classic pipeline, you can use the same `DownloadSecureFile` Task
 ![Image](https://github.com/user-attachments/assets/8c9f0aa4-0ef8-48a9-9805-b0686db1109c)
 
 > [!IMPORTANT]
-> See the screenshot above. You must set the output variable's name, this is the **reference name** which gets prepended to the `.secureFilePath` output variable.
+> Make sure you set the **reference name** which gets prefixed to the `.secureFilePath` output variable.
 
-With the secure file downloaded to the runner, you have two options again:
+###### Scenario 1 - Task With Env Var Inputs
 
-- A) Set the TELERIK_LICENSE_PATH variable with the path $(telerik.secureFilePath)
-- or
-- B) Copy the actual license file to a directory you want to use it in.
+With the secure file downloaded to the runner, you can now set the **TELERIK_LICENSE_PATH** variable using `$(telerik.secureFilePath)`.
 
-![Image](https://github.com/user-attachments/assets/0b1fd81f-5ee6-49e1-8ce3-031ed379c1d6)
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/e6bb5425-a721-4307-9837-0ef2e6f8cefa" />
 
-> [!CAUTION]
-> If you distribute the source code with your artifacts, make sure you delete the copied license.txt file immediately after the build step.
+###### Scenario 2 - Task Without Env Var Inputs
 
-Ultimately, there are many routes to take, and you can choose th eone that best suits your CI-CD needs. What is most important is that you protect the key value/file as you'd protect any sensitive secret.
+Not all AzDO tasks have the "Environment variables" section. To solve this, you can set a pipeline variable before that task. Using the secure file 
+
+1. Add a new Powershell or Bash task, immediately after the Download Secure File task
+2. Set the **TELERIK_LICENSE_PATH** pipeline variable using the secure file's output var name
+
+```powershell
+##vso[task.setvariable variable=TELERIK_LICENSE_PATH]$(telerik.secureFilePath)
+```
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/9f1bcecd-a2d2-45f2-95b6-76bdfbda6516" />
+
+Ultimately, there are many routes to take, and you can choose the best one for your scenario. What is most important is that you protect the key value/file as you'd protect any sensitive secret.
