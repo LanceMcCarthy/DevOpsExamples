@@ -11,8 +11,7 @@ builder.Services.AddCors(corsOption => corsOption
 ));
 
 // Add services to the container.
-builder.Services.AddControllersWithViews()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
+builder.Services.AddControllersWithViews();
 
 // Add Kendo UI services to the services container"
 builder.Services.AddKendo();
