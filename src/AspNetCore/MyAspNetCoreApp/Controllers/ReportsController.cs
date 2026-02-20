@@ -8,16 +8,11 @@ namespace MyAspNetCoreApp.Controllers;
 
 [Route("api/reports")]
 [ApiController]
-public class ReportsController : ReportsControllerBase
+public class ReportsController(IReportServiceConfiguration reportServiceConfiguration) : ReportsControllerBase(reportServiceConfiguration)
 {
-    public ReportsController(IReportServiceConfiguration reportServiceConfiguration)
-        : base(reportServiceConfiguration)
-    {
-    }
-
     protected override HttpStatusCode SendMailMessage(MailMessage mailMessage)
     {
-        throw new System.NotImplementedException("This method should be implemented in order to send mail messages");
+        throw new NotImplementedException("This method should be implemented in order to send mail messages");
 
         // using (var smtpClient = new SmtpClient("smtp01.mycompany.com", 25))
         // {
