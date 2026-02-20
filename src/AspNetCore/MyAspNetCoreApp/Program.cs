@@ -10,8 +10,13 @@ builder.Services.AddCors(corsOption => corsOption
     .AddPolicy("ReportingRestPolicy", corsBuilder => corsBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
 ));
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+// Add services to the container (important: Uses System.Text.Json instead of json.net from now on).
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
+
 
 // Add Kendo UI services to the services container"
 builder.Services.AddKendo();
