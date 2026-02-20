@@ -1,21 +1,42 @@
 ﻿<style type="text/css">
+    #reportPicker-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 5px;
+        font-family: Verdana, Arial;
+    }
+    #reportPicker-wrapper .k-combobox {
+        width: 300px;
+    }
     #reportViewer1 {
         position: absolute;
         left: 5px;
         right: 5px;
-        top: 50px;
-        bottom: 5px;
+        top: 120px;
+        bottom: 65px;
         overflow: hidden;
         font-family: Verdana, Arial;
     }
 </style>
 
+<!-- Hidden UI for ASP.NET Core component workaround for Kendo jQuery license validation fails (ReportViewer uses the components).
+<kendo-button name="license-workaround"></kendo-button>-->
+
+<div id="reportPicker-wrapper">
+    <kendo-combobox name="reportPicker"
+                    placeholder="Choose a report..."
+                    suggest="true"
+                    bind-to="(IEnumerable<string>)ViewBag.Reports"
+                    on-change="onReportSelected">
+    </kendo-combobox>
+</div>
+
 <div id="reportViewer1">
     loading report viewer...
 </div>
 
-<!-- Hidden UI for ASP.NET Core component workaround for Kendo jQuery license validation fails (ReportViewer uses the components). -->
-<kendo-button name="license-workaround"></kendo-button>
+
 
 <script>
     $(document).ready(function () {
@@ -30,5 +51,20 @@
             enableAccessibility: false,
             sendEmail: { enabled: false }
         });
+
+        // Pre-select the default report in the combobox
+        var comboBox = $("#reportPicker").data("kendoComboBox");
+
+        if (comboBox) {
+            comboBox.value("Barcodes Report.trdp");
+        }
     });
+
+    function onReportSelected(e) {
+        var selectedReport = e.sender.value();
+        if (selectedReport) {
+            var reportViewer = $("#reportViewer1").data("telerik_ReportViewer");
+            reportViewer.reportSource({ report: selectedReport });
+        }
+    }
 </script>

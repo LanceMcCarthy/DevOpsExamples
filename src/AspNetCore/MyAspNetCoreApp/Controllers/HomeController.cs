@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace MyAspNetCoreApp.Controllers;
 
-public class HomeController(ILogger<HomeController> logger) : Controller
+public class HomeController(ILogger<HomeController> logger, IWebHostEnvironment environment) : Controller
 {
     public IActionResult Index()
     {
@@ -13,6 +13,15 @@ public class HomeController(ILogger<HomeController> logger) : Controller
 
     public IActionResult ReportViewer()
     {
+        var reportsPath = Path.Combine(environment.ContentRootPath, "Reports");
+
+        var reports = Directory.GetFiles(reportsPath, "*.trdp")
+            .Select(Path.GetFileName)
+            .OrderBy(n => n)
+            .ToList();
+
+        ViewBag.Reports = reports;
+
         return View();
     }
 
@@ -20,6 +29,7 @@ public class HomeController(ILogger<HomeController> logger) : Controller
     public IActionResult Error()
     {
         logger.LogError($"An error occurred while processing the request. {Activity.Current?.Id ?? HttpContext.TraceIdentifier}");
+        
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
