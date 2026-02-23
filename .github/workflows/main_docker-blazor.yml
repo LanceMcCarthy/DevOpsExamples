@@ -9,9 +9,9 @@ on:
       - 'src/Blazor/**/*'
 
 env:
+  DOTNET_VERSION: "10.0.x"
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
-  DOTNET_VERSION: "10.0.x"
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
 
 # For ghcr.io access
@@ -30,7 +30,7 @@ jobs:
       CONTAINER_REGISTRY: "docker.io"
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Generate tag version
       id: tag-creator
@@ -49,7 +49,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: ${{env.CONTAINER_REPOSITORY}}
+        images: ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}
 
     - name: Login to DockerHub
       uses: docker/login-action@v3
@@ -66,8 +66,7 @@ jobs:
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
           telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
-        tags: |
-          "${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:latest"
+        tags: ${{steps.meta.outputs.tags}}
 
     # Required because actions/delete-package-versions@v5 does not work with Docker Hub
     - name: Delete old (untagged) images
@@ -97,7 +96,7 @@ jobs:
   #     CONTAINER_BASE_IMAGE: "docker.io/lancemccarthy/skia-aspnet:10.0"
   #   steps:
   #   - name: Checkout
-  #     uses: actions/checkout@v4
+  #     uses: actions/checkout@v6
   #     with:
   #       fetch-depth: 0
 
