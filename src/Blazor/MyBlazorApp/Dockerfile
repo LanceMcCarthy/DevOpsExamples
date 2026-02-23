@@ -3,7 +3,7 @@
 ################################## STAGE 1 ######################################
 # Create our base image from the aspnet image, and prep any neccessary settings
 #################################################################################
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443

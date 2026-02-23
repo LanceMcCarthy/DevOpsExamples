@@ -11,8 +11,7 @@ RUN apt-get update \
      && rm -rf /var/lib/apt/lists/*
 
 
-
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY ./NuGet.Config ./NuGet.Config
 WORKDIR /src/MyAspNetCoreApp
@@ -22,12 +21,10 @@ RUN --mount=type=secret,id=telerik_key \
   echo $(cat /run/secrets/telerik_key) \
   && dotnet nuget update source "Telerik" -s "https://nuget.telerik.com/v3/index.json" -u "api-key" -p $(cat /run/secrets/telerik_key) --configfile "./NuGet.Config" --store-password-in-clear-text \
   && dotnet restore "MyAspNetCoreApp.csproj" --configfile "./NuGet.Config" \
-  && dotnet build "MyAspNetCoreApp.csproj" -c Release -o /app/build
+  && dotnet publish "MyAspNetCoreApp.csproj" -c Release -o /app/publish /p:UseAppHost=false --self-contained false
 
-FROM build AS publish
-RUN dotnet publish "MyAspNetCoreApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "MyAspNetCoreApp.dll"]

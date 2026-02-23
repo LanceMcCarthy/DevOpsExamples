@@ -4,7 +4,7 @@
 ### STAGE 1 ###
 ###############
 # Install required dependencies into the stripped-down base image
-FROM --platform=$BUILDPLATFORM tgagor/centos:latest AS base
+FROM tgagor/centos:latest AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
