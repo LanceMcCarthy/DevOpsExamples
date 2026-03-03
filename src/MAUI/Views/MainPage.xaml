@@ -34,6 +34,14 @@
                                          Size="16" />
                     </telerik:ToggleButtonToolbarItem.ImageSource>
                 </telerik:ToggleButtonToolbarItem>
+
+                <telerik:ToggleButtonToolbarItem Text="Render Png" Clicked="OnRenderPngClicked">
+                    <telerik:ToggleButtonToolbarItem.ImageSource>
+                        <FontImageSource Glyph="{x:Static telerik:TelerikFont.IconFileImage}"
+                                         FontFamily="{x:Static telerik:TelerikFont.Name}"
+                                         Size="16" />
+                    </telerik:ToggleButtonToolbarItem.ImageSource>
+                </telerik:ToggleButtonToolbarItem>
             </telerik:RadToolbar>
         </Grid>
 

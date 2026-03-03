@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.22621.0</TargetFrameworks>
     <RootNamespace>MauiDemo</RootNamespace>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
@@ -32,21 +33,22 @@
     <CsWinRTRcwFactoryFallbackGeneratorForceOptOut Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">true</CsWinRTRcwFactoryFallbackGeneratorForceOptOut>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>-->
     <DefaultLanguage>en</DefaultLanguage>
-    
-	</PropertyGroup>
+    <Platforms>AnyCPU;ARM64;x64</Platforms>
+
+  </PropertyGroup>
 
   <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Debug'">
     <WindowsPackageType>None</WindowsPackageType>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
     <WindowsPackageType>MSIX</WindowsPackageType>
     <PackageCertificateThumbprint>11628FB284176D4F9958B06F33ABAAA2951EEB34</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
 
-	<ItemGroup>
+  <ItemGroup>
     <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
     <MauiIcon Include="Resources\AppIcon\appiconfg.svg" />
     <MauiIcon Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -54,7 +56,7 @@
     <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
     <MauiFont Include="Resources\Fonts\*" />
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-	</ItemGroup>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.41" />
@@ -63,7 +65,7 @@
     <PackageReference Include="Telerik.UI.for.Maui" Version="13.0.1" />
   </ItemGroup>
 
-	<!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+  <!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 		<PackageReference Include="WinUIEx" Version="2.8.0" />
 	</ItemGroup>-->
 </Project>
