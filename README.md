@@ -84,18 +84,34 @@ The following **4 minute** video takes you though all the steps on adding a priv
 
 ### GitHub Actions: Using Secrets to Set Environment Variables
 
-A common problem to run into is to think that the environment variable is the same thing as the GitHub Secret (or Azure DevOps pipeline variable). In this demo, I intentionally named the secrets a different name than the environment variable name so that it is easier for you to tell the difference.
+If you have environment variable placeholders in your nuget.config file, you can easily set them using GitHub Secrets. For example, let's say in your packageSourceCredentials, you have the following the environment variable placeholders `%TELERIK_USERNAME%` and `%TELERIK_PASSWORD%`
 
-However, I know that not everyone has the time to watch the video and just copy/paste the YAML instead. This will cause you to hit a roadblock because you missed the part about setting up the GitHub secret, Azure DevOps pipeline variable or . Here is a 2 screenshot crash-course on how to get back on track.
+```xaml
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+...
+  <packageSourceCredentials>
+    <Telerik_v3_Feed>
+      <add key="Username" value="%TELERIK_USERNAME%" />
+      <add key="ClearTextPassword" value="%TELERIK_PASSWORD%" />
+    </Telerik_v3_Feed>
+  </packageSourceCredentials>
+  ...
+</configuration>
+```
 
-In your YAML, you probably have done this:
+You can directly set those vars on the same step which you invoke the `dotnet restore/build/publish` command. For example, here I use an API key from my GitHub Actions Secrets for credentials
 
-![image](https://user-images.githubusercontent.com/3520532/104634697-f57e0480-566e-11eb-8b84-06fcf3ffe753.png)
+```yaml
+    - name: Restore NuGet Packages
+      run: dotnet restore src/MyProject.csproj --configfile src/nuget.config
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_API_KEY}}
+```
 
-That mean you must also have the secrets in your **Settings** > **Secrets** list
-
-![image](https://user-images.githubusercontent.com/3520532/104634438-9cae6c00-566e-11eb-9a78-79d955247867.png)
-
+> [!TIP]
+> This is also very useful for Dependabot runs. You can set a Dependabot secret (in the repo settings) and it will be able to restore packages during checks that were triggered by Dependabot.
 
 ### Powershell: Adding or Updating Package Source Dynamically
 
