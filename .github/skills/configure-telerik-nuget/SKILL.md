@@ -5,7 +5,7 @@ description: Helps setup, configure and manage Telerik NuGet feeds in your repo'
 required_binaries:
   - pwsh
   - dotnet
-author: DevOpsExamples
+author: Lance McCarthy
 homepage: https://github.com/DevOpsExamples/.github
 source: https://github.com/DevOpsExamples/.github/tree/main/skills/configure-telerik-nuget
 ---
