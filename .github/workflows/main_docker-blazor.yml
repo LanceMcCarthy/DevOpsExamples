@@ -20,8 +20,9 @@ permissions:
   packages: write
 
 jobs:
-#########################################################
-# Example 1: Dockerfile publish to Docker Hub
+#################### Example 1 ##########################
+# Dockerfile build and publish to Docker Hub
+# - Webook to automatically redeploy stack in Portainer
 #########################################################
   dockerfile_to_dockerhub:
     name: "Dockerfile Build and Publish"
@@ -79,9 +80,12 @@ jobs:
           fi
         done
 
+    - name: Trigger Portainer to pull images and redeploy the stack
+      run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_BLAZOR}}
 
-############################################################
-# Example 2: .NET SDK publish to ghcr.io
+
+#################### Example 2 ##########################
+# .NET SDK build and publish to ghcr.io
 ############################################################
 
   # # 2.1 - Build the lancemccarthy/myblazorapp:latest-x64 image
