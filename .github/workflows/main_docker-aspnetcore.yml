@@ -13,55 +13,10 @@ env:
   TARGET_PLATFORMS: "linux/amd64,linux/arm64"
 
 jobs:
-###########################
-# Uses a CentOS Base Image
-###########################
-  dockerhub_centosbase_build:
-    name: CentOS Base - Publish to Docker Hub
-    runs-on: ubuntu-latest
-    env:
-      CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-centosbase"
-      DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS"
-      CONTAINER_REGISTRY: "docker.io"
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Set up QEMU for multi-arch support
-      uses: docker/setup-qemu-action@v3
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-      
-    - name: Get package metadata from Docker Hub
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}
-
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{secrets.DOCKER_HUB_USERNAME}}
-        password: ${{secrets.DOCKER_HUB_PAT}}
-
-    - name: Build and push to Docker Hub
-      uses: docker/build-push-action@v5
-      with:
-        file: ${{env.DOCKERFILE_PATH}}
-        context: ${{env.WORKING_DIRECTORY}}
-        platforms: ${{env.TARGET_PLATFORMS}}
-        push: true
-        secrets: |
-          telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
-          telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
-        tags: ${{steps.meta.outputs.tags}}
-
-
-#########################################################
-# Uses ASPNET Runtime Base Image
+#################### Example 1 ##########################
+# Dockerfile build and publish to Docker Hub
+# - Uses mcr.microsoft.com/dotnet/aspnet base image
+# - Webook to automatically redeploy stack in Portainer
 #########################################################
   dockerhub_msftbase_build:
     name: Microsoft Base - Publish to Docker Hub
@@ -106,6 +61,57 @@ jobs:
           telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
         tags: ${{steps.meta.outputs.tags}}
 
+    - name: Trigger Portainer to pull images and redeploy the stack
+      run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_ASPNETCORE}}
+
+
+#################### Example 2 ##########################
+# Dockerfile build and publish to Docker Hub
+# - Uses a CentOS Base Image
+# - Webook to automatically redeploy stack in Portainer
+#########################################################
+  dockerhub_centosbase_build:
+    name: CentOS Base - Publish to Docker Hub
+    runs-on: ubuntu-latest
+    env:
+      CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-centosbase"
+      DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS"
+      CONTAINER_REGISTRY: "docker.io"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up QEMU for multi-arch support
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Get package metadata from Docker Hub
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{secrets.DOCKER_HUB_USERNAME}}
+        password: ${{secrets.DOCKER_HUB_PAT}}
+
+    - name: Build and push to Docker Hub
+      uses: docker/build-push-action@v5
+      with:
+        file: ${{env.DOCKERFILE_PATH}}
+        context: ${{env.WORKING_DIRECTORY}}
+        platforms: ${{env.TARGET_PLATFORMS}}
+        push: true
+        secrets: |
+          telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
+          telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
+        tags: ${{steps.meta.outputs.tags}}
 
 # ############################################################################
 #  ghcr.io option
