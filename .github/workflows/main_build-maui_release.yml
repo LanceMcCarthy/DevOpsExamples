@@ -26,6 +26,7 @@ env:
   IOS_ARTIFACTS_PATH: "artifacts_ios"
   ANDROID_ARTIFACTS_PATH: "artifacts_android"
   WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
+  XCODE_VERSION: '26.2'
 
 jobs:
   # ***************************************** #
@@ -216,7 +217,7 @@ jobs:
   maui-macos:
     name: Build MacCatalyst
     needs: shared-resources
-    runs-on: macos-latest
+    runs-on: macos-15
     if: ${{ needs.shared-resources.outputs.app_version != ''}}
     strategy:
       matrix:
@@ -236,7 +237,7 @@ jobs:
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 16.1
+        xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
@@ -294,9 +295,9 @@ jobs:
     - name: Publish MacCatalyst build artifacts
       uses: actions/upload-artifact@v4
       with:     
-        name: "MacCatalyst artifacts" 
-        path: "*.pkg"
-        if-no-files-found: warn
+        name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_${{matrix.RID}}.app" 
+        path: "**/*.app"
+        if-no-files-found: error
         retention-days: 30
 
 
