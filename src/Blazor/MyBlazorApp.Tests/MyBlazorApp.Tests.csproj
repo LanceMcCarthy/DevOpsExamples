@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JustMock.Commercial" Version="2025.4.1112.487" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
-    <PackageReference Include="System.Security.Permissions" Version="10.0.0" />
+    <PackageReference Include="JustMock.Commercial" Version="2026.1.313.505" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.2.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.2.1" />
+    <PackageReference Include="System.Security.Permissions" Version="10.0.6" />
     <PackageReference Include="Telerik.Licensing" Version="*" />
   </ItemGroup>
 
