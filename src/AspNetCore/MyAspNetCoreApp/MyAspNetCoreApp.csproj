@@ -16,8 +16,8 @@
 		<PackageReference Include="Telerik.Reporting.AI.Microsoft.Extensions.AzureOpenAI" Version="20.0.26.402" />
 		<PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="20.0.26.402" />
 		<PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="20.0.26.402" />
-		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2026.1.325" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.5" />
+		<PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2026.1.415" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.6" />
   
     <!-- For stripped down container environments -->
     <PackageReference Include="SkiaSharp" Version="3.119.2" />

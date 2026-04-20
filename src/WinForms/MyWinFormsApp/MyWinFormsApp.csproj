@@ -114,13 +114,13 @@
       <Version>1.8.2</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.GridView">
-      <Version>2026.1.210</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.PdfViewer">
-      <Version>2026.1.210</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
     <PackageReference Include="UI.for.WinForms.SyntaxEditor">
-      <Version>2026.1.210</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

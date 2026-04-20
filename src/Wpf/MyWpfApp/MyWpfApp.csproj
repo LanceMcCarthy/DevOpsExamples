@@ -111,22 +111,22 @@
       <Version>1.8.2</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.for.Wpf">
-      <Version>2026.1.211</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf">
-      <Version>2026.1.211</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.GridView.SpreadsheetStreamingExport.for.Wpf">
-      <Version>2026.1.211</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Controls.Input.for.Wpf">
-      <Version>2026.1.211</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Data.for.Wpf">
-      <Version>2026.1.211</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
     <PackageReference Include="Telerik.Windows.Themes.VisualStudio2019.for.Wpf">
-      <Version>2026.1.211</Version>
+      <Version>2026.1.415</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
