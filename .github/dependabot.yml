@@ -3,7 +3,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/src/Kendo"
+    directory: "/src/Kendo/angular_demo"
     schedule:
       interval: "monthly"
     ignore:
