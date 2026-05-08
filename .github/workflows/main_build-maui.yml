@@ -18,7 +18,7 @@ env:
   ANDROID_TFM: "net10.0-android"
   IOS_TFM: "net10.0-ios"
   MACCATALYST_TFM: "net10.0-maccatalyst"
-  XCODE_VERSION: '26.3'
+  XCODE_VERSION: '26.4'
 
 jobs:
 # ***************************** #
@@ -28,18 +28,16 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      uses: actions/checkout@v6
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     # For WinUI builds
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
 
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
@@ -61,12 +59,10 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      uses: actions/checkout@v6
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
@@ -95,16 +91,14 @@ jobs:
     runs-on: macos-15
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      uses: actions/checkout@v6
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
@@ -128,16 +122,14 @@ jobs:
     runs-on: macos-15
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      uses: actions/checkout@v6
 
     - uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: ${{env.XCODE_VERSION}}
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
