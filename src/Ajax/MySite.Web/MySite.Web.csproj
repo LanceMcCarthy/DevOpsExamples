@@ -78,19 +78,19 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.Design, Version=2025.3.825.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.225\lib\net462\Telerik.Web.Design.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.421\lib\net462\Telerik.Web.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.Device.Detection, Version=2025.3.825.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.225\lib\net462\Telerik.Web.Device.Detection.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.421\lib\net462\Telerik.Web.Device.Detection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI, Version=2025.3.825.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.225\lib\net462\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.421\lib\net462\Telerik.Web.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Web.UI.Skins, Version=2025.3.825.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.225\lib\net462\Telerik.Web.UI.Skins.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.1.421\lib\net462\Telerik.Web.UI.Skins.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Core, Version=2025.3.806.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
@@ -219,7 +219,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
