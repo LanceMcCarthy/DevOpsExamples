@@ -1,0 +1,65 @@
+name: ASP.NET Core (with Reporting, publish to Azure)
+
+on:
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: "10.0.x"
+  PROJECT_PATH: src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj
+  NUGETCONFIG_PATH: src/NuGet.Config
+  AZURE_WEBAPP_NAME: DevOpsExamplesCore
+  ARTIFACTS_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp/artifacts"
+  TELERIK_USERNAME: "api-key"
+  TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    # ----------------------------------------------------------------------- #
+    # BUILD
+    # ----------------------------------------------------------------------- #
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Restore NuGet Packages
+      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+
+    - name: Build ASP.NET Core Project
+      run: dotnet publish ${{env.PROJECT_PATH}} -o ${{env.ARTIFACTS_DIRECTORY}} --no-restore
+
+
+    # ----------------------------------------------------------------------- #
+    # DEPLOY                 to https://devopsexamplescore.azurewebsites.net/
+    # ----------------------------------------------------------------------- #
+
+    # Option 1
+    # Deploy using the publish profile saved as a Github Actions secret
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: ${{env.AZURE_WEBAPP_NAME}}
+        publish-profile: ${{secrets.DEVOPSEXAMPLESCORE_PUBLISHSETTINGS}}
+        package: ${{env.ARTIFACTS_DIRECTORY}}
+
+    # Option 2
+    # Use a service principal to log into Azure, no reliance on GitHub secrets
+    # - name: Azure Login
+    #   uses: azure/login@v2
+    #   with:
+    #     client-id: ${{secrets.AZUREAPPSERVICE_CLIENTID}}
+    #     tenant-id: ${{secrets.AZUREAPPSERVICE_TENANTID}}
+    #     subscription-id: ${{secrets.AZUREAPPSERVICE_SUBSCRIPTIONID}}
+
+    # - name: Deploy to Azure WebApp
+    #   uses: azure/webapps-deploy@v3
+    #   with:
+    #     app-name: ${{env.AZURE_WEBAPP_NAME}}
+    #     package: ${{env.ARTIFACTS_DIRECTORY}}
