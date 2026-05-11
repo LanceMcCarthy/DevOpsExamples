@@ -2,6 +2,10 @@
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using MyAspNetCoreApp.Models;
+using Telerik.Documents.Common.Model;
+using Telerik.Documents.Media;
+using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
+using Telerik.Windows.Documents.Spreadsheet.Model;
 
 namespace MyAspNetCoreApp.Controllers;
 
@@ -53,6 +57,57 @@ public class DashboardController : Controller
 
         return Json(platformViews);
     }
+
+    public ActionResult Generate_PodcastsExcel()
+    {
+        var workbook = new Workbook();
+        var worksheet = workbook.Worksheets.Add();
+        worksheet.Name = "Podcasts";
+
+        string[] headers = ["Podcast Episode", "Downloads", "Streams", "Views", "Date", "Reach", "Device", "Platform"];
+
+        for (var column = 0; column < headers.Length; column++)
+        {
+            worksheet.Cells[0, column].SetValue(headers[column]);
+        }
+
+        var headerRow = worksheet.Cells[0, 0, 0, headers.Length - 1];
+        headerRow.SetFill(PatternFill.CreateSolidFill(Color.FromRgb(0, 51, 102)));
+        headerRow.SetForeColor(new ThemableColor(Color.FromRgb(255, 255, 255)));
+
+        var podcasts = GetPodcasts();
+
+        for (var row = 0; row < podcasts.Count; row++)
+        {
+            var podcast = podcasts[row];
+            var worksheetRow = row + 1;
+
+            worksheet.Cells[worksheetRow, 0].SetValue(podcast.Name ?? string.Empty);
+            worksheet.Cells[worksheetRow, 1].SetValue(podcast.Downloads);
+            worksheet.Cells[worksheetRow, 2].SetValue(podcast.Streams);
+            worksheet.Cells[worksheetRow, 3].SetValue(podcast.Views);
+            worksheet.Cells[worksheetRow, 4].SetValue(podcast.Date.ToShortDateString());
+            worksheet.Cells[worksheetRow, 5].SetValue(podcast.Reach);
+            worksheet.Cells[worksheetRow, 6].SetValue(podcast.Device ?? string.Empty);
+            worksheet.Cells[worksheetRow, 7].SetValue(podcast.PlatformName ?? string.Empty);
+        }
+
+        worksheet.Columns[0].SetWidth(new ColumnWidth(290, true));
+        worksheet.Columns[1].SetWidth(new ColumnWidth(85, true));
+        worksheet.Columns[4].SetWidth(new ColumnWidth(90, true));
+        worksheet.Columns[7].SetWidth(new ColumnWidth(120, true));
+
+        var formatProvider = new XlsxFormatProvider();
+
+        using var stream = new MemoryStream();
+        formatProvider.Export(workbook, stream, TimeSpan.FromMinutes(2));
+
+        return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "podcasts.xlsx");
+    }
+
+
+    // HELPER METHODS
+
     private List<PodcastViewModel> GetPodcasts()
     {
         if (Podcasts.Count == 0)

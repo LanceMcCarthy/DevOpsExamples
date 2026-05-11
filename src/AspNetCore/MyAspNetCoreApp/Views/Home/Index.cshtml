@@ -18,6 +18,19 @@
     .k-chart, .k-grid {
         height: 100%;
     }
+
+    .top-episodes-section {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        height: 100%;
+    }
+
+    .top-episodes-section .k-grid {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+    }
 </style>
 
 <!-- container text templates -->
@@ -132,28 +145,36 @@
 
 <!-- container grid template -->
 <script id="grid-template" type="text/html">
-    <kendo-grid name="grid" on-data-bound="populateTotals" is-in-client-template="true">
-        <sortable enabled="true" />
-        <columns>
-            <column field="Name" width="320" title="Podcast Episode"></column>
-            <column field="Streams" width="150"></column>
-            <column field="Downloads" width="250"></column>
-        </columns>
-        <datasource type="DataSourceTagHelperType.Ajax" page-size="5">
-            <transport>
-                <read url="@Url.Action("Podcasts_Read", "Dashboard")" />
-            </transport>
-            <sorts>
-                <sort field="Streams" direction="desc" />
-            </sorts>
-            <aggregates>
-                <aggregate field="Downloads" aggregate="sum" />
-                <aggregate field="Streams" aggregate="sum" />
-                <aggregate field="Reach" aggregate="sum" />
-                <aggregate field="Views" aggregate="sum" />
-            </aggregates>
-        </datasource>
-    </kendo-grid>
+    <div class="top-episodes-section">
+        <div>
+            <a class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary" href="@Url.Action("Generate_PodcastsExcel", "Dashboard")">
+                Download Podcasts Excel
+            </a>
+        </div>
+
+        <kendo-grid name="grid" on-data-bound="populateTotals" is-in-client-template="true">
+            <sortable enabled="true" />
+            <columns>
+                <column field="Name" width="320" title="Podcast Episode"></column>
+                <column field="Streams" width="150"></column>
+                <column field="Downloads" width="250"></column>
+            </columns>
+            <datasource type="DataSourceTagHelperType.Ajax" page-size="5">
+                <transport>
+                    <read url="@Url.Action("Podcasts_Read", "Dashboard")" />
+                </transport>
+                <sorts>
+                    <sort field="Streams" direction="desc" />
+                </sorts>
+                <aggregates>
+                    <aggregate field="Downloads" aggregate="sum" />
+                    <aggregate field="Streams" aggregate="sum" />
+                    <aggregate field="Reach" aggregate="sum" />
+                    <aggregate field="Views" aggregate="sum" />
+                </aggregates>
+            </datasource>
+        </kendo-grid>
+    </div>
 </script>
 
 <div class="d-flex justify-content-center">

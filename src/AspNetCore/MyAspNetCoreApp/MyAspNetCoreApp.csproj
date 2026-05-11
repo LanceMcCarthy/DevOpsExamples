@@ -9,8 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.75.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.76.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+		<PackageReference Include="Telerik.Documents.Spreadsheet" Version="2026.1.402" />
+		<PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.1.402" />
 		<PackageReference Include="Telerik.Drawing.Skia" Version="20.0.26.424" />
 		<PackageReference Include="Telerik.Licensing" Version="1.8.2" />
 		<PackageReference Include="Telerik.Reporting.AI.Microsoft.Extensions.AzureOpenAI" Version="20.0.26.424" />
