@@ -1,4 +1,4 @@
-name: Publish Container Images [aspnetcore]
+name: ASP.NET Core (with Reporting) - Docker
 
 on:
   workflow_dispatch:
@@ -28,8 +28,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v6
-      with:
-        fetch-depth: 0
 
     - name: Set up QEMU for multi-arch support
       uses: docker/setup-qemu-action@v3

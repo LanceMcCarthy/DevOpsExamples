@@ -1,4 +1,4 @@
-name: Publish Container Images [blazor]
+name: Blazor (with Reporting) - Docker
 
 on:
   workflow_dispatch:

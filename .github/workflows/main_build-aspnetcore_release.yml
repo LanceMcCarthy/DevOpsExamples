@@ -1,4 +1,4 @@
-name: ASP.NET Core (with Reporting, publish to Azure)
+name: ASP.NET Core (with Reporting) - Azure
 
 on:
   workflow_dispatch:
