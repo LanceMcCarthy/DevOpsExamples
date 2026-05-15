@@ -481,7 +481,7 @@ jobs:
             "$PROJECT_PATH"
             -c "$CONFIGURATION"
             -f "$TFM"
-            "-p:CodesignKey=$CODESIGN_KEY"
+            "-p:CodesignKey=\"$CODESIGN_KEY\""
             "-p:ApplicationVersion=$APP_VERSION"
             "-p:ApplicationDisplayVersion=$APP_VERSION"
             -p:UseHardenedRuntime=true
