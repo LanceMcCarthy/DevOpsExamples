@@ -14,10 +14,13 @@ permissions:
 
 env:
   # ____Global____________________________________________
+  APP_NAME: "MauiDemo"
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
+  PROJECT_DIRECTORY: "src/MAUI"
   SDK_VERSION: '10.0.x'
   NET_TFM: 'net10.0'
   XCODE_VERSION: '26.4'
+  MAC_DOTNET_VERSION: '10.0.203'
   NUGET_CONFIG_PATH: 'src/nuget.config'
   TELERIK_NUGET_KEY: ${{secrets.TELERIK_NUGET_KEY}}
   TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
@@ -35,6 +38,7 @@ env:
   MAC_ARTIFACTS_PATH: "artifacts/maccatalyst"
   # ____iOS______________________________________________ (also check matrix vars)
   APPLE_APP_ID: "com.lancelotsoftware.MauiDemoApp"
+  IOS_RID: ios-arm64
   # ____Windows__________________________________________ (also check matrix vars)
   WINDOWS_ARTIFACTS_PATH: "artifacts_windows"
   SERVICE_PRINCIPAL_CLIENT_ID: "32daa13b-f4bb-4809-8ef6-58cb39051acd"
@@ -150,7 +154,7 @@ jobs:
       - name: Publish Android build artifacts
         uses: actions/upload-artifact@v7
         with:     
-          name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_signed-android" 
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-android" 
           path: "${{env.ANDROID_ARTIFACTS_PATH}}/*"
           if-no-files-found: error
           retention-days: 60
@@ -198,17 +202,11 @@ jobs:
     - name: Restore NuGet packages
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
-    # Update the app manifest with version number, even if Version attribute is missing.
-    - name: Update manifest for side load build
+    - name: Update manifest for sideload build
       run: |
-        [xml]$manifest = Get-Content 'src\MauiDemo\Platforms\Windows\Package.appxmanifest'
-        $ns = $manifest.DocumentElement.NamespaceURI
-        $nsmgr = New-Object System.Xml.XmlNamespaceManager($manifest.NameTable)
-        $nsmgr.AddNamespace('m', $ns)
-        $identityNode = $manifest.SelectSingleNode('/m:Package/m:Identity', $nsmgr)
-        if ($null -eq $identityNode) { throw 'Identity node not found in Package.appxmanifest' }
-        $identityNode.SetAttribute('Version', "${{needs.shared-resources.outputs.app_version}}.0")
-        $manifest.Save('src\MauiDemo\Platforms\Windows\Package.appxmanifest')
+        [xml]$manifest = Get-Content '${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest'
+        $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
+        $manifest.Save('${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest')
 
     - name: Publish ${{matrix.arch}} Windows package
       id: publish-package
@@ -233,8 +231,8 @@ jobs:
         )
         & dotnet @publishArgs
         if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed for ${{matrix.arch}} with exit code $LASTEXITCODE" }
-        # MAUI writes MSIX to src\MauiDemo\AppPackages\<name>_<ver>_<arch>_Test\*.msix
-        $appPackagesRoot = "src\MauiDemo\AppPackages"
+        # MAUI writes MSIX to src\${{env.APP_NAME}}\AppPackages\<name>_<ver>_<arch>_Test\*.msix
+        $appPackagesRoot = "src\${{env.APP_NAME}}\AppPackages"
         $candidates = Get-ChildItem -Path $appPackagesRoot -Filter *.msix -Recurse -ErrorAction SilentlyContinue |
           Where-Object { $_.FullName -notmatch '\\Dependencies\\' -and $_.Name -match "_${{matrix.arch}}\.msix$" }
         Write-Host "Found $($candidates.Count) candidate MSIX file(s) for ${{matrix.arch}}:"
@@ -242,13 +240,13 @@ jobs:
         $msix = $candidates | Sort-Object LastWriteTime -Descending | Select-Object -ExpandProperty FullName -First 1
         if (-not $msix) { throw "No .msix found after publish for ${{matrix.arch}}" }
         Write-Host "Found ${{matrix.arch}} package: $msix"
-        Copy-Item -Path $msix -Destination "$artifactDir\MauiDemo.${{matrix.arch}}.msix" -Force
-        echo "PACKAGE_PATH=$artifactDir\MauiDemo.${{matrix.arch}}.msix" >> $env:GITHUB_OUTPUT
+        Copy-Item -Path $msix -Destination "$artifactDir\${{env.APP_NAME}}.${{matrix.arch}}.msix" -Force
+        echo "PACKAGE_PATH=$artifactDir\${{env.APP_NAME}}.${{matrix.arch}}.msix" >> $env:GITHUB_OUTPUT
 
     - name: Upload ${{matrix.arch}} artifact
       uses: actions/upload-artifact@v7
       with:     
-        name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_${{matrix.runtime_id}}"
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_${{matrix.runtime_id}}"
         path: ${{steps.publish-package.outputs.PACKAGE_PATH}}
         if-no-files-found: error
         retention-days: 30
@@ -266,13 +264,13 @@ jobs:
     - name: Download x64 artifact
       uses: actions/download-artifact@v8
       with:
-        name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_win-x64"
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-x64"
         path: ${{github.workspace}}\bundle-input
 
     - name: Download arm64 artifact
       uses: actions/download-artifact@v8
       with:
-        name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_win-arm64"
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_win-arm64"
         path: ${{github.workspace}}\bundle-input
 
     - name: Create MSIX bundle
@@ -290,7 +288,7 @@ jobs:
         if (-not $makeAppx) { throw "makeappx.exe not found under $sdkRoot" }
         Write-Host "Using makeappx: $($makeAppx.FullName)"
         Get-ChildItem $inputDir -Filter *.msix | ForEach-Object { Write-Host "Input: $($_.FullName)" }
-        $bundlePath = "$outputDir\MauiDemo_v${{needs.shared-resources.outputs.app_version}}.msixbundle"
+        $bundlePath = "$outputDir\${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}.msixbundle"
         & $makeAppx.FullName bundle /d $inputDir /p $bundlePath /bv $appVersion /o
         if ($LASTEXITCODE -ne 0) { throw "makeappx bundle failed with exit code $LASTEXITCODE" }
 
@@ -329,7 +327,7 @@ jobs:
     - name: Upload MSIX bundle artifact
       uses: actions/upload-artifact@v7
       with:
-        name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_signed-windows.msixbundle"
+        name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-windows.msixbundle"
         path: ${{steps.bundle.outputs.BUNDLE_PATH}}
         if-no-files-found: error
         retention-days: 30
@@ -363,17 +361,11 @@ jobs:
       - name: Restore NuGet packages
         run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
 
-      # Update the app manifest with version number, even if Version attribute is missing.
-      - name: Update manifest for side load build
+      - name: Update manifest for store build
         run: |
-          [xml]$manifest = Get-Content 'src\MauiDemo\Platforms\Windows\Package.appxmanifest'
-          $ns = $manifest.DocumentElement.NamespaceURI
-          $nsmgr = New-Object System.Xml.XmlNamespaceManager($manifest.NameTable)
-          $nsmgr.AddNamespace('m', $ns)
-          $identityNode = $manifest.SelectSingleNode('/m:Package/m:Identity', $nsmgr)
-          if ($null -eq $identityNode) { throw 'Identity node not found in Package.appxmanifest' }
-          $identityNode.SetAttribute('Version', "${{needs.shared-resources.outputs.app_version}}.0")
-          $manifest.Save('src\MauiDemo\Platforms\Windows\Package.appxmanifest')
+          [xml]$manifest = Get-Content '${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest'
+          $manifest.Package.Identity.Version = "${{needs.shared-resources.outputs.app_version}}.0"
+          $manifest.Save('${{env.PROJECT_DIRECTORY}}\Platforms\Windows\Package.appxmanifest')
 
       - name: Build Maui WinUI project
         run: dotnet publish ${{env.PROJECT_PATH}} -c Release -f ${{env.NET_TFM}}-windows10.0.19041.0 -p:AppxPackageSigningEnabled=false -p:AppxSymbolPackageEnabled=false -p:UapAppxPackageBuildMode=StoreUpload -p:AppxBundle=Always "-p:AppxBundlePlatforms=x64|arm64" -p:PlatformTarget=AnyCPU
@@ -381,7 +373,7 @@ jobs:
       - name: Publish build artifacts
         uses: actions/upload-artifact@v7
         with:     
-          name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_storeupload-windows"
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_storeupload-windows"
           path: "**/*.msixupload"
           if-no-files-found: error
           retention-days: 60
@@ -587,7 +579,7 @@ jobs:
       - name: Publish MacCatalyst build artifacts
         uses: actions/upload-artifact@v7
         with:     
-          name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_signed-maccatalyst"
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_signed-maccatalyst"
           path: ${{env.MAC_ARTIFACTS_PATH}}/${{env.MAC_PACKAGE_NAME}}-Release-signed.pkg
           if-no-files-found: error
           retention-days: 30
@@ -706,8 +698,8 @@ jobs:
       - name: Publish iOS build artifacts
         uses: actions/upload-artifact@v7
         with:     
-          name: "MauiDemo_v${{needs.shared-resources.outputs.app_version}}_${{matrix.artifact_suffix}}"
-          path: "src/Maui/bin/Release/${{env.NET_TFM}}-ios/${{matrix.rid}}/publish/*.ipa"
+          name: "${{env.APP_NAME}}_v${{needs.shared-resources.outputs.app_version}}_${{matrix.artifact_suffix}}"
+          path: "${{env.PROJECT_DIRECTORY}}/bin/Release/${{env.NET_TFM}}-ios/${{matrix.rid}}/publish/*.ipa"
           if-no-files-found: error
           retention-days: 60
 
@@ -732,33 +724,39 @@ jobs:
   #     - name: Prepare release files
   #       shell: bash
   #       run: |
+  #         set -euo pipefail
   #         VER="${{needs.shared-resources.outputs.app_version}}"
+  #         PREFIX="${{env.APP_NAME}}_v${VER}"
   #         mkdir -p release-upload
-  #         NAME_PREFIX="release-upload/MauiDemo_v${VER}"
-
+  #         copy_one() {
+  #           local artifact_dir="$1"
+  #           local pattern="$2"
+  #           local destination="$3"
+  #           local -a matches=()
+  #           if [[ ! -d "$artifact_dir" ]]; then
+  #             echo "Expected artifact directory not found: $artifact_dir" >&2
+  #             exit 1
+  #           fi
+  #           mapfile -d '' matches < <(find "$artifact_dir" -type f -name "$pattern" -print0 | sort -z)
+  #           if [[ ${#matches[@]} -ne 1 ]]; then
+  #             echo "Expected exactly one match for '$pattern' under '$artifact_dir', found ${#matches[@]}." >&2
+  #             find "$artifact_dir" -type f | sort >&2
+  #             exit 1
+  #           fi
+  #           cp -- "${matches[0]}" "$destination"
+  #         }
   #         # Android
-  #         find "release-artifacts/MauiDemo_v${VER}_signed-android" -name "*-Signed.apk" -exec cp {} "${NAME_PREFIX}_android-signed.apk" \;
-  #         find "release-artifacts/MauiDemo_v${VER}_signed-android" -name "*-Signed.aab" -exec cp {} "${NAME_PREFIX}_android-signed.aab" \;
-
-  #         # Windows sideload (individual per-arch MSIX)
-  #         cp "release-artifacts/MauiDemo_v${VER}_win-x64/MauiDemo.x64.msix"     "${NAME_PREFIX}_win-x64.msix";
-  #         cp "release-artifacts/MauiDemo_v${VER}_win-arm64/MauiDemo.arm64.msix" "${NAME_PREFIX}_win-arm64.msix";
-
+  #         copy_one "release-artifacts/${PREFIX}_signed-android" "*-Signed.apk" "release-upload/${PREFIX}_android-signed.apk"
+  #         copy_one "release-artifacts/${PREFIX}_signed-android" "*-Signed.aab" "release-upload/${PREFIX}_android-signed.aab"
   #         # Windows msixbundle (signed)
-  #         cp "release-artifacts/MauiDemo_v${VER}_signed-windows.msixbundle/MauiDemo_v${VER}.msixbundle" "${NAME_PREFIX}_windows.msixbundle";
-
-  #         # Windows Store upload
-  #         find "release-artifacts/MauiDemo_v${VER}_storeupload-windows" -name "*.msixupload" -exec cp {} "${NAME_PREFIX}_msstore.msixupload" \;
-
-  #         # MacCatalyst pkg
-  #         cp "release-artifacts/MauiDemo_v${VER}_signed-maccatalyst/${{env.MAC_PACKAGE_NAME}}-Release-signed.pkg" "${NAME_PREFIX}_mac.pkg";
-
-  #         # iOS Store IPA
-  #         find "release-artifacts/MauiDemo_v${VER}_storeupload-ios" -name "*.ipa" -exec cp {} "${NAME_PREFIX}_ios-store.ipa" \;
-
-  #         # iOS Ad Hoc sideload IPA
-  #         find "release-artifacts/MauiDemo_v${VER}_sideload-ios" -name "*.ipa" -exec cp {} "${NAME_PREFIX}_ios-sideload.ipa" \;
-
+  #         copy_one "release-artifacts/${PREFIX}_signed-windows.msixbundle" "*.msixbundle" "release-upload/${PREFIX}_windows.msixbundle"
+  #         # Windows Store
+  #         copy_one "release-artifacts/${PREFIX}_storeupload-windows" "*.msixupload" "release-upload/${PREFIX}_msstore.msixupload"
+  #         # MacCatalyst
+  #         copy_one "release-artifacts/${PREFIX}_signed-maccatalyst" "*.pkg" "release-upload/${PREFIX}_mac.pkg"
+  #         # iOS
+  #         copy_one "release-artifacts/${PREFIX}_ios-adhoc" "*.ipa" "release-upload/${PREFIX}_ios-adhoc.ipa"
+  #         copy_one "release-artifacts/${PREFIX}_ios-store" "*.ipa" "release-upload/${PREFIX}_ios-store.ipa"
   #         echo "Files prepared for release:"
   #         ls -lh release-upload/
 
@@ -766,7 +764,7 @@ jobs:
   #       uses: softprops/action-gh-release@v3.0.0
   #       with:
   #         tag_name: "v${{needs.shared-resources.outputs.app_version}}"
-  #         name: "MauiDemo v${{needs.shared-resources.outputs.app_version}}"
+  #         name: "${{env.APP_NAME}} v${{needs.shared-resources.outputs.app_version}}"
   #         draft: false
   #         prerelease: false
   #         generate_release_notes: true
