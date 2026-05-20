@@ -14,6 +14,7 @@ env:
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   NUGETCONFIG_PATH: "src/NuGet.Config"
   DOTNET_VERSION: "10.0.x"
+  MAC_DOTNET_VERSION: "10.0.203" # Used to avoid Xcode and MAUI workload problems
   TFM_VERSION: "net10.0"
   XCODE_VERSION: '26.4'
   BUILD_CONFIG: "Debug"
@@ -92,7 +93,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
+        dotnet-version: ${{env.MAC_DOTNET_VERSION}}
 
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
@@ -121,7 +122,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
+        dotnet-version: ${{env.MAC_DOTNET_VERSION}}
 
     - name: Install MAUI workloads
       run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
