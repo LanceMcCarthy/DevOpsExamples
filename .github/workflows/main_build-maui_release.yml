@@ -491,15 +491,15 @@ jobs:
           codesign -dv --verbose=2 "$APP_BUNDLE_PATH" >/dev/null 2>&1
 
           echo "Creating signed app zip and installer pkg..."
-          rm -f "$SIGNED_ZIP_PATH" "$SIGNED_PKG_PATH"
+          rm -f "$SIGNED_ZIP_PATH" "$SIGNED_PKG_PATH" component.pkg
           ditto -c -k --sequesterRsrc --keepParent "$APP_BUNDLE_PATH" "$SIGNED_ZIP_PATH"
 
-          # Generate a component plist and disable relocation so the pkg always
-          # installs to /Applications, regardless of any existing bundle on the user's machine.
-          pkgbuild --analyze --root "$APP_BUNDLE_PATH" component.plist
-          /usr/libexec/PlistBuddy -c "Set :0:BundleIsRelocatable false" component.plist
-          productbuild --component-plist component.plist --component "$APP_BUNDLE_PATH" /Applications --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
-          rm -f component.plist
+          # Build an unsigned component pkg with relocation disabled, then wrap it
+          # in a signed distribution pkg. This ensures the app always installs to
+          # /Applications regardless of any existing bundle on the user's machine.
+          pkgbuild --component "$APP_BUNDLE_PATH" --install-location /Applications --no-relocate component.pkg
+          productbuild --package component.pkg --sign "$INSTALLER_SIGN_ID" "$SIGNED_PKG_PATH"
+          rm -f component.pkg
 
           echo "Done. Signed artifacts:"
           echo "- $SIGNED_PKG_PATH"
