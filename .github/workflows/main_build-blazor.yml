@@ -13,37 +13,10 @@ on:
 
 env:
   CONFIGURATION: Release
-  PROJ_PATH: src/Blazor/MyBlazorApp.Tests/MyBlazorApp.Tests.csproj
+  PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   DOTNET_VERSION: "10.0.x"
 
 jobs:
-  nuget_org:
-    name: Public NuGet
-    runs-on: ${{matrix.os}}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: ubuntu-latest
-          - os: windows-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
-    # Deleting the nuget.config to prove Telerik.UI.for.Blazor is on nuget.org
-    - run: rm src/NuGet.Config
-
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
-    - name: Build Test Project
-      run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}}
-      env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
-
-
   telerik_nuget:
     name: Telerik NuGet
     runs-on: ${{matrix.os}}
@@ -72,3 +45,29 @@ jobs:
       run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-restore
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+
+  # nuget_org:
+  #   name: Public NuGet
+  #   runs-on: ${{matrix.os}}
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       include:
+  #         - os: ubuntu-latest
+  #         - os: windows-latest
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v6
+
+  #   # Deleting the nuget.config to prove Telerik.UI.for.Blazor is on nuget.org
+  #   - run: rm src/NuGet.Config
+
+  #   - name: Setup .NET Core SDK
+  #     uses: actions/setup-dotnet@v5
+  #     with:
+  #       dotnet-version: ${{env.DOTNET_VERSION}}
+
+  #   - name: Build Test Project
+  #     run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}}
+  #     env:
+  #       TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
