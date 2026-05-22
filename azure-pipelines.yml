@@ -33,38 +33,25 @@ variables:
 
 jobs:
 # *************************************************************** #
-# *                 KENDO ANGULAR (env var)                     * #
+# *                   KENDO ANGULAR (env var)                   * #
 # *************************************************************** #
 - job: BuildAngularAppWithVariables
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-  # Uses https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
-  - task: akeyless-secrets@1
-    name: 'Akeyless1'
-    displayName: 'Get Secrets from Akeyless'
-    inputs:
-      accessid: 'p-sxfgaph9urt4om'
-      azureJwt: '$(AzureCLI.azure_jwt)'
-      staticSecrets: '{"/progress/TELERIK_LICENSE":"TK_LICENSE"}'
-
   - powershell: |
-      # 1. Clean the angular cache, to avoid using any expired keys
+      # ------ 1. Clean the angular cache, to avoid using any expired keys
       rm -rf .angular/cache
-
-      # 2. Install your project dependencies
+      # ------ 2. Install your project dependencies (add --save @progress/kendo-licensing; if missing from package.json)
       npm install
-      # npm install --save @progress/kendo-licensing;  # if missing from package.json
-
-      #3. Activate
+      # ------ 3. Activate
       npx kendo-ui-license activate
-
-      #4. Build the project
+      # ------ 4. Build the project
       npm run build
     displayName: "Install Dependencies and Activate Kendo"
     workingDirectory: "src/Kendo/angular_demo"
     env:
-      TELERIK_LICENSE: $(Akeyless1.TK_LICENSE) 
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
     
 
 # *************************************************************** #
@@ -101,14 +88,13 @@ jobs:
 
 
 # *************************************************************** #
-# *              CONSOLE  (dotnet update source)                * #
+# *                    CONSOLE  (akeyless)                      * #
 # *************************************************************** #
 - job: BuildConsoleApp_Akeyless
   pool:
     vmImage: 'windows-latest'
   steps:
-  # Get an authentication token from Azure so we can authenticate with Akeyless
-  - task: AzureCLI@2
+  - task: AzureCLI@2  # Auth token for Akeyless, available with 'azure_jwt' output variable
     displayName: 'Get JWT from Azure Service Principal'
     name: 'AzureCLI'
     inputs:
@@ -119,21 +105,29 @@ jobs:
         $JWT=$(az account get-access-token --query accessToken --output tsv)
         echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
 
+  - task: akeyless-secrets@1 # Getting started https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
+    name: 'Akeyless1'
+    displayName: 'Get Secrets from Akeyless'
+    inputs:
+      accessid: 'p-sxfgaph9urt4om'
+      azureJwt: '$(AzureCLI.azure_jwt)'
+      staticSecrets: '{"/progress/TELERIK_NUGET_KEY":"TK_NUGET_KEY","/progress/TELERIK_LICENSE":"TK_LICENSE"}'
+
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
       version: $(DOTNET_SDK_VERSION)
 
-  - powershell: dotnet nuget update source 'Telerik_v3_Feed' --source 'https://nuget.telerik.com/v3/index.json' --username 'api-key' --password '$(Akeyless1.NUGET_KEY)' --configfile $(nugetConfigPath) --store-password-in-clear-text
-    displayName: 'Update package source credentials'
-  
   - powershell: dotnet restore $(consoleProjectPath) --configfile $(nugetConfigPath)
     displayName: 'restore packages'
+    env:
+      TELERIK_USERNAME: "api-key"
+      TELERIK_PASSWORD: $(Akeyless1.TK_NUGET_KEY)
   
   - powershell: dotnet publish $(consoleProjectPath) -o /app/publish /p:UseAppHost=false --no-restore
     displayName: 'Publish the project'
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
+      TELERIK_LICENSE: $(Akeyless1.TK_LICENSE) 
 
 
 # *************************************************************** #
@@ -158,7 +152,6 @@ jobs:
       nugetConfigPath: $(nugetConfigPath)
       externalFeedCredentials: 'Telerik_v3'
 
-  # Build the project
   - task: DotNetCoreCLI@2
     displayName: 'Build MyDocProcApp'
     inputs:
@@ -166,7 +159,6 @@ jobs:
       projects: $(consoleProjectPath)
       configuration: $(buildConfiguration)
     env:
-      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
@@ -216,7 +208,6 @@ jobs:
   - powershell: dotnet build $(aspnetProjectPath) --no-restore
     displayName: 'Build the project'
     env:
-      # AzDO pipeline secret variable. Note: YAML variable editor supports 14k string values, classic pipelines do not!
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
 
 
@@ -228,7 +219,7 @@ jobs:
     vmImage: 'windows-latest'
   steps:
   - task: DownloadSecureFile@1
-    name: DownloadTelerikLicenseFile  # Note 1: Make sure a name value is set, it's referenced later.
+    name: tkLicense  # IMPORTANT: Reference name is important
     displayName: 'Download Telerik License Key File'
     inputs:
       secureFile: 'telerik-license.txt'
@@ -238,7 +229,7 @@ jobs:
     inputs:
       versionSpec: '5.x'
 
-  # Option 1
+  # NuGet Auth - Option 1
   - task: NuGetCommand@2
     displayName: 'NuGet restore'
     inputs:
@@ -247,7 +238,7 @@ jobs:
       nugetConfigPath: $(nugetConfigPath)
       externalFeedCredentials: 'Telerik_v3'
 
-    # Option 2
+    # NuGet Auth - Option 2
     # You could also use nuget.exe's update command to set the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
     # - task: PowerShell@2
     #   displayName: 'Set Package Source Credentials'
@@ -263,7 +254,7 @@ jobs:
       configuration: Release
       msbuildArguments: '/t:Restore /p:Configuration=Release /p:RuntimeIdentifier=any'
     env:
-      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) # Note 2: We use the name to reference the secureFilePath value
+      TELERIK_LICENSE_PATH: $(tkLicense.secureFilePath) # IMPORTANT use reference name
 
 
 # ************************************************************* #
@@ -290,6 +281,7 @@ jobs:
       solution: '$(winuiProjectPath)'
       platform: x64
       configuration: Debug
+      msbuildVersion: '18.0.0'
       msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
 
   - task: MSBuild@1
@@ -348,10 +340,7 @@ jobs:
   - powershell: dotnet workload install maui
     displayName: 'Install maui workloads'
     
-  - powershell: dotnet restore $(mauiProjectPath) --configfile $(nugetConfigPath)
-    displayName: 'Restore NuGet Packages'
-
-  - powershell: dotnet build $(mauiProjectPath) -f $(TFM) -c Debug --no-restore
+  - powershell: dotnet build $(mauiProjectPath) -f $(TFM) -c Debug
     displayName: 'Build $(TFM)'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
