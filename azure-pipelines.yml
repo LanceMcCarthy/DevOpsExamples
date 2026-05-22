@@ -329,8 +329,8 @@ jobs:
   pool:
     vmImage: $(imageName)
   steps:
-  - displayName: 'Delete nuget.config'
-    powershell: rm $(nugetConfigPath)
+  - powershell: rm $(nugetConfigPath)
+    displayName: 'Delete nuget.config'
 
   - task: UseDotNet@2
     inputs:
