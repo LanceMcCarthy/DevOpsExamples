@@ -29,7 +29,7 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     # Remove private Nuget server to prove Telerik.UI.for.Blazor package is available on Nuget.org
-    - run: cd src/Blazor/ && dotnet nuget source remove 'Telerik_v3_Feed'
+    - run: dotnet nuget source remove 'Telerik_v3_Feed' --configfile src/NuGet.Config
 
     - name: Build Test Project
       run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}}
@@ -48,7 +48,7 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     # Remove private Nuget server to prove Telerik.UI.for.Blazor package is available on Nuget.org
-    - run: cd src/Blazor/ && dotnet nuget source remove 'Telerik_v3_Feed'
+    - run: cd src/Blazor/ && dotnet nuget source remove 'Telerik_v3_Feed' --configfile src/NuGet.Config
 
     - name: Build Test Project
       run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}}
