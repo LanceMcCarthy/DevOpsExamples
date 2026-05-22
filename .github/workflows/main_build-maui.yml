@@ -12,126 +12,82 @@ on:
 env:
   TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
-  NUGETCONFIG_PATH: "src/NuGet.Config"
-  DOTNET_VERSION: "10.0.x"
-  MAC_DOTNET_VERSION: "10.0.203" # Used to avoid Xcode and MAUI workload problems
-  TFM_VERSION: "net10.0"
-  XCODE_VERSION: '26.4'
-  BUILD_CONFIG: "Debug"
 
 jobs:
-  maui-windows:
-    name: Windows Smoketest
-    runs-on: windows-latest
+  maui-smoketest:
+    name: ${{matrix.os}} smoketest
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: android
+            os: ubuntu-latest
+            tfm: "net10.0-android"
+            dotnet_version: "10.0.x"
+          - name: winui
+            os: windows-latest
+            tfm: "net10.0-windows10.0.22621.0"
+            dotnet_version: "10.0.x"
+          - name: ios
+            os: macos-26
+            tfm: "net10.0-ios"
+            dotnet_version: "10.0.203"
+          - name: maccatalyst
+            os: macos-26
+            tfm: "net10.0-maccatalyst"
+            dotnet_version: "10.0.203"
     steps:
     - name: Checkout
       uses: actions/checkout@v6
 
-    - name: Setup .NET SDK
+    # Telerik.UI.for.Maui is available on nuget.org, so we can remove the telerik nuget server
+    - name: Remove extra NuGet.Config
+      shell: pwsh
+      run: Remove-Item src/NuGet.Config
+
+    - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
+        dotnet-version: ${{matrix.dotnet_version}}
 
     # Only needed for WinUI builds
     - name: Add msbuild to PATH
+      if: matrix.name == 'winui'
       uses: microsoft/setup-msbuild@v3
 
-    - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Set Telerik NuGet Credentials
-      run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    - name: Build Maui WinUI project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM_VERSION}}-windows10.0.22621.0" --no-restore
-
-
-  maui-android:
-    name: Android Smoketest
-    runs-on: windows-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
-
     - uses: actions/setup-java@v4
+      if: matrix.name == 'android'
       with:
         distribution: 'microsoft'
         java-version: '11'
 
-    - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Set Telerik NuGet Credentials
-      run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-
-    - name: Build Maui Android project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM_VERSION}}-android" --no-restore
-
-
-  maui-ios:
-    name: iOS Smoketest
-    runs-on: macos-26
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
     - uses: maxim-lobanov/setup-xcode@v1
+      if: matrix.name == 'ios' || matrix.name == 'maccatalyst'
       with:
-        xcode-version: ${{env.XCODE_VERSION}}
-
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.MAC_DOTNET_VERSION}}
+        xcode-version: '26.4'
 
     - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+      run: dotnet workload install maui
 
-    - name: Set Telerik NuGet Credentials
-      run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
+    - name: Create build args
+      id: arg-builder
+      shell: pwsh
+      run: |
+        $buildArgs = @(
+          '${{env.PROJECT_PATH}}'
+          '-c', 'Debug'
+          '-f', '${{matrix.tfm}}'
+        )
 
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
+        if ('${{matrix.name}}' -in @('ios', 'maccatalyst')) {
+          $buildArgs += @(
+            '-p:PublishTrimmed=True'
+            '-p:MtouchLink=SdkOnly'
+          )
+        }
 
-    - name: Build MAUI iOS project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM_VERSION}}-ios" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+        "args=$($buildArgs -join ' ')" >> $env:GITHUB_OUTPUT
 
-
-  maui-macos:
-    name: MacCatalyst Smoketest
-    runs-on: macos-26
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: ${{env.XCODE_VERSION}}
-
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: ${{env.MAC_DOTNET_VERSION}}
-
-    - name: Install MAUI workloads
-      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
-
-    - name: Set Telerik NuGet Credentials
-      run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p "${{secrets.TELERIK_NUGET_KEY}}" --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
-
-    - name: Restore NuGet packages
-      run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
-    
-    - name: Build MAUI MacCatalyst project
-      run: dotnet build ${{env.PROJECT_PATH}} -c ${{env.BUILD_CONFIG}} -f "${{env.TFM_VERSION}}-maccatalyst" --no-restore -p:PublishTrimmed=True -p:MtouchLink=SdkOnly
+    - name: Build project
+      run: dotnet build ${{steps.arg-builder.outputs.args}}
