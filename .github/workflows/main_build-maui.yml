@@ -16,22 +16,22 @@ env:
 
 jobs:
   maui-smoketest:
-    name: ${{matrix.os}} smoketest
+    name:  .NET MAUI Smoketest (${{matrix.name}})
     runs-on: ${{matrix.os}}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - name: android
-            os: ubuntu-latest
+          - name: "Android"
+            os: windows-latest
             tfm: "net10.0-android"
-          - name: winui
+          - name: "WinUI"
             os: windows-latest
             tfm: "net10.0-windows10.0.22621.0"
-          - name: ios
+          - name: "iOS"
             os: macos-26
             tfm: "net10.0-ios"
-          - name: maccatalyst
+          - name: "MacCatalyst"
             os: macos-26
             tfm: "net10.0-maccatalyst"
     steps:
