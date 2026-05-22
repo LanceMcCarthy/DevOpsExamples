@@ -17,27 +17,42 @@ env:
   DOTNET_VERSION: "10.0.x"
 
 jobs:
-  build_windows:
-    runs-on: windows-latest
+  nuget_org:
+    name: Public NuGet
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v6
+
+    # Deleting the nuget.config to prove Telerik.UI.for.Blazor is on nuget.org
+    - run: rm src/NuGet.Config
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
-
-    # Remove private Nuget server to prove Telerik.UI.for.Blazor package is available on Nuget.org
-    - run: dotnet nuget remove source 'Telerik_v3_Feed' --configfile src/NuGet.Config
 
     - name: Build Test Project
       run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}}
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
-  build_linux:
-    runs-on: ubuntu-latest
+
+  telerik_nuget:
+    name: Telerik NuGet
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+          - os: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v6
@@ -47,10 +62,13 @@ jobs:
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    # Remove private Nuget server to prove Telerik.UI.for.Blazor package is available on Nuget.org
-    - run: dotnet nuget remove source 'Telerik_v3_Feed' --configfile src/NuGet.Config
+    - name: Restore NuGet Packages
+      run: dotnet restore ${{env.PROJ_PATH}} --configfile src/NuGet.Config
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
 
     - name: Build Test Project
-      run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}}
+      run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-restore
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
