@@ -46,7 +46,7 @@ jobs:
     inputs:
       accessid: 'p-sxfgaph9urt4om'
       azureJwt: '$(AzureCLI.azure_jwt)'
-      staticSecrets: '{"/progress/TELERIK_LICENSE_KEY":"TK_LICENSE"}'
+      staticSecrets: '{"/progress/TELERIK_LICENSE":"TK_LICENSE"}'
 
   - powershell: |
       # 1. Clean the angular cache, to avoid using any expired keys
@@ -321,10 +321,10 @@ jobs:
         imageName: 'windows-latest' # https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=windows-images%2Cyaml#software
       ios:
         TFM: 'net10.0-ios'
-        imageName: 'macos-26-arm64' # https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=windows-images%2Cyaml#software
+        imageName: 'macOS-26' # https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=macos-images%2Cyaml#software
       maccatalyst:
         TFM: 'net10.0-maccatalyst'
-        imageName: 'macos-26-arm64' # https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=windows-images%2Cyaml#software
+        imageName: 'macOS-26' # https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=macos-images%2Cyaml#software
     maxParallel: 4
   pool:
     vmImage: $(imageName)
