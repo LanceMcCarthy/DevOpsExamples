@@ -275,26 +275,22 @@ jobs:
   - powershell: dotnet restore $(winuiProjectPath) --configfile $(nugetConfigPath)
     displayName: 'Restore NuGet Packages'
 
-  - task: MSBuild@1
+  # Use 'dotnet msbuild' instead of MSBuild@1 so that the MSBuild bundled with the
+  # .NET 10 SDK is used. MSBuild@1 invokes VS 2022's standalone MSBuild (17.x), which
+  # cannot resolve the Microsoft.NET.Sdk because .NET SDK 10.0.300 requires MSBuild 18.0+.
+  - powershell: dotnet msbuild $(winuiProjectPath) /t:Restore /p:Platform=x64 /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference
     displayName: 'Restore RIDs'
-    inputs:
-      solution: '$(winuiProjectPath)'
-      platform: x64
-      configuration: Debug
-      msbuildVersion: '18.0.0'
-      msbuildArguments: '/t:Restore /p:Configuration=Release /p:RestorePackages=true /p:RestoreRIDs=true /p:RestoreProjectStyle=PackageReference'
 
-  - task: MSBuild@1
+  - powershell: >
+      dotnet msbuild $(winuiProjectPath)
+      /p:Platform=x64
+      /p:Configuration=Debug
+      /p:AppxBundlePlatforms="x64|arm64"
+      /p:UapAppxPackageBuildMode=CI
+      /p:AppxBundle=Never
+      /p:GenerateAppxPackageOnBuild=false
+      /p:AppxPackageSigningEnabled=false
     displayName: 'Build and Create MSIX'
-    inputs:
-      solution: '$(winuiProjectPath)'
-      platform: x64
-      configuration: Debug
-      msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" 
-                         /p:UapAppxPackageBuildMode=CI 
-                         /p:AppxBundle=Never 
-                         /p:GenerateAppxPackageOnBuild=false
-                         /p:AppxPackageSigningEnabled=false'
     env:
       TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
 
