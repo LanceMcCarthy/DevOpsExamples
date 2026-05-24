@@ -323,7 +323,6 @@ jobs:
     maxParallel: 4
   pool:
     vmImage: $(imageName)
-  variables:
   steps:
   - powershell: rm $(nugetConfigPath)
     displayName: 'Delete nuget.config'
