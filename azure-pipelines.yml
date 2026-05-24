@@ -323,7 +323,7 @@ jobs:
     maxParallel: 4
   pool:
     vmImage: $(imageName)
-  env:
+  variables:
     TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
   steps:
   - powershell: rm $(nugetConfigPath)
