@@ -345,7 +345,7 @@ jobs:
   - powershell: dotnet workload install maui
     displayName: 'Install maui workloads'
     
-  - powershell: $(matrix.buildCommand)
+  - powershell: $(buildCommand)
     displayName: 'Build $(TFM)'
 
 # # ************************************************************* #
