@@ -307,24 +307,23 @@ jobs:
       android:
         TFM: 'net10.0-android'
         imageName: 'windows-latest'
-        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c $(buildConfiguration)'
+        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c Debug'
       windows:
         TFM: 'net10.0-windows10.0.22621.0'
         imageName: 'windows-latest'
-        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c $(buildConfiguration)'
+        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c Debug'
       ios:
         TFM: 'net10.0-ios'
         imageName: 'macOS-26'
-        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c $(buildConfiguration) -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
+        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
       maccatalyst:
         TFM: 'net10.0-maccatalyst'
         imageName: 'macOS-26'
-        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c $(buildConfiguration) -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
+        buildCommand: 'dotnet build $(mauiProjectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
     maxParallel: 4
   pool:
     vmImage: $(imageName)
   variables:
-    TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) 
   steps:
   - powershell: rm $(nugetConfigPath)
     displayName: 'Delete nuget.config'
@@ -347,6 +346,8 @@ jobs:
     
   - powershell: $(buildCommand)
     displayName: 'Build $(TFM)'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
 
 # # ************************************************************* #
 # # *                          WPF                              * #
