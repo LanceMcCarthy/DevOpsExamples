@@ -57,11 +57,12 @@ Although I use Telerik's NuGet server in these demos, the approach works for any
 
 These examples show how to build and publish container images. While they publish to Docker Hub, it works for any image registry.
 
-| Image | GitHub Action | Dockerfile |
-|--------------|---------------|------------|
-| `aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS "MyAspNetCoreApp/Dockerfile_CentOS") |
-| `aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase "MyAspNetCoreApp/Dockerfile_MSRuntimeBase") |
-| `myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile "MyBlazorApp/Dockerfile") |
+| Image | GitHub Action | Dockerfile | Running Site |
+|-------|---------------|------------|--------------|
+| `myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile "MyBlazorApp/Dockerfile") | [live demo](https://blazor-reporting.dvlup.com/) |
+| `aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase "MyAspNetCoreApp/Dockerfile_MSRuntimeBase") | [live demo](https://aspnetcore-reporting.dvlup.com/) |
+| `aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS "MyAspNetCoreApp/Dockerfile_CentOS") | - |
+
 
 > [!IMPORTANT] 
 > When creating a container, map port 8080 to the host. For example  `docker run -d -p 88:8080 lancemccarthy/myblazorapp:latest` and then open http://localhost:88
