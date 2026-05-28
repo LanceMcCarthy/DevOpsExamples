@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.76.0" />
+		<PackageReference Include="Microsoft.SemanticKernel.Core" Version="1.77.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
 		<PackageReference Include="Telerik.Documents.Spreadsheet" Version="2026.2.519" />
 		<PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.2.519" />
@@ -22,10 +22,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.8" />
   
     <!-- For stripped down container environments -->
-    <PackageReference Include="SkiaSharp" Version="3.119.2" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.2" />
-		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.2" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.2" />
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
+		<PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.4" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.4" />
 	</ItemGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
