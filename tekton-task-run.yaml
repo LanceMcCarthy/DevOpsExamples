@@ -1,0 +1,117 @@
+apiVersion: tekton.dev/v1
+kind: TaskRun
+metadata:
+  name: tekton-task-run
+spec:
+  workspaces:
+    - name: source
+      emptyDir: {}
+  taskSpec:
+    workspaces:
+      - name: source
+    steps:
+      # To start, let's clone the code
+      - image: bitnami/git:latest
+        name: clone-repo
+        displayName: "Clone repository"
+        workingDir: $(workspaces.source.path)
+        script: |
+          git clone --depth 1 https://github.com/LanceMcCarthy/DevOpsExamples.git .
+
+      # This job needs only nuget.org
+      - image: mcr.microsoft.com/dotnet/sdk:10.0
+        name: build-console
+        displayName: "Build Console project"
+        workingDir: $(workspaces.source.path)
+        env:
+          - name: PROJ_PATH
+            value: "src/Console/MyDocProcApp/MyDocProcApp.csproj"
+          - name: TELERIK_LICENSE
+            valueFrom:
+              secretKeyRef:
+                name: telerik-license-key
+                key: TELERIK_LICENSE
+        script: |
+          dotnet build "$PROJ_PATH" -c Release
+
+      # This job needs nuget.telerik.com, so we also use the API key and license key secrets as environment variables
+      - image: mcr.microsoft.com/dotnet/sdk:10.0
+        name: build-aspnet-core
+        displayName: "Build ASP.NET Core project"
+        workingDir: $(workspaces.source.path)
+        env:
+          - name: PROJ_PATH
+            value: "src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj"
+          - name: TELERIK_API_USERNAME
+            value: "api-key"
+          - name: NUGET_CONFIG_PATH
+            value: "src/NuGet.Config"
+          - name: TELERIK_LICENSE
+            valueFrom:
+              secretKeyRef:
+                name: telerik-license-key
+                key: TELERIK_LICENSE
+          - name: TELERIK_API_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: telerik-api-key
+                key: TELERIK_API_KEY
+        script: |
+          dotnet nuget update source 'Telerik_v3_Feed' \
+            -s 'https://nuget.telerik.com/v3/index.json' \
+            -u $TELERIK_API_USERNAME \
+            -p $TELERIK_API_PASSWORD \
+            --store-password-in-clear-text \
+            --configfile $NUGET_CONFIG_PATH
+
+          dotnet restore "$PROJ_PATH" \
+            --configfile $NUGET_CONFIG_PATH
+
+          dotnet build "$PROJ_PATH" \
+            -c Release \
+            --no-restore
+
+
+# RELEVANT NOTES
+# Official Docs https://tekton.dev/docs/getting-started/tasks/
+
+# ----------------------- SETUP ----------------------------------------------------------------- #
+
+# Start the cluster if its not already running
+# > minikube start
+
+# Stop the cluster if you're done and want to free up docker resources
+# > minikube stop
+
+# ----------------------- SECRETS ---------------------------------------------------------------- #
+
+# If your build needs secrets, you can create them in Kubernetes and reference them in the TaskRun as environment variables. 
+# For example, if you have a Telerik license key and API key, you can create secrets like this:
+
+# > kubectl create secret generic telerik-license-key --from-literal=TELERIK_LICENSE="xxxxxxx"
+# > kubectl create secret generic telerik-api-key --from-literal=TELERIK_API_KEY="xxxxxxx"
+
+# or for large values, use --from-file instead
+
+# > kubectl create secret generic telerik-license-key --from-file=TELERIK_LICENSE="$env:APPDATA\Telerik\telerik-license.txt"
+
+
+# ------------------------ BUILDING --------------------------------------------------------------- #
+
+# 1. Apply the TaskRun
+# First time
+# > kubectl apply --filename ./tekton-task-run.yaml
+
+# Or if updating the YAML, TaskRuns are immutable, so it needs to be deleted first before re-applying
+# > kubectl delete taskrun tekton-task-run && kubectl apply --filename tekton-task-run.yaml
+
+# 2. Check the TaskRun status
+# > kubectl get taskrun tekton-task-run
+
+# 3. View the logs last 25 lines
+# > kubectl logs --selector=tekton.dev/taskRun=tekton-task-run --all-containers --prefix --tail=25
+# or for full logs in a file
+# > kubectl logs --selector=tekton.dev/taskRun=tekton-task-run --all-containers --prefix --tail=-1 2>&1 | Out-File -FilePath .\tekton-task-run-full.log -Encoding utf8
+
+# 4. Clean up the TaskRun when done
+# > kubectl delete taskrun tekton-task-run

@@ -33,6 +33,7 @@ Although I use Telerik's NuGet server in these demos, the approach works for any
 | Azure DevOps (YAML) | [azure-pipelines.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/azure-pipelines.yml) |
 | Azure DevOps (classic) | Click badge |
 | GitLab CI/CD  | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) ↗|
+| Tekton in Kuberbetes | [tekton-task-run.yaml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/tekton-task-run.yaml) |
 
 ## Badges
 
