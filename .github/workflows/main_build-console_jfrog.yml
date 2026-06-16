@@ -17,34 +17,22 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
-    - name: Build Console App w/only Artifactory Source
+    - name: Remove all default package sources
       run: |
-        # 1. Remove all existing package sources
-        $sourceList = dotnet nuget list source
-        
-        foreach ($line in $sourceList) {
+        foreach ($line in $(dotnet nuget list source)) {
           if ($line -match '^\s*\d+\.\s+(.*)\s+\[Enabled\]') {
-              $sourceName = $matches[1].Trim()
-
-              dotnet nuget remove source "$sourceName"
+              dotnet nuget remove source $matches[1].Trim()
               Write-Host "Removed $sourceName ..."
           }
         }
-        
-        # Add Artifactory source with credentials from GitHub Secrets
 
+    - name: Add JFrogArtifactory Package Source
+      run: |
         dotnet nuget add source "https://bed-artifactory.bedford.progress.com/artifactory/api/nuget/v3/dt-nuget-virtual-tierpoint/index.json" `
           --name "artifactory_virtual" `
           --username ${{secrets.ARTIFACTORY_NUGET_USERNAME}} `
           --password ${{secrets.ARTIFACTORY_NUGET_PASSWORD}} `
           --store-password-in-clear-text
-
-        # double check we only have Artifactory as a source
-
-        dotnet nuget list source
-      env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
-
 
     - name: Build Project
       run: dotnet build "src/Console/MyDocProcApp/MyDocProcApp.csproj"
