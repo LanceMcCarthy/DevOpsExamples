@@ -3,12 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:MauiDemo.Controls"
              xmlns:viewModels="clr-namespace:MauiDemo.ViewModels"
+             xmlns:controls1="http://schemas.telerik.com/2022/xaml/maui"
              x:Class="MauiDemo.Views.MarkdownPage"
              x:DataType="viewModels:MarkdownPageViewModel"
              Title="Markdown Viewer">
 
-    <controls:MarkdownViewer MarkdownText="{Binding MarkdownText}"
-                             HorizontalOptions="Fill"
-                             VerticalOptions="Fill" />
+    <Grid ColumnDefinitions="1*,5*">
+        <controls1:RadCollectionView ItemsSource="{Binding KbArticles}"
+                                     SelectedItem="{Binding SelectedKbArticle, Mode=TwoWay}"
+                                     Grid.Column="0"
+                                     BackgroundColor="DimGrey">
+            <controls1:RadCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:KbArticle">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding DisplayName}" TextColor="AntiqueWhite" Margin="5"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </controls1:RadCollectionView.ItemTemplate>
+        </controls1:RadCollectionView>
 
+        <controls:MarkdownViewer MarkdownText="{Binding MarkdownText}"
+                                 HorizontalOptions="Fill"
+                                 VerticalOptions="Fill" 
+                                 Grid.Column="1"/>
+
+    </Grid>
 </ContentPage>

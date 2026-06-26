@@ -1,44 +1,62 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
+using CommonHelpers.Common;
 
 namespace MauiDemo.ViewModels;
 
-public class MarkdownPageViewModel : INotifyPropertyChanged
+public class MarkdownPageViewModel : ViewModelBase
 {
-    private string _markdownText = string.Empty;
+    public MarkdownPageViewModel()
+    {
+        for (var i = 0; i < 30; i++)
+        {
+            KbArticles.Add(new KbArticle()
+            {
+                DisplayName = $"Article {i}",
+                FilePath = $"{i}.md"
+            });
+        }
+
+        SelectedKbArticle = KbArticles.FirstOrDefault();
+    }
 
     public string MarkdownText
     {
-        get => _markdownText;
-        set
-        {
-            if (_markdownText == value) return;
-            _markdownText = value;
-            OnPropertyChanged();
-        }
+        get;
+        set => SetProperty(ref field, value);
     }
 
-    public MarkdownPageViewModel()
+    public ObservableCollection<KbArticle> KbArticles { get; set; } = [];
+
+    public KbArticle? SelectedKbArticle
     {
-        _ = LoadReadmeAsync();
+        get;
+        set => SetProperty(ref field, value, onChanged: async () =>
+        {
+            if (field == null || string.IsNullOrEmpty(field.FilePath))
+                return;
+
+            await LoadMarkdownAsync(field.FilePath);
+        });
     }
 
-    private async Task LoadReadmeAsync()
+    private async Task LoadMarkdownAsync(string path)
     {
         try
         {
-            using var stream = await FileSystem.OpenAppPackageFileAsync("readme.md");
+            await using var stream = await FileSystem.OpenAppPackageFileAsync(path);
             using var reader = new StreamReader(stream);
             MarkdownText = await reader.ReadToEndAsync();
         }
         catch (Exception ex)
         {
-            MarkdownText = $"# Error\n\nCould not load readme.md:\n\n```\n{ex.Message}\n```";
+            MarkdownText = $"# Error\n\nCould not load {path}:\n\n```\n{ex.Message}\n```";
         }
     }
+}
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+public class KbArticle
+{
+    public required string DisplayName { get; set; }
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    public required string FilePath { get; set; }
 }
