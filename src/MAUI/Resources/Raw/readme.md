@@ -1,0 +1,336 @@
+# DevOps - Pipeline and Workflow Examples
+
+This repository contains a rich set of CI-CD demos where I show you how to:
+
+- Connect to private nuget feeds; Azure, GitHub packages, and custom (eg Telerik).
+- Build .NET apps and publish to a container registry; Docker, Azure, GitHub, etc.
+
+Although I use Telerik's NuGet server in these demos, the approach works for any private feed; just substitute your source and credentials instead.
+
+## Table of Contents
+- [CI Systems](https://github.com/LanceMcCarthy/DevOpsExamples#ci-systems)
+- [Build Badges](https://github.com/LanceMcCarthy/DevOpsExamples#badges)
+- [Docker Examples](https://github.com/LanceMcCarthy/DevOpsExamples#docker-examples)
+- [Video: Authenticating in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
+- [Tips and Troubleshooting](https://github.com/LanceMcCarthy/DevOpsExamples#tips-and-troubleshooting)
+  - [Walkthrough: Use GitHub Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables)
+  - [Example: Update package source dynamically](https://github.com/LanceMcCarthy/DevOpsExamples#powershell-update-package-source-dynamically)
+  - [Example: Using Telerik NuGet Keys](https://github.com/LanceMcCarthy/DevOpsExamples#using-telerik-nuget-keys)
+  - [Dockerfile: Using Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#dockerfile-using-secrets)
+  - [Telerik License Approaches](https://github.com/LanceMcCarthy/DevOpsExamples#telerik-license-approaches)
+- Related Blog Posts
+  - [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
+  - [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
+
+> [!IMPORTANT]
+> Some commerical Telerik packages are now available on nuget.org! If you are using any of these packages, you can restore using only the default nuget.org => `Telerik.UI.for.Blazor` `Telerik.UI.for.Maui` `Telerik.Documents.*`
+
+## CI Systems
+
+| System        | CI/CD file(s) |
+|---------------|------------------|
+| GitHub Actions | [.github/workflows](/.github/workflows) |
+| Azure DevOps (YAML) | [azure-pipelines.yml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/azure-pipelines.yml) |
+| Azure DevOps (classic) | Click badge |
+| GitLab CI/CD  | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) ↗|
+| Tekton in Kuberbetes | [tekton-task-run.yaml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/tekton-task-run.yaml) |
+
+## Badges
+
+| Project | GitHub Actions | Azure Pipelines YAML | Azure DevOps Classic | GitLab CI |
+|---------|----------------|----------------------|----------------------|-----------|
+| **.NET MAUI** | [![MAUI main](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml/badge.svg?branch=main)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-maui.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildMauiApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20MAUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=72) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **ASP.NET Core** | [![Build ASP.NET Core Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-aspnetcore.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildAspNetCoreApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FBuild%20Kendo%20Angular?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **ASP.NET Blazor** | [![Build Blazor Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-blazor.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildBlazorApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FBuild%20Blazor%20App?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=47&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **WPF** | [![WPF (.NET Framework)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-wpf.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-wpf.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildWpfApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WPF%20and%20WinForms)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=46) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **WinForms** | [![WinForms (.NET Framework)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winforms.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winforms.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildWpfApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build - CLASSIC](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status/Build%20WinForms?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=79&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **Console** | [![Console (.NET)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-console.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-console.yml) | [![Build Status AKEYLESS](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildConsoleApp_Akeyless)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | - | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **WinUI** | [![Build WinUI3 Project](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winui.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-winui.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildWinUI)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | - | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **Kendo Angular** | [![Build Angular](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-angular.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildAngularAppWithVariables)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FBuild%20Kendo%20Angular?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=65&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+| **ASP.NET AJAX** | [![Build AJAX Application](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_build-ajax.yml) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FLanceMcCarthy.DevOpsExamples?branchName=main&jobName=BuildAjaxApp)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=45&branchName=main) | [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FBuild%20AJAX%20App?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=78&branchName=main) | [![Build status](https://gitlab.com/LanceMcCarthy/DevOpsExamples/badges/main/pipeline.svg)](https://gitlab.com/LanceMcCarthy/DevOpsExamples) |
+
+> [!TIP]
+> There are extra AzDO Classic pipelines examples for Blazor.
+> 
+> Using Azure KeyVault secrets [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FBlazor%20-%20KeyVault%20Secrets%20NuGet%20Source?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=69&branchName=main)
+
+## Docker Examples
+
+These examples show how to build and publish container images. While they publish to Docker Hub, it works for any image registry.
+
+| Image | GitHub Action | Dockerfile | Running Site |
+|-------|---------------|------------|--------------|
+| `myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile "MyBlazorApp/Dockerfile") | [live demo](https://blazor-reporting.dvlup.com/) |
+| `aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase "MyAspNetCoreApp/Dockerfile_MSRuntimeBase") | [live demo](https://aspnetcore-reporting.dvlup.com/) |
+| `aspnetcore-reporting-from-centosbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS "MyAspNetCoreApp/Dockerfile_CentOS") | - |
+
+
+> [!IMPORTANT] 
+> When creating a container, map port 8080 to the host. For example  `docker run -d -p 88:8080 lancemccarthy/myblazorapp:latest` and then open http://localhost:88
+
+## Videos
+
+### Azure DevOps with Telerik NuGet Server
+
+The following **4 minute** video takes you though all the steps on adding a private NuGet feed as a Service Connection and consuming that service in three different pipeline setups.
+
+[![YouTube tutorial](https://img.youtube.com/vi/rUWU2n6FwgA/0.jpg)](https://www.youtube.com/watch?v=rUWU2n6FwgA)
+
+- [0:09](https://youtu.be/rUWU2n6FwgA?t=9) Add a Service connection to the Telerik server
+- [1:14](https://youtu.be/rUWU2n6FwgA?t=74) Classic pipeline for .NET Core
+- [1:47](https://youtu.be/rUWU2n6FwgA?t=107) Classic .NET Framework pipeline
+- [2:25](https://youtu.be/rUWU2n6FwgA?t=145) YAML pipeline setup for .NET Core
+
+> [!IMPORTANT]
+> The recording has some outdated information, take the following updates into consideration when watching:
+> - Use the v3 server address `https://nuget.telerik.com/v3/index.json` 
+> - Use an API key credential if your telerik.com account is SSO (see [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)).
+
+## Tips and Troubleshooting
+
+### GitHub Actions: Using Secrets to Set Environment Variables
+
+If you have environment variable placeholders in your nuget.config file, you can easily set them using GitHub Secrets. For example, let's say in your packageSourceCredentials, you have the following the environment variable placeholders `%TELERIK_USERNAME%` and `%TELERIK_PASSWORD%`
+
+```xaml
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+...
+  <packageSourceCredentials>
+    <Telerik_v3_Feed>
+      <add key="Username" value="%TELERIK_USERNAME%" />
+      <add key="ClearTextPassword" value="%TELERIK_PASSWORD%" />
+    </Telerik_v3_Feed>
+  </packageSourceCredentials>
+  ...
+</configuration>
+```
+
+You can directly set those vars on the same step which you invoke the `dotnet restore/build/publish` command. For example, here I use an API key from my GitHub Actions Secrets for credentials
+
+```yaml
+    - name: Restore NuGet Packages
+      run: dotnet restore src/MyProject.csproj --configfile src/nuget.config
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_API_KEY}}
+```
+
+> [!TIP]
+> This is also very useful for Dependabot runs. You can set a Dependabot secret (in the repo settings) and it will be able to restore packages during checks that were triggered by Dependabot.
+
+### Powershell: Adding or Updating Package Source Dynamically
+
+#### Option 1 - Update existing package source
+
+You could also dynamically update the credentials of a Package Source defined in your nuget.config file This is a good option when you do not want to use a `packageSourceCredentials` section that uses environment variables.
+
+```powershell
+# Setting credentials for the 'Telerik_v3_Feed' defined in the nuget.config file.
+dotnet nuget update source "Telerik_v3_Feed" -s "https://nuget.telerik.com/v3/index.json" -u '${{secrets.MyTelerikEmail}}' -p '${{secrets.MyTelerikPassword}}' --configfile "src/nuget.config" --store-password-in-clear-text
+```
+That command will look through the nuget.config for a package source with the key `Telerik_v3_Feed` and then add/update the credentials for that source.
+
+#### Option 2 - Add a new package source
+
+The other approach is a bit simpler because you dont need a custom nuget.config file. Just use the dotnet nuget add source command
+
+```powershell
+dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "AddedTelerikServer" -u ${{secrets.MyTelerikEmail}} -p ${{secrets.MyTelerikPassword}} --store-password-in-clear-text
+```
+
+> The `--store-password-in-clear-text` switch is important. It does *not* mean the password is visible, rather it means that you're using the password text and not a custom encrypted variant. For more information, please visit https://docs.microsoft.com/en-us/nuget/reference/nuget-config-file#packagesourcecredentials
+
+### Using Telerik NuGet Keys
+
+You can use the same approach in the previous section. Everything is exactly the same, except you use `api-key` for the username and the NuGet key for the password.
+
+Please visit the [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys) blog post for more details how ot create the key and how to use it.
+
+```powershell
+dotnet nuget update source "Telerik_v3_Feed" -s "https://nuget.telerik.com/v3/index.json" -u 'api-key' -p '${{secrets.MyNuGetKey}}' --configfile "src/nuget.config" --store-password-in-clear-text
+```
+
+> [!CAUTION]
+> Protect your key by storing it in a GitHub Secret, then use the secret's ID in the command.
+
+### Dockerfile: Using Secrets
+
+When using a Dockerfile to build a .NET project that uses the Telerik NuGet server, you'll need a safe and secure way to handle your NuGet crednetials and your Telerik License Key. This can be done my mounting a Docker secret.
+
+In your GitHub Actions workflow, you can define and set docker secrets in the docker build step. In the following example, notice how we are setting two docker secrets (`nuget-sec` and `license-sec`) using the values from GitHub secrets.
+
+```yaml
+    - uses: docker/build-push-action@v3
+      with:
+        secrets: |
+          nuget-sec=${{secrets.MY_NUGET_KEY}}
+          license-sec=${{secrets.MY_TELERIK_LICENSE_KEY}}
+```
+
+Now, inside the Dockerfile, you can mount and use those secrets. See Stage 2 in the following example:
+
+```Dockerfile
+### STAGE 1 ###
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+WORKDIR /app
+
+### STAGE 2 ###
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+COPY . .
+# STEP 1. Mount the 'nuget-sec' secret, then:
+# a. add the Telerik package source
+# b. restore packages
+RUN --mount=type=secret,id=nuget-sec,required \
+    dotnet nuget add source 'https://nuget.telerik.com/v3/index.json' -n "Telerik_v3_Feed" -u "api-key" -p "$(cat /run/secrets/nuget-sec)" --store-password-in-clear-text \
+    && \
+    dotnet restore "MyBlazorApp.csproj"
+# STEP 2. Mount the "license-sec" secret, then:
+# a. create the license file
+# b. build the project
+# c. delete the file so you don't distribute it in your image (important!)
+RUN --mount=type=secret,id=license-key,required \
+    mkdir -p ~/.telerik  && echo "$(cat /run/secrets/license-sec)" > ~/.telerik/telerik-license.txt \
+    && \
+    dotnet publish "Researcher.Web/Researcher.Web.csproj" -o /app/publish /p:UseAppHost=false --no-restore --self-contained false \
+    && \
+    rm -rf ~/.telerik
+
+### STAGE 3 ###
+# Build final from base, but copy ONLY THE PUBLISH ARTIFACTS from stage 2
+FROM base AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "MyBlazorApp.dll"]
+```
+
+> [!CAUTION]
+> Pay attention to whether or not you are including any secrets in your final image. You can run your container to explore the files (and env vars in Exec) to make sure.
+
+### Telerik License Approaches
+
+Depending on how you're building our code, there are several ways to introduce the Telerik License Key at the right time for the build. Let me show you two; variable and file.
+
+- [Approach 1 - Using an Environment Variable](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-1---using-a-variable)
+- [Approach 2 - Using a License File](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-2---using-a-file)
+  - [In a YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#yaml-pipeline)
+  - [In a Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#classic-pipeline)
+    - [Approach 1 - Using a Variable](https://github.com/LanceMcCarthy/DevOpsExamples#approach-1---using-a-variable)
+    - [Approach 2 - Using a File](https://github.com/LanceMcCarthy/DevOpsExamples#approach-2---using-a-file)
+      - [Secure File - YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#secure-file---yaml-pipeline)
+      - [Secure File - Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#secure-file---classic-pipeline)
+        - [Scenario 1 - Task With Env Vars Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-1---task-with-env-var-inputs)
+        - [Scenario 2 - Task Without Env Var Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-2---task-without-env-var-inputs)
+        - [Scenario 3 - Move Secure File](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-3---move-secure-file)
+
+#### Approach 1 - Using a Variable
+
+This is by far the easiest and safest way. You can use a secret (GitHub Action secret or AzDO Variable secret) and set the `TELERIK_LICENSE` environment variable before the project is compiled.
+
+In a YAML workflow/pipeline, you can set the environment variable at the beginning of the job or on a step that needs it.
+
+GH Actions
+```yaml
+  - run: dotnet publish MyApp.csproj -o /app/publish /p:UseAppHost=false --no-restore
+    env:
+      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+```
+
+Azure Pipelines YAML
+
+```yaml
+  - powershell: dotnet publish MyApp.csproj -o /app/publish /p:UseAppHost=false --no-restore
+    displayName: 'Build and publish the project'
+    env:
+      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+```
+
+If you're using classic pipelines, you can use a pipeline variable:
+
+![Image](https://github.com/user-attachments/assets/bcdcc8c3-8ec7-43af-8452-4bace4e8ee83)
+
+> [!IMPORTANT]
+> License key length - If you are using a Library **Variable Group**, there is a character limit for the variable values. The only way to have a long value in the Variable Group is to link it from Azure KeyVault. If you cannot use Azure KeyVault, then use a normal pipeline variable instead (seen above) or use the Secure File approach instead (see below).
+
+
+#### Approach 2 - Using a File
+
+You have two options for a file-base option. Set the TELERIK_LICENSE_PATH variable or add a file named **telerik-license.txt** to the project directory. The licensing runtime will do a recursive check from the project directory to root, and then finally %appdata%/telerik/.
+
+On Azure DevOps, there is a powerful feature called Secure Files. It lets you upload a file and then use it in a pipeline. Go to your Library tab, then select Secure File. After you've uploaded the Secure File to your Azure DevOps project, you can use it in a pipeline.
+
+Here are several ways to use that Secure File.
+
+> [!CAUTION]
+> Never include the **telerik-license.txt** file inside your application/docker image!
+
+##### YAML Pipeline
+
+With a YAML pipeline, you can use the **DownloadSecureFile@1** task, then use `$(name.secureFilePath)` to reference it. For example:
+
+```yaml
+  - task: DownloadSecureFile@1
+    name: DownloadTelerikLicenseFile # defining the 'name' is important
+    displayName: 'Download Telerik License Key File'
+    inputs:
+      secureFile: 'telerik-license.txt'
+
+  - task: MSBuild@1
+    displayName: 'Build Project'
+    inputs:
+      solution: 'myapp.csproj'
+      platform: Any CPU
+      configuration: Release
+      msbuildArguments: '/p:RestorePackages=false'
+    env:
+      # use the name.secureFilePath value to set the special TELERIK_LICENSE_PATH
+      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) 
+```
+
+##### Classic Pipeline
+
+With a classic pipeline, you can use the same `DownloadSecureFile` Task
+
+![Image](https://github.com/user-attachments/assets/8c9f0aa4-0ef8-48a9-9805-b0686db1109c)
+
+> [!IMPORTANT]
+> Make sure you set the **reference name** which gets prefixed to the `.secureFilePath` output variable.
+
+###### Scenario 1 - Task With Env Var Inputs
+
+With the secure file downloaded to the runner, you can now set the **TELERIK_LICENSE_PATH** variable using `$(telerik.secureFilePath)`.
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/e6bb5425-a721-4307-9837-0ef2e6f8cefa" />
+
+###### Scenario 2 - Task Without Env Var Inputs
+
+Not all AzDO tasks have the "Environment variables" section (e.g. MsBuild task doesn't have it). To solve this, you can set a pipeline variable before that task. Using the secure file 
+
+1. Add a new Powershell or Bash task (_after_ the Download Secure File task)
+2. Set the **TELERIK_LICENSE_PATH** using `task.setvariable` command with `issecret=true`and the secure file task's output variable
+  ```powershell
+  # If using Powershell
+  Write-Host "##vso[task.setvariable variable=TELERIK_LICENSE_PATH;issecret=true]$(telerik.secureFilePath)"
+
+  # If using Bash
+  echo "##vso[task.setvariable variable=TELERIK_LICENSE_PATH;issecret=true]$(telerik.secureFilePath)"
+  ```
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/9f1bcecd-a2d2-45f2-95b6-76bdfbda6516" />
+
+###### Scenario 3 - Move Secure File
+
+If you have nay trouble with the TELERIK_LICENSE_PATH variable, you can just simply move the file to the root build directory.
+
+1. Add a new Powershell or Bash task (_after_ the Download Secure File task)
+  ```powershell
+  Move-Item -Path "$(telerik.secureFilePath)" -Destination "$(Build.Repository.LocalPath)/telerik-license.txt" -Force
+  ```
+2. Build the code
+3. Delete the file (so you don't accidentally include it in your distribution)
+  ```powershell
+  Remove-Item -Path "$(Build.Repository.LocalPath)/telerik-license.txt" -Force
+  ```
+
+As you can see, there are a wide range of options. The one you choose highly depends on your environment and CI requirements.

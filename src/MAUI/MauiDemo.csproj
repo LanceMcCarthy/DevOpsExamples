@@ -63,6 +63,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.8" />
     <PackageReference Include="CommonHelpers" Version="1.5.1" />
     <PackageReference Include="Telerik.UI.for.Maui" Version="14.0.0" />
+    <PackageReference Include="Markdig" Version="0.40.0" />
   </ItemGroup>
 
   <!--<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

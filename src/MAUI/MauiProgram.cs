@@ -38,10 +38,12 @@ public static class MauiProgram
         builder.Services.AddSingleton<AppShell>();
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<SchedulerPage>();
+        builder.Services.AddSingleton<MarkdownPage>();
 
         // Register view models with DI
         builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<SchedulerPageViewModel>();
+        builder.Services.AddSingleton<MarkdownPageViewModel>();
 
         builder.ConfigureLifecycleEvents(events =>
         {
