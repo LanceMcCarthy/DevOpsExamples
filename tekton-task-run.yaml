@@ -9,16 +9,27 @@ spec:
   taskSpec:
     workspaces:
       - name: source
+    volumes:
+      - name: telerik-license-secret
+        secret:
+          secretName: telerik-license-key
     steps:
-      # To start, let's clone the code
+# JOB 0 - Clone repository
+# To start, let's clone the code
       - image: bitnami/git:latest
         name: clone-repo
         displayName: "Clone repository"
         workingDir: $(workspaces.source.path)
         script: |
-          git clone --depth 1 https://github.com/LanceMcCarthy/DevOpsExamples.git .
+          git init .
+          git remote remove origin || true
+          git remote add origin https://github.com/LanceMcCarthy/DevOpsExamples.git
+          git fetch --depth 1 origin main
+          git checkout -f FETCH_HEAD
+          git clean -fdx
 
-      # This job needs only nuget.org
+# JOB 1 - Build Console project
+# This needs only nuget.org
       - image: mcr.microsoft.com/dotnet/sdk:10.0
         name: build-console
         displayName: "Build Console project"
@@ -30,11 +41,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: telerik-license-key
-                key: TELERIK_LICENSE
+                key: TELERIK_LICENSE_KEY_SOURCE
         script: |
           dotnet build "$PROJ_PATH" -c Release
 
-      # This job needs nuget.telerik.com, so we also use the API key and license key secrets as environment variables
+# JOB 2 - Build ASP.NET Core project
+# This needs nuget.telerik.com, so we also use the API key and license key secrets as environment variables
       - image: mcr.microsoft.com/dotnet/sdk:10.0
         name: build-aspnet-core
         displayName: "Build ASP.NET Core project"
@@ -50,7 +62,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: telerik-license-key
-                key: TELERIK_LICENSE
+                key: TELERIK_LICENSE_KEY_SOURCE
           - name: TELERIK_API_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -71,8 +83,49 @@ spec:
             -c Release \
             --no-restore
 
+# JOB 3 - Build Angular project using image environment
+      - image: node:current-slim
+        name: build-angular
+        displayName: "Build Angular project"
+        workingDir: $(workspaces.source.path)/src/Kendo/angular_demo
+        env:
+          - name: NPM_CONFIG_REGISTRY
+            value: https://pkg.harness.io/pkg/ct8onj8YTdaXtKaFsYCRLg/org-devtools-npm/npm/
+          - name: TELERIK_LICENSE
+            valueFrom:
+              secretKeyRef:
+                name: telerik-license-key
+                key: TELERIK_LICENSE_KEY_SOURCE
+        script: |
+          # ~-~-~-~ Only for Progress staff, everyone else can use npmjs directly ~-~-~-~          
+          npm config set registry "$NPM_CONFIG_REGISTRY"
+          npm config set replace-registry-host always
+          # ~-~-~-~ Install dependencies ~-~-~-~ 
+          npm ci --registry="$NPM_CONFIG_REGISTRY" --replace-registry-host=always
+          # ~-~-~-~ Activate the Telerik license ~-~-~-~          
+          npx --no-install kendo-ui-license activate
+          # ~-~-~-~ Build app ~-~-~-~
+          npm run build --prod
 
-# RELEVANT NOTES
+# JOB 4 - Build Angular project into a Docker image (without a Docker daemon)
+      - image: moby/buildkit:rootless
+        name: build-angular-docker-image
+        displayName: "Build Angular Docker image"
+        workingDir: $(workspaces.source.path)/src/Kendo/angular_demo
+        volumeMounts:
+          - name: telerik-license-secret
+            mountPath: /var/secrets/telerik-license-key
+        script: |
+          buildctl-daemonless.sh build \
+            --frontend dockerfile.v0 \
+            --local context=$(workspaces.source.path)/src/Kendo/angular_demo \
+            --local dockerfile=$(workspaces.source.path)/src/Kendo/angular_demo \
+            --opt filename=Dockerfile \
+            --secret id=telerik-license-key,src=/var/secrets/telerik-license-key/TELERIK_LICENSE_KEY_SOURCE \
+            --output type=image,name=lancemccarthy/angular-demo:tekton,push=false
+
+
+# RELEVANT SETUP AND MANAGEMENT NOTES
 # Official Docs https://tekton.dev/docs/getting-started/tasks/
 
 # ----------------------- SETUP ----------------------------------------------------------------- #
@@ -88,12 +141,12 @@ spec:
 # If your build needs secrets, you can create them in Kubernetes and reference them in the TaskRun as environment variables. 
 # For example, if you have a Telerik license key and API key, you can create secrets like this:
 
-# > kubectl create secret generic telerik-license-key --from-literal=TELERIK_LICENSE="xxxxxxx"
+# > kubectl create secret generic telerik-license-key --from-literal=TELERIK_LICENSE_KEY_SOURCE="xxxxxxx"
 # > kubectl create secret generic telerik-api-key --from-literal=TELERIK_API_KEY="xxxxxxx"
 
 # or for large values, use --from-file instead
 
-# > kubectl create secret generic telerik-license-key --from-file=TELERIK_LICENSE="$env:APPDATA\Telerik\telerik-license.txt"
+# > kubectl create secret generic telerik-license-key --from-file=TELERIK_LICENSE_KEY_SOURCE="$env:APPDATA\Telerik\telerik-license.txt"
 
 
 # ------------------------ BUILDING --------------------------------------------------------------- #
