@@ -22,5 +22,5 @@ RUN --mount=type=secret,id=telerik-license-key \
 # Build the final image from the base, copying ONLY the publish artifacts from the build stage
 FROM base AS final
 WORKDIR /usr/share/nginx/html
-COPY --from=build /src/dist/ ./
+COPY --from=build /src/dist/angular_demo/browser/ ./
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
