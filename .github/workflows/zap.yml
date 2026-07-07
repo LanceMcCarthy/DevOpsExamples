@@ -8,13 +8,13 @@ on:
         required: false
         type: string
         default: 'lancemccarthy/aspnetcore-reporting-from-msftbase'
-      container_port_internal:
-        description: 'Container Port Mapping'
+      port_internal:
+        description: 'Internal Port'
         required: false
         type: string
         default: '8080'
-      container_port_external:
-        description: 'Container Port Mapping'
+      port_external:
+        description: 'External Port'
         required: false
         type: string
         default: '8888'
@@ -27,13 +27,13 @@ on:
 jobs:
   build_spa:
     runs-on: ubuntu-latest
-    name: Run container and ZAP scan
+    name: Run App and ZAP scan
     steps:
-    - name: Start Container
-      run: docker run -d -p ${{github.event.inputs.container_port_external}}:${{github.event.inputs.container_port_internal}} ${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}
+    - name: Start ${{github.event.inputs.container_name}}
+      run: docker run -d -p ${{github.event.inputs.port_external}}:${{github.event.inputs.port_internal}} ${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}
 
     - name: Checkout private OWASP ZAP action
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: prgs-community/githubactions-reusableworkflows
         ref: main
@@ -43,8 +43,18 @@ jobs:
     - name: Run OWASP ZAP scan
       uses: ./.github/private-actions/githubactions-reusableworkflows/actions/OWASP_ZAP
       with:
-        ZAP_SCAN_URL: "http://localhost:${{github.event.inputs.container_port_external}}"
+        ZAP_SCAN_URL: "http://localhost:${{github.event.inputs.port_external}}"
         ZAP_SQL_TESTING: SQL
         ZAP_TEST_COVERAGE: base
         PR_SUMMARY: true
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+    - name: Upload ZAP scan artifact
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: zap-scan-results
+        path: /**/*/zap-scan-results.zip
+        if-no-files-found: warn
+
+
