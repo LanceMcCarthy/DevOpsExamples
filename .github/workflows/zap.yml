@@ -54,7 +54,5 @@ jobs:
     - name: Upload ZAP scan artifact
       uses: actions/upload-artifact@v7
       with:
-        name: zap-scan-results.zip
-        path: /zap/wrk/*.*
-
-
+        name: zap-scan-results
+        path: ${{github.workspace}}/zap-results/*
