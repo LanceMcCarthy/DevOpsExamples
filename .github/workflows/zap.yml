@@ -32,6 +32,7 @@ jobs:
     - name: Start ${{github.event.inputs.container_name}}
       run: docker run -d -p ${{github.event.inputs.port_external}}:${{github.event.inputs.port_internal}} ${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}
 
+   # START -TEMPORARY (ONLY NEEDED FOR THIS TEST WORKFLOW TO ACCESS THE OWASP ZAP ACTION)
     - name: Checkout private OWASP ZAP action
       uses: actions/checkout@v7
       with:
@@ -39,6 +40,7 @@ jobs:
         ref: main
         token: ${{secrets.CROSS_ORG_ACTIONS_PAT}}
         path: ./.github/private-actions/githubactions-reusableworkflows
+    # END - TEMPORARY
 
     - name: Run OWASP ZAP scan
       uses: ./.github/private-actions/githubactions-reusableworkflows/actions/OWASP_ZAP
@@ -50,11 +52,9 @@ jobs:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     - name: Upload ZAP scan artifact
-      if: always()
       uses: actions/upload-artifact@v7
       with:
-        name: zap-scan-results
-        path: /**/*/zap-scan-results.zip
-        if-no-files-found: warn
+        name: zap-scan-results.zip
+        path: /zap/wrk/*.*
 
 
