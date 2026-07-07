@@ -12,12 +12,12 @@ on:
         description: 'Container Port Mapping'
         required: false
         type: string
-        default: '8888:8080'
+        default: '8080'
       container_port_external:
         description: 'Container Port Mapping'
         required: false
         type: string
-        default: '8888:8080'
+        default: '8888'
       container_tag:
         description: 'Container Tag'
         required: false
