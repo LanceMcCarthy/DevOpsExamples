@@ -30,9 +30,7 @@ jobs:
     name: Run container and ZAP scan
     steps:
     - name: Start Container
-      run: docker run -d \
-        -p "${{github.event.inputs.container_port_external}}:${{github.event.inputs.container_port_internal}}" \
-        "${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}"
+      run: docker run -d -p ${{github.event.inputs.container_port_external}}:${{github.event.inputs.container_port_internal}} ${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}
 
     - name: Checkout private OWASP ZAP action
       uses: actions/checkout@v4
