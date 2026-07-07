@@ -30,12 +30,20 @@ jobs:
     name: Run container and ZAP scan
     steps:
     - name: Start Container
-      run: docker run \
+      run: docker run -d \
         -p "${{github.event.inputs.container_port_external}}:${{github.event.inputs.container_port_internal}}" \
         "${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}"
 
+    - name: Checkout private OWASP ZAP action
+      uses: actions/checkout@v4
+      with:
+        repository: prgs-community/githubactions-reusableworkflows
+        ref: main
+        token: ${{secrets.CROSS_ORG_ACTIONS_PAT}}
+        path: ./.github/private-actions/githubactions-reusableworkflows
+
     - name: Run OWASP ZAP scan
-      uses: prgs-community/githubactions-reusableworkflows/actions/OWASP_ZAP@latest
+      uses: ./.github/private-actions/githubactions-reusableworkflows/actions/OWASP_ZAP
       with:
         ZAP_SCAN_URL: "http://localhost:${{github.event.inputs.container_port_external}}"
         ZAP_SQL_TESTING: SQL
