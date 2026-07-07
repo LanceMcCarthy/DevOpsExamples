@@ -1,0 +1,44 @@
+name: Test ZAP Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      container_name:
+        description: 'Container Name'
+        required: false
+        type: string
+        default: 'lancemccarthy/aspnetcore-reporting-from-msftbase'
+      container_port_internal:
+        description: 'Container Port Mapping'
+        required: false
+        type: string
+        default: '8888:8080'
+      container_port_external:
+        description: 'Container Port Mapping'
+        required: false
+        type: string
+        default: '8888:8080'
+      container_tag:
+        description: 'Container Tag'
+        required: false
+        type: string
+        default: 'latest'
+  
+jobs:
+  build_spa:
+    runs-on: ubuntu-latest
+    name: Run container and ZAP scan
+    steps:
+    - name: Start Container
+      run: docker run \
+        -p "${{github.event.inputs.container_port_external}}:${{github.event.inputs.container_port_internal}}" \
+        "${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}"
+
+    - name: Run OWASP ZAP scan
+      uses: prgs-community/githubactions-reusableworkflows/actions/OWASP_ZAP@latest
+      with:
+        ZAP_SCAN_URL: "http://localhost:${{github.event.inputs.container_port_external}}"
+        ZAP_SQL_TESTING: SQL
+        ZAP_TEST_COVERAGE: base
+        PR_SUMMARY: true
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
