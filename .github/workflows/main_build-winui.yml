@@ -10,20 +10,16 @@ on:
       - 'src/WinUI/**/*'
       - '.github/workflows/main_build-winui.yml' 
 
-env:
-  TELERIK_USERNAME: "api-key" # Used by the nuget.config file
-  TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Used by the nuget.config file
-  SOLUTION_NAME: "src/WinUI/MyDemo.sln"
-  NUGETCONFIG_PATH: "src/NuGet.Config"
-
 jobs:
   build-windows:
-    runs-on: windows-2022
+    runs-on: windows-latest
+    env:
+      TELERIK_USERNAME: "api-key" # Used by the nuget.config file
+      TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Used by the nuget.config file
+      SLN_PATH: "src/WinUI/MyDemo.sln"
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      uses: actions/checkout@v7
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -31,19 +27,19 @@ jobs:
         dotnet-version: '10.0.x'
 
     - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
 
     - name: Restore NuGet packages
       shell: pwsh
-      run: dotnet restore ${{env.SOLUTION_NAME}} --configfile ${{env.NUGETCONFIG_PATH}}
+      run: dotnet restore ${{env.SLN_PATH}} --configfile "src/NuGet.Config"
 
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    # Using /t:Restore restores the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore RIDs
-      run: msbuild ${{env.SOLUTION_NAME}} /t:Restore /p:Configuration=Release
+      run: msbuild ${{env.SLN_PATH}} /t:Restore /p:Configuration=Release
 
     - name: Build and Create MSIX
       run: |
-        msbuild ${{env.SOLUTION_NAME}} `
+        msbuild ${{env.SLN_PATH}} `
           /p:Configuration=Release `
           /p:Platform=x64 `
           /p:AppxBundlePlatforms="x64|arm64" `

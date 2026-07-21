@@ -20,17 +20,17 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
     - name: Setup Nuget.exe 
-      uses: nuget/setup-nuget@v2
+      uses: nuget/setup-nuget@v4
       with:
         nuget-version: '5.x'
 
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
     
     # Important: We are using nuget CLI (not dotnet CLI) See https://docs.microsoft.com/en-us/nuget/reference/nuget-exe-cli-reference
     - name: NuGet.exe Restore

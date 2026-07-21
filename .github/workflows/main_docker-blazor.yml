@@ -102,7 +102,7 @@ jobs:
   #     CONTAINER_BASE_IMAGE: "docker.io/lancemccarthy/skia-aspnet:10.0"
   #   steps:
   #   - name: Checkout
-  #     uses: actions/checkout@v6
+  #     uses: actions/checkout@v7
   #     with:
   #       fetch-depth: 0
 
@@ -150,7 +150,7 @@ jobs:
   #     CONTAINER_BASE_IMAGE: "docker.io/lancemccarthy/skia-aspnet:10.0"
   #   steps:
   #   - name: Checkout
-  #     uses: actions/checkout@v4
+  #     uses: actions/checkout@v7
   #     with:
   #       fetch-depth: 0
 
@@ -195,7 +195,7 @@ jobs:
   #     CONTAINER_REGISTRY: "ghcr.io"
   #   steps:
   #   - name: Checkout
-  #     uses: actions/checkout@v4
+  #     uses: actions/checkout@v7
 
   #   - name: Login to ghcr.io
   #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}

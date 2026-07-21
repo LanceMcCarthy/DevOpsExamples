@@ -11,25 +11,19 @@ jobs:
   build_console:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
-    - uses: actions/setup-dotnet@v5
+    - uses: actions/setup-dotnet@v6
       with:
         dotnet-version: '10.0.x'
 
-    - name: Remove all default package sources
-      run: |
-        foreach ($line in $(dotnet nuget list source)) {
-          if ($line -match '^\s*\d+\.\s+(.*)\s+\[Enabled\]') {
-              dotnet nuget remove source $matches[1].Trim()
-              Write-Host "Removed $sourceName ..."
-          }
-        }
+    - name: Remove dedicated NuGet.Config
+      run: rm src/NuGet.Config
 
     - name: Add JFrogArtifactory Package Source
       run: |
         dotnet nuget add source "https://bed-artifactory.bedford.progress.com/artifactory/api/nuget/v3/dt-nuget-virtual-tierpoint/index.json" `
-          --name "artifactory_virtual" `
+          --name "artifactory" `
           --username ${{secrets.ARTIFACTORY_NUGET_USERNAME}} `
           --password ${{secrets.ARTIFACTORY_NUGET_PASSWORD}} `
           --store-password-in-clear-text

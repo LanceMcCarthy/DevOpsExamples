@@ -36,7 +36,7 @@ jobs:
             tfm: "net10.0-maccatalyst"
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     # Telerik.UI.for.Maui is available on nuget.org, so we can remove the telerik nuget server
     - name: Remove extra NuGet.Config
@@ -44,7 +44,7 @@ jobs:
       run: Remove-Item src/NuGet.Config
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 

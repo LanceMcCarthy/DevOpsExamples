@@ -23,7 +23,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     # Using AKeyless for secrets in this demo, but you can use github Secrets instead
     - name: Fetch secrets from AKeyless
@@ -40,7 +40,7 @@ jobs:
         export-secrets-to-environment: false
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
