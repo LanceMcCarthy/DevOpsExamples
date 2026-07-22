@@ -9,18 +9,21 @@ defaults:
 
 jobs:
   build_console:
+    name: "🔨 Build Console"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v7
+    - name: "⬇️ Checkout"
+      uses: actions/checkout@v7
 
-    - uses: actions/setup-dotnet@v6
+    - name: "🧰 Setup .NET SDK"
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: '10.0.x'
 
-    - name: Remove dedicated NuGet.Config
+    - name: "🧹 Remove dedicated NuGet.Config"
       run: rm src/NuGet.Config
 
-    - name: Add JFrogArtifactory Package Source
+    - name: "➕ Add JFrogArtifactory Package Source"
       run: |
         dotnet nuget add source "https://bed-artifactory.bedford.progress.com/artifactory/api/nuget/v3/dt-nuget-virtual-tierpoint/index.json" `
           --name "artifactory" `
@@ -28,7 +31,7 @@ jobs:
           --password ${{secrets.ARTIFACTORY_NUGET_PASSWORD}} `
           --store-password-in-clear-text
 
-    - name: Build Project
+    - name: "🔨 Build Project"
       run: dotnet build "src/Console/MyDocProcApp/MyDocProcApp.csproj"
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}

@@ -18,42 +18,42 @@ jobs:
 # - Publishes lancemccarthy/aspnetcore-reporting-from-msftbase to docker hub
 #########################################################
   dockerhub_msftbase_build:
-    name: Microsoft Base - Publish to Docker Hub
+    name: "🐳 Microsoft Base - Publish to Docker Hub"
     runs-on: ubuntu-latest
     env:
       CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-msftbase"
       DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase"
       CONTAINER_REGISTRY: "docker.io"
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
-    - name: Generate tag version
+    - name: "🏷️ Generate tag version"
       id: tag-creator
       run: |
         buildDay=`date +%Y.%m.%d`
         tags="$buildDay.$GITHUB_RUN_NUMBER"
         echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
 
-    - name: Set up QEMU for multi-arch support
+    - name: "🐧 Set up QEMU for multi-arch support"
       uses: docker/setup-qemu-action@v4
 
-    - name: Set up Docker Buildx
+    - name: "🏗️ Set up Docker Buildx"
       uses: docker/setup-buildx-action@v4
 
-    - name: Login to DockerHub
+    - name: "🔑 Login to DockerHub"
       uses: docker/login-action@v4
       with:
         username: ${{secrets.DOCKER_HUB_USERNAME}}
         password: ${{secrets.DOCKER_HUB_PAT}}
       
-    - name: Get package metadata from Docker Hub
+    - name: "📦 Get package metadata from Docker Hub"
       id: meta
       uses: docker/metadata-action@v6
       with:
         images: ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}
 
-    - name: Build and push to Docker Hub
+    - name: "🚢 Build and push to Docker Hub"
       uses: docker/build-push-action@v7
       with:
         file: ${{env.DOCKERFILE_PATH}}
@@ -68,7 +68,7 @@ jobs:
           ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{steps.tag-creator.outputs.VERSION_TAG}}
 
     # Required because actions/delete-package-versions@v5 does not work with Docker Hub
-    - name: Delete old (untagged) images
+    - name: "🧹 Delete old (untagged) images"
       run: |
         IMAGE_TAGS=$(curl -s "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results|.[]|.name')
         for TAGG in $IMAGE_TAGS; do
@@ -78,7 +78,7 @@ jobs:
           fi
         done
 
-    - name: Trigger Portainer to pull images and redeploy the stack
+    - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
       run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_ASPNETCORE}}
 
 
@@ -87,35 +87,35 @@ jobs:
 # - Publishes lancemccarthy/aspnetcore-reporting-from-centosbase to docker hub
 #########################################################
   dockerhub_centosbase_build:
-    name: CentOS Base - Publish to Docker Hub
+    name: "🐳 CentOS Base - Publish to Docker Hub"
     runs-on: ubuntu-latest
     env:
       CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-centosbase"
       DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS"
       CONTAINER_REGISTRY: "docker.io"
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
-    - name: Set up QEMU for multi-arch support
+    - name: "🐧 Set up QEMU for multi-arch support"
       uses: docker/setup-qemu-action@v4
 
-    - name: Set up Docker Buildx
+    - name: "🏗️ Set up Docker Buildx"
       uses: docker/setup-buildx-action@v4
 
-    - name: Login to DockerHub
+    - name: "🔑 Login to DockerHub"
       uses: docker/login-action@v4
       with:
         username: ${{secrets.DOCKER_HUB_USERNAME}}
         password: ${{secrets.DOCKER_HUB_PAT}}
       
-    - name: Get package metadata from Docker Hub
+    - name: "📦 Get package metadata from Docker Hub"
       id: meta
       uses: docker/metadata-action@v6
       with:
         images: ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}
 
-    - name: Build and push to Docker Hub
+    - name: "🚢 Build and push to Docker Hub"
       uses: docker/build-push-action@v7
       with:
         file: ${{env.DOCKERFILE_PATH}}

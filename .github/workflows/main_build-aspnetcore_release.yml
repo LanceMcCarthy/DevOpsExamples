@@ -15,24 +15,25 @@ env:
 
 jobs:
   build_windows:
+    name: "🚀 Build and deploy ASP.NET Core"
     runs-on: windows-latest
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
     # ----------------------------------------------------------------------- #
     # BUILD
     # ----------------------------------------------------------------------- #
 
-    - name: Setup .NET Core SDK
+    - name: "🧰 Setup .NET Core SDK"
       uses: actions/setup-dotnet@v6
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Restore NuGet Packages
+    - name: "📥 Restore NuGet Packages"
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
 
-    - name: Build ASP.NET Core Project
+    - name: "🔨 Build ASP.NET Core Project"
       run: dotnet publish ${{env.PROJECT_PATH}} -o ${{env.ARTIFACTS_DIRECTORY}} --no-restore
 
 
@@ -42,7 +43,7 @@ jobs:
 
     # Option 1
     # Deploy using the publish profile saved as a Github Actions secret
-    - name: Deploy to Azure WebApp
+    - name: "🚀 Deploy to Azure WebApp"
       uses: azure/webapps-deploy@v3
       with:
         app-name: ${{env.AZURE_WEBAPP_NAME}}

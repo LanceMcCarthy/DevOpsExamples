@@ -12,13 +12,14 @@ on:
 
 jobs:
   build_angular:
+    name: "🏗️ Build Angular app"
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
       
-    - name: Build App
+    - name: "🏗️ Build App"
       working-directory: src/Kendo/angular_demo
       run: |
         # 1. Clean the angular cache, to avoid using any expired keys

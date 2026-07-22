@@ -27,13 +27,13 @@ on:
 jobs:
   build_spa:
     runs-on: ubuntu-latest
-    name: Run App and ZAP scan
+    name: "🛡️ Run App and ZAP scan"
     steps:
-    - name: Start ${{github.event.inputs.container_name}}
+    - name: "🚀 Start ${{github.event.inputs.container_name}}"
       run: docker run -d -p ${{github.event.inputs.port_external}}:${{github.event.inputs.port_internal}} ${{github.event.inputs.container_name}}:${{github.event.inputs.container_tag}}
 
    # START -TEMPORARY (ONLY NEEDED FOR THIS TEST WORKFLOW TO ACCESS THE OWASP ZAP ACTION)
-    - name: Checkout private OWASP ZAP action
+    - name: "⬇️ Checkout private OWASP ZAP action"
       uses: actions/checkout@v7
       with:
         repository: prgs-community/githubactions-reusableworkflows
@@ -42,7 +42,7 @@ jobs:
         path: ./.github/private-actions/githubactions-reusableworkflows
     # END - TEMPORARY
 
-    - name: Run OWASP ZAP scan
+    - name: "🔍 Run OWASP ZAP scan"
       uses: ./.github/private-actions/githubactions-reusableworkflows/actions/OWASP_ZAP
       with:
         ZAP_SCAN_URL: "http://localhost:${{github.event.inputs.port_external}}"
@@ -51,7 +51,7 @@ jobs:
         PR_SUMMARY: true
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-    - name: Upload ZAP scan artifact
+    - name: "📤 Upload ZAP scan artifact"
       uses: actions/upload-artifact@v7
       with:
         name: zap-scan-results

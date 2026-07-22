@@ -20,13 +20,14 @@ env:
 
 jobs:
   build_windows:
+    name: "🌐 Build ASP.NET Core"
     runs-on: windows-latest
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
     # Using AKeyless for secrets in this demo, but you can use github Secrets instead
-    - name: Fetch secrets from AKeyless
+    - name: "🔐 Fetch secrets from AKeyless"
       id: akeyless
       uses: LanceMcCarthy/akeyless-action@v5
       with:
@@ -39,18 +40,18 @@ jobs:
         export-secrets-to-outputs: true
         export-secrets-to-environment: false
 
-    - name: Setup .NET Core SDK
+    - name: "🧰 Setup .NET Core SDK"
       uses: actions/setup-dotnet@v6
       with:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
-    - name: Restore NuGet Packages
+    - name: "📥 Restore NuGet Packages"
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
 
-    - name: Build ASP.NET Core Project
+    - name: "🔨 Build ASP.NET Core Project"
       run: dotnet build ${{env.PROJECT_PATH}} -c Debug --no-restore
       env:
         TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}

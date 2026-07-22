@@ -17,6 +17,7 @@ env:
 
 jobs:
   build_console:
+    name: "🔨 Build Console"
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -25,26 +26,26 @@ jobs:
     env:
       OUTPUT_DIR: ${{github.workspace}}/output/${{matrix.os}}-${{matrix.config}}/
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
-    - name: Setup .NET SDK
+    - name: "🧰 Setup .NET SDK"
       uses: actions/setup-dotnet@v6
       with:
         dotnet-version: '10.0.x'
 
-    - name: Update NuGet Package Sources
+    - name: "🔄 Update NuGet Package Sources"
       run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
 
-    - name: Restore NuGet packages
+    - name: "📥 Restore NuGet packages"
       run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} --runtime ${{matrix.os}}-${{matrix.config}}
 
-    - name: Build project
+    - name: "🔨 Build project"
       run: dotnet publish ${{env.CSPROJ_PATH}} --configuration ${{env.BUILD_CONFIGURATION}} --runtime ${{matrix.os}}-${{matrix.config}} --no-self-contained --no-restore --output ${{env.OUTPUT_DIR}}
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
 
-    - name: Attach artifacts
+    - name: "📎 Attach artifacts"
       id: upload-artifact
       uses: actions/upload-artifact@v7
       with:     
@@ -54,18 +55,18 @@ jobs:
         retention-days: 30
 
   codesign_release:
-    name: Codesign Release
+    name: "✍️ Codesign Release"
     if: ${{ success() }}
     runs-on: windows-latest
     needs: [build_console]
     steps:
-    - name: Download artifacts
+    - name: "⬇️ Download artifacts"
       uses: actions/download-artifact@v4
       with:
         path: ${{github.workspace}}/artifacts/
 
     # No secrets needed, uses the GitHub OIDC token to authenticate.
-    - name: Azure login using OIDC via GitHub
+    - name: "🔑 Azure login using OIDC via GitHub"
       uses: azure/login@v2
       id: azlogin
       with:
@@ -74,7 +75,7 @@ jobs:
         subscription-id: "48ab4839-62af-4ab3-afe6-043ea4d7c137"
 
     # Codesign files with Azure Trusted Signing
-    - name: Sign files with Trusted Signing
+    - name: "✍️ Sign files with Trusted Signing"
       uses: azure/trusted-signing-action@v0.4.0
       with:
         endpoint: https://eus.codesigning.azure.net/
@@ -97,7 +98,7 @@ jobs:
         exclude-azure-developer-cli-credential: true
         exclude-interactive-browser-credential: true
 
-    - name: Attach signed artifact
+    - name: "📎 Attach signed artifact"
       id: upload-artifact
       uses: actions/upload-artifact@v7
       with:
@@ -106,7 +107,7 @@ jobs:
         if-no-files-found: error
         retention-days: 30
 
-    - name: Delete unsigned artifacts from run
+    - name: "🧹 Delete unsigned artifacts from run"
       uses: geekyeggo/delete-artifact@v5
       with:
         name: |

@@ -18,26 +18,26 @@ jobs:
       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}} # Used by the nuget.config file
       SLN_PATH: "src/WinUI/MyDemo.sln"
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
-    - name: Setup .NET
+    - name: "🧰 Setup .NET"
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
 
-    - name: Add msbuild to PATH
+    - name: "➕ Add msbuild to PATH"
       uses: microsoft/setup-msbuild@v3
 
-    - name: Restore NuGet packages
+    - name: "📥 Restore NuGet packages"
       shell: pwsh
       run: dotnet restore ${{env.SLN_PATH}} --configfile "src/NuGet.Config"
 
     # Using /t:Restore restores the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore RIDs
+    - name: "📥 Restore RIDs"
       run: msbuild ${{env.SLN_PATH}} /t:Restore /p:Configuration=Release
 
-    - name: Build and Create MSIX
+    - name: "📦 Build and Create MSIX"
       run: |
         msbuild ${{env.SLN_PATH}} `
           /p:Configuration=Release `

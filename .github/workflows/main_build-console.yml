@@ -13,6 +13,7 @@ on:
 
 jobs:
   build_console:
+    name: "🔨 Build Console"
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -23,18 +24,18 @@ jobs:
       NUGETCONFIG_PATH: src/NuGet.Config
       BUILD_CONFIGURATION: Release
     steps:
-    - name: Checkout
+    - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
-    - name: Remove dedicated NuGet.Config
+    - name: "🧹 Remove dedicated NuGet.Config"
       run: rm src/NuGet.Config
 
-    - name: Setup .NET SDK
+    - name: "🧰 Setup .NET SDK"
       uses: actions/setup-dotnet@v6
       with:
         dotnet-version: '10.0.x'
 
-    - name: Build project
+    - name: "🔨 Build project"
       run: dotnet build ${{env.CSPROJ_PATH}} --configuration ${{env.BUILD_CONFIGURATION}} --runtime ${{matrix.os}}-${{matrix.config}}
       env:
         TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
