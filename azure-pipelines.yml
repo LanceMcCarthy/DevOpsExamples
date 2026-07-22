@@ -27,7 +27,7 @@ variables:
   mauiProjectPath: 'src/MAUI/MauiDemo.csproj'
   wpfProjectPath: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
   winformsProjectPath: 'src/WinForms/MyWinFormsApp/MyWinFormsApp.csproj'
-  xcodeVersion: '26.5'
+  xcodeVersion: '26.6'
   # These pipeline variables (secrets) have been set using the AzDO yaml editor at dev.azure.com.
   # AKEYLESS_ACCESS_ID
   # MY_TELERIK_NUGET_KEY
