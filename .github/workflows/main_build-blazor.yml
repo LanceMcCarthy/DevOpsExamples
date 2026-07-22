@@ -22,8 +22,8 @@ jobs:
           - ubuntu-latest
           - windows-latest
         source:
-          - public_nuget
           - telerik_nuget
+          #- public_nuget  #temporarily commented out while Telerik.Drawing.Skia is missing from nuget.org
     env:
       CONFIGURATION: Release
       PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
