@@ -59,10 +59,73 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+body.k-body {
+  background-color: var(--kendo-color-app-surface, #fff);
+  color: var(--kendo-color-on-app-surface, #212529);
+}
+
+.app-navbar {
+  background-color: var(--kendo-color-surface, var(--kendo-color-app-surface, #fff));
+  border-bottom: 1px solid var(--kendo-color-border, #e5e5e5);
+  color: var(--kendo-color-on-app-surface, #212529);
+}
+
+.app-navbar .container {
+  column-gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.app-navbar .navbar-brand {
+  color: var(--kendo-color-on-app-surface, #212529);
+}
+
+.app-navbar .navbar-brand:hover,
+.app-navbar .navbar-brand:focus {
+  color: var(--kendo-color-primary, #0d6efd);
+}
+
+.app-tabs {
+  border-bottom: 0;
+}
+
+.app-tabs .nav-link {
+  border-color: transparent;
+  color: var(--kendo-color-on-app-surface, #212529);
+}
+
+.app-tabs .nav-link:hover,
+.app-tabs .nav-link:focus {
+  border-color: var(--kendo-color-border, #dee2e6);
+  color: var(--kendo-color-primary, #0d6efd);
+}
+
+.app-tabs .nav-link.active {
+  background-color: var(--kendo-color-base, var(--kendo-color-surface, #fff));
+  border-color: var(--kendo-color-border, #dee2e6);
+  color: var(--kendo-color-primary, #0d6efd);
+}
+
+.theme-selector {
+  align-items: center;
+  display: flex;
+  gap: .5rem;
+}
+
+.theme-selector label {
+  margin-bottom: 0;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+.app-footer {
+  background-color: var(--kendo-color-surface, var(--kendo-color-app-surface, #fff));
+  border-top: 1px solid var(--kendo-color-border, #e5e5e5);
+  color: var(--kendo-color-subtle, var(--kendo-color-on-app-surface, #6c757d));
 }

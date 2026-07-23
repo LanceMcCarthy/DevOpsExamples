@@ -11,9 +11,13 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-    <link id="telerik-theme" rel="stylesheet preload" as="style" type="text/css" href="https://unpkg.com/@@progress/kendo-theme-default@11.0.2/dist/all.css" />
+    <link id="telerik-theme" rel="stylesheet" href="https://unpkg.com/@@progress/kendo-theme-default@@11.0.2/dist/default-main.css" />
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-font-icons/font-icons.css" />
+    
+    <link href="_content/Telerik.ReportViewer.BlazorNative/css/reporting-blazor-viewer.css" rel="stylesheet" />
+    <script src="_content/Telerik.ReportViewer.BlazorNative/js/reporting-blazor-viewer.js"></script>
 </head>
-<body>
+<body class="k-body">
     <component type="typeof(App)" render-mode="Server" />
 
     <div id="blazor-error-ui" class="text-center">

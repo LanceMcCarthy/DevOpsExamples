@@ -1,31 +1,12 @@
-﻿@implements IDisposable
-
-@using MyBlazorApp.Models
+﻿@using MyBlazorApp.Models
 @using MyBlazorApp.Services
 
-@inject IJSRuntime Js
 @inject DashboardDataService DataService
 
 <div class="k-body" style="padding:2em;">
-    <label>
-        Select a Telerik theme:
-        <TelerikDropDownList Data="@ThemeData"
-                             Value="@ThemeSwatchValue"
-                             ValueChanged="@ThemeSwatchValueChanged"
-                             TItem="@ThemeModel"
-                             TValue="@int"
-                             ValueField="@nameof(ThemeModel.Id)"
-                             TextField="@nameof(ThemeModel.FullName)"
-                             Width="240px">
-        </TelerikDropDownList>
-    </label>
-
-    <TelerikLoader Visible="@LoaderVisible" />
-
-    <br/><br/>
-
     <TelerikChart @ref="@ChartRef"
-                  Height="240px">
+                  Height="300px">
+        <ChartTitle Text="Telerik Chart"/>
         <ChartSeriesItems>
             <ChartSeries Type="ChartSeriesType.Line"
                          Data="@Series1Data"
@@ -46,26 +27,20 @@
                          Name="Product 3">
             </ChartSeries>
         </ChartSeriesItems>
-
         <ChartCategoryAxes>
-            <ChartCategoryAxis Type="@ChartCategoryAxisType.Date"></ChartCategoryAxis>
+            <ChartCategoryAxis Type="@ChartCategoryAxisType.Date"/>
         </ChartCategoryAxes>
-
         <ChartValueAxes>
             <ChartValueAxis Max="600">
                 <ChartValueAxisLabels Format="c2" />
             </ChartValueAxis>
         </ChartValueAxes>
-
-        <ChartTitle Text="Telerik Chart"></ChartTitle>
-
-        <ChartLegend Position="ChartLegendPosition.Right">
-        </ChartLegend>
+        <ChartLegend Position="ChartLegendPosition.Right"/>
     </TelerikChart>
 
     <TelerikGrid Data="@Podcasts"
                  Sortable="true"
-                 Height="100%"
+                 Height="300px"
                  Pageable="false"
                  ScrollMode="@GridScrollMode.Scrollable"
                  SortMode="SortMode.Single"
@@ -78,4 +53,3 @@
         </GridColumns>
     </TelerikGrid>
 </div>
-

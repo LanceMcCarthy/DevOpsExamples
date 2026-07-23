@@ -1,0 +1,13 @@
+@page "/reports"
+
+<div class="k-body" style="padding:2em;">
+    <ReportViewer ServiceType="@ReportViewerServiceType.REST"
+                  ServiceUrl="/api/reports"
+                  @bind-ReportSource="@ReportSource"
+                  @bind-ScaleMode="@ScaleMode"
+                  @bind-ViewMode="@ViewMode"
+                  @bind-ParametersAreaVisible="@ParametersAreaVisible"
+                  @bind-DocumentMapVisible="@DocumentMapVisible"
+                  @bind-Scale="@Scale">
+    </ReportViewer>
+</div>

@@ -1,0 +1,26 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net;
+using System.Net.Mail;
+using Telerik.Reporting.Services;
+using Telerik.Reporting.Services.AspNetCore;
+
+namespace MyBlazorApp.Controllers;
+
+[Route("api/reports")]
+[ApiController]
+public class ReportsController(IReportServiceConfiguration reportServiceConfiguration) : ReportsControllerBase(reportServiceConfiguration)
+{
+    protected override HttpStatusCode SendMailMessage(MailMessage mailMessage)
+    {
+        throw new NotImplementedException("This method should be implemented in order to send mail messages");
+
+        // using (var smtpClient = new SmtpClient("smtp01.mycompany.com", 25))
+        // {
+        //     smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        //     smtpClient.EnableSsl = false;
+        //     smtpClient.Send(mailMessage);
+        // }
+        // return HttpStatusCode.OK;
+    }
+}

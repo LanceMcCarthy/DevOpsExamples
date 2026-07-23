@@ -3,10 +3,22 @@
     <TargetFramework>net10.0</TargetFramework>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Reports\Barcodes.trdp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\Barcodes.trdp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
     <PackageReference Include="Telerik.Licensing" Version="1.8.2" />
+    <PackageReference Include="Telerik.Reporting" Version="20.1.26.707" />
+    <PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="20.1.26.707" />
+    <PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="20.1.26.707" />
+    <PackageReference Include="Telerik.ReportViewer.BlazorNative" Version="20.1.26.707" />
     <PackageReference Include="Telerik.UI.for.Blazor" Version="14.1.0" />
     <PackageReference Include="Telerik.Drawing.Skia" Version="20.1.26.707" />
   </ItemGroup>

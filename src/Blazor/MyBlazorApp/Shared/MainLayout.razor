@@ -1,21 +1,46 @@
 ﻿@layout TelerikLayout
 
+@using MyBlazorApp.Models
+
 @inherits LayoutComponentBase
 
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm app-navbar box-shadow mb-3">
         <div class="container">
             <NavLink class="navbar-brand" href="/">MyBlazorApp</NavLink>
+            <ul class="nav nav-tabs app-tabs">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Main</NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/reports">Report Viewer</NavLink>
+                </li>
+            </ul>
+            <div class="theme-selector ms-auto">
+                <label for="theme-select">Theme</label>
+                <TelerikDropDownList Id="theme-select"
+                                     Data="@ThemeData"
+                                     Value="@ThemeSwatchValue"
+                                     ValueChanged="@ThemeSwatchValueChanged"
+                                     TItem="@ThemeModel"
+                                     TValue="@int"
+                                     ValueField="@nameof(ThemeModel.Id)"
+                                     TextField="@nameof(ThemeModel.FullName)"
+                                     Width="220px">
+                </TelerikDropDownList>
+                <TelerikLoader Visible="@LoaderVisible" />
+            </div>
         </div>
     </nav>
 </header>
-<div>
-    <main role="main" class="pb-3">
-        @Body
-    </main>
-</div>
 
-<footer class="border-top footer text-muted">
+<TelerikRootComponent>
+    <CascadingValue Value="@ThemeVersion" Name="ThemeVersion">
+        @Body
+    </CascadingValue>
+</TelerikRootComponent>
+
+<footer class="footer app-footer">
     <div class="container">
         &copy; @DateTime.Now.Year - MyBlazorApp
     </div>
