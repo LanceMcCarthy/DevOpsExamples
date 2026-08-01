@@ -32,8 +32,8 @@
     "@progress/kendo-angular-popup": "24.1.0",
     "@progress/kendo-licensing": "^1.11.2",
     "@progress/kendo-svg-icons": "^5.1.0",
-    "@progress/kendo-theme-default": "^14.2.0",
-    "pdfjs-dist": "^6.1.200",
+    "@progress/kendo-theme-default": "^14.4.0",
+    "pdfjs-dist": "^6.2.108",
     "rxjs": "~7.8.2",
     "tslib": "^2.8.1",
     "zone.js": "~0.16.2"
@@ -49,6 +49,6 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.2.0",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   }
 }
