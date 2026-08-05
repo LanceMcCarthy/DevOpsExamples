@@ -6,6 +6,8 @@ updates:
     directory: "/src/Kendo/angular_demo"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
