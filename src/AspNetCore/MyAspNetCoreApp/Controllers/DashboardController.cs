@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using MyAspNetCoreApp.Models;
 using Telerik.Documents.Common.Model;
 using Telerik.Documents.Media;
-using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
-using Telerik.Windows.Documents.Spreadsheet.Model;
+using Telerik.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
+using Telerik.Documents.Spreadsheet.Model;
 
 namespace MyAspNetCoreApp.Controllers;
 
