@@ -10,9 +10,8 @@ variables:
   buildConfiguration: 'Release'
   nugetConfigPath: 'src/NuGet.Config'
   # These pipeline secret veriables have been set using the AzDO yaml editor at dev.azure.com.
-  # AKEYLESS_ACCESS_ID
   # MY_TELERIK_NUGET_KEY
-  # DEPLOYMENT_KEY_FOR_XXXXXX
+  # DEPLOYMENT_KEY_FOR_XYZ
 
 stages:
 - stage: NodeBuilds
@@ -41,6 +40,7 @@ stages:
 
 - stage: ConsoleBuilds
   displayName: 'Console projects'
+  dependsOn: []
   jobs:
   # **************** CONSOLE (normal and akeyless matrix) **************** #
   - job: BuildConsoleApp
@@ -58,10 +58,18 @@ stages:
           deploymentKey: $(Akeyless1.TK_DEPLOYMENT_KEY)
       maxParallel: 2
     steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: $(DOTNET_SDK_VERSION)
+
+    - powershell: rm $(nugetConfigPath)
+      displayName: 'Delete nuget.config, DPL packages are on nuget.org now'
+
+    # [Akeyless Matrix Only] Get an auth token from 'azure_jwt' output var
     - task: AzureCLI@2
       displayName: 'Get JWT from Azure Service Principal'
       name: 'AzureCLI'
-      # Auth token available in 'azure_jwt' output variable
       inputs:
         azureSubscription: 'Azure MSA Account'
         scriptType: ps
@@ -71,7 +79,8 @@ stages:
           echo "##vso[task.setvariable variable=azure_jwt;isoutput=true;issecret=true]$JWT"
       condition: eq(variables['strategyName'], 'akeyless')
 
-    - task: akeyless-secrets@1 # Getting started https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
+    # [Akeyless Matrix Only] Task docs https://github.com/LanceMcCarthy/akeyless-extension-azdo/blob/main/docs/getting-started.md
+    - task: akeyless-secrets@1 
       name: 'Akeyless1'
       displayName: 'Get Secrets from Akeyless'
       inputs:
@@ -79,14 +88,6 @@ stages:
         azureJwt: '$(AzureCLI.azure_jwt)'
         staticSecrets: '{"/progress/DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING":"TK_DEPLOYMENT_KEY"}'
       condition: eq(variables['strategyName'], 'akeyless')
-
-    - task: UseDotNet@2
-      inputs:
-        packageType: 'sdk'
-        version: $(DOTNET_SDK_VERSION)
-
-    - powershell: rm $(nugetConfigPath)
-      displayName: 'Delete nuget.config, DPL packages are on nuget.org now'
 
     - powershell: dotnet build $(projectPath)
       displayName: 'Build and Publish'
@@ -98,7 +99,7 @@ stages:
 
 - stage: WebBuilds
   displayName: '.NET Web projects'
-  dependsOn: [] 
+  dependsOn: []
   jobs:
   # **************** BLAZOR **************** #
   - job: BuildBlazorApp
@@ -142,13 +143,13 @@ stages:
 
     - powershell: dotnet restore $(projectPath) --configfile $(nugetConfigPath)
       displayName: 'Restore NuGet Packages'
-      
+
     - powershell: dotnet build $(projectPath) --no-restore
       displayName: 'Build the project'
       env:
         TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_ASPNETCORE_AND_REPORTING)
 
-  # **************** ASP.NET AJAX (SecureFile) **************** #
+  # **************** ASP.NET AJAX **************** #
 
   - job: BuildAjaxApp
     pool:
@@ -161,7 +162,7 @@ stages:
       inputs:
         versionSpec: '5.x'
 
-    # NuGet Auth - Option 1, use Task and Service connection
+    # Telerik NuGet Option 1, use Task and Service connection
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
       inputs:
@@ -170,7 +171,7 @@ stages:
         nugetConfigPath: $(nugetConfigPath)
         externalFeedCredentials: 'Telerik_v3'
 
-    # NuGet Auth - Option 2, use CLI
+    # Telerik NuGet Option 2, use CLI
     #- powershell: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
     #  displayName: 'Update Package Source Credentials'
 
@@ -186,8 +187,8 @@ stages:
 
 # ---------------------------------------------------------------------------- #
 
-- stage: DesktopMobileBuilds
-  displayName: 'Desktop and Mobile projects'
+- stage: DesktopBuilds
+  displayName: 'Desktop app projects'
   dependsOn: []
   jobs:
   # **************** WinUI **************** #
@@ -222,12 +223,67 @@ stages:
         /p:AppxPackageSigningEnabled=false
       displayName: 'Build and Create MSIX'
       env:
-        TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY)
+        TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_WINUI)
 
+  # **************** WPF **************** #
+
+  - job: BuildWpfApp
+    pool:
+      vmImage: windows-latest
+    variables:
+      projectPath: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: $(DOTNET_SDK_VERSION)
+
+    - task: MSBuild@1
+      displayName: 'Build project'
+      inputs:
+        solution: '$(projectPath)'
+        msbuildArchitecture: 'x64'
+        platform: 'x64'
+        configuration: '$(buildConfiguration)'
+        msbuildArguments: '/p:RestorePackages=true'
+      env:
+        TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_WPF)
+
+  # **************** WinForms **************** #
+
+  - job: BuildWinFormsApp
+    pool:
+      vmImage: windows-latest
+    variables:
+      projectPath: 'src/WinForms/MyWinFormsApp/MyWinFormsApp.csproj'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: $(DOTNET_SDK_VERSION)
+
+    - task: MSBuild@1
+      displayName: 'Build project'
+      inputs:
+        solution: '$(projectPath)'
+        msbuildArchitecture: 'x64'
+        platform: 'x64'
+        configuration: '$(buildConfiguration)'
+        msbuildArguments: '/p:RestorePackages=true'
+      env:
+        TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_WINFORMS)
+
+# ---------------------------------------------------------------------------- #
+
+- stage: MobileBuilds
+  displayName: 'Mobile app projects'
+  dependsOn: []
+  jobs:
   # **************** .NET MAUI **************** #
-  # Runners https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops
-  
   - job: BuildMauiApp
+    pool:
+      # Hosted Agents https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops
+      vmImage: $(imageName)
     variables:
       projectPath: 'src/MAUI/MauiDemo.csproj'
       xcodeVersion: '26.6'
@@ -250,8 +306,6 @@ stages:
           imageName: 'macOS-26'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
       maxParallel: 4
-    pool:
-      vmImage: $(imageName)
     steps:
     - task: UseDotNet@2
       inputs:
@@ -267,57 +321,12 @@ stages:
       condition: or(eq(variables['strategyName'], 'ios'), eq(variables['strategyName'], 'maccatalyst'))
 
     - powershell: rm $(nugetConfigPath)
-      displayName: 'Delete nuget.config, packages are on nuget.org now'
+      displayName: 'Delete nuget.config, UI for MAUI packages are available on nuget.org now'
 
     - powershell: dotnet workload install maui
       displayName: 'Install maui workloads'
-      
+
     - powershell: $(buildCommand)
       displayName: 'Build $(TFM)'
       env:
         TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_MAUI)
-
-  # **************** WPF & WinForms (matrix) **************** #
-
-  - job: BuildWpfApp
-    strategy:
-      matrix:
-        wpf:
-          name: 'UI for WPF project'
-          projectPath: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
-          deploymentKey: $(DEPLOYMENT_KEY_FOR_WPF)
-        winforms:
-          name: 'UI for WinForms project'
-          projectPath: 'src/WinForms/MyWinFormsApp/MyWinFormsApp.csproj'
-          deplymentKey: $(DEPLOYMENT_KEY_FOR_WINFORMS)
-      maxParallel: 2
-    pool:
-      vmImage: windows-latest
-    steps:
-    - task: UseDotNet@2
-      inputs:
-        packageType: 'sdk'
-        version: $(DOTNET_SDK_VERSION)
-
-    - task: NuGetToolInstaller@1
-      displayName: 'Use NuGet.exe'
-      inputs:
-        versionSpec: '5.x'
-
-    - task: NuGetCommand@2
-      displayName: 'NuGet restore'
-      inputs:
-        restoreSolution: $(projectPath)
-        feedsToUse: config
-        nugetConfigPath: $(nugetConfigPath)
-        externalFeedCredentials: 'Telerik_v3'
-
-    - task: MSBuild@1
-      displayName: 'Build $(name)'
-      inputs:
-        solution: $(projectPath)
-        platform: 'x64'
-        configuration: 'Debug'
-        msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
-      env:
-        TELERIK_LICENSE: $(deploymentKey)
