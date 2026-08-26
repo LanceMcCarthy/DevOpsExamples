@@ -101,7 +101,7 @@ stages:
     - powershell: rm $(nugetConfigPath)
       displayName: 'Delete nuget.config, DPL packages are on nuget.org now'
 
-    - powershell: dotnet publish $(projectPath) -o /app/publish /p:UseAppHost=false --no-restore
+    - powershell: dotnet publish $(projectPath) -o /app/publish /p:UseAppHost=false
       displayName: 'Build and Publish'
       env:
         TELERIK_LICENSE: $(deploymentKey)
@@ -125,8 +125,9 @@ stages:
         packageType: 'sdk'
         version: $(DOTNET_SDK_VERSION)
 
-    - powershell: rm $(nugetConfigPath)
-      displayName: 'Delete nuget.config, packages are on nuget.org now'
+    # Still need nuget.telerik.com because of Telerik Reporting
+    - powershell: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u 'api-key' -p '$(MY_TELERIK_NUGET_KEY)' --store-password-in-clear-text --configfile $(nugetConfigPath)
+      displayName: 'Update Package Source Credentials'
 
     - powershell: dotnet restore $(projectPath)
       displayName: 'Restore NuGet Packages'
@@ -173,7 +174,7 @@ stages:
       inputs:
         versionSpec: '5.x'
 
-    # NuGet Auth - Option 1
+    # NuGet Auth - Option 1, use Task and Service connection
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
       inputs:
@@ -182,18 +183,14 @@ stages:
         nugetConfigPath: $(nugetConfigPath)
         externalFeedCredentials: 'Telerik_v3'
 
-    # NuGet Auth - Option 2
-    # You could also use nuget.exe's update command to set the credentials of the 'Telerik_v3_Feed' source defined in the nuget.config
-    # - task: PowerShell@2
-    #   displayName: 'Set Package Source Credentials'
-    #   inputs:
-    #     targetType: 'inline'
-    #     script: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+    # NuGet Auth - Option 2, use CLI
+    #- powershell: nuget sources update -Name 'Telerik_v3_Feed' -Source 'https://nuget.telerik.com/v3/index.json' -Username 'api-key' -Password '$(MY_TELERIK_NUGET_KEY)' -ConfigFile '$(nugetConfigPath)' -StorePasswordInClearText
+    #  displayName: 'Update Package Source Credentials'
 
     - task: MSBuild@1
       displayName: 'Build AJAX Project'
       inputs:
-        solution: '$(ajaxProjectPath)'
+        solution: '$(projectPath)'
         platform: Any CPU
         configuration: Release
         msbuildArguments: '/t:Restore /p:Configuration=Release /p:RuntimeIdentifier=any'
