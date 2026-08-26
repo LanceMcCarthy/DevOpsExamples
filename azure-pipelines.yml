@@ -94,7 +94,6 @@ stages:
       env:
         TELERIK_LICENSE: $(deploymentKey)
 
-
 # ---------------------------------------------------------------------------- #
 
 - stage: WebBuilds
@@ -232,11 +231,18 @@ stages:
       vmImage: windows-latest
     variables:
       projectPath: 'src/Wpf/MyWpfApp/MyWpfApp.csproj'
+      rid: win-x64
     steps:
     - task: UseDotNet@2
       inputs:
         packageType: 'sdk'
         version: $(DOTNET_SDK_VERSION)
+
+    - powershell: rm $(nugetConfigPath)
+      displayName: 'Delete nuget.config, packages are available on nuget.org'
+
+    - powershell: dotnet restore $(projectPath) -r $(rid)
+      displayName: 'Restore packages'
 
     - task: MSBuild@1
       displayName: 'Build project'
@@ -244,7 +250,7 @@ stages:
         solution: '$(projectPath)'
         platform: 'x64'
         configuration: $(buildConfiguration)
-        msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
+        msbuildArguments: '/p:Restore=false /p:RuntimeIdentifier=$(rid) /p:OutputPath=$(Build.artifactStagingDirectory)'
       env:
         TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_WPF)
 
@@ -255,11 +261,18 @@ stages:
       vmImage: windows-latest
     variables:
       projectPath: 'src/WinForms/MyWinFormsApp/MyWinFormsApp.csproj'
+      rid: win-x64
     steps:
     - task: UseDotNet@2
       inputs:
         packageType: 'sdk'
         version: $(DOTNET_SDK_VERSION)
+
+    - powershell: rm $(nugetConfigPath)
+      displayName: 'Delete nuget.config, packages are available on nuget.org'
+
+    - powershell: dotnet restore $(projectPath) -r $(rid)
+      displayName: 'Restore packages'
 
     - task: MSBuild@1
       displayName: 'Build project'
@@ -267,7 +280,7 @@ stages:
         solution: '$(projectPath)'
         platform: 'x64'
         configuration: $(buildConfiguration)
-        msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
+        msbuildArguments: '/p:Restore=false /p:RuntimeIdentifier=$(rid) /p:OutputPath=$(Build.artifactStagingDirectory)'
       env:
         TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_WINFORMS)
 
@@ -328,3 +341,5 @@ stages:
       displayName: 'Build $(TFM)'
       env:
         TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_MAUI)
+
+# ---------------------------------------------------------------------------- #
