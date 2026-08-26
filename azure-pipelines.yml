@@ -265,7 +265,7 @@ stages:
     - powershell: rm $(nugetConfigPath)
       displayName: 'Delete nuget.config, packages are available on nuget.org'
 
-    - powershell: dotnet restore $(projectPath)
+    - powershell: dotnet restore $(projectPath) /p:RuntimeIdentifier=win-x86
       displayName: 'Restore packages'
 
     - task: MSBuild@1
@@ -285,7 +285,6 @@ stages:
       vmImage: windows-latest
     variables:
       projectPath: 'src/WinForms/MyWinFormsApp/MyWinFormsApp.csproj'
-      rid: win-x64
     steps:
     - task: UseDotNet@2
       inputs:
@@ -295,7 +294,7 @@ stages:
     - powershell: rm $(nugetConfigPath)
       displayName: 'Delete nuget.config, packages are available on nuget.org'
 
-    - powershell: dotnet restore $(projectPath)
+    - powershell: dotnet restore $(projectPath) /p:RuntimeIdentifier=win-x86
       displayName: 'Restore packages'
 
     - task: MSBuild@1
