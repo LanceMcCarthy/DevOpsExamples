@@ -66,7 +66,7 @@ jobs:
         push: true
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
-          telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
+          telerik-license-key=${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}
         tags: |
           ${{steps.meta.outputs.tags}}
           ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{steps.tag-creator.outputs.VERSION_TAG}}
@@ -136,7 +136,7 @@ jobs:
   #         --no-restore
   #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
   #     env:
-  #       TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+  #       TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}
 
   # # Builds the lancemccarthy/myblazorapp:latest-arm64 image
   # build_arm64:
@@ -184,7 +184,7 @@ jobs:
   #         --no-restore
   #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
   #     env:
-  #       TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+  #       TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}
 
   # # Create a manifest to combine both images into a single "lancemccarthy/myblazorapp:latest" tag
   # publish_combined_manifest:

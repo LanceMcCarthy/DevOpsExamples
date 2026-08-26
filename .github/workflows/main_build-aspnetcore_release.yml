@@ -11,7 +11,7 @@ env:
   ARTIFACTS_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp/artifacts"
   TELERIK_USERNAME: "api-key"
   TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+  TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_ASPNETCORE_AND_REPORTING}}
 
 jobs:
   build_windows:

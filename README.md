@@ -18,6 +18,10 @@ Although I use Telerik's NuGet server in these demos, the approach works for any
   - [Example: Using Telerik NuGet Keys](https://github.com/LanceMcCarthy/DevOpsExamples#using-telerik-nuget-keys)
   - [Dockerfile: Using Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#dockerfile-using-secrets)
   - [Telerik License Approaches](https://github.com/LanceMcCarthy/DevOpsExamples#telerik-license-approaches)
+    - [Deployment Key in GitHub Actions](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-github-actions)
+    - [Deployment Key in GitLab CI](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-gitlab-ci)
+    - [Deployment Key in Azure YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-yaml-pipeline)
+    - [Deployment Key in Azure Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-classic-pipeline)
 - Related Blog Posts
   - [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
   - [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
@@ -210,127 +214,63 @@ ENTRYPOINT ["dotnet", "MyBlazorApp.dll"]
 
 ### Telerik License Approaches
 
-Depending on how you're building our code, there are several ways to introduce the Telerik License Key at the right time for the build. Let me show you two; variable and file.
+With introduction of [Deployment Keys](https://www.telerik.com/account/downloads/deployment-keys), you can now generate a small license key with only the products you need in it. 
 
-- [Approach 1 - Using an Environment Variable](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-1---using-a-variable)
-- [Approach 2 - Using a License File](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#approach-2---using-a-file)
-  - [In a YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#yaml-pipeline)
-  - [In a Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples?tab=readme-ov-file#classic-pipeline)
-    - [Approach 1 - Using a Variable](https://github.com/LanceMcCarthy/DevOpsExamples#approach-1---using-a-variable)
-    - [Approach 2 - Using a File](https://github.com/LanceMcCarthy/DevOpsExamples#approach-2---using-a-file)
-      - [Secure File - YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#secure-file---yaml-pipeline)
-      - [Secure File - Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#secure-file---classic-pipeline)
-        - [Scenario 1 - Task With Env Vars Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-1---task-with-env-var-inputs)
-        - [Scenario 2 - Task Without Env Var Inputs](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-2---task-without-env-var-inputs)
-        - [Scenario 3 - Move Secure File](https://github.com/LanceMcCarthy/DevOpsExamples#scenario-3---move-secure-file)
+This much smaller key value will meet even the smallest of CI system's variable size limits
+You can now generate a very small JWT that contains only the products you need, drastically reducing the key size.
 
-#### Approach 1 - Using a Variable
+1. Go to https://www.telerik.com/account/downloads/deployment-keys
+2. Click "Add Application" and select only the products that the project uses
+    - <img width="350" alt="classic pipeline secrets" src="https://github.com/user-attachments/assets/fb22efda-2e3b-4a5d-aa22-1424e4a3835a" />
+3. Once saved, click "COPY KEY" and paste it into a secret pipeline variable (e.g. `BLAZOR_REPORTING_DEPLOYMENT_KEY`)
+4. Set the `TELERIK_LICENSE` environment variable at build time. Here are some examples:
+    - [GitHub Actions](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-github-actions)
+    - [GitLab CI](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-gitlab-ci)
+    - [Azure YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-yaml-pipeline)
+    - [Azure Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-classic-pipeline)
 
-This is by far the easiest and safest way. You can use a secret (GitHub Action secret or AzDO Variable secret) and set the `TELERIK_LICENSE` environment variable before the project is compiled.
 
-In a YAML workflow/pipeline, you can set the environment variable at the beginning of the job or on a step that needs it.
+#### Deployment Key in GitHub Actions
 
-GH Actions
-```yaml
-  - run: dotnet publish MyApp.csproj -o /app/publish /p:UseAppHost=false --no-restore
-    env:
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
-```
-
-Azure Pipelines YAML
+1. In the repo's Actions settings, create a new secret named `BLAZOR_REPORTING_DEPLOYMENT_KEY` with the value in your clipboard
+2. In the YAML, set the `TELERIK_LICENSE` environment variable to `${{secrets.BLAZOR_REPORTING_DEPLOYMENT_KEY}}`.
 
 ```yaml
-  - powershell: dotnet publish MyApp.csproj -o /app/publish /p:UseAppHost=false --no-restore
-    displayName: 'Build and publish the project'
+  - run: dotnet publish MyApp.csproj -o /app/publish
     env:
-      TELERIK_LICENSE: $(MY_TELERIK_LICENSE_KEY) # AzDO pipeline secret variable
+      TELERIK_LICENSE: ${{secrets.BLAZOR_REPORTING_DEPLOYMENT_KEY}}
 ```
 
-If you're using classic pipelines, you can use a pipeline variable:
+#### Deployment Key in GitLab CI
+
+1. Go into the project's settings, then CI, and create a `BLAZOR_REPORTING_DEPLOYMENT_KEY` secret.
+2. In the YAML, set the set the `TELERIK_LICENSE` environment variable to `$BLAZOR_REPORTING_DEPLOYMENT_KEY`.
+
+```yaml
+build-blazor-app:
+  tags:
+    - saas-windows-medium-amd64
+  variables:
+    TELERIK_LICENSE: $BLAZOR_REPORTING_DEPLOYMENT_KEY
+  script:
+    - |
+      dotnet publish MyApp.csproj -o /app/publish
+      ...
+```
+
+#### Deployment Key in Azure YAML Pipeline
+
+1. Open the Variables pane in the YAML editor, and create a new secret pipeline variable `BLAZOR_REPORTING_DEPLOYMENT_KEY`
+2. In the YAML, set the `TELERIK_LICENSE` environment variable to `$(BLAZOR_REPORTING_DEPLOYMENT_KEY)`
+
+```yaml
+  - powershell: dotnet publish MyApp.csproj -o /app/publish
+    env:
+      TELERIK_LICENSE: $(BLAZOR_REPORTING_DEPLOYMENT_KEY) # AzDO pipeline **secret** variable
+```
+
+#### Deployment Key in Azure Classic Pipeline
+
+1. In classic pipelines, you can directly set the `TELERIK_LICENSE` variable and click the lock 🔒 icon to make it a secret.
 
 ![Image](https://github.com/user-attachments/assets/bcdcc8c3-8ec7-43af-8452-4bace4e8ee83)
-
-> [!IMPORTANT]
-> License key length - If you are using a Library **Variable Group**, there is a character limit for the variable values. The only way to have a long value in the Variable Group is to link it from Azure KeyVault. If you cannot use Azure KeyVault, then use a normal pipeline variable instead (seen above) or use the Secure File approach instead (see below).
-
-
-#### Approach 2 - Using a File
-
-You have two options for a file-base option. Set the TELERIK_LICENSE_PATH variable or add a file named **telerik-license.txt** to the project directory. The licensing runtime will do a recursive check from the project directory to root, and then finally %appdata%/telerik/.
-
-On Azure DevOps, there is a powerful feature called Secure Files. It lets you upload a file and then use it in a pipeline. Go to your Library tab, then select Secure File. After you've uploaded the Secure File to your Azure DevOps project, you can use it in a pipeline.
-
-Here are several ways to use that Secure File.
-
-> [!CAUTION]
-> Never include the **telerik-license.txt** file inside your application/docker image!
-
-##### YAML Pipeline
-
-With a YAML pipeline, you can use the **DownloadSecureFile@1** task, then use `$(name.secureFilePath)` to reference it. For example:
-
-```yaml
-  - task: DownloadSecureFile@1
-    name: DownloadTelerikLicenseFile # defining the 'name' is important
-    displayName: 'Download Telerik License Key File'
-    inputs:
-      secureFile: 'telerik-license.txt'
-
-  - task: MSBuild@1
-    displayName: 'Build Project'
-    inputs:
-      solution: 'myapp.csproj'
-      platform: Any CPU
-      configuration: Release
-      msbuildArguments: '/p:RestorePackages=false'
-    env:
-      # use the name.secureFilePath value to set the special TELERIK_LICENSE_PATH
-      TELERIK_LICENSE_PATH: $(DownloadTelerikLicenseFile.secureFilePath) 
-```
-
-##### Classic Pipeline
-
-With a classic pipeline, you can use the same `DownloadSecureFile` Task
-
-![Image](https://github.com/user-attachments/assets/8c9f0aa4-0ef8-48a9-9805-b0686db1109c)
-
-> [!IMPORTANT]
-> Make sure you set the **reference name** which gets prefixed to the `.secureFilePath` output variable.
-
-###### Scenario 1 - Task With Env Var Inputs
-
-With the secure file downloaded to the runner, you can now set the **TELERIK_LICENSE_PATH** variable using `$(telerik.secureFilePath)`.
-
-<img width="700" alt="image" src="https://github.com/user-attachments/assets/e6bb5425-a721-4307-9837-0ef2e6f8cefa" />
-
-###### Scenario 2 - Task Without Env Var Inputs
-
-Not all AzDO tasks have the "Environment variables" section (e.g. MsBuild task doesn't have it). To solve this, you can set a pipeline variable before that task. Using the secure file 
-
-1. Add a new Powershell or Bash task (_after_ the Download Secure File task)
-2. Set the **TELERIK_LICENSE_PATH** using `task.setvariable` command with `issecret=true`and the secure file task's output variable
-  ```powershell
-  # If using Powershell
-  Write-Host "##vso[task.setvariable variable=TELERIK_LICENSE_PATH;issecret=true]$(telerik.secureFilePath)"
-
-  # If using Bash
-  echo "##vso[task.setvariable variable=TELERIK_LICENSE_PATH;issecret=true]$(telerik.secureFilePath)"
-  ```
-
-<img width="700" alt="image" src="https://github.com/user-attachments/assets/9f1bcecd-a2d2-45f2-95b6-76bdfbda6516" />
-
-###### Scenario 3 - Move Secure File
-
-If you have nay trouble with the TELERIK_LICENSE_PATH variable, you can just simply move the file to the root build directory.
-
-1. Add a new Powershell or Bash task (_after_ the Download Secure File task)
-  ```powershell
-  Move-Item -Path "$(telerik.secureFilePath)" -Destination "$(Build.Repository.LocalPath)/telerik-license.txt" -Force
-  ```
-2. Build the code
-3. Delete the file (so you don't accidentally include it in your distribution)
-  ```powershell
-  Remove-Item -Path "$(Build.Repository.LocalPath)/telerik-license.txt" -Force
-  ```
-
-As you can see, there are a wide range of options. The one you choose highly depends on your environment and CI requirements.

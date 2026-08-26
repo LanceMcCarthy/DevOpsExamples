@@ -37,4 +37,4 @@ jobs:
         #4. Build the project
         npm run build  --prod
     env:
-      TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+      TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_ANGULAR}}

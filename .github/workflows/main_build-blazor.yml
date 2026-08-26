@@ -23,7 +23,7 @@ jobs:
           - windows-latest
         source:
           - telerik_nuget
-          #- public_nuget  #temporarily commented out while Telerik.Drawing.Skia is missing from nuget.org
+          #- public_nuget  # Enable once Telerik.Reporting and Telerik.Drawing.Skia is available on nuget.org
     env:
       CONFIGURATION: Release
       PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
@@ -56,4 +56,4 @@ jobs:
     - name: "🧪 Build Test Project"
       run: dotnet build ${{env.PROJ_PATH}} -c ${{env.CONFIGURATION}} --no-restore
       env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+        TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}

@@ -36,6 +36,6 @@ jobs:
         dotnet-version: '10.0.x'
 
     - name: "🔨 Build project"
-      run: dotnet build ${{env.CSPROJ_PATH}} --configuration ${{env.BUILD_CONFIGURATION}} --runtime ${{matrix.os}}-${{matrix.config}}
+      run: dotnet build ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -r ${{matrix.os}}-${{matrix.config}}
       env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+        TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_WINUI}} # Document Processing Libraries are included with every .NET product license

@@ -62,15 +62,15 @@ private async void OnRenderPngClicked(object? sender, EventArgs e)
 private async Task GeneratePdf(string imagePath, string pdfPath)
 {
     // Create a new, blank FixedDocument and add a page to it
-    var fixedDocument = new Telerik.Windows.Documents.Fixed.Model.RadFixedDocument();
+    var fixedDocument = new Telerik.Documents.Fixed.Model.RadFixedDocument();
     var fixedPage = fixedDocument.Pages.AddPage();
 
     // Create an Image object, set its source to the captured image, and add it to the page
-    var img = new Telerik.Windows.Documents.Fixed.Model.Objects.Image();
+    var img = new Telerik.Documents.Fixed.Model.Objects.Image();
 
     await using (FileStream fileStream = new FileStream(imagePath, FileMode.Open))
     {
-        img.ImageSource = new Telerik.Windows.Documents.Fixed.Model.Resources.ImageSource(fileStream);
+        img.ImageSource = new Telerik.Documents.Fixed.Model.Resources.ImageSource(fileStream);
 
         // Set image properties
         img.AlphaConstant = 0.5;
@@ -78,7 +78,7 @@ private async Task GeneratePdf(string imagePath, string pdfPath)
         img.Height = 200;
 
         // Set image location in the document
-        var simplePosition = new Telerik.Windows.Documents.Fixed.Model.Data.SimplePosition();
+        var simplePosition = new Telerik.Documents.Fixed.Model.Data.SimplePosition();
         simplePosition.Translate(200, 300);
         img.Position = simplePosition;
 
@@ -87,7 +87,7 @@ private async Task GeneratePdf(string imagePath, string pdfPath)
     }
 
     // Finally, use the PdfFormatProvider and export the FixedDocument to a PDF file
-    var pdfProvider = new Telerik.Windows.Documents.Fixed.FormatProviders.Pdf.PdfFormatProvider();
+    var pdfProvider = new Telerik.Documents.Fixed.FormatProviders.Pdf.PdfFormatProvider();
 
     await using (var output = File.OpenWrite(pdfPath))
     {

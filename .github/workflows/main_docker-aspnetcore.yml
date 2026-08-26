@@ -62,7 +62,7 @@ jobs:
         push: true
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
-          telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
+          telerik-license-key=${{secrets.DEPLOYMENT_KEY_FOR_ASPNETCORE_AND_REPORTING}}
         tags: |
           ${{steps.meta.outputs.tags}}
           ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{steps.tag-creator.outputs.VERSION_TAG}}
@@ -124,7 +124,7 @@ jobs:
         push: true
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
-          telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
+          telerik-license-key=${{secrets.DEPLOYMENT_KEY_FOR_ASPNETCORE_AND_REPORTING}}
         tags: ${{steps.meta.outputs.tags}}
 
 # ############################################################################
@@ -175,7 +175,7 @@ jobs:
   #       push: true
   #       secrets: |
   #         telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
-  #         telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
+  #         telerik-license-key=${{secrets.DEPLOYMENT_KEY_FOR_ASPNETCORE_AND_REPORTING}}
   #       tags: ${{steps.meta.outputs.tags}}
 
   #   - name: Delete old Docker images

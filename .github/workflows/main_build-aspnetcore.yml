@@ -34,8 +34,8 @@ jobs:
         access-id: 'p-4blpeo5zdfeaom'
         static-secrets: |
           {
-            "/progress/TELERIK_NUGET_KEY":"TELERIK_NUGET_KEY",
-            "/progress/TELERIK_LICENSE":"TELERIK_LICENSE_KEY"
+            "/progress/TELERIK_NUGET_KEY":"TK_NUGET_KEY",
+            "/progress/DEPLOYMENT_KEY_FOR_ASPNETCORE_AND_REPORTING":"TK_DEPLOYMENT_KEY"
           }
         export-secrets-to-outputs: true
         export-secrets-to-environment: false
@@ -49,9 +49,9 @@ jobs:
       run: dotnet restore ${{env.PROJECT_PATH}} --configfile ${{env.NUGETCONFIG_PATH}}
       env:
         TELERIK_USERNAME: "api-key"
-        TELERIK_PASSWORD: ${{steps.akeyless.outputs.TELERIK_NUGET_KEY}}
+        TELERIK_PASSWORD: ${{steps.akeyless.outputs.TK_NUGET_KEY}}
 
     - name: "🔨 Build ASP.NET Core Project"
       run: dotnet build ${{env.PROJECT_PATH}} -c Debug --no-restore
       env:
-        TELERIK_LICENSE: ${{steps.akeyless.outputs.TELERIK_LICENSE_KEY}}
+        TELERIK_LICENSE: ${{steps.akeyless.outputs.TK_DEPLOYMENT_KEY}}
