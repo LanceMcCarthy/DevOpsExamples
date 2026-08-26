@@ -242,10 +242,9 @@ stages:
       displayName: 'Build project'
       inputs:
         solution: '$(projectPath)'
-        msbuildArchitecture: 'x64'
         platform: 'x64'
-        configuration: '$(buildConfiguration)'
-        msbuildArguments: '/p:RestorePackages=true'
+        configuration: $(buildConfiguration)
+        msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
       env:
         TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_WPF)
 
@@ -266,10 +265,9 @@ stages:
       displayName: 'Build project'
       inputs:
         solution: '$(projectPath)'
-        msbuildArchitecture: 'x64'
         platform: 'x64'
-        configuration: '$(buildConfiguration)'
-        msbuildArguments: '/p:RestorePackages=true'
+        configuration: $(buildConfiguration)
+        msbuildArguments: '/p:RestorePackages=true /p:OutputPath=$(Build.artifactStagingDirectory)'
       env:
         TELERIK_LICENSE: $(DEPLOYMENT_KEY_FOR_WINFORMS)
 
