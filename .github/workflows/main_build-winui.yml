@@ -50,4 +50,4 @@ jobs:
           /p:AppxPackageSigningEnabled=false `
           /p:SelfContained=true 
       env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+        TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_WINUI}}

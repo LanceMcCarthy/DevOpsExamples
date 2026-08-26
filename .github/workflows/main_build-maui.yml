@@ -10,7 +10,6 @@ on:
       - '.github/workflows/main_build-maui.yml' 
 
 env:
-  TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   DOTNET_VERSION: 10.0.x
   XCODE_VERSION: '26.6'
@@ -40,8 +39,8 @@ jobs:
     - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
-    # Telerik.UI.for.Maui is available on nuget.org, so we can remove the telerik nuget server
-    - name: "🧹 Remove extra NuGet.Config"
+    # Telerik.UI.for.Maui is now available on the default nuget.org
+    - name: "🧹 Remove NuGet.Config"
       shell: pwsh
       run: Remove-Item src/NuGet.Config
 
@@ -92,3 +91,5 @@ jobs:
 
     - name: "🔨 Build project"
       run: dotnet build ${{steps.arg-builder.outputs.args}}
+      env:
+        TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_MAUI}}

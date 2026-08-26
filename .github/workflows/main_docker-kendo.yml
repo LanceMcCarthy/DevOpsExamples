@@ -53,7 +53,7 @@ jobs:
         push: true
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
-          telerik-license-key=${{secrets.TELERIK_LICENSE_KEY}}
+          telerik-license-key=${{secrets.DEPLOYMENT_KEY_FOR_ANGULAR}}
         tags: |
           ${{steps.meta.outputs.tags}}
           ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{steps.tag-creator.outputs.VERSION_TAG}}
@@ -68,6 +68,3 @@ jobs:
             curl -s -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAGG/"
           fi
         done
-
-    # - name: Trigger Portainer to pull images and redeploy the stack
-    #   run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_KENDO}}

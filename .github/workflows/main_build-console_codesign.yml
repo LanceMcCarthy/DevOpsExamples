@@ -29,21 +29,21 @@ jobs:
     - name: "⬇️ Checkout"
       uses: actions/checkout@v7
 
+    - name: "🧹 Remove dedicated NuGet.Config"
+      run: rm src/NuGet.Config
+
     - name: "🧰 Setup .NET SDK"
       uses: actions/setup-dotnet@v6
       with:
         dotnet-version: '10.0.x'
 
-    - name: "🔄 Update NuGet Package Sources"
-      run: dotnet nuget update source 'Telerik_v3_Feed' -s 'https://nuget.telerik.com/v3/index.json' -u "api-key" -p ${{secrets.TELERIK_NUGET_KEY}} --configfile ${{env.NUGETCONFIG_PATH}} --store-password-in-clear-text
-
     - name: "📥 Restore NuGet packages"
-      run: dotnet restore ${{env.CSPROJ_PATH}} --configfile ${{env.NUGETCONFIG_PATH}} --runtime ${{matrix.os}}-${{matrix.config}}
+      run: dotnet restore ${{env.CSPROJ_PATH}} -r ${{matrix.os}}-${{matrix.config}}
 
     - name: "🔨 Build project"
-      run: dotnet publish ${{env.CSPROJ_PATH}} --configuration ${{env.BUILD_CONFIGURATION}} --runtime ${{matrix.os}}-${{matrix.config}} --no-self-contained --no-restore --output ${{env.OUTPUT_DIR}}
+      run: dotnet publish ${{env.CSPROJ_PATH}} -c ${{env.BUILD_CONFIGURATION}} -r ${{matrix.os}}-${{matrix.config}} --no-self-contained --no-restore --output ${{env.OUTPUT_DIR}}
       env:
-        TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
+        TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_WINUI}} # Document Processing Libraries are included with every .NET product license
 
     - name: "📎 Attach artifacts"
       id: upload-artifact
