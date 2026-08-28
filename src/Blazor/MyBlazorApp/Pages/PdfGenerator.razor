@@ -1,0 +1,32 @@
+@page "/pdf-generator"
+
+<PageTitle>PDF Generator</PageTitle>
+
+<div class="container py-4">
+    <h1>PDF Generator</h1>
+    <p>Compose formatted content below, then generate and download it as a PDF file.</p>
+
+    <TelerikEditor @bind-Value="@HtmlBody" Height="400px" />
+
+    <div class="mt-3 d-flex align-items-center gap-2">
+        <TelerikButton OnClick="@GeneratePdfAsync"
+                       Enabled="@(!IsGenerating)"
+                       ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">
+            @(IsGenerating ? "Generating..." : "Generate PDF")
+        </TelerikButton>
+
+        <TelerikLoader Visible="@IsGenerating" />
+
+        @if (IsGenerating)
+        {
+            <span aria-live="polite">Generating your PDF...</span>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="alert alert-danger mt-3" role="alert">
+            @ErrorMessage
+        </div>
+    }
+</div>

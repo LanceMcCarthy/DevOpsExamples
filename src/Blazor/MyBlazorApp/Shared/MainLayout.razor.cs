@@ -40,7 +40,7 @@ public partial class MainLayout : IDisposable
     {
         if (firstRender)
         {
-            await Js.InvokeVoidAsync("saveDotNetRef", DotNetRef);
+            await Js.InvokeVoidAsync("themeSwitcher.saveDotNetRef", DotNetRef);
         }
     }
 
@@ -55,7 +55,7 @@ public partial class MainLayout : IDisposable
             theme.Theme.ToLowerInvariant(),
             theme.Swatch.ToLowerInvariant());
 
-        await Js.InvokeVoidAsync("changeTelerikTheme", themeUrl);
+        await Js.InvokeVoidAsync("themeSwitcher.changeTheme", themeUrl);
     }
 
     [JSInvokable]
