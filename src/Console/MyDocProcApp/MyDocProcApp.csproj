@@ -13,7 +13,7 @@
     <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.3.826" />
     <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2026.3.826" />
     <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2026.3.826" />
-    <PackageReference Include="Telerik.Licensing" Version="1.9.1" />
+    <PackageReference Include="Telerik.Licensing" Version="1.9.2" />
     <PackageReference Include="Telerik.Zip" Version="2026.3.826" />
   </ItemGroup>
 
