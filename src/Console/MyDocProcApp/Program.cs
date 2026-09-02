@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Timers;
 using Telerik.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
 using Telerik.Documents.Spreadsheet.Model;
-using Telerik.Zip;
+using CommonHelpers.Services;
 
 // See characters list below
 //var timerChars = new [] { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}; // style 1
-var timerChars = new [] { "⢹", "⢺", "⢼", "⣸", "⣇", "⡧", "⡗", "⡏"};  // style 2
+var timerChars = new[] { "⢹", "⢺", "⢼", "⣸", "⣇", "⡧", "⡗", "⡏" };  // style 2
 var lastCharIndex = 0;
 
 // Change the encoding to UTF8 for Unicode support
@@ -19,38 +18,122 @@ Console.CancelKeyPress += ConsoleCancelKeyPress;
 var timer = new Timer(250);
 timer.Elapsed += TimerElapsed;
 
-Console.WriteLine("Hello, would you like to create a workbook? [Y/y][N/n]:");
+Console.ForegroundColor = ConsoleColor.White;
+Console.WriteLine("Hello,what would you like to create:");
+
+Console.ForegroundColor = ConsoleColor.DarkGray;
+Console.WriteLine("  1. Excel workbook");
+Console.WriteLine("  2. UPC Barcode");
+Console.WriteLine("  3. QRCode");
+
+Console.ForegroundColor = ConsoleColor.White;
+Console.WriteLine("Enter the number for the item you want to generate or Ctrl +C to cancel.");
 
 var result = Console.ReadLine();
 
-if (result?.ToLower() == "y")
+switch (result?.ToLower())
 {
-    var workbook = new Workbook();
-    var worksheet = workbook.Worksheets.Add();
-
-    timer.Start();
-
-    for (var i = 0; i < 500; i++)
-    {
-        for (var j = 0; j < 500; j++)
+    case "1":
         {
-            var selection = worksheet.Cells[i, j]; //B2 cell 
-            selection.SetValue($"Cell {i}:{j}");
+            timer.Start();
+
+            var workbook = new Workbook();
+            var worksheet = workbook.Worksheets.Add();
+
+            for (var i = 0; i < 500; i++)
+            {
+                for (var j = 0; j < 500; j++)
+                {
+                    var selection = worksheet.Cells[i, j]; //B2 cell 
+                    selection.SetValue($"Cell {i}:{j}");
+                }
+            }
+
+            const string fileName = "SampleFile.xlsx";
+
+            var formatProvider = new XlsxFormatProvider();
+
+            await using Stream output = new FileStream(fileName, FileMode.Create);
+
+            formatProvider.Export(workbook, output, TimeSpan.FromMinutes(2));
+
+            timer.Stop();
+
+            UpdateStatus("Done!", ConsoleColor.Green, true);
+            UpdateStatus("", ConsoleColor.White);
+            break;
         }
-    }
+    case "2":
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("Enter a value for the UPC-A barcode with check digit (default example 123456789005):");
+            Console.ForegroundColor = ConsoleColor.White;
 
-    const string fileName = "SampleFile.xlsx";
+            var upcValue = Console.ReadLine();
 
-    var formatProvider = new XlsxFormatProvider();
+            if (string.IsNullOrEmpty(upcValue))
+            {
+                upcValue = "123456789005";
+            }
 
-    await using Stream output = new FileStream(fileName, FileMode.Create);
-    
-    formatProvider.Export(workbook, output, TimeSpan.FromMinutes(2));
+            var fileName = $"./UPC_{DateTime.UtcNow.ToFileTimeUtc()}.png";
 
-    timer.Stop();
+            try
+            {
+                timer.Start();
+                var bc = new BarcodeGeneratorService().GenerateBarcode(BarcodeType.UpcA, upcValue);
+                File.WriteAllBytes(fileName, bc);
+                UpdateStatus($"Done! {fileName} has been saved to the current directory.", ConsoleColor.Green, true);
+                UpdateStatus("", ConsoleColor.White);
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            finally
+            {
+                timer.Stop();
+            }
 
-    UpdateStatus("Done!", ConsoleColor.Green,true);
-    UpdateStatus("", ConsoleColor.White);
+            break;
+        }
+    case "3":
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("Enter a value for the QR code (default https://dvlup.com):");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            var qrValue = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(qrValue))
+            {
+                qrValue = "https://dvlup.com";
+            }
+
+            var fileName = $"./QR_{DateTime.UtcNow.ToFileTimeUtc()}.png";
+
+            try
+            {
+                timer.Start();
+                var bc = new BarcodeGeneratorService().GenerateBarcode(BarcodeType.QrCode, qrValue);
+                File.WriteAllBytes(fileName, bc);
+                UpdateStatus($"Done! {fileName} has been saved to the current directory.", ConsoleColor.Green, true);
+                UpdateStatus("", ConsoleColor.White);
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            finally
+            {
+                timer.Stop();
+            }
+            break;
+        }
 }
 
 #region methods and event handlers
@@ -65,12 +148,11 @@ if (result?.ToLower() == "y")
 // ⣯	braille pattern dots-1234678	024357	10479	0x28EF	&#10479;
 // ⣷	braille pattern dots-1235678	024367	10487	0x28F7	&#10487;
 
-
 void TimerElapsed(object sender, ElapsedEventArgs e)
 {
     var nextCharacter = timerChars[lastCharIndex];
 
-    UpdateStatus($"{nextCharacter} Creating document...", ConsoleColor.Yellow,true);
+    UpdateStatus($"{nextCharacter} Generating...", ConsoleColor.Yellow, true);
 
     lastCharIndex++;
 

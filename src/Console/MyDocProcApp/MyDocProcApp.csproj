@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommonHelpers" Version="1.6.0-rc.32" />
     <PackageReference Include="Telerik.Documents.Core" Version="2026.3.826" />
     <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2026.3.826" />
     <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.3.826" />
