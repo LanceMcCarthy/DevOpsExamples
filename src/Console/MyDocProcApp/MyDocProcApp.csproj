@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
-
 	  <TelerikLicensingVerbosity>Diagnostic</TelerikLicensingVerbosity>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommonHelpers" Version="1.6.0-rc.32" />
+    <PackageReference Include="CommonHelpers" Version="1.6.0" />
+    <PackageReference Include="Spectre.Console" Version="0.49.1" />
     <PackageReference Include="Telerik.Documents.Core" Version="2026.3.826" />
     <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2026.3.826" />
     <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.3.826" />
@@ -17,5 +16,4 @@
     <PackageReference Include="Telerik.Licensing" Version="1.9.2" />
     <PackageReference Include="Telerik.Zip" Version="2026.3.826" />
   </ItemGroup>
-
 </Project>
