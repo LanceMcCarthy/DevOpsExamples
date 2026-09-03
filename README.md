@@ -230,29 +230,32 @@ You can now generate a very small JWT that contains only the products you need, 
     - [Azure YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-yaml-pipeline)
     - [Azure Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-classic-pipeline)
 
+> [!CAUTION]
+> A **pipeline** variable is not the same thing as an **environment** variable. Most CI systems do not automatically make variables available in the environment unless they're explicitly set as an env variable.
+> Please pay close attention to the difference between a pipeline/CI variable and an environment variable in each of the following examples.
 
 #### Deployment Key in GitHub Actions
 
-1. In the repo's Actions settings, create a new secret named `BLAZOR_REPORTING_DEPLOYMENT_KEY` with the value in your clipboard
-2. In the YAML, set the `TELERIK_LICENSE` environment variable to `${{secrets.BLAZOR_REPORTING_DEPLOYMENT_KEY}}`.
+1. In the repo's Actions settings, create a new secret named `PRODUCTNAME_DEPLOYMENT_KEY` with the value in your clipboard
+2. In the YAML, set the `TELERIK_LICENSE` environment variable to `${{secrets.PRODUCTNAME_DEPLOYMENT_KEY}}`.
 
 ```yaml
   - run: dotnet publish MyApp.csproj -o /app/publish
     env:
-      TELERIK_LICENSE: ${{secrets.BLAZOR_REPORTING_DEPLOYMENT_KEY}}
+      TELERIK_LICENSE: ${{secrets.PRODUCTNAME_DEPLOYMENT_KEY}}
 ```
 
 #### Deployment Key in GitLab CI
 
-1. Go into the project's settings, then CI, and create a `BLAZOR_REPORTING_DEPLOYMENT_KEY` secret.
-2. In the YAML, set the set the `TELERIK_LICENSE` environment variable to `$BLAZOR_REPORTING_DEPLOYMENT_KEY`.
+1. Go into the project's settings, then CI, and create a `PRODUCTNAME_DEPLOYMENT_KEY` secret.
+2. In the YAML, set the set the `TELERIK_LICENSE` environment variable to `$PRODUCTNAME_DEPLOYMENT_KEY`.
 
 ```yaml
 build-blazor-app:
   tags:
     - saas-windows-medium-amd64
   variables:
-    TELERIK_LICENSE: $BLAZOR_REPORTING_DEPLOYMENT_KEY
+    TELERIK_LICENSE: $PRODUCTNAME_DEPLOYMENT_KEY
   script:
     - |
       dotnet publish MyApp.csproj -o /app/publish
@@ -261,17 +264,28 @@ build-blazor-app:
 
 #### Deployment Key in Azure YAML Pipeline
 
-1. Open the Variables pane in the YAML editor, and create a new secret pipeline variable `BLAZOR_REPORTING_DEPLOYMENT_KEY`
-2. In the YAML, set the `TELERIK_LICENSE` environment variable to `$(BLAZOR_REPORTING_DEPLOYMENT_KEY)`
+1. Open the Variables pane in the YAML editor, and create a new secret pipeline variable `PRODUCTNAME_DEPLOYMENT_KEY`
+2. In the YAML, set the `TELERIK_LICENSE` environment variable to `$(PRODUCTNAME_DEPLOYMENT_KEY)`
 
 ```yaml
   - powershell: dotnet publish MyApp.csproj -o /app/publish
     env:
-      TELERIK_LICENSE: $(BLAZOR_REPORTING_DEPLOYMENT_KEY) # AzDO pipeline **secret** variable
+      TELERIK_LICENSE: $(PRODUCTNAME_DEPLOYMENT_KEY) # AzDO pipeline **secret** variable
 ```
 
 #### Deployment Key in Azure Classic Pipeline
 
-1. In classic pipelines, you can directly set the `TELERIK_LICENSE` variable and click the lock 🔒 icon to make it a secret.
+1. Similar to YAML pipeline, create the pipeline variable for the deployment key. For example, in this screenshot I have added a `TK_BLAZOR_DEPLOYMENT_KEY` secret variable
 
-![Image](https://github.com/user-attachments/assets/bcdcc8c3-8ec7-43af-8452-4bace4e8ee83)
+<img width="875" height="380" alt="image" src="https://github.com/user-attachments/assets/f877a3a3-30b4-401b-9de2-410c650206f9" />
+
+2. Now that pipeline variable is available to be used to set the `TELERIK_LICENSE` environment variable. Depending on what kind of task you're using, choose the appropriate option
+
+- Option A: If the pipeline task allows you to directly set environment variables, you can do this
+    - <img width="800" alt="image" src="https://github.com/user-attachments/assets/62a4f975-0000-499c-8c6e-5f0ca15a19b6" />
+- Option B: If the task doesn't have an Environment Variables input section, then you need export the env yourself in an earlier step.
+    1. Add a new PowerShell task at **the top** of the pipeline, and select inline script, use th
+    2. Use `Write-Host "##vso[task.setvariable variable=TELERIK_LICENSE;issecret=true]$(PRODUCTNAME_DEPLOYMENT_KEY)"`
+       <img width="800" alt="image" src="https://github.com/user-attachments/assets/f3209e2f-5e8e-40d1-ac2b-0d40a991947e" />
+    4. Now the `TELERIK_LICENSE` env var will be available to subsequent steps.
+
