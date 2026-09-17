@@ -50,13 +50,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="System.IO.Compression, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="System.Design" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -65,6 +65,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -73,9 +74,28 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Telerik.Licensing.Runtime, Version=1.6.23.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Licensing.1.9.2\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.Reporting, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.812\lib\net462\Telerik.Reporting.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting.OpenXmlRendering.2.7.2, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.812\lib\net462\Telerik.Reporting.OpenXmlRendering.2.7.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting.XpsRendering, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.812\lib\net462\Telerik.Reporting.XpsRendering.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.ReportViewer.Html5.WebForms, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.ReportViewer.Html5.WebForms.20.2.26.812\lib\net462\Telerik.ReportViewer.Html5.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Web.Design, Version=2025.3.825.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.3.812\lib\net462\Telerik.Web.Design.dll</HintPath>
@@ -219,7 +239,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
