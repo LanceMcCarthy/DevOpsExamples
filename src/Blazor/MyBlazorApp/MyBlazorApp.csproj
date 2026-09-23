@@ -13,9 +13,9 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.11" />
-    <PackageReference Include="Telerik.Documents.Flow" Version="2026.3.826" />
-    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2026.3.826" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
+    <PackageReference Include="Telerik.Documents.Flow" Version="2026.3.923" />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2026.3.923" />
     <PackageReference Include="Telerik.Reporting" Version="20.2.26.812" />
     <PackageReference Include="Telerik.Reporting.OpenXmlRendering" Version="20.2.26.812" />
     <PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="20.2.26.812" />
