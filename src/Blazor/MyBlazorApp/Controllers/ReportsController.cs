@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
 using System.Net.Mail;
@@ -7,6 +8,7 @@ using Telerik.Reporting.Services.AspNetCore;
 
 namespace MyBlazorApp.Controllers;
 
+[ApiVersionNeutral]
 [Route("api/reports")]
 [ApiController]
 public class ReportsController(IReportServiceConfiguration reportServiceConfiguration) : ReportsControllerBase(reportServiceConfiguration)

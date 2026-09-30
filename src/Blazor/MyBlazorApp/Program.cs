@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor(o => o.DetailedErrors = true);
 builder.Services.AddTelerikBlazor();
 builder.Services.AddSingleton<DashboardDataService>();
+
+builder.Services.AddApiVersioning(opt =>
+{
+    opt.DefaultApiVersion = new ApiVersion(1, 0);
+    opt.ReportApiVersions = true;
+    opt.ApiVersionReader = new UrlSegmentApiVersionReader();
+}).AddMvc();
 
 // CORS policy for ReportsController
 // Do NOT do this in your real app, use WithOrigin('yourdomain.com') appropriately
@@ -48,11 +56,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("ReportingRestPolicy");
 app.MapControllers();
 app.MapDefaultControllerRoute();
 app.MapBlazorHub();
-app.MapControllers();
 app.MapFallbackToPage("/_Host");
-app.UseCors("ReportingRestPolicy");
 
 app.Run();

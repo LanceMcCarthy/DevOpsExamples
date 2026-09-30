@@ -3,16 +3,9 @@
     <TargetFramework>net10.0</TargetFramework>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Reports\Barcodes.trdp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Reports\Barcodes.trdp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="10.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
     <PackageReference Include="Telerik.Documents.Flow" Version="2026.3.923" />
     <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2026.3.923" />
@@ -30,6 +23,12 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Reports\Barcodes.trdp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
