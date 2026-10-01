@@ -197,7 +197,7 @@ stages:
       vmImage: $(imageName)
     variables:
       projectPath: 'src/MAUI/MauiDemo.csproj'
-      xcodeVersion: '26.6'
+      xcodeVersion: '27.0'
     strategy:
       matrix:
         android:
