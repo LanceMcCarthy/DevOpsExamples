@@ -8,12 +8,12 @@
   <ItemGroup>
     <PackageReference Include="CommonHelpers" Version="1.6.0" />
     <PackageReference Include="Spectre.Console" Version="0.57.2" />
-    <PackageReference Include="Telerik.Documents.Core" Version="2026.3.923" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2026.3.923" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.3.923" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2026.3.923" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2026.3.923" />
-    <PackageReference Include="Telerik.Licensing" Version="1.9.2" />
-    <PackageReference Include="Telerik.Zip" Version="2026.3.923" />
+    <PackageReference Include="Telerik.Documents.Core" Version="2026.3.1006" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2026.3.1006" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.3.1006" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2026.3.1006" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2026.3.1006" />
+    <PackageReference Include="Telerik.Licensing" Version="1.9.3" />
+    <PackageReference Include="Telerik.Zip" Version="2026.3.1006" />
   </ItemGroup>
 </Project>
