@@ -82,20 +82,20 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Licensing.Runtime, Version=1.6.23.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Licensing.1.9.2\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Licensing.1.9.3\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Reporting, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.812\lib\net462\Telerik.Reporting.dll</HintPath>
+    <Reference Include="Telerik.Reporting, Version=20.2.26.1007, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.1007\lib\net462\Telerik.Reporting.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Reporting.OpenXmlRendering.2.7.2, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.812\lib\net462\Telerik.Reporting.OpenXmlRendering.2.7.2.dll</HintPath>
+    <Reference Include="Telerik.Reporting.OpenXmlRendering.2.7.2, Version=20.2.26.1007, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.1007\lib\net462\Telerik.Reporting.OpenXmlRendering.2.7.2.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.Reporting.XpsRendering, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.812\lib\net462\Telerik.Reporting.XpsRendering.dll</HintPath>
+    <Reference Include="Telerik.Reporting.XpsRendering, Version=20.2.26.1007, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Reporting.20.2.26.1007\lib\net462\Telerik.Reporting.XpsRendering.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.ReportViewer.Html5.WebForms, Version=20.2.26.812, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.ReportViewer.Html5.WebForms.20.2.26.812\lib\net462\Telerik.ReportViewer.Html5.WebForms.dll</HintPath>
+    <Reference Include="Telerik.ReportViewer.Html5.WebForms, Version=20.2.26.1007, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.ReportViewer.Html5.WebForms.20.2.26.1007\lib\net462\Telerik.ReportViewer.Html5.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Web.Design, Version=2025.3.825.462, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.UI.for.AspNet.Ajax.Net462.2026.3.812\lib\net462\Telerik.Web.Design.dll</HintPath>
@@ -114,23 +114,23 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Core, Version=2025.3.806.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Core.2026.3.923\lib\net462\Telerik.Windows.Documents.Core.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Core.2026.3.1006\lib\net462\Telerik.Windows.Documents.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Flow, Version=2025.3.806.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Flow.2026.3.923\lib\net462\Telerik.Windows.Documents.Flow.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Flow.2026.3.1006\lib\net462\Telerik.Windows.Documents.Flow.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet, Version=2025.3.806.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.2026.3.923\lib\net462\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.2026.3.1006\lib\net462\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml, Version=2025.3.806.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.2026.3.923\lib\net462\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.2026.3.1006\lib\net462\Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Zip, Version=2025.3.806.462, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Windows.Zip.2026.3.923\lib\net462\Telerik.Windows.Zip.dll</HintPath>
+      <HintPath>..\..\packages\Telerik.Windows.Zip.2026.3.1006\lib\net462\Telerik.Windows.Zip.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
@@ -239,7 +239,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -249,11 +249,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\packages\Telerik.Licensing.1.9.2\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.9.2\build\Telerik.Licensing.targets')" />
+  <Import Project="..\..\packages\Telerik.Licensing.1.9.3\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.9.3\build\Telerik.Licensing.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.9.2\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.9.2\build\Telerik.Licensing.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.9.3\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.9.3\build\Telerik.Licensing.targets'))" />
   </Target>
 </Project>
