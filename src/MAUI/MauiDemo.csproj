@@ -60,9 +60,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.110" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.13" />
     <PackageReference Include="CommonHelpers" Version="1.6.0" />
-    <PackageReference Include="Telerik.UI.for.Maui" Version="15.0.0" />
+    <PackageReference Include="Telerik.UI.for.Maui" Version="15.1.0" />
     <PackageReference Include="Markdig" Version="1.4.0" />
   </ItemGroup>
 
