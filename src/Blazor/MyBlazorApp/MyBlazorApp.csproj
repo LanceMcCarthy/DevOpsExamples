@@ -31,4 +31,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+  <StaticWebAsset Remove="$(NuGetPackageRoot)telerik.reportviewer.blazornative\20.2.26.1007\staticwebassets\css\reporting-blazor-viewer.css.map" />
+  <StaticWebAssetEndpoint Remove="_content/Telerik.ReportViewer.BlazorNative/css/reporting-blazor-viewer.css*.map" />
+</ItemGroup>
+
 </Project>
