@@ -12,6 +12,7 @@
   "private": true,
   "overrides": {
     "body-parser": "2.2.2",
+    "@progress/kendo-pdfviewer-common": "1.0.5",
     "tar": "7.5.16"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "@progress/kendo-angular-navigation": "25.3.0",
     "@progress/kendo-angular-pdfviewer": "^25.3.0",
     "@progress/kendo-angular-popup": "25.3.0",
+    "@progress/kendo-common": "^1.1.1",
     "@progress/kendo-drawing": "1.25.7",
     "@progress/kendo-licensing": "^1.13.0",
     "@progress/kendo-svg-icons": "^5.5.0",
