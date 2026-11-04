@@ -68,3 +68,6 @@ jobs:
             curl -s -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAGG/"
           fi
         done
+
+    - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
+      run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_KENDO}}
