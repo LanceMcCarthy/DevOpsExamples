@@ -30,10 +30,10 @@ jobs:
             os: windows-latest
             tfm: "net10.0-windows10.0.22621.0"
           - name: "iOS"
-            os: macos-26
+            os: xcode-27
             tfm: "net10.0-ios"
           - name: "MacCatalyst"
-            os: macos-26
+            os: xcode-27
             tfm: "net10.0-maccatalyst"
     steps:
     - name: "⬇️ Checkout"
