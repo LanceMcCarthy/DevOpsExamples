@@ -1,11 +1,12 @@
-FROM nginx:1.30.4-alpine3.24 AS base
+FROM nginx:1.30.6-alpine3.24 AS base
 RUN apk upgrade --no-cache
 WORKDIR /usr/share/nginx/html
 EXPOSE 80
 
 
 # Use a transient stage to exclude build artifacts and env vars in production layer
-FROM --platform=$BUILDPLATFORM node:24-alpine AS build
+FROM --platform=$BUILDPLATFORM node:24.22.2-alpine3.24 AS build
+RUN apk upgrade --no-cache
 ENV NPM_CONFIG_REGISTRY=https://pkg.harness.io/pkg/ct8onj8YTdaXtKaFsYCRLg/org-devtools-npm/npm/
 WORKDIR /src
 COPY . .
