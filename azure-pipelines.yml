@@ -192,8 +192,9 @@ stages:
   jobs:
   # **************** .NET MAUI **************** #
   - job: BuildMauiApp
+    # Hosted Agents https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops
     pool:
-      # Hosted Agents https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops
+      name: $(poolName)
       vmImage: $(imageName)
     variables:
       projectPath: 'src/MAUI/MauiDemo.csproj'
@@ -202,18 +203,22 @@ stages:
       matrix:
         android:
           TFM: 'net10.0-android'
+          poolName: 'Azure Pipelines'
           imageName: 'windows-latest'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug'
         windows:
           TFM: 'net10.0-windows10.0.22621.0'
+          poolName: 'Azure Pipelines'
           imageName: 'windows-latest'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug'
         ios:
           TFM: 'net10.0-ios'
+          poolName: 'GitHub-hosted Agents'
           imageName: 'xcode-27'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
         maccatalyst:
           TFM: 'net10.0-maccatalyst'
+          poolName: 'GitHub-hosted Agents'
           imageName: 'xcode-27'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
       maxParallel: 4
