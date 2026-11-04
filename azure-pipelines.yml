@@ -197,7 +197,7 @@ stages:
       vmImage: $(imageName)
     variables:
       projectPath: 'src/MAUI/MauiDemo.csproj'
-      xcodeVersion: '27.0'
+      xcodeVersion: '27.1'
     strategy:
       matrix:
         android:
@@ -210,11 +210,11 @@ stages:
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug'
         ios:
           TFM: 'net10.0-ios'
-          imageName: 'macOS-26'
+          imageName: 'xcode-27'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
         maccatalyst:
           TFM: 'net10.0-maccatalyst'
-          imageName: 'macOS-26'
+          imageName: 'xcode-27'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
       maxParallel: 4
     steps:
