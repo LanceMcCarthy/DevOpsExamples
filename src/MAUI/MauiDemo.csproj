@@ -63,7 +63,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.14" />
     <PackageReference Include="CommonHelpers" Version="1.6.0" />
     <PackageReference Include="Telerik.UI.for.Maui" Version="15.1.0" />
-    <PackageReference Include="Markdig" Version="1.5.1" />
+    <PackageReference Include="Markdig" Version="1.6.0" />
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
   </ItemGroup>
 

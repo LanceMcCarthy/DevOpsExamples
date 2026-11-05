@@ -81,8 +81,8 @@
       <HintPath>..\..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Telerik.Licensing.Runtime, Version=1.11.1.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Telerik.Licensing.1.11.1\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
+    <Reference Include="Telerik.Licensing.Runtime, Version=1.11.2.0, Culture=neutral, PublicKeyToken=98bb5b04e55c09ef, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Telerik.Licensing.1.11.2\lib\net462\Telerik.Licensing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Reporting, Version=20.2.26.1007, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Telerik.Reporting.20.2.26.1007\lib\net462\Telerik.Reporting.dll</HintPath>
@@ -233,7 +233,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -243,11 +243,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\packages\Telerik.Licensing.1.11.1\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.11.1\build\Telerik.Licensing.targets')" />
+  <Import Project="..\..\packages\Telerik.Licensing.1.11.2\build\Telerik.Licensing.targets" Condition="Exists('..\..\packages\Telerik.Licensing.1.11.2\build\Telerik.Licensing.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.11.1\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.11.1\build\Telerik.Licensing.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Telerik.Licensing.1.11.2\build\Telerik.Licensing.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Telerik.Licensing.1.11.2\build\Telerik.Licensing.targets'))" />
   </Target>
 </Project>
