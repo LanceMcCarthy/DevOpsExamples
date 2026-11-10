@@ -1,4 +1,4 @@
-name: ASP.NET Core (with Reporting) - Docker
+name: "[Docker Hub] ASP.NET Core with Reporting"
 
 on:
   workflow_dispatch:
@@ -12,13 +12,14 @@ env:
   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
   TARGET_PLATFORMS: "linux/amd64,linux/arm64"
   CONTAINER_REGISTRY: "docker.io"
+  IMAGES_TO_KEEP: 10
 
 jobs:
 #################### Example 1 ##########################
 # - Uses mcr.microsoft.com/dotnet/aspnet base image in Dockerfile (with webhook to automatically redeploy stack in Portainer)
 #########################################################
   dockerhub_msftbase_build:
-    name: "🐳 Microsoft Base - Publish to Docker Hub"
+    name: "🐳 Dockerfile Publish to Docker Hub (Microsoft Base)"
     runs-on: ubuntu-latest
     env:
       CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-msftbase"
@@ -66,16 +67,35 @@ jobs:
           ${{steps.meta.outputs.tags}}
           ${{env.CONTAINER_REGISTRY}}/${{env.CONTAINER_REPOSITORY}}:${{steps.tag-creator.outputs.VERSION_TAG}}
 
-    # Required because actions/delete-package-versions@v5 does not work with Docker Hub
-    - name: "🧹 Delete old (untagged) images"
+    # Required because actions/delete-package-versions does not work with Docker Hub
+    - name: "🧹 Keep only the latest ${{env.IMAGES_TO_KEEP}} images"
       run: |
-        IMAGE_TAGS=$(curl -s "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100" | jq -r '.results|.[]|.name')
-        for TAGG in $IMAGE_TAGS; do
-          if [[ "$TAGG" == "null" ]]; then
-            docker rmi "${{env.CONTAINER_REPOSITORY}}:$TAGG"
-            curl -s -X DELETE "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/$TAGG/"
-          fi
+        AUTH_TOKEN=$(curl -fsS -H "Content-Type: application/json" \
+          -d "$(jq -n --arg identifier "$DOCKERHUB_USERNAME" --arg secret "$DOCKERHUB_PAT" '{identifier: $identifier, secret: $secret}')" \
+          "https://hub.docker.com/v2/auth/token" | jq -er '.access_token')
+
+        NEXT_URL="https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100"
+        ALL_TAGS='[]'
+
+        while [[ -n "$NEXT_URL" ]]; do
+          RESPONSE=$(curl -fsS -H "Authorization: Bearer $AUTH_TOKEN" "$NEXT_URL")
+          PAGE_TAGS=$(jq -c '.results' <<< "$RESPONSE")
+          ALL_TAGS=$(jq -cn --argjson all "$ALL_TAGS" --argjson page "$PAGE_TAGS" '$all + $page')
+          NEXT_URL=$(jq -r '.next // empty' <<< "$RESPONSE")
         done
+
+        TAGS_TO_DELETE=$(jq -r --argjson keep "${{env.IMAGES_TO_KEEP}}" 'sort_by(.last_updated) | reverse | .[$keep:] | .[].name' <<< "$ALL_TAGS")
+
+        while IFS= read -r TAG; do
+          [[ -z "$TAG" ]] && continue
+          ENCODED_TAG=$(jq -rn --arg tag "$TAG" '$tag | @uri')
+          echo "Deleting old image tag: $TAG"
+          curl -fsS -X DELETE -H "Authorization: Bearer $AUTH_TOKEN" \
+            "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/${ENCODED_TAG}/"
+        done <<< "$TAGS_TO_DELETE"
+      env:
+        DOCKERHUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
+        DOCKERHUB_PAT: ${{secrets.DOCKER_HUB_PAT}}
 
     - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
       run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_ASPNETCORE}}
@@ -85,11 +105,12 @@ jobs:
 # - Uses a CentOS base image in Dockerfile
 #########################################################
   dockerhub_centosbase_build:
-    name: "🐳 CentOS Base - Publish to Docker Hub"
+    name: "🐳 Dockerfile Publish to Docker Hub (CentOS Base)"
     runs-on: ubuntu-latest
     env:
       CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-centosbase"
       DOCKERFILE_PATH: "src/AspNetCore/MyAspNetCoreApp/Dockerfile_CentOS"
+      IMAGES_TO_KEEP: 10
     steps:
     - name: "⬇️ Checkout"
       uses: actions/checkout@v7
@@ -123,3 +144,33 @@ jobs:
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
           telerik-license-key=${{secrets.DEPLOYMENT_KEY_FOR_ASPNETCORE_AND_REPORTING}}
         tags: ${{steps.meta.outputs.tags}}
+
+    # Required because actions/delete-package-versions does not work with Docker Hub
+    - name: "🧹 Keep only the latest ${{env.IMAGES_TO_KEEP}} images"
+      run: |
+        AUTH_TOKEN=$(curl -fsS -H "Content-Type: application/json" \
+          -d "$(jq -n --arg identifier "$DOCKERHUB_USERNAME" --arg secret "$DOCKERHUB_PAT" '{identifier: $identifier, secret: $secret}')" \
+          "https://hub.docker.com/v2/auth/token" | jq -er '.access_token')
+
+        NEXT_URL="https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/?page_size=100"
+        ALL_TAGS='[]'
+
+        while [[ -n "$NEXT_URL" ]]; do
+          RESPONSE=$(curl -fsS -H "Authorization: Bearer $AUTH_TOKEN" "$NEXT_URL")
+          PAGE_TAGS=$(jq -c '.results' <<< "$RESPONSE")
+          ALL_TAGS=$(jq -cn --argjson all "$ALL_TAGS" --argjson page "$PAGE_TAGS" '$all + $page')
+          NEXT_URL=$(jq -r '.next // empty' <<< "$RESPONSE")
+        done
+
+        TAGS_TO_DELETE=$(jq -r --argjson keep "${{env.IMAGES_TO_KEEP}}" 'sort_by(.last_updated) | reverse | .[$keep:] | .[].name' <<< "$ALL_TAGS")
+
+        while IFS= read -r TAG; do
+          [[ -z "$TAG" ]] && continue
+          ENCODED_TAG=$(jq -rn --arg tag "$TAG" '$tag | @uri')
+          echo "Deleting old image tag: $TAG"
+          curl -fsS -X DELETE -H "Authorization: Bearer $AUTH_TOKEN" \
+            "https://hub.docker.com/v2/repositories/${{env.CONTAINER_REPOSITORY}}/tags/${ENCODED_TAG}/"
+        done <<< "$TAGS_TO_DELETE"
+      env:
+        DOCKERHUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
+        DOCKERHUB_PAT: ${{secrets.DOCKER_HUB_PAT}}

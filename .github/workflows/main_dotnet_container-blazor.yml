@@ -1,4 +1,4 @@
-name: Blazor (with Reporting) - Docker
+name: "[GHCR] Blazor with Reporting"
 
 on:
   workflow_dispatch:
@@ -18,6 +18,7 @@ env:
   PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
   CONTAINER_REGISTRY: "ghcr.io"
+  CONTAINER_BASE_IMAGE: "docker.io/lancemccarthy/skia-aspnet:10.0" # has Skia dependencies installed
 
 jobs:
 # .NET SDK container image build and publish to ghcr.io
@@ -46,8 +47,8 @@ jobs:
 
     - name: "📦 Restore NuGet Packages"
       run: |
-        dotnet restore ${{env.PROJ_PATH}} -r "linux-x64"
-        dotnet restore ${{env.PROJ_PATH}} -r "linux-arm64"
+        dotnet restore ${{env.PROJ_PATH}} -r "linux-x64" --configfile ${{env.NUGET_CONFIG_PATH}}
+        dotnet restore ${{env.PROJ_PATH}} -r "linux-arm64" --configfile ${{env.NUGET_CONFIG_PATH}}
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
@@ -58,7 +59,7 @@ jobs:
         dotnet publish ${{env.PROJ_PATH}} \
           -t:PublishContainer \
           -p PublishProfile=DefaultContainer \
-          -p ContainerBaseImage="docker.io/lancemccarthy/skia-aspnet:10.0" \
+          -p ContainerBaseImage="${{env.CONTAINER_BASE_IMAGE}}" \
           -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
           -p ContainerRepository="lancemccarthy/myblazorapp" \
           -p ContainerRuntimeIdentifiers="linux/amd64;linux/arm64" \
