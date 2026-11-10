@@ -4,12 +4,12 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>6ca2a36f-6cc7-4d98-9cd4-724a3953a16b</UserSecretsId>
-		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
-    <!-- Has skia dependencies preinstalled on top of mcr.microsoft.com/dotnet/aspnet:10.0 -->
-    <ContainerBaseImage>docker.io/lancemccarthy/skia-aspnet:10.0</ContainerBaseImage>
-    <ContainerRepository>lancemccarthy/aspnetcore-reporting-from-msftbase</ContainerRepository>
-    <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
+        <!-- Has skia dependencies preinstalled on top of mcr.microsoft.com/dotnet/aspnet:10.0 -->
+        <ContainerBaseImage>docker.io/lancemccarthy/skia-aspnet:10.0</ContainerBaseImage>
+        <ContainerRepository>lancemccarthy/aspnetcore-reporting-from-msftbase</ContainerRepository>
+        <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
+        <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
 	</PropertyGroup>
 
 	<ItemGroup>
