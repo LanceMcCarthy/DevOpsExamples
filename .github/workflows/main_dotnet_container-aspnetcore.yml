@@ -1,0 +1,81 @@
+name: ASP.NET Core (with Reporting) - Docker
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/AspNetCore/**/*'
+
+# For ghcr.io access
+permissions:
+  contents: read
+  packages: write
+
+# env:
+#   WORKING_DIRECTORY: "src/AspNetCore/MyAspNetCoreApp"
+#   TARGET_PLATFORMS: "linux/amd64,linux/arm64"
+#   CONTAINER_REPOSITORY: "lancemccarthy/aspnetcore-reporting-from-msftbase"
+#     CONTAINER_REPOSITORY_IMAGE_NAME: "aspnetcore-reporting-from-msftbase"
+#   CONTAINER_REGISTRY: "docker.io"
+
+env:
+  DOTNET_VERSION: "10.0.x"
+  PROJ_PATH: src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj
+  NUGET_CONFIG_PATH: src/NuGet.Config
+  CONTAINER_REGISTRY: "ghcr.io"
+
+jobs:
+  build:
+    name: "🐳 [NET SDK] Publish GHCR image (x64 & arm64)"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "⬇️ Checkout"
+      uses: actions/checkout@v7
+
+    - name: "⬇️ Setup .NET Core SDK"
+      uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    # Needed because 'dotnet publish -t:PublishContainer' uses the docker CLI (do not use docker/login-action@v3)
+    - name: "🔑 Login to ghcr.io"
+      run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+
+    - name: "🏷️ Generate versioned tag"
+      id: tag-creator
+      run: |
+        buildDay=`date +%Y.%m.%d`
+        tags="$buildDay.$GITHUB_RUN_NUMBER"
+        echo "VERSION_TAG=$tags" >> $GITHUB_OUTPUT
+
+    - name: "📦 Restore NuGet Packages"
+      run: |
+        dotnet restore ${{env.PROJ_PATH}} -r "linux-x64"
+        dotnet restore ${{env.PROJ_PATH}} -r "linux-arm64"
+      env:
+        TELERIK_USERNAME: "api-key"
+        TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
+
+    - name: "🚀 Build & publish the container image"
+      id: build
+      run: |
+        dotnet publish ${{env.PROJ_PATH}} \
+          -t:PublishContainer \
+          -p PublishProfile=DefaultContainer \
+          -p ContainerBaseImage="docker.io/lancemccarthy/skia-aspnet:10.0" \
+          -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
+          -p ContainerRepository="lancemccarthy/aspnetcore-reporting-from-msftbase" \
+          -p ContainerRuntimeIdentifiers="linux/amd64;linux/arm64" \
+          -p ContainerImageTags="${{steps.tag-creator.outputs.VERSION_TAG}};latest" \
+          --no-restore
+      env:
+        TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}
+
+    - name: "🗑️ Clean up old container versions"
+      uses: actions/delete-package-versions@v5
+      with: 
+        package-name: "aspnetcore-reporting-from-msftbase"
+        package-type: 'container'
+        min-versions-to-keep: 4

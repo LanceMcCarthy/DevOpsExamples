@@ -13,6 +13,7 @@ env:
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
+  CONTAINER_REGISTRY: "docker.io"
 
 # For ghcr.io access
 permissions:
@@ -20,15 +21,10 @@ permissions:
   packages: write
 
 jobs:
-#################### Example 1 ##########################
-# Dockerfile build and publish to Docker Hub
-# - Webook to automatically redeploy stack in Portainer
-#########################################################
+# Dockerfile build and publish to Docker Hub (with webhook to automatically redeploy stack in Portainer)
   dockerfile_to_dockerhub:
     name: "🐳 Dockerfile Build and Publish"
     runs-on: ubuntu-latest
-    env:
-      CONTAINER_REGISTRY: "docker.io"
     steps:
     - name: "⬇️ Checkout"
       uses: actions/checkout@v7
@@ -84,132 +80,3 @@ jobs:
 
     - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
       run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_BLAZOR}}
-
-
-#################### Example 2 ##########################
-# .NET SDK build and publish to ghcr.io
-############################################################
-
-  # # 2.1 - Build the lancemccarthy/myblazorapp:latest-x64 image
-  # build_x64:
-  #   runs-on: ubuntu-latest
-  #   name: "[NET SDK] Create x64 image"
-  #   outputs:
-  #     build_tag: ${{steps.build.outputs.build_tag}}
-  #   env:
-  #     target_arch: "x64"
-  #     CONTAINER_REGISTRY: "ghcr.io"
-  #     CONTAINER_BASE_IMAGE: "docker.io/lancemccarthy/skia-aspnet:10.0"
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v7
-  #     with:
-  #       fetch-depth: 0
-
-  #   - name: Setup .NET Core SDK
-  #     uses: actions/setup-dotnet@v4
-  #     with:
-  #       dotnet-version: ${{env.DOTNET_VERSION}}
-
-  #   # Needed because dotnet publish -t:PublishContainer uses the CLI (not docker/login-action@v3)
-  #   - name: Login to ghcr.io
-  #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
-
-  #   - name: Restore NuGet Packages
-  #     run: dotnet restore ${{env.BLAZOR_PROJ_PATH}} -r "linux-${{env.target_arch}}"
-  #     env:
-  #       TELERIK_USERNAME: "api-key"
-  #       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-
-  #   - name: build the x64 image
-  #     id: build
-  #     run: |
-  #       TAG="latest-${{env.target_arch}}"
-  #       dotnet publish ${{env.BLAZOR_PROJ_PATH}} \
-  #         -t:PublishContainer \
-  #         -p PublishProfile=DefaultContainer \
-  #         -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
-  #         -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
-  #         -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
-  #         -p ContainerImageTag="$TAG" \
-  #         --arch ${{env.target_arch}} \
-  #         --no-restore
-  #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
-  #     env:
-  #       TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}
-
-  # # Builds the lancemccarthy/myblazorapp:latest-arm64 image
-  # build_arm64:
-  #   name: "[NET SDK] Create arm64 image"
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     build_tag: ${{steps.build.outputs.build_tag}}
-  #   env:
-  #     target_arch: "arm64"
-  #     CONTAINER_REGISTRY: "ghcr.io"
-  #     CONTAINER_BASE_IMAGE: "docker.io/lancemccarthy/skia-aspnet:10.0"
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v7
-  #     with:
-  #       fetch-depth: 0
-
-  #   - name: Setup .NET Core SDK
-  #     uses: actions/setup-dotnet@v4
-  #     with:
-  #       dotnet-version: ${{env.DOTNET_VERSION}}
-
-  #   # Needed because dotnet publish -t:PublishContainer uses the CLI (not docker/login-action@v3)
-  #   - name: Login to ghcr.io
-  #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
-
-  #   - name: Restore NuGet Packages
-  #     run: dotnet restore ${{env.BLAZOR_PROJ_PATH}} -r "linux-${{env.target_arch}}"
-  #     env:
-  #       TELERIK_USERNAME: "api-key"
-  #       TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
-
-  #   - name: build the arm64 image
-  #     id: build
-  #     run: |
-  #       TAG="latest-${{env.target_arch}}"
-  #       dotnet publish ${{env.BLAZOR_PROJ_PATH}} \
-  #         -t:PublishContainer \
-  #         -p PublishProfile=DefaultContainer \
-  #         -p ContainerBaseImage=${{env.CONTAINER_BASE_IMAGE}} \
-  #         -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
-  #         -p ContainerRepository="${{env.CONTAINER_REPOSITORY}}" \
-  #         -p ContainerImageTag="$TAG" \
-  #         --arch ${{env.target_arch}} \
-  #         --no-restore
-  #       echo "build_tag=$TAG" >> $GITHUB_OUTPUT
-  #     env:
-  #       TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}
-
-  # # Create a manifest to combine both images into a single "lancemccarthy/myblazorapp:latest" tag
-  # publish_combined_manifest:
-  #   runs-on: ubuntu-latest
-  #   name: "[NET SDK] Publish multi-arch manifest"
-  #   needs: [build_x64, build_arm64]
-  #   env:
-  #     CONTAINER_REGISTRY: "ghcr.io"
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v7
-
-  #   - name: Login to ghcr.io
-  #     run: docker login ${{env.CONTAINER_REGISTRY}} -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
-
-  #   - name: Create multi-arch manifest
-  #     run: docker manifest create "${{env.CONTAINER_REPOSITORY}}:latest" "${{env.CONTAINER_REPOSITORY}}:${{needs.build_x64.outputs.build_tag}}" "${{env.CONTAINER_REPOSITORY}}:${{needs.build_arm64.outputs.build_tag}}"
-
-  #   - name: Push multi-arch manifest
-  #     run: docker manifest push "${{env.CONTAINER_REPOSITORY}}:latest"
-
-  #   - name: Delete old images
-  #     uses: actions/delete-package-versions@v5
-  #     with:
-  #       package-name: "myblazorapp"
-  #       package-type: container
-  #       min-versions-to-keep: 2
-  #       token: ${{secrets.GITHUB_TOKEN}}
