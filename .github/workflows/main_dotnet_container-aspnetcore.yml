@@ -61,8 +61,8 @@ jobs:
           -p ContainerBaseImage="${{env.CONTAINER_BASE_IMAGE}}" \
           -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
           -p ContainerRepository="lancemccarthy/aspnetcore-reporting-from-msftbase" \
-          -p ContainerRuntimeIdentifiers="linux-x64;linux-arm64" \
-          -p ContainerImageTags="${{steps.tag-creator.outputs.VERSION_TAG}};latest" \
+          -p ContainerRuntimeIdentifiers='"linux-x64;linux-arm64"' \
+          -p ContainerImageTags='"${{steps.tag-creator.outputs.VERSION_TAG}};latest"' \
           --no-restore
       env:
         TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}

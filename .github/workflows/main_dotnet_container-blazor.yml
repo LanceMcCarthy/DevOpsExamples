@@ -59,12 +59,13 @@ jobs:
         dotnet publish ${{env.PROJ_PATH}} \
           -t:PublishContainer \
           -p PublishProfile=DefaultContainer \
-          -p ContainerBaseImage="${{env.CONTAINER_BASE_IMAGE}}" \
           -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
+          -p ContainerBaseImage="${{env.CONTAINER_BASE_IMAGE}}" \
           -p ContainerRepository="lancemccarthy/myblazorapp" \
-          -p ContainerRuntimeIdentifiers="linux-x64;linux-arm64" \
-          -p ContainerImageTags="${{steps.tag-creator.outputs.VERSION_TAG}};latest" \
+          -p ContainerRuntimeIdentifiers='"linux-x64;linux-arm64"' \
+          -p ContainerImageTags='"${{steps.tag-creator.outputs.VERSION_TAG}};latest"' \
           --no-restore
+          # Note ContainerRuntimeIdentifiers, ContainerRepository, and ContainerBaseImage are already set in the csproj
       env:
         TELERIK_LICENSE: ${{secrets.DEPLOYMENT_KEY_FOR_BLAZOR_AND_REPORTING}}
 
