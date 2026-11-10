@@ -62,7 +62,7 @@ jobs:
           -p ContainerBaseImage="${{env.CONTAINER_BASE_IMAGE}}" \
           -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
           -p ContainerRepository="lancemccarthy/myblazorapp" \
-          -p ContainerRuntimeIdentifiers="linux-amd64;linux-arm64" \
+          -p ContainerRuntimeIdentifiers="linux-x64;linux-arm64" \
           -p ContainerImageTags="${{steps.tag-creator.outputs.VERSION_TAG}};latest" \
           --no-restore
       env:
