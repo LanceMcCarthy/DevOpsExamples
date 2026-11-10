@@ -1,5 +1,5 @@
 # For docker publish example, see: main_docker.yml
-name: Blazor (with Reporting)
+name: "Blazor with Reporting"
 
 on:
   workflow_dispatch:

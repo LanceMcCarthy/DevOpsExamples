@@ -1,4 +1,4 @@
-name: ASP.NET Core (with Reporting) - Azure
+name: "[Azure] ASP.NET Core with Reporting"
 
 on:
   workflow_dispatch:
