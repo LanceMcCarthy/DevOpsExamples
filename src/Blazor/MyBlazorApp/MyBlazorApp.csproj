@@ -1,7 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+    <!-- Has skia dependencies preinstalled on top of mcr.microsoft.com/dotnet/aspnet:10.0 -->
+    <ContainerBaseImage>docker.io/lancemccarthy/skia-aspnet:10.0</ContainerBaseImage>
+    <ContainerRepository>lancemccarthy/myblazorapp</ContainerRepository>
+    <ContainerRuntimeIdentifiers>linux-x64;linux-arm64</ContainerRuntimeIdentifiers>
   </PropertyGroup>
   
   <ItemGroup>
