@@ -46,8 +46,8 @@ jobs:
 
     - name: "📦 Restore NuGet Packages"
       run: |
-        dotnet restore ${{env.PROJ_PATH}} -r "linux-x64" --configfile ${{env.NUGET_CONFIG_PATH}}
-        dotnet restore ${{env.PROJ_PATH}} -r "linux-arm64" --configfile ${{env.NUGET_CONFIG_PATH}}
+        # The RIDs are already listed in the csproj
+        dotnet restore ${{env.PROJ_PATH}} --configfile ${{env.NUGET_CONFIG_PATH}}
       env:
         TELERIK_USERNAME: "api-key"
         TELERIK_PASSWORD: ${{secrets.TELERIK_NUGET_KEY}}
@@ -55,13 +55,11 @@ jobs:
     - name: "🚀 Build & publish the container image"
       id: build
       run: |
+        # Important: csproj defines RuntimeIdentifiers, ContainerRuntimeIdentifiers, ContainerRepository, and ContainerBaseImage properties. Only the dynamic ones should be set here, with carefully escaped/single-quoted special characters.
         dotnet publish ${{env.PROJ_PATH}} \
           -t:PublishContainer \
           -p PublishProfile=DefaultContainer \
-          -p ContainerBaseImage="${{env.CONTAINER_BASE_IMAGE}}" \
           -p ContainerRegistry="${{env.CONTAINER_REGISTRY}}" \
-          -p ContainerRepository="lancemccarthy/aspnetcore-reporting-from-msftbase" \
-          -p ContainerRuntimeIdentifiers='"linux-x64;linux-arm64"' \
           -p ContainerImageTags='"${{steps.tag-creator.outputs.VERSION_TAG}};latest"' \
           --no-restore
       env:
