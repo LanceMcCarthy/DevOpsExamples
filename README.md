@@ -10,7 +10,7 @@ Although I use Telerik's NuGet server in these demos, the approach works for any
 ## Table of Contents
 - [CI Systems](https://github.com/LanceMcCarthy/DevOpsExamples#ci-systems)
 - [Build Badges](https://github.com/LanceMcCarthy/DevOpsExamples#badges)
-- [Container Examples (docker/.NET SDK)](https://github.com/LanceMcCarthy/DevOpsExamples#container-image-examples)
+- [Docker/Container Examples (docker/.NET SDK)](https://github.com/LanceMcCarthy/DevOpsExamples#dockercontainer-image-demos)
 - [Video: Authenticating in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
 - [Tips and Troubleshooting](https://github.com/LanceMcCarthy/DevOpsExamples#tips-and-troubleshooting)
   - [Walkthrough: Use GitHub Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables)
