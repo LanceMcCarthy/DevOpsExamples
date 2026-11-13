@@ -76,7 +76,7 @@ jobs:
 
   update-production:
     name: "Update Production"
-    needs: dockerhub_msftbase_build
+    needs: dockerfile_to_dockerhub
     environment: production # has 1 minute wait timer
     runs-on: ubuntu-latest
     steps:
