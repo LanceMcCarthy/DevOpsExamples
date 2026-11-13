@@ -58,31 +58,31 @@ Although I use Telerik's NuGet server in these demos, the approach works for any
 > 
 > Using Azure KeyVault secrets [![Build Status](https://dev.azure.com/lance/DevOps%20Examples/_apis/build/status%2FBlazor%20-%20KeyVault%20Secrets%20NuGet%20Source?branchName=main)](https://dev.azure.com/lance/DevOps%20Examples/_build/latest?definitionId=69&branchName=main)
 
-## Container Image Examples
+## Docker/Container Image Demos
 
-These examples show how to build and publish container images using both Dockerfile and the .NET SDK's built-in features.
+These examples show how to build and publish container images using either a Dockerfile or the .NET SDK's built-in containerization features.
 
 ### Dockerfile-built Images
 
 | Image | GitHub Action | Dockerfile | Live Site |
 |-------|---------------|------------|--------------|
-| `docker.io/lancemmcarthy/mykendoapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-kendo.yml/badge.svg)]([https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-kendo.yml)) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Kendo/angular_demo/Dockerfile) | [live demo](https://kendo.dvlup.com/) |
-| `docker.io/lancemmcarthy/myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile) | [live demo](https://blazor-reporting.dvlup.com/) |
-| `docker.io/lancemmcarthy/aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase) | [live demo](https://aspnetcore-reporting.dvlup.com/) |
+| `lancemmcarthy/mykendoapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-kendo.yml/badge.svg)]([https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-kendo.yml)) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Kendo/angular_demo/Dockerfile) | [kendo.lance.boston](https://kendo.lance.boston) |
+| `lancemmcarthy/myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-blazor.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/Blazor/MyBlazorApp/Dockerfile) | [blazor.lance.boston](https://blazor.lance.boston) |
+| `lancemmcarthy/aspnetcore-reporting-from-msftbase` | [![\[Docker Hub\] ASP.NET Core with Reporting](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) | [link](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/src/AspNetCore/MyAspNetCoreApp/Dockerfile_MSRuntimeBase) | [aspnetcore.lance.boston](https://aspnetcore.lance.boston) |
 
 ### .NET SDK-built Images
 
 | Image | GitHub Action |
 |-------|---------------|
-| `ghcr.io/lancemmcarthy/myblazorapp` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_dotnet_container-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_dotnet_container-aspnetcore.yml) |
-| `ghcr.io/lancemmcarthy/aspnetcore-reporting-from-msftbase` | [![](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_docker-aspnetcore.yml) |
+| `ghcr.io/lancemmcarthy/myblazorapp` | [![\[GHCR\] Blazor with Reporting](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_dotnet_container-blazor.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_dotnet_container-blazor.yml) |
+| `ghcr.io/lancemmcarthy/aspnetcore-reporting-from-msftbase` | [![\[GHCR\] ASP.NET Core with Reporting](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_dotnet_container-aspnetcore.yml/badge.svg)](https://github.com/LanceMcCarthy/DevOpsExamples/actions/workflows/main_dotnet_container-aspnetcore.yml) |
 
-### Running a Demo
+### Starting a Demo App Container
 
 > [!IMPORTANT] 
-> When creating a container from any of the above images, map container port 8080 to the host port. For example:
-> 1. `docker run -d -p 88:8080 docker.io/lancemccarthy/myblazorapp:latest` 
-> 2. Open http://localhost:88 to visit the app
+> These images expect you to map port 8080 to the host. For example, here we have 8080 set for the application and 8888 on the host.
+> 1. `docker run -d -p 8888:8080 docker.io/lancemccarthy/myblazorapp:latest` 
+> 2. Open http://localhost:8888 to visit the app
 
 ## Videos
 
