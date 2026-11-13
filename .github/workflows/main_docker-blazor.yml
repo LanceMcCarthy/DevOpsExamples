@@ -104,4 +104,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
-        run: curl --fail-with-body --show-error -X POST "${{secrets.PORTAINER_WEBHOOK_ASPNETCORE}}"
+        run: curl --fail-with-body --show-error -X POST "${{secrets.PORTAINER_WEBHOOK_BLAZOR}}"
