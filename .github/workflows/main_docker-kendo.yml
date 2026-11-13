@@ -9,6 +9,8 @@ on:
       - 'src/Kendo/**/*'
 
 env:
+  WORKING_DIRECTORY: "src/Kendo/angular_demo"
+  TARGET_PLATFORMS: "linux/amd64,linux/arm64"
   CONTAINER_REGISTRY: "docker.io"
   CONTAINER_REPOSITORY: "lancemccarthy/kendo-demo"
 
@@ -48,8 +50,8 @@ jobs:
     - name: "🚢 Build and Publish arm64, amd64 Container Images"
       uses: docker/build-push-action@v7
       with:
-        context: src/Kendo/angular_demo
-        platforms: linux/arm64,linux/amd64
+        context: ${{env.WORKING_DIRECTORY}}
+        platforms: ${{env.TARGET_PLATFORMS}}
         push: true
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
@@ -69,5 +71,14 @@ jobs:
           fi
         done
 
-    - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
-      run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_KENDO}}
+
+############## Trigger webhook(s) to restart docker compose stacks in production ############
+
+  update-production:
+    name: "Update Production"
+    needs: dockerhub_msftbase_build
+    environment: production # has 1 minute wait timer
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
+        run: curl --fail-with-body --show-error -X POST "${{secrets.PORTAINER_WEBHOOK_KENDO}}"

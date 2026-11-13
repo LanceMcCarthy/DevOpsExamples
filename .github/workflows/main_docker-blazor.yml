@@ -11,13 +11,15 @@ on:
 env:
   DOTNET_VERSION: "10.0.x"
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
+  WORKING_DIRECTORY: "src/Blazor/MyBlazorApp"
+  TARGET_PLATFORMS: "linux/amd64,linux/arm64"
   NUGET_CONFIG_PATH: src/NuGet.Config
   CONTAINER_REPOSITORY: "lancemccarthy/myblazorapp"
   CONTAINER_REGISTRY: "docker.io"
   IMAGES_TO_KEEP: 10
 
 jobs:
-  # Dockerfile build and publish to Docker Hub (with webhook to automatically redeploy stack in Portainer)
+  # Dockerfile build and publish to Docker Hub (uses base image with preinstalled Skia dependencies)
   dockerhub_msftbase_build:
     name: "🐳 Dockerfile Publish to Docker Hub"
     runs-on: ubuntu-latest
@@ -53,8 +55,8 @@ jobs:
     - name: "🚢 Build and Publish arm64, amd64 Container Images"
       uses: docker/build-push-action@v7
       with:
-        context: src/Blazor/MyBlazorApp
-        platforms: linux/arm64,linux/amd64
+        context: ${{env.WORKING_DIRECTORY}}
+        platforms: ${{env.TARGET_PLATFORMS}}
         push: true
         secrets: |
           telerik-nuget-key=${{secrets.TELERIK_NUGET_KEY}}
@@ -92,5 +94,14 @@ jobs:
         DOCKERHUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
         DOCKERHUB_PAT: ${{secrets.DOCKER_HUB_PAT}}
 
-    - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
-      run: curl -X POST ${{secrets.PORTAINER_WEBHOOK_BLAZOR}}
+
+############## Trigger webhook(s) to restart docker compose stacks in production ############
+
+  update-production:
+    name: "Update Production"
+    needs: dockerhub_msftbase_build
+    environment: production # has 1 minute wait timer
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
+        run: curl --fail-with-body --show-error -X POST "${{secrets.PORTAINER_WEBHOOK_ASPNETCORE}}"
