@@ -5,26 +5,27 @@ This repository contains a rich set of CI-CD demos where I show you how to:
 - Connect to private nuget feeds; Azure, GitHub packages, and custom (eg Telerik).
 - Build .NET apps and publish to a container registry; Docker, Azure, GitHub, etc.
 
-Although I use Telerik's NuGet server in these demos, the approach works for any private feed; just substitute your source and credentials instead.
+Note: While I might use Telerik's NuGet server in 1-2 of these demos, the approach works for any private feed that requires credentials; just substitute your source URL and credentials instead.
 
 ## Table of Contents
+
 - [CI Systems](https://github.com/LanceMcCarthy/DevOpsExamples#ci-systems)
 - [Build Badges](https://github.com/LanceMcCarthy/DevOpsExamples#badges)
 - [Docker/Container Examples (docker/.NET SDK)](https://github.com/LanceMcCarthy/DevOpsExamples#dockercontainer-image-demos)
-- [Video: Authenticating in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
 - [Tips and Troubleshooting](https://github.com/LanceMcCarthy/DevOpsExamples#tips-and-troubleshooting)
   - [Walkthrough: Use GitHub Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#github-actions-using-secrets-to-set-environment-variables)
   - [Example: Update package source dynamically](https://github.com/LanceMcCarthy/DevOpsExamples#powershell-update-package-source-dynamically)
   - [Example: Using Telerik NuGet Keys](https://github.com/LanceMcCarthy/DevOpsExamples#using-telerik-nuget-keys)
   - [Dockerfile: Using Secrets](https://github.com/LanceMcCarthy/DevOpsExamples#dockerfile-using-secrets)
-  - [Telerik License Approaches](https://github.com/LanceMcCarthy/DevOpsExamples#telerik-license-approaches)
-    - [Deployment Key in GitHub Actions](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-github-actions)
-    - [Deployment Key in GitLab CI](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-gitlab-ci)
-    - [Deployment Key in Azure YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-yaml-pipeline)
-    - [Deployment Key in Azure Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-classic-pipeline)
+- [Telerik License Approaches](https://github.com/LanceMcCarthy/DevOpsExamples#telerik-license-approaches)
+  - [Deployment Key in GitHub Actions](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-github-actions)
+  - [Deployment Key in GitLab CI](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-gitlab-ci)
+  - [Deployment Key in Azure YAML Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-yaml-pipeline)
+  - [Deployment Key in Azure Classic Pipeline](https://github.com/LanceMcCarthy/DevOpsExamples#deployment-key-in-azure-classic-pipeline)
 - Related Blog Posts
   - [Blog: DevOps and Telerik NuGet Packages](https://www.telerik.com/blogs/azure-devops-and-telerik-nuget-packages)
   - [Blog: Announcing Telerik NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)
+- [Video: Authenticating in Azure DevOps](https://github.com/LanceMcCarthy/DevOpsExamples#videos)
 
 > [!IMPORTANT]
 > Some commerical Telerik packages are now available on nuget.org! If you are using any of these packages, you can restore using only the default nuget.org => `Telerik.UI.for.Blazor` `Telerik.UI.for.Maui` `Telerik.Documents.*`
@@ -83,24 +84,6 @@ These examples show how to build and publish container images using either a Doc
 > These images expect you to map port 8080 to the host. For example, here we have 8080 set for the application and 8888 on the host.
 > 1. `docker run -d -p 8888:8080 docker.io/lancemccarthy/myblazorapp:latest` 
 > 2. Open http://localhost:8888 to visit the app
-
-## Videos
-
-### Azure DevOps with Telerik NuGet Server
-
-The following **4 minute** video takes you though all the steps on adding a private NuGet feed as a Service Connection and consuming that service in three different pipeline setups.
-
-[![YouTube tutorial](https://img.youtube.com/vi/rUWU2n6FwgA/0.jpg)](https://www.youtube.com/watch?v=rUWU2n6FwgA)
-
-- [0:09](https://youtu.be/rUWU2n6FwgA?t=9) Add a Service connection to the Telerik server
-- [1:14](https://youtu.be/rUWU2n6FwgA?t=74) Classic pipeline for .NET Core
-- [1:47](https://youtu.be/rUWU2n6FwgA?t=107) Classic .NET Framework pipeline
-- [2:25](https://youtu.be/rUWU2n6FwgA?t=145) YAML pipeline setup for .NET Core
-
-> [!IMPORTANT]
-> The recording has some outdated information, take the following updates into consideration when watching:
-> - Use the v3 server address `https://nuget.telerik.com/v3/index.json` 
-> - Use an API key credential if your telerik.com account is SSO (see [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)).
 
 ## Tips and Troubleshooting
 
@@ -300,3 +283,21 @@ build-blazor-app:
        <img width="800" alt="image" src="https://github.com/user-attachments/assets/f3209e2f-5e8e-40d1-ac2b-0d40a991947e" />
     4. Now the `TELERIK_LICENSE` env var will be available to subsequent steps.
 
+
+## Videos
+
+### Azure DevOps with Telerik NuGet Server
+
+The following **4 minute** video takes you though all the steps on adding a private NuGet feed as a Service Connection and consuming that service in three different pipeline setups.
+
+[![YouTube tutorial](https://img.youtube.com/vi/rUWU2n6FwgA/0.jpg)](https://www.youtube.com/watch?v=rUWU2n6FwgA)
+
+- [0:09](https://youtu.be/rUWU2n6FwgA?t=9) Add a Service connection to the Telerik server
+- [1:14](https://youtu.be/rUWU2n6FwgA?t=74) Classic pipeline for .NET Core
+- [1:47](https://youtu.be/rUWU2n6FwgA?t=107) Classic .NET Framework pipeline
+- [2:25](https://youtu.be/rUWU2n6FwgA?t=145) YAML pipeline setup for .NET Core
+
+> [!IMPORTANT]
+> The recording has some outdated information, take the following updates into consideration when watching:
+> - Use the v3 server address `https://nuget.telerik.com/v3/index.json` 
+> - Use an API key credential if your telerik.com account is SSO (see [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)).
