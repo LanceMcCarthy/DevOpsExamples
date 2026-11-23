@@ -212,11 +212,11 @@ stages:
         # ios:
         #   TFM: '$(TFM_PREFIX)-ios'
         #   imageName: 'macos-27'
-        #   buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
+        #   buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:MtouchLink=SdkOnly'
         # maccatalyst:
         #   TFM: '$(TFM_PREFIX)-maccatalyst'
         #   imageName: 'macos-27'
-        #   buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
+        #   buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:MtouchLink=SdkOnly'
       maxParallel: 4
     steps:
     - task: UseDotNet@2

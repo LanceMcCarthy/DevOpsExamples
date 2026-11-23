@@ -82,7 +82,6 @@ jobs:
 
         if ('${{matrix.name}}' -in @('iOS', 'MacCatalyst')) {
           $buildArgs += @(
-            '-p:PublishTrimmed=True'
             '-p:MtouchLink=SdkOnly'
           )
         }
