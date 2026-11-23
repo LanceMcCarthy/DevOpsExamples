@@ -25,16 +25,16 @@ jobs:
         include:
           - name: "Android"
             os: windows-latest
-            tfm: "net10.0-android"
+            tfm: "net11.0-android"
           - name: "WinUI"
             os: windows-latest
-            tfm: "net10.0-windows10.0.22621.0"
+            tfm: "net11.0-windows10.0.22621.0"
           - name: "iOS"
             os: xcode-27
-            tfm: "net10.0-ios"
+            tfm: "net11.0-ios"
           - name: "MacCatalyst"
             os: xcode-27
-            tfm: "net10.0-maccatalyst"
+            tfm: "net11.0-maccatalyst"
     steps:
     - name: "⬇️ Checkout"
       uses: actions/checkout@v7
