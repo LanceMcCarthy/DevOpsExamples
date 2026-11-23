@@ -2,7 +2,7 @@ using Telerik.ReportViewer.BlazorNative;
 
 namespace MyBlazorApp.Pages;
 
-public partial class Reports
+public partial class ReportsNativeViewer
 {
     public ReportSourceOptions ReportSource { get; set; } = new("Barcodes.trdp");
     public ScaleMode ScaleMode { get; set; } = ScaleMode.Specific;

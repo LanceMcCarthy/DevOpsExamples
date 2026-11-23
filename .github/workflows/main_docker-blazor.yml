@@ -105,4 +105,4 @@ jobs:
     steps:
       - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
         run: |
-          curl --fail-with-body --show-error -X POST -H "CF-Access-Client-Id: ${{secrets.CF_CLIENT_ID}}" -H "CF-Access-Client-Secret: ${{secrets.CF_CLIENT_SECRET}}" "${{secrets.PORTAINER_WEBHOOK_BLAZOR}}"
+          curl --show-error --fail -X POST -H "CF-Access-Client-Id: ${{secrets.CF_CLIENT_ID}}" -H "CF-Access-Client-Secret: ${{secrets.CF_CLIENT_SECRET}}" "${{secrets.PORTAINER_WEBHOOK_BLAZOR}}"

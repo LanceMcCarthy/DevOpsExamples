@@ -1,0 +1,23 @@
+﻿@page "/html5-report-viewer"
+
+@using Telerik.ReportViewer.Blazor
+
+<div class="k-body" style="padding:2em;">
+    <style>
+        #rv1 {
+            position: relative;
+            width: 1200px;
+            height: 600px;
+        }
+    </style>
+
+    <!--This is the HTML5 ReportViewer, fully qualifying the namespace to avoid conflict -->
+    <Telerik.ReportViewer.Blazor.ReportViewer
+        ViewerId="rv1"
+        ServiceUrl="/api/reports"
+        ReportSource="@(new Telerik.ReportViewer.Blazor.ReportSourceOptions() { Report = "Barcodes.trdp" })"
+        Parameters="@(new ParametersOptions { Editors = new EditorsOptions { MultiSelect = EditorType.ComboBox, SingleSelect = EditorType.ComboBox } })"
+        ScaleMode="@(Telerik.ReportViewer.Blazor.ScaleMode.Specific)"
+        Scale="1.0"/>
+</div>
+

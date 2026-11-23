@@ -102,7 +102,7 @@ jobs:
     steps:
       - name: "🚀 Trigger Portainer to pull images and redeploy the stack"
         run: |
-          curl --fail-with-body --show-error -X POST -H "CF-Access-Client-Id: ${{secrets.CF_CLIENT_ID}}" -H "CF-Access-Client-Secret: ${{secrets.CF_CLIENT_SECRET}}" "${{secrets.PORTAINER_WEBHOOK_ASPNETCORE}}"
+          curl --show-error --fail -X POST -H "CF-Access-Client-Id: ${{secrets.CF_CLIENT_ID}}" -H "CF-Access-Client-Secret: ${{secrets.CF_CLIENT_SECRET}}" "${{secrets.PORTAINER_WEBHOOK_ASPNETCORE}}"
 
 
 ############## Example 2 - Same approach as above, but uses CentOS base image ############## 
