@@ -6,7 +6,8 @@ trigger:
     exclude: ['src/NuGet.Config', 'src/All.sln', 'src/All.sln.DotSettings']
 
 variables:
-  DOTNET_SDK_VERSION: '10.0.x'
+  DOTNET_SDK_VERSION: '11.0.x'
+  TFM_PREFIX: 'net11.0'
   buildConfiguration: 'Release'
   nugetConfigPath: 'src/NuGet.Config'
   # These are secret variables, set using the Azure DevOps YAML editor "Variables" flyout and the 'is secret' checkbox.
@@ -201,19 +202,19 @@ stages:
     strategy:
       matrix:
         android:
-          TFM: 'net10.0-android'
+          TFM: '$(TFM_PREFIX)-android'
           imageName: 'windows-latest'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug'
         windows:
-          TFM: 'net10.0-windows10.0.22621.0'
+          TFM: '$(TFM_PREFIX)-windows10.0.22621.0'
           imageName: 'windows-latest'
           buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug'
         # ios:
-        #   TFM: 'net10.0-ios'
+        #   TFM: '$(TFM_PREFIX)-ios'
         #   imageName: 'macos-27'
         #   buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
         # maccatalyst:
-        #   TFM: 'net10.0-maccatalyst'
+        #   TFM: '$(TFM_PREFIX)-maccatalyst'
         #   imageName: 'macos-27'
         #   buildCommand: 'dotnet build $(projectPath) -f $(TFM) -c Debug -p:PublishTrimmed=True -p:MtouchLink=SdkOnly'
       maxParallel: 4
