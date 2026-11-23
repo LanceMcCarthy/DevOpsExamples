@@ -18,9 +18,9 @@ env:
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   PROJECT_DIRECTORY: "src/MAUI"
   SDK_VERSION: '11.0.x'
-  NET_TFM: 'net10.0'
-  XCODE_VERSION: '26.6'
-  MAC_DOTNET_VERSION: '10.0.203'
+  NET_TFM: 'net11.0'
+  XCODE_VERSION: '27.2'
+  MAC_DOTNET_VERSION: '11.0.x'
   NUGET_CONFIG_PATH: 'src/nuget.config'
   TELERIK_NUGET_KEY: ${{secrets.TELERIK_NUGET_KEY}}
   TELERIK_LICENSE: ${{secrets.TELERIK_LICENSE_KEY}}
@@ -34,7 +34,7 @@ env:
   APPLE_DEV_ID_INSTALLER_CERT_NAME: "Developer ID Installer: Lancelot Software, LLC (L65255N3F7)"
   APPLE_NOTARY_TEAM_ID: "L65255N3F7"
   MAC_PACKAGE_NAME: "MauiDemo-MacCatalyst"
-  MAC_APP_BUNDLE_PATH: "src/Maui/bin/Release/net10.0-maccatalyst/MauiDemo.app"
+  MAC_APP_BUNDLE_PATH: "src/Maui/bin/Release/net11.0-maccatalyst/MauiDemo.app"
   MAC_ARTIFACTS_PATH: "artifacts/maccatalyst"
   # ____iOS______________________________________________ (also check matrix vars)
   APPLE_APP_ID: "com.lancelotsoftware.MauiDemoApp"
