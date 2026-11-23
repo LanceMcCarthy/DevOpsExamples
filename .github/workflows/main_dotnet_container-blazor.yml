@@ -14,7 +14,7 @@ permissions:
   packages: write
 
 env:
-  DOTNET_VERSION: "10.0.x"
+  DOTNET_VERSION: "11.0.x"
   PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   NUGET_CONFIG_PATH: src/NuGet.Config
   CONTAINER_REGISTRY: "ghcr.io"

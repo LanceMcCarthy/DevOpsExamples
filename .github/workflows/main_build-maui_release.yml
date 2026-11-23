@@ -17,7 +17,7 @@ env:
   APP_NAME: "MauiDemo"
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
   PROJECT_DIRECTORY: "src/MAUI"
-  SDK_VERSION: '10.0.x'
+  SDK_VERSION: '11.0.x'
   NET_TFM: 'net10.0'
   XCODE_VERSION: '26.6'
   MAC_DOTNET_VERSION: '10.0.203'

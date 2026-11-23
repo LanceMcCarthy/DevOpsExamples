@@ -11,7 +11,7 @@ on:
 
 env:
   PROJECT_PATH: "src/MAUI/MauiDemo.csproj"
-  DOTNET_VERSION: 10.0.x
+  DOTNET_VERSION: 11.0.x
   XCODE_VERSION: '27.1'
   JAVA_SDK_VERSION: '11'
 

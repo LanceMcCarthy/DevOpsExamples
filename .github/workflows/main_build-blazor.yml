@@ -11,6 +11,11 @@ on:
       - 'src/Blazor/**/*'
       - '.github/workflows/main_build-blazor.yml'
 
+env:
+  CONFIGURATION: Release
+  PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
+  DOTNET_VERSION: "11.0.x"
+
 jobs:
   build:
     name: "🧪 Blazor Build (${{matrix.source}} / ${{matrix.os}})"
@@ -24,10 +29,6 @@ jobs:
         source:
           - telerik_nuget
           #- public_nuget  # Enable once Telerik.Reporting and Telerik.Drawing.Skia is available on nuget.org
-    env:
-      CONFIGURATION: Release
-      PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
-      DOTNET_VERSION: "10.0.x"
     steps:
     - name: "⬇️ Checkout"
       uses: actions/checkout@v7

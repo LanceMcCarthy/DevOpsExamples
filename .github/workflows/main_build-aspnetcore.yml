@@ -14,7 +14,7 @@ permissions:
   id-token: write # JWT for Akeyless and Azure auth
 
 env:
-  DOTNET_VERSION: "10.0.x"
+  DOTNET_VERSION: "11.0.x"
   PROJECT_PATH: src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj
   NUGETCONFIG_PATH: src/NuGet.Config
 

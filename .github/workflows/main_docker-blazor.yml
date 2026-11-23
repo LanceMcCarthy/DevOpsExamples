@@ -9,7 +9,7 @@ on:
       - 'src/Blazor/**/*'
 
 env:
-  DOTNET_VERSION: "10.0.x"
+  DOTNET_VERSION: "11.0.x"
   BLAZOR_PROJ_PATH: src/Blazor/MyBlazorApp/MyBlazorApp.csproj
   WORKING_DIRECTORY: "src/Blazor/MyBlazorApp"
   TARGET_PLATFORMS: "linux/amd64,linux/arm64"

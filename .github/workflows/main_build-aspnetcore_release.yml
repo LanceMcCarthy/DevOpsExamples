@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOTNET_VERSION: "10.0.x"
+  DOTNET_VERSION: "11.0.x"
   PROJECT_PATH: src/AspNetCore/MyAspNetCoreApp/MyAspNetCoreApp.csproj
   NUGETCONFIG_PATH: src/NuGet.Config
   AZURE_WEBAPP_NAME: DevOpsExamplesCore
