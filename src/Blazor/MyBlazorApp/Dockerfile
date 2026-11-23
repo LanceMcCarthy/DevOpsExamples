@@ -3,7 +3,7 @@
 ################################## STAGE 1 ######################################
 # Create our base image from the aspnet image, and prep any neccessary settings
 #################################################################################
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:11.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -15,7 +15,7 @@ RUN apt-get install libfreetype6 libfontconfig1 -y
 ################################## STAGE 2 ######################################
 # Compile the project in a transient stage to create production-ready artifacts
 #################################################################################
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:11.0 AS build
 WORKDIR /src
 COPY . .
 # 1. Mount the ecret and use it to add the Telerik server as a package source
