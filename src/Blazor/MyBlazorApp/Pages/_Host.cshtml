@@ -11,8 +11,13 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-    <link id="telerik-theme" rel="stylesheet" href="https://unpkg.com/@@progress/kendo-theme-default@@11.0.2/dist/default-main.css" />
+
+    <!-- for telerik ui for blazor -->
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
+    <link id="telerik-theme" rel="stylesheet" href="https://unpkg.com/@@progress/kendo-theme-default@@14.5.0/dist/default-main.css" />
     <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-font-icons/font-icons.css" />
+    <link rel="stylesheet" id="TelerikThemeLink"
+          href="_content/Telerik.UI.for.Blazor/css/kendo-theme-default/all.css" />
     
     <!-- for native ReportViewer -->
     <link href="_content/Telerik.ReportViewer.BlazorNative/css/reporting-blazor-viewer.css" rel="stylesheet" />
@@ -21,6 +26,7 @@
     <!-- for HTML5 ReportViewer -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/api/reports/resources/js/telerikReportViewer"></script>
+    <script src="_content/Telerik.ReportViewer.Blazor/interop.js" defer></script>
 </head>
 <body class="k-body">
     <component type="typeof(App)" render-mode="Server" />
@@ -39,10 +45,7 @@
 
     <script src="js/file-download.js"></script>
     <script src="js/theme-switcher.js"></script>
-    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
     <script src="_framework/blazor.server.js"></script>
     
-    <!-- for HTML5 ReportViewer -->
-    <script src="_content/Telerik.ReportViewer.Blazor/interop.js" defer></script>
 </body>
 </html>
