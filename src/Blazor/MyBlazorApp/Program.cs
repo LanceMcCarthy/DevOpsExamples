@@ -13,7 +13,8 @@ using Telerik.Reporting.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor(o => o.DetailedErrors = true);
+builder.Services.AddServerSideBlazor(o => o.DetailedErrors = true).AddHubOptions(
+    options => options.MaximumReceiveMessageSize = 1024 * 40); // 40 KB
 builder.Services.AddTelerikBlazor();
 builder.Services.AddSingleton<DashboardDataService>();
 
