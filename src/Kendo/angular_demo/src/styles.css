@@ -4,6 +4,11 @@
   background: var(--kendo-color-surface);
 }
 
+.app-footer {
+  margin-top: var(--kendo-spacing-6);
+  color: var(--kendo-color-subtle);
+}
+
 .kpi-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

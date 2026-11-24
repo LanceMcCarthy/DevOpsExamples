@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using System.Reflection
+@{
+    var buildTimestamp = typeof(Program).Assembly
+        .GetCustomAttributes<AssemblyMetadataAttribute>()
+        .First(attribute => attribute.Key == "BuildTimestamp").Value;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -43,7 +49,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020-2025 Lance McCarthy, Progress Software - MyAspNetCoreApp
+            <span>&copy; 2020-2025 Lance McCarthy, Progress Software - MyAspNetCoreApp</span>
+            <span>Built on @buildTimestamp</span>
         </div>
     </footer>
 

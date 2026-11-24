@@ -23,6 +23,8 @@ import {
   StockDataPoint,
 } from "./data";
 
+declare const __BUILD_TIMESTAMP__: string | undefined;
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -245,9 +247,18 @@ import {
           </kendo-stockchart>
         </div>
       </div>
+      <footer class="app-footer">
+        @if (buildTimestamp) {
+          Built on {{ buildTimestamp }}
+        } @else {
+          Build date unavailable
+        }
+      </footer>
     </div>`
 })
 export class AppComponent {
+  readonly buildTimestamp =
+    typeof __BUILD_TIMESTAMP__ === 'undefined' ? undefined : __BUILD_TIMESTAMP__;
   title = 'angular_demo';
   public boldSVG: SVGIcon = boldIcon;
   public italicSVG: SVGIcon = italicIcon;

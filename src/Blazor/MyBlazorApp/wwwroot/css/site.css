@@ -57,7 +57,7 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 90px;
 }
 
 body.k-body {
@@ -120,8 +120,14 @@ body.k-body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+}
+
+.footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .app-footer {

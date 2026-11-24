@@ -4,12 +4,17 @@ using MyBlazorApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MyBlazorApp.Shared;
 
 public partial class MainLayout : IDisposable
 {
+    private static readonly string BuildTimestamp = typeof(Program).Assembly
+        .GetCustomAttributes<AssemblyMetadataAttribute>()
+        .First(attribute => attribute.Key == "BuildTimestamp").Value;
+
     private const string ThemeUrlTemplate = "https://unpkg.com/@progress/kendo-theme-{0}@11.0.2/dist/{0}-{1}.css";
     private readonly List<ThemeModel> ThemeData =
     [
