@@ -1,4 +1,4 @@
-name: "[Docker Hub] ASP.NET Core with Reporting"
+name: "ASP.NET Core with Reporting (Docker Hub)"
 
 on:
   workflow_dispatch:

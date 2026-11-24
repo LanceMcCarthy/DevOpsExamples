@@ -1,4 +1,4 @@
-name: "[GHCR] ASP.NET Core with Reporting"
+name: "ASP.NET Core with Reporting (ghcr)"
 
 on:
   workflow_dispatch:
