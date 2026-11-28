@@ -41,29 +41,6 @@ Note: While I might use Telerik's NuGet server in 1-2 of these demos, the approa
 | GitLab CI/CD  | [.gitlab-ci.yml](https://gitlab.com/LanceMcCarthy/DevOpsExamples/-/blob/main/.gitlab-ci.yml) ↗|
 | Tekton in Kuberbetes | [tekton-task-run.yaml](https://github.com/LanceMcCarthy/DevOpsExamples/blob/main/tekton-task-run.yaml) |
 
-## MAUI Distribution Workflow
-
-The manually triggered [MAUI distribution workflow](.github/workflows/main_build-maui_release.yml) generates a shared version, then runs platform builds in parallel. The Windows sideload matrix must finish before its packages can be bundled and signed.
-
-```mermaid
-flowchart TD
-    trigger["Manual workflow dispatch"] --> shared["Shared resources: generate version"]
-    shared --> android["Android: build and sign"]
-    shared --> sideload["Windows sideload: build x64 and arm64"]
-    shared --> store["Windows Store: build package"]
-    shared --> mac["MacCatalyst: build, sign and notarize"]
-    shared --> ios["iOS: build Store and Ad Hoc IPAs"]
-    shared --> bundle["Windows: bundle and sign MSIX"]
-    sideload --> bundle
-    android --> android_artifact["Signed APK/AAB artifact"]
-    sideload --> sideload_artifacts["x64 and arm64 MSIX artifacts"]
-    bundle --> bundle_artifact["Signed MSIX bundle artifact"]
-    store --> store_artifact["MSIX upload artifact"]
-    mac --> mac_artifact["Signed and notarized PKG artifact"]
-    ios --> ios_artifacts["Store and Ad Hoc IPA artifacts"]
-```
-
-The jobs publish GitHub Actions artifacts; the GitHub Release job is currently commented out.
 
 ## Badges
 
@@ -326,3 +303,30 @@ The following **4 minute** video takes you though all the steps on adding a priv
 > The recording has some outdated information, take the following updates into consideration when watching:
 > - Use the v3 server address `https://nuget.telerik.com/v3/index.json` 
 > - Use an API key credential if your telerik.com account is SSO (see [Announcing NuGet Keys](https://www.telerik.com/blogs/announcing-nuget-keys)).
+
+
+## Mermaid Diagrams
+
+### MAUI Distribution Workflow
+
+The manually triggered [MAUI distribution workflow](.github/workflows/main_build-maui_release.yml) generates a shared version, then runs platform builds in parallel. The Windows sideload matrix must finish before its packages can be bundled and signed.
+
+```mermaid
+flowchart TD
+    trigger["Manual workflow dispatch"] --> shared["Shared resources: generate version"]
+    shared --> android["Android: build and sign"]
+    shared --> sideload["Windows sideload: build x64 and arm64"]
+    shared --> store["Windows Store: build package"]
+    shared --> mac["MacCatalyst: build, sign and notarize"]
+    shared --> ios["iOS: build Store and Ad Hoc IPAs"]
+    shared --> bundle["Windows: bundle and sign MSIX"]
+    sideload --> bundle
+    android --> android_artifact["Signed APK/AAB artifact"]
+    sideload --> sideload_artifacts["x64 and arm64 MSIX artifacts"]
+    bundle --> bundle_artifact["Signed MSIX bundle artifact"]
+    store --> store_artifact["MSIX upload artifact"]
+    mac --> mac_artifact["Signed and notarized PKG artifact"]
+    ios --> ios_artifacts["Store and Ad Hoc IPA artifacts"]
+```
+
+The jobs publish GitHub Actions artifacts; the GitHub Release job is currently commented out.
